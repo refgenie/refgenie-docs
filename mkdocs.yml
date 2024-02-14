@@ -1,0 +1,111 @@
+site_name: Refgenie
+
+theme:
+  logo: refgenie/img/refgenie_logo_light.svg
+  name: material
+  custom_dir: overrides
+  features:
+    - header.autohide
+    - navigation.sections
+    # - navigation.expand
+    - navigation.footer
+    - navigation.indexes 
+    - toc.follow
+    - content.action.edit
+    - content.action.view
+    - navigation.tabs
+    - navigation.top
+markdown_extensions:
+  - pymdownx.highlight:
+      use_pygments: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: "!!python/name:pymdownx.superfences.fence_code_format"
+
+extra_css:
+  - stylesheets/extra.css
+
+extra:
+  generator: false  # turn off theme link
+  
+copyright: >
+    <a class="" href="http://databio.org/">
+      <img src="https://databio.org/images/logo/logo_databio_long.svg"
+        style="height:60px;"
+        alt="Databio logo">
+    </a>
+
+nav:
+- Refgenie:
+  - Getting Started:
+    - Introduction: refgenie/README.md
+    - Demo videos: refgenie/demo_videos.md
+    - Overview: refgenie/overview.md
+    - Install and configure: refgenie/install.md
+    - Basic tutorial: refgenie/code/tutorial.md
+    - Citing refgenie: refgenie/manuscripts.md
+  - How-to guides:
+    - Refer to assets: refgenie/asset_registry_paths.md
+    - Download pre-built assets: refgenie/pull.md
+    - Build assets: refgenie/build.md
+    - Add custom assets: refgenie/custom_assets.md
+    - Retrieve paths to assets: refgenie/seek.md
+    - Use asset tags: refgenie/tag.md
+    - Use aliases: refgenie/code/aliases.md
+    - Populate refgenie paths: refgenie/populate.md
+    - Compare genomes: refgenie/compare.md
+    - Run my own asset server: refgenie/refgenieserver.md
+    - Use refgenie from Python: refgenie/refgenconf.md
+    - Use refgenie in your pipeline: refgenie/code_snippets.md
+    - Use refgenie on the cloud: refgenie/remote.md
+    - Use refgenie with iGenomes: refgenie/igenomes.md
+    - Upgrade from config 0.3 to 0.4: refgenie/code/config_upgrade_03_to_04.md
+  - Reference:
+    - Studies using refgenie: refgenie/uses_refgenie.md
+    - Genome configuration file: refgenie/genome_config.md
+    - Recipe: refgenie/recipe_specification.md
+    - Asset class: refgenie/asset_class_specification.md
+    - Glossary: refgenie/glossary.md
+    - Buildable assets: refgenie/available_assets.md
+    - Usage: refgenie/usage.md
+    - Python API: refgenie/code/refgenconf-api.md
+    - Refgenconf usage: refgenie/code/refgenconf_usage.md
+    - FAQ: refgenie/faq.md
+    - Support: https://github.com/databio/refgenie/issues
+    - Contributing: refgenie/contributing.md
+    - Changelog: refgenie/changelog.md
+- Refgenie server:
+  - Intro: refgenieserver/README.md
+- Refget:
+  - Intro: refget/README.md
+  - Sequences tutorial: refget/code/sequences-tutorial.md
+  - Demo: refget/code/demo.md
+  - Sequences Client: refget/code/refget-api.md
+  - Sequence Collections Client: refget/code/seqcol-api.md
+  - Sequence Collections Demo: refget/code/seqcol.md
+  - Advanced tutorial: refget/code/advanced.md
+  - How-to guides:
+    - Using a remote seqcol server: refget/seqcol-client-demo.md
+  - Reference:
+    - Changelog: refget/changelog.md
+
+
+autodoc:
+  lucidoc:
+    - pkg: refgenconf
+      outfile: docs/refgenie/code/refgenconf-api.md
+    - pkg: refget
+      outfile: docs/refget/code/refget-api.md
+      whitelist:
+        - RefGetClient
+    - pkg: refget
+      outfile: docs/refget/code/seqcol-api.md
+      whitelist:
+        - SeqColClient
+  jupyter:
+    - in: refget/notebooks
+      out: refget/code
+    - in: refgenie/notebooks
+      out: refgenie/code
