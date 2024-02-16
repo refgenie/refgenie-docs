@@ -80,16 +80,17 @@ nav:
   - Intro: refgenieserver/README.md
 - Refget:
   - Intro: refget/README.md
-  - Sequences tutorial: refget/code/sequences-tutorial.md
-  - Demo: refget/code/demo.md
-  - Sequences Client: refget/code/refget-api.md
-  - Sequence Collections Client: refget/code/seqcol-api.md
-  - Sequence Collections Demo: refget/code/seqcol.md
-  - Advanced tutorial: refget/code/advanced.md
   - How-to guides:
+    - Using sequences: refget/code/sequences-tutorial.md
     - Using a remote seqcol server: refget/seqcol-client-demo.md
+  - Outdated documentation:
+    - Advanced tutorial: refget/code/advanced.md
+    - Using local collections: refget/code/seqcol.md
+    - Using local collections 2: refget/code/demo.md
   - Reference:
     - Changelog: refget/changelog.md
+    - RefGet Client API: refget/code/refget-api.md
+    - SeqCol Client API: refget/code/seqcol-api.md
 
 
 autodoc:
