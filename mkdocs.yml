@@ -1,7 +1,8 @@
 site_name: Refgenie
 
 theme:
-  logo: refgenie/img/refgenie_logo_light.svg
+  logo: img/refgenie_bug_light.svg
+  favicon: img/refgenie_bug.svg
   name: material
   custom_dir: overrides
   features:
