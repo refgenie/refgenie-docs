@@ -81,9 +81,11 @@ nav:
   - Intro: refgenieserver/README.md
 - Refget:
   - Intro: refget/README.md
-  - How-to guides:
+  - Client how-to guides:
     - Using sequences: refget/code/sequences-tutorial.md
     - Using a remote seqcol server: refget/seqcol-client-demo.md
+  - API how-to guides:
+    - Adding seqcolapi endpoints: refget/seqcolapi.md
   - Outdated documentation:
     - Advanced tutorial: refget/code/advanced.md
     - Using local collections: refget/code/seqcol.md

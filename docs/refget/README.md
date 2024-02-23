@@ -1,20 +1,30 @@
-# Refget
 
-## The refget protocol
+# <img src="../img/refget_logo.svg" class="img-header"> 
+<h1 align="center" style="margin-bottom:0px">Python package</h1>
 
-Refget is a suite of standards for identifying and distributing reference genome sequence data. It consists of 3 standards: 
+<p align="center">
+<a href="https://img.shields.io/pypi/v/refget"><img src="https://img.shields.io/pypi/v/refget"></a>
+<a href="https://github.com/refgenie/refget"><img src="https://img.shields.io/badge/source-github-354a75?logo=github"></a>
+<iframe src="https://ghbtns.com/github-btn.html?user=refgenie&repo=refget&type=star&count=true" frameborder="0" scrolling="0" width="80" height="20" title="GitHub"></iframe>
+</p>
+
+## The refget Python package
+
+The `refget` Python package aims to provide a Python interface for both remote and local use of the refget protocol.
+
+### The refget protocol
+
+Refget will consist of 3 standards for identifying and distributing reference genome data:
 
 - **Refget sequences**: a GA4GH-approved standard for individual sequences
-- **Refget sequence collections**: a standard for collections of sequences, currently under review by GA4GH 
+- **Refget sequence collections**: a standard for collections of sequences, under review 
 - **Refget pangenomes**: a future standard for which development is just beginning
 
 <p align="center">
 <img src="img/refget-umbrella.svg" width="500">
 </p>
 
-## The refget Python package
-
-The `refget` Python package aims to provide a Python interface for both remote and local use of the refget protocol. This package provides several utilities:
+### Refget Python package utilities:
 
 1. For refget sequences:
     1. A lightweight Python client for a remote refget sequences server.
@@ -28,6 +38,7 @@ The `refget` Python package aims to provide a Python interface for both remote a
     3. Convenience functions for computing refget sequence collection digests from Python.
 
 3. For pangenome sequences: implementation is still a work in progress.
+
 
 ## Install
 
