@@ -1,10 +1,22 @@
 # Refget
 
-## Introduction
+## The refget protocol
 
-The `refget` Python package provides a Python interface to both remote and local use of the refget protocol. This package provides several utilies:
+Refget is a suite of standards for identifying and distributing reference genome sequence data. It consists of 3 standards: 
 
-1. For refget seqeunces:
+- **Refget sequences**: a GA4GH-approved standard for individual sequences
+- **Refget sequence collections**: a standard for collections of sequences, currently under review by GA4GH 
+- **Refget pangenomes**: a future standard for which development is just beginning
+
+<p align="center">
+<img src="img/refget-umbrella.svg" width="500">
+</p>
+
+## The refget Python package
+
+The `refget` Python package aims to provide a Python interface for both remote and local use of the refget protocol. This package provides several utilities:
+
+1. For refget sequences:
     1. A lightweight Python client for a remote refget sequences server.
     2. Local caching of retrieved results, improving performance for applications that require repeated lookups.
     3. A fully functioning local implementation of the refget sequences protocol for local analysis backed by either memory, SQLite, or MongoDB.
@@ -14,6 +26,8 @@ The `refget` Python package provides a Python interface to both remote and local
     1. A lightweight Python client for a remote refget sequence collections server.
     2. A local implementation of the refget sequence collections protocol
     3. Convenience functions for computing refget sequence collection digests from Python.
+
+3. For pangenome sequences: implementation is still a work in progress.
 
 ## Install
 
