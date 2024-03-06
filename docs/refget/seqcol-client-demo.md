@@ -15,12 +15,10 @@ seqcol_2 = scclient.get_collection("3mTg0tAA3PS-R1TzelLVWJ2ilUzoWfVq", level=2)
 
 Now that you have the seqeuence digests, you could retrieve the sequences themselves using a refget client.
 
-```
+```python
 import refget
 rgc = refget.RefGetClient(api_url_base="https://www.ebi.ac.uk/ena/cram/sequence/")
 rgc.refget("SQ.UN_b-wij0EtsgFqQ2xNsbXs_GYQQIbeQ")
-
-https://www.ebi.ac.uk/ena/cram/sequence/6681ac2f62509cfc220d78751b8dc524
 ```
 
 
