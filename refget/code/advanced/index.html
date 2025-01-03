@@ -1,0 +1,2862 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../seqcolapi/">
+      
+      
+        <link rel="next" href="../seqcol/">
+      
+      
+      <link rel="icon" href="../../../img/refgenie_bug.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>Advanced tutorial - Refgenie</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#refget-py-tutorial" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Refgenie" class="md-header__button md-logo" aria-label="Refgenie" data-md-component="logo">
+      
+  <img src="../../../img/refgenie_bug_light.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Refgenie
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Advanced tutorial
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../refgenie/" class="md-tabs__link">
+          
+  
+    
+  
+  Refgenie
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../refgenieserver/" class="md-tabs__link">
+          
+  
+    
+  
+  Refgenie server
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Refget
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Refgenie" class="md-nav__button md-logo" aria-label="Refgenie" data-md-component="logo">
+      
+  <img src="../../../img/refgenie_bug_light.svg" alt="logo">
+
+    </a>
+    Refgenie
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Refgenie
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Refgenie
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../refgenie/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_1" id="__nav_1_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/demo_videos/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Demo videos
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/install/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install and configure
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/code/tutorial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Basic tutorial
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/manuscripts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Citing refgenie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    How-to guides
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            How-to guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/asset_registry_paths/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Refer to assets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/pull/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Download pre-built assets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/build/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Build assets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/custom_assets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add custom assets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/seek/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Retrieve paths to assets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/tag/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use asset tags
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/code/aliases/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use aliases
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/populate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Populate refgenie paths
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/compare/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compare genomes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/refgenieserver/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Run my own asset server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/refgenconf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use refgenie from Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/code_snippets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use refgenie in your pipeline
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/remote/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use refgenie on the cloud
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/igenomes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use refgenie with iGenomes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/code/config_upgrade_03_to_04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upgrade from config 0.3 to 0.4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/uses_refgenie/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Studies using refgenie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/genome_config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Genome configuration file
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/recipe_specification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Recipe
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/asset_class_specification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Asset class
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/available_assets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Buildable assets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/code/refgenconf-api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/code/refgenconf_usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Refgenconf usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/databio/refgenie/issues" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Support
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/contributing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie/changelog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../refgenieserver/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Refgenie server
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Refgenie server
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Refget
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Refget
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Client how-to guides
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Client how-to guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sequences-tutorial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using sequences
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seqcol-client-demo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using a remote seqcol server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    API how-to guides
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            API how-to guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seqcolapi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Adding seqcolapi endpoints
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Outdated documentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Outdated documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Advanced tutorial
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Advanced tutorial
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction-and-prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction and prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initialize-the-back-end" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initialize the back-end
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loading-sequence-collections" class="md-nav__link">
+    <span class="md-ellipsis">
+      Loading sequence collections
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparing-sequence-collections" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparing sequence collections
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-reference-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence reference compatibility
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../seqcol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using local collections
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using local collections 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../refget-api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RefGet Client API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../seqcol-api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SeqCol Client API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction-and-prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction and prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initialize-the-back-end" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initialize the back-end
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loading-sequence-collections" class="md-nav__link">
+    <span class="md-ellipsis">
+      Loading sequence collections
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparing-sequence-collections" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparing sequence collections
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-reference-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence reference compatibility
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="refget-py-tutorial">Refget-py tutorial</h1>
+<h2 id="introduction-and-prerequisites">Introduction and prerequisites</h2>
+<p>This tutorial will introduce you to the <code>refget-py</code> python package. In addition to implementing the basic refget protocol, this tutorial will introduce the possibility of storing not just <em>sequences</em>, but <em>annotated sequence collections</em>, and other object types. This package is built on top of the <code>henge</code> package, which provides a generic ability to store and retrieve any data type.</p>
+<p>This tutorial assumes you are familiar with the basic refget protocol, and have installed <code>refget-py</code> and dependencies.</p>
+<p>To begin, let's import some required packages.  </p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">refget</span><span class="o">,</span> <span class="nn">pymongo</span><span class="o">,</span> <span class="nn">mongodict</span>
+<span class="kn">from</span> <span class="nn">henge</span> <span class="kn">import</span> <span class="n">connect_mongo</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">platform</span> <span class="kn">import</span> <span class="n">python_version</span> 
+<span class="n">python_version</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;3.8.5&#39;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run this command to increase logging output</span>
+<span class="c1"># import logmuse</span>
+<span class="c1"># logmuse.init_logger(&quot;refget&quot;, &quot;DEBUG&quot;, devmode=True)</span>
+</code></pre></div>
+<h2 id="initialize-the-back-end">Initialize the back-end</h2>
+<p>We require some type of database to store the sequences and their digests. The <code>RefGetHenge</code> object just needs any object that extends a basic Python <code>dict</code>; so a simple <code>dict</code> is fine for testing. If you want data to persist, you can use a <a href="https://www.mongodb.com/">MongoDB</a> instance and a <code>MongoDict</code> object on top of it. You can start a mongo database with docker like this:'</p>
+<div class="highlight"><pre><span></span><code>docker run -v /PATH/TO/PERSISTENT/DATABASE:/data/db mongo
+</code></pre></div>
+<p>Populate the USERID, GROUPID, and PATH variables with values for your setup. Now, we'll use a helper function <code>connect_mongo</code> to create a <code>MongoDict</code> object to use this back-end and use this to instantate a new refget database (<code>rgdb</code>) object:</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span> <span class="o">=</span> <span class="n">refget</span><span class="o">.</span><span class="n">RefGetHenge</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="n">connect_mongo</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>---------------------------------------------------------------------------
+
+AttributeError                            Traceback (most recent call last)
+
+&lt;ipython-input-3-55a2cecd8904&gt; in &lt;module&gt;
+----&gt; 1 rgdb = refget.RefGetHenge(database=connect_mongo())
+
+
+AttributeError: module &#39;refget&#39; has no attribute &#39;RefGetHenge&#39;
+</code></pre></div>
+<p>We can easily load and retrieve sequences with the <code>load_seq</code> and <code>refget</code> functions:</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">load_seq</span><span class="p">(</span><span class="s2">&quot;TCGA&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;45d0ff9f1a9504cf2039f89c1ffb4c32&#39;
+</code></pre></div>
+<p>The returned digest is the md5 checksum of the sequence itself.</p>
+<div class="highlight"><pre><span></span><code><span class="n">refget</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="s2">&quot;TCGA&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;45d0ff9f1a9504cf2039f89c1ffb4c32&#39;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="s2">&quot;45d0ff9f1a9504cf2039f89c1ffb4c32&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{&#39;sequence&#39;: &#39;TCGA&#39;}
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="s2">&quot;45d0ff9f1a9504cf2039f89c1ffb4c32&quot;</span><span class="p">,</span> <span class="n">postprocess</span><span class="o">=</span><span class="s2">&quot;simplify&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;TCGA&#39;
+</code></pre></div>
+<h2 id="loading-sequence-collections">Loading sequence collections</h2>
+<p>The back-end can handle not just raw sequences, but another object type we call <em>Annotated Sequence Digest Lists</em> -- these are roughly equivalent to a <code>fasta</code> file. In fact, if you have a fasta file, you can load that directly into the database and then retrieve it using its own digest.</p>
+<p>Let's demonstrate by loading and retreiving some fasta files. Define a few file paths here:</p>
+<div class="highlight"><pre><span></span><code><span class="n">fa_file1</span> <span class="o">=</span> <span class="s2">&quot;demo_fasta/demo.fa.gz&quot;</span>
+<span class="n">fa_file2</span> <span class="o">=</span> <span class="s2">&quot;demo_fasta/demo2.fa.gz&quot;</span>
+</code></pre></div>
+<p>Load a fasta file directly into the database with the <code>load_fasta</code> function. The function will return 2 things: First, a <em>digest</em> that can be used to retrieve the entire contents of the fasta file, and also the contents (in <code>dict</code> form) that were loaded into the database.</p>
+<div class="highlight"><pre><span></span><code><span class="n">digest1</span><span class="p">,</span> <span class="n">content1</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">load_fasta</span><span class="p">(</span><span class="n">fa_file1</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">digest1</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;2bcaa3eadf4fea03f55f0c584af05378&#39;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">content1</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[{&#39;name&#39;: &#39;chr1&#39;,
+  &#39;length&#39;: 4,
+  &#39;topology&#39;: &#39;linear&#39;,
+  &#39;sequence_digest&#39;: &#39;f1f8f4bf413b16ad135722aa4591043e&#39;},
+ {&#39;name&#39;: &#39;chr2&#39;,
+  &#39;length&#39;: 4,
+  &#39;topology&#39;: &#39;linear&#39;,
+  &#39;sequence_digest&#39;: &#39;45d0ff9f1a9504cf2039f89c1ffb4c32&#39;}]
+</code></pre></div>
+<p>There are a few key concepts here. First, the digest returned here is not the same as the sequence digests we considered previously, because it maps to an <em>annotated sequence digest list</em>, rather than just to a sequence. Second, notice the content doesn't include actual sequences; rather, it includes <em>sequence digests</em>. These sequence digests can themselves be used with <code>refget</code> to retrieve the sequences themselves. In other words, these digests are <em>recursive</em>, and this is a critical feature of refget. Because these digests are recursive, we can either set a recursion limit to get the sequence-level digests, or we can set no limit and the <code>refget</code> function will recurse to retreive the sequences themselves.</p>
+<p>Consider the difference between these two function calls:</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">digest1</span><span class="p">,</span> <span class="n">reclimit</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[{&#39;name&#39;: &#39;chr1&#39;,
+  &#39;length&#39;: &#39;4&#39;,
+  &#39;topology&#39;: &#39;linear&#39;,
+  &#39;sequence_digest&#39;: &#39;f1f8f4bf413b16ad135722aa4591043e&#39;},
+ {&#39;name&#39;: &#39;chr2&#39;,
+  &#39;length&#39;: &#39;4&#39;,
+  &#39;topology&#39;: &#39;linear&#39;,
+  &#39;sequence_digest&#39;: &#39;45d0ff9f1a9504cf2039f89c1ffb4c32&#39;}]
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">digest1</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[{&#39;name&#39;: &#39;chr1&#39;,
+  &#39;length&#39;: &#39;4&#39;,
+  &#39;topology&#39;: &#39;linear&#39;,
+  &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;ACGT&#39;}},
+ {&#39;name&#39;: &#39;chr2&#39;,
+  &#39;length&#39;: &#39;4&#39;,
+  &#39;topology&#39;: &#39;linear&#39;,
+  &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;TCGA&#39;}}]
+</code></pre></div>
+<p>By default, the <code>refget</code> function will automatically recurse to return the full sequences contained within. You can use the result like this or pass it through the <code>fasta_fmt</code> function to retrieve the original fasta file.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">rgdb</span><span class="o">.</span><span class="n">fasta_fmt</span><span class="p">(</span><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">digest1</span><span class="p">)))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&gt;chr1
+ACGT
+&gt;chr2
+TCGA
+</code></pre></div>
+<p>Here's an example of a second fasta file that includes 2 of the same sequences. The database is smart enough to only store these sequences a single time, but they can live in multiple collections without issue.</p>
+<div class="highlight"><pre><span></span><code><span class="n">digest2</span><span class="p">,</span> <span class="n">content2</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">load_fasta</span><span class="p">(</span><span class="n">fa_file2</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">digest2</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[{&#39;name&#39;: &#39;chr1&#39;,
+  &#39;length&#39;: &#39;4&#39;,
+  &#39;topology&#39;: &#39;linear&#39;,
+  &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;ACGT&#39;}},
+ {&#39;name&#39;: &#39;chr2&#39;,
+  &#39;length&#39;: &#39;4&#39;,
+  &#39;topology&#39;: &#39;linear&#39;,
+  &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;TCGA&#39;}},
+ {&#39;name&#39;: &#39;chrX&#39;,
+  &#39;length&#39;: &#39;8&#39;,
+  &#39;topology&#39;: &#39;linear&#39;,
+  &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;TTCCGGAA&#39;}}]
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">rgdb</span><span class="o">.</span><span class="n">fasta_fmt</span><span class="p">(</span><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">digest2</span><span class="p">)))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&gt;chr1
+ACGT
+&gt;chr2
+TCGA
+&gt;chrX
+TTCCGGAA
+</code></pre></div>
+<h2 id="comparing-sequence-collections">Comparing sequence collections</h2>
+<p>We may be interested in if collections have the same sequences in different order, or with different names. The <code>compare</code> function can provide this information. Let's load some example fasta files with different sequences to demonstrate how the comparisons work.</p>
+<p>Now we can compare the content in <code>digest1</code> versus <code>digest2</code>. Notice that the 2 sequences in the first example are found in the second example, which adds a third sequence.</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">digest1</span><span class="p">,</span> <span class="n">digest2</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>6165
+</code></pre></div>
+<p>The compare function returns a flag that provides information about the comparison. This allows us to use logical operators to test what features were shared among the sequence collections, similar to the way we use sam flags to identify features of sequence reads. </p>
+<p>We can see the explanation of the flags like this: </p>
+<div class="highlight"><pre><span></span><code><span class="n">refget</span><span class="o">.</span><span class="n">FLAGS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{1: &#39;CONTENT_ALL_A_IN_B&#39;,
+ 2: &#39;CONTENT_ALL_B_IN_A&#39;,
+ 4: &#39;LENGTHS_ALL_A_IN_B&#39;,
+ 8: &#39;LENGTHS_ALL_B_IN_A&#39;,
+ 16: &#39;NAMES_ALL_A_IN_B&#39;,
+ 32: &#39;NAMES_ALL_B_IN_A&#39;,
+ 64: &#39;TOPO_ALL_A_IN_B&#39;,
+ 128: &#39;TOPO_ALL_B_IN_A&#39;,
+ 256: &#39;CONTENT_ANY_SHARED&#39;,
+ 512: &#39;LENGTHS_ANY_SHARED&#39;,
+ 1024: &#39;NAMES_ANY_SHARED&#39;,
+ 2048: &#39;CONTENT_A_ORDER&#39;,
+ 4096: &#39;CONTENT_B_ORDER&#39;}
+</code></pre></div>
+<p>So we can use this to ask questions, like, "Are all of the sequence in A contained in B?":</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">digest1</span><span class="p">,</span> <span class="n">digest2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">1</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>True
+</code></pre></div>
+<p>Now to ask the inverse question:</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">digest1</span><span class="p">,</span> <span class="n">digest2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">2</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>False
+</code></pre></div>
+<p>Or, to ask both at the same time:</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">digest1</span><span class="p">,</span> <span class="n">digest2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">3</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>False
+</code></pre></div>
+<p>As expected, we see that the all of A sequences are in B, but not the other way around. If the "&amp;3" query yielded <code>True</code>, that would indicate that the sequence content was identical. We can demonstrate this by running a comparison to the same digest:</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">digest1</span><span class="p">,</span> <span class="n">digest1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">3</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>True
+</code></pre></div>
+<p>From this flag we can see that the all of the content (sequences) in A are in B, but not the other way around. Furthermore, the lengths in A all match with B (which <em>must</em> be true, since the content matches), and also the <em>names</em> match, which does not necessarily have to be true.</p>
+<p>Let's load some additional fasta files to demonstrate a few more comparisons.</p>
+<div class="highlight"><pre><span></span><code><span class="n">fa_file3</span> <span class="o">=</span> <span class="s2">&quot;demo_fasta/demo3.fa&quot;</span>
+<span class="n">fa_file4</span> <span class="o">=</span> <span class="s2">&quot;demo_fasta/demo4.fa&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">digest3</span><span class="p">,</span> <span class="n">content3</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">load_fasta</span><span class="p">(</span><span class="n">fa_file3</span><span class="p">)</span>
+<span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">digest3</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[{&#39;name&#39;: &#39;1&#39;,
+  &#39;length&#39;: &#39;4&#39;,
+  &#39;topology&#39;: &#39;linear&#39;,
+  &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;ACGT&#39;}},
+ {&#39;name&#39;: &#39;2&#39;,
+  &#39;length&#39;: &#39;4&#39;,
+  &#39;topology&#39;: &#39;linear&#39;,
+  &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;TCGA&#39;}},
+ {&#39;name&#39;: &#39;X&#39;,
+  &#39;length&#39;: &#39;8&#39;,
+  &#39;topology&#39;: &#39;linear&#39;,
+  &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;TTCCGGAA&#39;}}]
+</code></pre></div>
+<p>The <code>demo3</code> file has the exact same sequence content as demo2, but the names are different. The compare function shows that the content and lengths match and are in the same order, but the name match flag is not set:</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">digest2</span><span class="p">,</span> <span class="n">digest3</span><span class="p">,</span> <span class="n">explain</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Flag: 6159
+Binary: 0b1100000001111
+
+CONTENT_ALL_A_IN_B
+CONTENT_ALL_B_IN_A
+LENGTHS_ALL_A_IN_B
+LENGTHS_ALL_B_IN_A
+CONTENT_A_ORDER
+CONTENT_B_ORDER
+
+
+
+
+
+6159
+</code></pre></div>
+<p>The <code>demo4</code> example contains one of the sequences in <code>demo2</code>, but has no overlap with <code>demo1</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">digest4</span><span class="p">,</span> <span class="n">content4</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">load_fasta</span><span class="p">(</span><span class="n">fa_file4</span><span class="p">)</span>
+<span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">digest4</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[{&#39;name&#39;: &#39;chrX&#39;,
+  &#39;length&#39;: &#39;8&#39;,
+  &#39;topology&#39;: &#39;linear&#39;,
+  &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;TTCCGGAA&#39;}}]
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">digest4</span><span class="p">,</span> <span class="n">digest2</span><span class="p">,</span> <span class="n">explain</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Flag: 21
+Binary: 0b10101
+
+CONTENT_ALL_A_IN_B
+LENGTHS_ALL_A_IN_B
+NAMES_ALL_A_IN_B
+
+
+
+
+
+21
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">digest4</span><span class="p">,</span> <span class="n">digest1</span><span class="p">,</span> <span class="n">explain</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Flag: 0
+Binary: 0b0
+
+
+
+
+
+
+0
+</code></pre></div>
+<h2 id="sequence-reference-compatibility">Sequence reference compatibility</h2>
+<p>We may be interested in comparing the compatibilty of the assembly, rather than the sequences themselves. We can do this using the same comparison function, but this time testing against a version of the genome that lacks actual sequences. Here, we'll insert a 'lengths only' ASDList into the database, which has lengths and topologies but no actual sequences. This is analogous to a <code>chrom_sizes</code> file which doesn't care about underlying sequences.</p>
+<div class="highlight"><pre><span></span><code><span class="n">fa_file5</span> <span class="o">=</span> <span class="s2">&quot;demo_fasta/demo5.fa&quot;</span>
+<span class="n">digest5</span><span class="p">,</span> <span class="n">content5</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">load_fasta</span><span class="p">(</span><span class="n">fa_file5</span><span class="p">,</span> <span class="n">lengths_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">digest5</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[{&#39;name&#39;: &#39;chr1&#39;, &#39;length&#39;: &#39;4&#39;, &#39;topology&#39;: &#39;linear&#39;, &#39;sequence_digest&#39;: &#39;&#39;},
+ {&#39;name&#39;: &#39;chr2&#39;, &#39;length&#39;: &#39;4&#39;, &#39;topology&#39;: &#39;linear&#39;, &#39;sequence_digest&#39;: &#39;&#39;},
+ {&#39;name&#39;: &#39;chrX&#39;, &#39;length&#39;: &#39;8&#39;, &#39;topology&#39;: &#39;linear&#39;, &#39;sequence_digest&#39;: &#39;&#39;}]
+</code></pre></div>
+<p>These are compatible with the <code>demo2</code> file in length and name. You can ask that with "&amp; 60".</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">digest5</span><span class="p">,</span> <span class="n">digest2</span><span class="p">,</span> <span class="n">explain</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Flag: 60
+Binary: 0b111100
+
+LENGTHS_ALL_A_IN_B
+LENGTHS_ALL_B_IN_A
+NAMES_ALL_A_IN_B
+NAMES_ALL_B_IN_A
+
+
+
+
+
+60
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">digest5</span><span class="p">,</span> <span class="n">digest2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">60</span> <span class="o">==</span> <span class="mi">60</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>True
+</code></pre></div>
+<p>This is a very useful functionality that allows us to use this system not only to identify sequence matches, but also to establish reference assembly compatibility for questions that do not require strict sequence identity. For example, for a given genome reference, we can create a sequence-agnostic but length-enforced ASDList object and stick it into the database to get back a digest. Now, we can use the compare function to ensure that any future sequences are compatible with this reference assembly.</p>
+<h1 id="3-layer-refget">3-layer refget</h1>
+<p>It is also possible to continue this recursion to another layer. To demonstrate, let's make a sequence that consists of 2 fasta files checksums, and load that into the database.</p>
+<p>This type of object is called an <em>Annotated Collection Digest List</em>, or <em>ACDList</em>, because it's a list of named collection digests. The RefGetHenge object will allow you to see what of its objects types would validate your given object. Here, we see that this henge would recognize this as validating the <em>ACDList</em> object type.</p>
+<div class="highlight"><pre><span></span><code><span class="n">ACDList</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;demo1&quot;</span><span class="p">,</span> <span class="s2">&quot;collection_digest&quot;</span><span class="p">:</span> <span class="n">digest1</span><span class="p">},</span>
+           <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot; demo2&quot;</span><span class="p">,</span> <span class="s2">&quot;collection_digest&quot;</span><span class="p">:</span> <span class="n">digest2</span><span class="p">}]</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">select_item_type</span><span class="p">(</span><span class="n">ACDList</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[&#39;ACDList&#39;]
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">acdl_digest</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">ACDList</span><span class="p">,</span> <span class="s2">&quot;ACDList&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>Can we retrieve it? You bet! At any recursion level:</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">acdl_digest</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[{&#39;name&#39;: &#39;demo1&#39;,
+  &#39;collection_digest&#39;: [{&#39;name&#39;: &#39;chr1&#39;,
+    &#39;length&#39;: &#39;4&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;ACGT&#39;}},
+   {&#39;name&#39;: &#39;chr2&#39;,
+    &#39;length&#39;: &#39;4&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;TCGA&#39;}}]},
+ {&#39;name&#39;: &#39; demo2&#39;,
+  &#39;collection_digest&#39;: [{&#39;name&#39;: &#39;chr1&#39;,
+    &#39;length&#39;: &#39;4&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;ACGT&#39;}},
+   {&#39;name&#39;: &#39;chr2&#39;,
+    &#39;length&#39;: &#39;4&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;TCGA&#39;}},
+   {&#39;name&#39;: &#39;chrX&#39;,
+    &#39;length&#39;: &#39;8&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;TTCCGGAA&#39;}}]}]
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">acdl_digest</span><span class="p">,</span> <span class="n">reclimit</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[{&#39;name&#39;: &#39;demo1&#39;, &#39;collection_digest&#39;: &#39;2bcaa3eadf4fea03f55f0c584af05378&#39;},
+ {&#39;name&#39;: &#39; demo2&#39;, &#39;collection_digest&#39;: &#39;1cabbd10bf54f733718f0d3bc786dc3b&#39;}]
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">acdl_digest</span><span class="p">,</span> <span class="n">reclimit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[{&#39;name&#39;: &#39;demo1&#39;,
+  &#39;collection_digest&#39;: [{&#39;name&#39;: &#39;chr1&#39;,
+    &#39;length&#39;: &#39;4&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: &#39;f1f8f4bf413b16ad135722aa4591043e&#39;},
+   {&#39;name&#39;: &#39;chr2&#39;,
+    &#39;length&#39;: &#39;4&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: &#39;45d0ff9f1a9504cf2039f89c1ffb4c32&#39;}]},
+ {&#39;name&#39;: &#39; demo2&#39;,
+  &#39;collection_digest&#39;: [{&#39;name&#39;: &#39;chr1&#39;,
+    &#39;length&#39;: &#39;4&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: &#39;f1f8f4bf413b16ad135722aa4591043e&#39;},
+   {&#39;name&#39;: &#39;chr2&#39;,
+    &#39;length&#39;: &#39;4&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: &#39;45d0ff9f1a9504cf2039f89c1ffb4c32&#39;},
+   {&#39;name&#39;: &#39;chrX&#39;,
+    &#39;length&#39;: &#39;8&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: &#39;adbd2580b1cb145667c79baf9bfd391a&#39;}]}]
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">acdl_digest</span><span class="p">,</span> <span class="n">reclimit</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[{&#39;name&#39;: &#39;demo1&#39;,
+  &#39;collection_digest&#39;: [{&#39;name&#39;: &#39;chr1&#39;,
+    &#39;length&#39;: &#39;4&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;ACGT&#39;}},
+   {&#39;name&#39;: &#39;chr2&#39;,
+    &#39;length&#39;: &#39;4&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;TCGA&#39;}}]},
+ {&#39;name&#39;: &#39; demo2&#39;,
+  &#39;collection_digest&#39;: [{&#39;name&#39;: &#39;chr1&#39;,
+    &#39;length&#39;: &#39;4&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;ACGT&#39;}},
+   {&#39;name&#39;: &#39;chr2&#39;,
+    &#39;length&#39;: &#39;4&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;TCGA&#39;}},
+   {&#39;name&#39;: &#39;chrX&#39;,
+    &#39;length&#39;: &#39;8&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;TTCCGGAA&#39;}}]}]
+</code></pre></div>
+<h2 id="under-the-hood-using-the-raw-henge-interface">Under the hood: using the raw henge interface</h2>
+<p>Under the hood, the RefGetHenge is just a specialized class of <code>Henge</code> that provides convenience functions for dealing with sequences and sequence collections. Henge is a python package that builds back-ends for generic decomposable recursive unique identifiers (or, <em>druids</em>). It is intended to be used as a building block for refget 2.0 on collections, and also for other data types that need content-derived identifiers.</p>
+<p>Henge provides 2 key advances:</p>
+<ul>
+<li>
+<p><strong>decomposing</strong>: identifiers in henge can retrieve tuples, not just sequences. These tuples can be tailored with a simple json schema document, so that henge can be used as a back-end for arbitrary data.</p>
+</li>
+<li>
+<p><strong>recursion</strong>: individual elements retrieved by the henge object can be tagged as recursive, which means these attributes contain their own druids. Henge can recurse through these, providing arbitrary, multi-layer object retrieval.</p>
+</li>
+</ul>
+<p>To demonstrate how henge works as the back-end for the refget-py package, we'll now show  use the raw henge interface directly, if you want to wrap the metadata yourself.</p>
+<p>The way a henge works is that we have to specify what item types it can hold using schemas written in JSON-schema. The RefGetHenge knows about 5 different item types:</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">item_types</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[&#39;sequence&#39;, &#39;ASD&#39;, &#39;ASDList&#39;, &#39;ACDList&#39;, &#39;ACD&#39;]
+</code></pre></div>
+<p>We'll look more closely at these schemas in a moment. You can look through the actual schemas by looking at <code>rgdb.schemas</code>; for example, the <code>sequence</code> schema is quite simple:</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">schemas</span><span class="p">[</span><span class="s2">&quot;sequence&quot;</span><span class="p">]</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{&#39;description&#39;: &#39;Schema for a single raw sequence&#39;,
+ &#39;type&#39;: &#39;object&#39;,
+ &#39;properties&#39;: {&#39;sequence&#39;: {&#39;type&#39;: &#39;string&#39;,
+   &#39;description&#39;: &#39;Actual sequence content&#39;}},
+ &#39;required&#39;: [&#39;sequence&#39;]}
+</code></pre></div>
+<p>The RefGetHenge class, handles all the object type control for you; it knows for example to insert a sequence as a 'sequence' object, and a fasta file as an 'ASDList' object. But, you can also use the base <code>Henge</code> interface to do this as well; all you have to do is insert the objects as <code>dicts</code> or <code>lists</code>, with the appropriate properties populated. Here's how we could insert some sequences directly:</p>
+<div class="highlight"><pre><span></span><code><span class="n">item_seq1</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sequence&#39;</span><span class="p">:</span> <span class="s2">&quot;TCGA&quot;</span><span class="p">}</span>
+<span class="n">item_seq2</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sequence&#39;</span><span class="p">:</span> <span class="s2">&quot;TCGATCGATCGATCGA&quot;</span><span class="p">}</span>
+<span class="n">item_seq3</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sequence&#39;</span><span class="p">:</span> <span class="s2">&quot;GGAA&quot;</span><span class="p">}</span>
+<span class="n">item_seq4</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sequence&#39;</span><span class="p">:</span> <span class="s2">&quot;CGGCCCGGCGC&quot;</span><span class="p">}</span>
+
+<span class="n">druid_seq1</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">item_seq1</span><span class="p">,</span> <span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+<span class="n">druid_seq2</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">item_seq2</span><span class="p">,</span> <span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+<span class="n">druid_seq3</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">item_seq3</span><span class="p">,</span> <span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+<span class="n">druid_seq4</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">item_seq4</span><span class="p">,</span> <span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>Now, we can also insert <em>Annotated Sequence Digests</em> (ASDs):</p>
+<div class="highlight"><pre><span></span><code><span class="n">asd1</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sequence_digest&#39;</span><span class="p">:</span> <span class="n">druid_seq1</span><span class="p">,</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s2">&quot;chr1&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;length&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> 
+        <span class="s1">&#39;topology&#39;</span><span class="p">:</span> <span class="s2">&quot;linear&quot;</span><span class="p">}</span>
+<span class="n">asd2</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sequence_digest&#39;</span><span class="p">:</span> <span class="n">druid_seq2</span><span class="p">,</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s2">&quot;chr2&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;length&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> 
+        <span class="s1">&#39;topology&#39;</span><span class="p">:</span> <span class="s2">&quot;linear&quot;</span><span class="p">}</span>
+<span class="n">asd3</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sequence_digest&#39;</span><span class="p">:</span> <span class="n">druid_seq3</span><span class="p">,</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s2">&quot;chr3&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;length&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> 
+        <span class="s1">&#39;topology&#39;</span><span class="p">:</span> <span class="s2">&quot;circular&quot;</span><span class="p">}</span>
+<span class="n">asd4</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sequence_digest&#39;</span><span class="p">:</span> <span class="n">druid_seq4</span><span class="p">,</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s2">&quot;chr4::mod&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;length&#39;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span> 
+        <span class="s1">&#39;topology&#39;</span><span class="p">:</span> <span class="s2">&quot;linear&quot;</span><span class="p">}</span>                
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">druid_asd1</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">asd1</span><span class="p">,</span> <span class="s2">&quot;ASD&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>Take a look at the schema for an ASD object. Notice that the <code>sequence_digest</code> attribute is marked as <code>recursive</code> -- this means the henge will automatically know that upon retrieving one of these objects, that particular property could be recursively retrieved to get another object from the back-end.</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">schemas</span><span class="p">[</span><span class="s2">&quot;ASD&quot;</span><span class="p">]</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{&#39;description&#39;: &#39;Schema for an Annotated Sequence Digest; a digested Sequence plus metadata&#39;,
+ &#39;type&#39;: &#39;object&#39;,
+ &#39;properties&#39;: {&#39;name&#39;: {&#39;type&#39;: &#39;string&#39;},
+  &#39;length&#39;: {&#39;type&#39;: &#39;integer&#39;},
+  &#39;topology&#39;: {&#39;type&#39;: &#39;string&#39;,
+   &#39;enum&#39;: [&#39;circular&#39;, &#39;linear&#39;],
+   &#39;default&#39;: &#39;linear&#39;},
+  &#39;sequence_digest&#39;: {&#39;type&#39;: &#39;string&#39;, &#39;description&#39;: &#39;The sequence digest&#39;}},
+ &#39;required&#39;: [&#39;length&#39;, &#39;name&#39;, &#39;topology&#39;],
+ &#39;recursive&#39;: [&#39;sequence_digest&#39;],
+ &#39;not&#39;: {&#39;required&#39;: [&#39;sequence&#39;]}}
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">druid_asd1</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{&#39;name&#39;: &#39;chr1&#39;,
+ &#39;length&#39;: &#39;10&#39;,
+ &#39;topology&#39;: &#39;linear&#39;,
+ &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;TCGA&#39;}}
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">druid_asd1</span><span class="p">,</span> <span class="n">reclimit</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{&#39;name&#39;: &#39;chr1&#39;,
+ &#39;length&#39;: &#39;10&#39;,
+ &#39;topology&#39;: &#39;linear&#39;,
+ &#39;sequence_digest&#39;: &#39;45d0ff9f1a9504cf2039f89c1ffb4c32&#39;}
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">druid_seq1</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{&#39;sequence&#39;: &#39;TCGA&#39;}
+</code></pre></div>
+<p>And here we can insert ASDLists (which are, of course, simply lists of ASD objects):</p>
+<div class="highlight"><pre><span></span><code><span class="n">druid_asdlist1</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">insert</span><span class="p">([</span><span class="n">asd1</span><span class="p">,</span> <span class="n">asd2</span><span class="p">],</span> <span class="s2">&quot;ASDList&quot;</span><span class="p">)</span>
+<span class="n">druid_asdlist2</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">insert</span><span class="p">([</span><span class="n">asd3</span><span class="p">,</span> <span class="n">asd4</span><span class="p">],</span> <span class="s2">&quot;ASDList&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">druid_asdlist1</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[{&#39;name&#39;: &#39;chr1&#39;,
+  &#39;length&#39;: &#39;10&#39;,
+  &#39;topology&#39;: &#39;linear&#39;,
+  &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;TCGA&#39;}},
+ {&#39;name&#39;: &#39;chr2&#39;,
+  &#39;length&#39;: &#39;20&#39;,
+  &#39;topology&#39;: &#39;linear&#39;,
+  &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;TCGATCGATCGATCGA&#39;}}]
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">acd1</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;collection_digest&#39;</span><span class="p">:</span> <span class="n">druid_asdlist1</span><span class="p">,</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s2">&quot;fasta1&quot;</span><span class="p">}</span> 
+<span class="n">acd2</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;collection_digest&#39;</span><span class="p">:</span> <span class="n">druid_asdlist2</span><span class="p">,</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s2">&quot;fasta2&quot;</span><span class="p">}</span> 
+
+<span class="n">druid_acdlist</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">insert</span><span class="p">([</span><span class="n">acd1</span><span class="p">,</span> <span class="n">acd2</span><span class="p">],</span> <span class="s2">&quot;ACDList&quot;</span><span class="p">)</span>    
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">druid_acdlist</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;6eaefa29f5e59d6f93e723c02fb6d5fb&#39;
+</code></pre></div>
+<h3 id="how-items-are-stored">How items are stored</h3>
+<p>Refget stores the items as delimited strings. It uses the schemas to map the stored, delimited properties to the correct properties when the item is returned. It builds a string with two delimiters, a <em>property delimiter</em> that separates the individual properties, in the order listed in the schema, and it uses an <em>item delimiter</em> to delimit items in lists in the order given.</p>
+<p>The <code>sequence</code> objects are really simple; they have only 1 property, named <code>sequence</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">schemas</span><span class="p">[</span><span class="s2">&quot;sequence&quot;</span><span class="p">]</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{&#39;description&#39;: &#39;Schema for a single raw sequence&#39;,
+ &#39;type&#39;: &#39;object&#39;,
+ &#39;properties&#39;: {&#39;sequence&#39;: {&#39;type&#39;: &#39;string&#39;,
+   &#39;description&#39;: &#39;Actual sequence content&#39;}},
+ &#39;required&#39;: [&#39;sequence&#39;]}
+</code></pre></div>
+<p>They are thus stored in the database as is; no delimiters are required because there is only 1 property, and no possibility of listing more than one item.</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">database</span><span class="p">[</span><span class="n">druid_seq1</span><span class="p">]</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;TCGA&#39;
+</code></pre></div>
+<p>The ASD objects have multiple properties, so they are stored as a delimited set of properties, ordered by the schema:</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">schemas</span><span class="p">[</span><span class="s2">&quot;ASD&quot;</span><span class="p">]</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{&#39;description&#39;: &#39;Schema for an Annotated Sequence Digest; a digested Sequence plus metadata&#39;,
+ &#39;type&#39;: &#39;object&#39;,
+ &#39;properties&#39;: {&#39;name&#39;: {&#39;type&#39;: &#39;string&#39;},
+  &#39;length&#39;: {&#39;type&#39;: &#39;integer&#39;},
+  &#39;topology&#39;: {&#39;type&#39;: &#39;string&#39;,
+   &#39;enum&#39;: [&#39;circular&#39;, &#39;linear&#39;],
+   &#39;default&#39;: &#39;linear&#39;},
+  &#39;sequence_digest&#39;: {&#39;type&#39;: &#39;string&#39;, &#39;description&#39;: &#39;The sequence digest&#39;}},
+ &#39;required&#39;: [&#39;length&#39;, &#39;name&#39;, &#39;topology&#39;],
+ &#39;recursive&#39;: [&#39;sequence_digest&#39;],
+ &#39;not&#39;: {&#39;required&#39;: [&#39;sequence&#39;]}}
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">database</span><span class="p">[</span><span class="n">druid_asd1</span><span class="p">]</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;chr1\x1e10\x1elinear\x1e45d0ff9f1a9504cf2039f89c1ffb4c32&#39;
+</code></pre></div>
+<p>ASDList objects are defined as lists, so they can hold more than one item. The items themselves are simply ASD objects; ASDLists are therefore stored as item-delimited strings, with a property-delimited string for each item.</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">schemas</span><span class="p">[</span><span class="s2">&quot;ASDList&quot;</span><span class="p">]</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{&#39;description&#39;: &#39;Schema for List of ASDs&#39;,
+ &#39;type&#39;: &#39;array&#39;,
+ &#39;items&#39;: {&#39;type&#39;: &#39;object&#39;,
+  &#39;properties&#39;: {&#39;name&#39;: {&#39;type&#39;: &#39;string&#39;},
+   &#39;length&#39;: {&#39;type&#39;: &#39;integer&#39;},
+   &#39;topology&#39;: {&#39;type&#39;: &#39;string&#39;,
+    &#39;enum&#39;: [&#39;circular&#39;, &#39;linear&#39;],
+    &#39;default&#39;: &#39;linear&#39;},
+   &#39;sequence_digest&#39;: {&#39;type&#39;: &#39;string&#39;,
+    &#39;description&#39;: &#39;The sequence digest&#39;}},
+  &#39;required&#39;: [&#39;length&#39;, &#39;name&#39;, &#39;topology&#39;],
+  &#39;recursive&#39;: [&#39;sequence_digest&#39;],
+  &#39;not&#39;: {&#39;required&#39;: [&#39;sequence&#39;]}}}
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">database</span><span class="p">[</span><span class="n">druid_asdlist1</span><span class="p">]</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;chr1\x1e10\x1elinear\x1e45d0ff9f1a9504cf2039f89c1ffb4c32\tchr2\x1e20\x1elinear\x1eb835d2c026aa66c52a05838dcc0b59d4&#39;
+</code></pre></div>
+<p>Here we can see the schema for the ACDList, which is of type 'array', and each item will have 2 properties: <code>name</code> and <code>collection_digest</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">schemas</span><span class="p">[</span><span class="s2">&quot;ACDList&quot;</span><span class="p">]</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{&#39;description&#39;: &#39;Schema for a list of ACDs; analogous to a collection of fasta files&#39;,
+ &#39;type&#39;: &#39;array&#39;,
+ &#39;items&#39;: {&#39;type&#39;: &#39;object&#39;,
+  &#39;properties&#39;: {&#39;name&#39;: {&#39;type&#39;: &#39;string&#39;},
+   &#39;collection_digest&#39;: {&#39;type&#39;: &#39;string&#39;}},
+  &#39;required&#39;: [&#39;collection_digest&#39;],
+  &#39;recursive&#39;: [&#39;collection_digest&#39;]}}
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">database</span><span class="p">[</span><span class="n">druid_acdlist</span><span class="p">]</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;fasta1\x1ead6311ad38f593e9529dc9adf82f126a\tfasta2\x1e2e9262aac405c20d6cba33295b9ff72f&#39;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">rgdb</span><span class="o">.</span><span class="n">database</span><span class="p">[</span><span class="n">druid_acdlist</span><span class="p">])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>fasta1ad6311ad38f593e9529dc9adf82f126a fasta22e9262aac405c20d6cba33295b9ff72f
+</code></pre></div>
+<p>You can also use the <code>retrieve</code> interface (which comes from the parent Henge object) to retrieve items at different recursion levels:</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="n">druid_acdlist</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[{&#39;name&#39;: &#39;fasta1&#39;,
+  &#39;collection_digest&#39;: [{&#39;name&#39;: &#39;chr1&#39;,
+    &#39;length&#39;: &#39;10&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;TCGA&#39;}},
+   {&#39;name&#39;: &#39;chr2&#39;,
+    &#39;length&#39;: &#39;20&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;TCGATCGATCGATCGA&#39;}}]},
+ {&#39;name&#39;: &#39;fasta2&#39;,
+  &#39;collection_digest&#39;: [{&#39;name&#39;: &#39;chr3&#39;,
+    &#39;length&#39;: &#39;30&#39;,
+    &#39;topology&#39;: &#39;circular&#39;,
+    &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;GGAA&#39;}},
+   {&#39;name&#39;: &#39;chr4::mod&#39;,
+    &#39;length&#39;: &#39;40&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;CGGCCCGGCGC&#39;}}]}]
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="n">druid_acdlist</span><span class="p">,</span> <span class="n">reclimit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[{&#39;name&#39;: &#39;fasta1&#39;,
+  &#39;collection_digest&#39;: [{&#39;name&#39;: &#39;chr1&#39;,
+    &#39;length&#39;: &#39;10&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: &#39;45d0ff9f1a9504cf2039f89c1ffb4c32&#39;},
+   {&#39;name&#39;: &#39;chr2&#39;,
+    &#39;length&#39;: &#39;20&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: &#39;b835d2c026aa66c52a05838dcc0b59d4&#39;}]},
+ {&#39;name&#39;: &#39;fasta2&#39;,
+  &#39;collection_digest&#39;: [{&#39;name&#39;: &#39;chr3&#39;,
+    &#39;length&#39;: &#39;30&#39;,
+    &#39;topology&#39;: &#39;circular&#39;,
+    &#39;sequence_digest&#39;: &#39;31fc6ca291a32fb9df82b85e5f077e31&#39;},
+   {&#39;name&#39;: &#39;chr4::mod&#39;,
+    &#39;length&#39;: &#39;40&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: &#39;c175211cccf95a0e3c43fc0c70a3226d&#39;}]}]
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="n">druid_acdlist</span><span class="p">,</span> <span class="n">reclimit</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[{&#39;name&#39;: &#39;fasta1&#39;,
+  &#39;collection_digest&#39;: [{&#39;name&#39;: &#39;chr1&#39;,
+    &#39;length&#39;: &#39;10&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;TCGA&#39;}},
+   {&#39;name&#39;: &#39;chr2&#39;,
+    &#39;length&#39;: &#39;20&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;TCGATCGATCGATCGA&#39;}}]},
+ {&#39;name&#39;: &#39;fasta2&#39;,
+  &#39;collection_digest&#39;: [{&#39;name&#39;: &#39;chr3&#39;,
+    &#39;length&#39;: &#39;30&#39;,
+    &#39;topology&#39;: &#39;circular&#39;,
+    &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;GGAA&#39;}},
+   {&#39;name&#39;: &#39;chr4::mod&#39;,
+    &#39;length&#39;: &#39;40&#39;,
+    &#39;topology&#39;: &#39;linear&#39;,
+    &#39;sequence_digest&#39;: {&#39;sequence&#39;: &#39;CGGCCCGGCGC&#39;}}]}]
+</code></pre></div>
+<p>The jsonschema validation system will prevent you from inserting an item that doesn't match the schema you are trying to insert:</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">insert</span><span class="p">([{</span><span class="s1">&#39;sequence&#39;</span><span class="p">:</span> <span class="s2">&quot;TCGA&quot;</span><span class="p">,</span> <span class="s2">&quot;topology&quot;</span><span class="p">:</span><span class="s2">&quot;circular&quot;</span><span class="p">}],</span> <span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Not valid data
+Attempting to insert item: [{&#39;sequence&#39;: &#39;TCGA&#39;, &#39;topology&#39;: &#39;circular&#39;}]
+Item type: sequence
+
+
+[{&#39;sequence&#39;: &#39;TCGA&#39;, &#39;topology&#39;: &#39;circular&#39;}] is not of type &#39;object&#39;
+
+Failed validating &#39;type&#39; in schema:
+    {&#39;description&#39;: &#39;Schema for a single raw sequence&#39;,
+     &#39;properties&#39;: {&#39;sequence&#39;: {&#39;description&#39;: &#39;Actual sequence content&#39;,
+                                 &#39;type&#39;: &#39;string&#39;}},
+     &#39;required&#39;: [&#39;sequence&#39;],
+     &#39;type&#39;: &#39;object&#39;}
+
+On instance:
+    [{&#39;sequence&#39;: &#39;TCGA&#39;, &#39;topology&#39;: &#39;circular&#39;}]
+
+
+
+
+
+False
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb</span><span class="o">.</span><span class="n">insert</span><span class="p">([{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s2">&quot;chrX&quot;</span><span class="p">,</span> <span class="s1">&#39;sequence&#39;</span><span class="p">:</span> <span class="s2">&quot;TCGA&quot;</span><span class="p">,</span> <span class="s2">&quot;topology&quot;</span><span class="p">:</span><span class="s2">&quot;circular&quot;</span><span class="p">,</span> <span class="s2">&quot;length&quot;</span><span class="p">:</span><span class="mi">4</span><span class="p">}],</span> <span class="s2">&quot;asd&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>I don&#39;t know about items of type &#39;asd&#39;. I know of: &#39;[&#39;sequence&#39;, &#39;ASD&#39;, &#39;ASDList&#39;, &#39;ACDList&#39;, &#39;ACD&#39;]&#39;
+
+
+
+
+
+False
+</code></pre></div>
+<h1 id="advanced-bonus-recipes">Advanced bonus recipes</h1>
+<p>Here are some advanced things you can do:</p>
+<p>List all the items in the database:</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>45d0ff9f1a9504cf2039f89c1ffb4c32 TCGA
+45d0ff9f1a9504cf2039f89c1ffb4c32_item_type sequence
+45d0ff9f1a9504cf2039f89c1ffb4c32_digest_version md5
+f1f8f4bf413b16ad135722aa4591043e ACGT
+f1f8f4bf413b16ad135722aa4591043e_item_type sequence
+f1f8f4bf413b16ad135722aa4591043e_digest_version md5
+2bcaa3eadf4fea03f55f0c584af05378 chr14linearf1f8f4bf413b16ad135722aa4591043e chr24linear45d0ff9f1a9504cf2039f89c1ffb4c32
+2bcaa3eadf4fea03f55f0c584af05378_item_type ASDList
+2bcaa3eadf4fea03f55f0c584af05378_digest_version md5
+adbd2580b1cb145667c79baf9bfd391a TTCCGGAA
+adbd2580b1cb145667c79baf9bfd391a_item_type sequence
+adbd2580b1cb145667c79baf9bfd391a_digest_version md5
+1cabbd10bf54f733718f0d3bc786dc3b chr14linearf1f8f4bf413b16ad135722aa4591043e chr24linear45d0ff9f1a9504cf2039f89c1ffb4c32  chrX8linearadbd2580b1cb145667c79baf9bfd391a
+1cabbd10bf54f733718f0d3bc786dc3b_item_type ASDList
+1cabbd10bf54f733718f0d3bc786dc3b_digest_version md5
+2bcc40045a90366fdcc89feeed26ff3f 14linearf1f8f4bf413b16ad135722aa4591043e    24linear45d0ff9f1a9504cf2039f89c1ffb4c32 X8linearadbd2580b1cb145667c79baf9bfd391a
+2bcc40045a90366fdcc89feeed26ff3f_item_type ASDList
+2bcc40045a90366fdcc89feeed26ff3f_digest_version md5
+9fb8efcee89118d6035c4fd54fa41a3d chrX8linearadbd2580b1cb145667c79baf9bfd391a
+9fb8efcee89118d6035c4fd54fa41a3d_item_type ASDList
+9fb8efcee89118d6035c4fd54fa41a3d_digest_version md5
+e9974260ad53075f4021f96b0f7f64a0 chr14linear chr24linear  chrX8linear
+e9974260ad53075f4021f96b0f7f64a0_item_type ASDList
+e9974260ad53075f4021f96b0f7f64a0_digest_version md5
+981f2447405240954ccef8031040d4c4 demo12bcaa3eadf4fea03f55f0c584af05378  demo21cabbd10bf54f733718f0d3bc786dc3b
+981f2447405240954ccef8031040d4c4_item_type ACDList
+981f2447405240954ccef8031040d4c4_digest_version md5
+b835d2c026aa66c52a05838dcc0b59d4 TCGATCGATCGATCGA
+b835d2c026aa66c52a05838dcc0b59d4_item_type sequence
+b835d2c026aa66c52a05838dcc0b59d4_digest_version md5
+31fc6ca291a32fb9df82b85e5f077e31 GGAA
+31fc6ca291a32fb9df82b85e5f077e31_item_type sequence
+31fc6ca291a32fb9df82b85e5f077e31_digest_version md5
+c175211cccf95a0e3c43fc0c70a3226d CGGCCCGGCGC
+c175211cccf95a0e3c43fc0c70a3226d_item_type sequence
+c175211cccf95a0e3c43fc0c70a3226d_digest_version md5
+548acc8a98c34bbcdb17bdb7f8b7ea37 chr110linear45d0ff9f1a9504cf2039f89c1ffb4c32
+548acc8a98c34bbcdb17bdb7f8b7ea37_item_type ASD
+548acc8a98c34bbcdb17bdb7f8b7ea37_digest_version md5
+ad6311ad38f593e9529dc9adf82f126a chr110linear45d0ff9f1a9504cf2039f89c1ffb4c32    chr220linearb835d2c026aa66c52a05838dcc0b59d4
+ad6311ad38f593e9529dc9adf82f126a_item_type ASDList
+ad6311ad38f593e9529dc9adf82f126a_digest_version md5
+2e9262aac405c20d6cba33295b9ff72f chr330circular31fc6ca291a32fb9df82b85e5f077e31  chr4::mod40linearc175211cccf95a0e3c43fc0c70a3226d
+2e9262aac405c20d6cba33295b9ff72f_item_type ASDList
+2e9262aac405c20d6cba33295b9ff72f_digest_version md5
+6eaefa29f5e59d6f93e723c02fb6d5fb fasta1ad6311ad38f593e9529dc9adf82f126a    fasta22e9262aac405c20d6cba33295b9ff72f
+6eaefa29f5e59d6f93e723c02fb6d5fb_item_type ACDList
+6eaefa29f5e59d6f93e723c02fb6d5fb_digest_version md5
+</code></pre></div>
+<p>This is how you would clean out all items in the database:</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">del</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">database</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+</code></pre></div>
+<p>Look at the actual delimiters used by <code>Henge</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">henge</span> 
+<span class="n">henge</span><span class="o">.</span><span class="n">DELIM_ATTR</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;\x1e&#39;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">henge</span><span class="o">.</span><span class="n">DELIM_ITEM</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;\t&#39;
+</code></pre></div>
+<h2 id="linking-henges">Linking henges</h2>
+<p>It may be that we want to split information among servers; for example, we want the sequences themselves to be hosted in one location, because that data is large; but we want the collection-level information, which is just sets of pointers to sequences, in another location.</p>
+<p>We can do this by linking henges to one other. Here, we'll create two henges; one we call <em>heavy</em>, and it only knows how to store sequences. Another, we call <em>light</em> -- it stores everything else. Then, we'll tell the light henge that for sequences, it should interact with the heavy henge.</p>
+<p>Here, I've started up 2 Mongo instances that both run locally but on different ports. These are effectively different databases and are simulating different servers. For development I do this with these commands: </p>
+<div class="highlight"><pre><span></span><code>docker run -it --network &quot;host&quot; --user=854360:25014  -v /ext/qumulo/database/mongo_local:/data/db mongo --port 27018
+
+docker run -it --network &quot;host&quot; --user=854360:25014  -v /ext/qumulo/database/mongo_remote:/data/db mongo --port 27019
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">henge</span>
+<span class="kn">import</span> <span class="nn">os</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">backend_light</span> <span class="o">=</span> <span class="n">refget</span><span class="o">.</span><span class="n">MongoDict</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">27018</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="s1">&#39;my_dict&#39;</span><span class="p">,</span>
+                        <span class="n">collection</span><span class="o">=</span><span class="s1">&#39;store&#39;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">backend_heavy</span> <span class="o">=</span> <span class="n">refget</span><span class="o">.</span><span class="n">MongoDict</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">27019</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="s1">&#39;my_dict&#39;</span><span class="p">,</span>
+                        <span class="n">collection</span><span class="o">=</span><span class="s1">&#39;store&#39;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">schemas_light</span><span class="o">=</span> <span class="p">{</span> 
+                    <span class="s2">&quot;ASD&quot;</span><span class="p">:</span> <span class="n">henge</span><span class="o">.</span><span class="n">load_yaml</span><span class="p">(</span><span class="s2">&quot;http://schema.databio.org/refget/annotated_sequence_digest.yaml&quot;</span><span class="p">),</span>
+                    <span class="s2">&quot;ASDList&quot;</span><span class="p">:</span> <span class="n">henge</span><span class="o">.</span><span class="n">load_yaml</span><span class="p">(</span><span class="s2">&quot;http://schema.databio.org/refget/ASDList.yaml&quot;</span><span class="p">),</span>
+                    <span class="s2">&quot;ACDList&quot;</span><span class="p">:</span> <span class="n">henge</span><span class="o">.</span><span class="n">load_yaml</span><span class="p">(</span><span class="s2">&quot;http://schema.databio.org/refget/ACDList.yaml&quot;</span><span class="p">),</span>
+                    <span class="s2">&quot;ACD&quot;</span><span class="p">:</span> <span class="n">henge</span><span class="o">.</span><span class="n">load_yaml</span><span class="p">(</span><span class="s2">&quot;http://schema.databio.org/refget/annotated_collection_digest.yaml&quot;</span><span class="p">)}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">schemas_heavy</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;sequence&quot;</span><span class="p">:</span> <span class="n">henge</span><span class="o">.</span><span class="n">load_yaml</span><span class="p">(</span><span class="s2">&quot;http://schema.databio.org/refget/sequence.yaml&quot;</span><span class="p">)}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb_heavy</span> <span class="o">=</span> <span class="n">refget</span><span class="o">.</span><span class="n">RefGetHenge</span><span class="p">(</span><span class="n">backend_heavy</span><span class="p">,</span> <span class="n">schemas</span><span class="o">=</span><span class="n">schemas_heavy</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb_heavy</span><span class="o">.</span><span class="n">list_item_types</span><span class="p">()</span>
+</code></pre></div>
+<p>Now when we create the light database, we'll need a dictionary that maps the item types to other henges, so this henge will know how to deal with these item types. We'll create a dict saying that <code>sequence</code> items should map to this heavy henge.</p>
+<div class="highlight"><pre><span></span><code><span class="n">heavy_henge_list</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;sequence&quot;</span><span class="p">:</span> <span class="n">rgdb_heavy</span><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb_light</span> <span class="o">=</span> <span class="n">refget</span><span class="o">.</span><span class="n">RefGetHenge</span><span class="p">(</span><span class="n">backend_light</span><span class="p">,</span> <span class="n">schemas</span><span class="o">=</span><span class="n">schemas_light</span><span class="p">,</span> <span class="n">henges</span><span class="o">=</span><span class="n">heavy_henge_list</span><span class="p">)</span>
+</code></pre></div>
+<p>But notice that the light database includes sequences in its list of known item types, even though this was included in the schemas. It's because it is populated via it's connection to the heavy henge, which <em>does</em> understand sequences.</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb_light</span><span class="o">.</span><span class="n">list_item_types</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb_light</span><span class="o">.</span><span class="n">load_seq</span><span class="p">(</span><span class="s2">&quot;TCGA&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb_light</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="s2">&quot;45d0ff9f1a9504cf2039f89c1ffb4c32&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>We've just inserted and retrieved the sequence object through the light henge; however, this sequence is not actually stored in this henge, because it is not listed as one of its primary schemas; here we can show that the henge is actually inserting and retriving this object from the heavy henge"</p>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb_light</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">rgdb_heavy</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>Look at that; it put the heavy object in the heavy database (the 'storage henge') but can still retrieve it through the light database (the 'interface henge').</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../seqcolapi/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Adding seqcolapi endpoints">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Adding seqcolapi endpoints
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../seqcol/" class="md-footer__link md-footer__link--next" aria-label="Next: Using local collections">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Using local collections
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a class="" href="http://databio.org/">
+  <img src="https://databio.org/images/logo/logo_databio_long.svg"
+    style="height:60px;"
+    alt="Databio logo">
+</a>
+
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["header.autohide", "navigation.sections", "navigation.footer", "navigation.indexes", "toc.follow", "content.action.edit", "content.action.view", "navigation.tabs", "navigation.top"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+    
+  </body>
+</html>
