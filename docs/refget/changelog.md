@@ -2,6 +2,14 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format. 
 
+## [0.7.0] - 2025-01-11
+
+- Major revamp to RefGetClient object, which now works with either sequences or seqcol servers, and can handle any of the seqcol API endpoints.
+- Better integration of rust digest calculations built on gtars
+- switch back-end to use JSON instead of str
+- implement name_length_pairs and sorted_sequences attrs
+- improve some SeqCol object representations
+
 ## [0.6.0] - 2024-08-08
 
 - Change paging style of list endpoints to match latest GA4GH pagination guide

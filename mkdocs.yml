@@ -86,14 +86,13 @@ nav:
     - Using a remote seqcol server: refget/seqcol-client-demo.md
   - API how-to guides:
     - Adding seqcolapi endpoints: refget/seqcolapi.md
-  - Outdated documentation:
-    - Advanced tutorial: refget/code/advanced.md
-    - Using local collections: refget/code/seqcol.md
-    - Using local collections 2: refget/code/demo.md
+  # - Outdated documentation:
+  #   - Advanced tutorial: refget/code/advanced.md
+  #   - Using local collections: refget/code/seqcol.md
+  #   - Using local collections 2: refget/code/demo.md
   - Reference:
     - Changelog: refget/changelog.md
-    - RefGet Client API: refget/code/refget-api.md
-    - SeqCol Client API: refget/code/seqcol-api.md
+    - RefGetClient API: refget/code/refgetclient.md
 
 
 autodoc:
@@ -101,12 +100,9 @@ autodoc:
     - pkg: refgenconf
       outfile: docs/refgenie/code/refgenconf-api.md
     - pkg: refget
-      outfile: docs/refget/code/refget-api.md
+      outfile: docs/refget/code/refgetclient.md
       whitelist:
         - RefGetClient
-    - pkg: refget
-      outfile: docs/refget/code/seqcol-api.md
-      whitelist:
         - SeqColClient
   jupyter:
     - in: refget/notebooks
