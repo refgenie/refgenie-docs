@@ -341,6 +341,8 @@ pip install git+https://github.com/refgenie/refgenie.git@dev_config_upgrade
     Requirement already satisfied: oyaml in /Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages (from yacman->piper>=0.12.1->refgenie==0.10.0.dev0) (0.9)
     Requirement already satisfied: pyyaml>=3.13 in /Users/mstolarczyk/Library/Python/3.6/lib/python/site-packages (from yacman->piper>=0.12.1->refgenie==0.10.0.dev0) (5.1)
     Requirement already satisfied: pytz>=2017.2 in /Users/mstolarczyk/Library/Python/3.6/lib/python/site-packages (from pandas->piper>=0.12.1->refgenie==0.10.0.dev0) (2018.9)
+
+
     Requirement already satisfied: python-dateutil>=2.6.1 in /Users/mstolarczyk/Library/Python/3.6/lib/python/site-packages (from pandas->piper>=0.12.1->refgenie==0.10.0.dev0) (2.8.0)
     Requirement already satisfied: numpy>=1.13.3 in /Users/mstolarczyk/Library/Python/3.6/lib/python/site-packages (from pandas->piper>=0.12.1->refgenie==0.10.0.dev0) (1.17.3)
     Building wheels for collected packages: refgenie

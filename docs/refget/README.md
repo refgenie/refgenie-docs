@@ -10,7 +10,7 @@
 
 ## The refget Python package
 
-The `refget` Python package aims to provide a Python interface for both remote and local use of the refget protocol.
+The `refget` Python package aims to provide a Python interface for both remote and local use of the [GA4GH Refget Specifications](https://ga4gh.github.io/refget/).
 
 ### The refget protocol
 
@@ -24,7 +24,7 @@ Refget will consist of 3 standards for identifying and distributing reference ge
 <img src="img/refget-umbrella.svg" width="500">
 </p>
 
-### Refget Python package utilities:
+### The Python package `refget` includes these utilities:
 
 1. For refget sequences:
     1. A lightweight Python client for a remote refget sequences server.
@@ -72,3 +72,6 @@ rgc.refget(checksum)
 ```
 
 For more details, see the [tutorial](tutorial.md).
+
+
+

@@ -30,7 +30,7 @@ extra_css:
 
 extra:
   generator: false  # turn off theme link
-  
+
 copyright: >
     <a class="" href="http://databio.org/">
       <img src="https://databio.org/images/logo/logo_databio_long.svg"
@@ -92,20 +92,26 @@ nav:
   #   - Using local collections 2: refget/code/demo.md
   - Reference:
     - Changelog: refget/changelog.md
-    - RefGetClient API: refget/code/refgetclient.md
+    - RefGetClient API: refget/reference_docs.md
 
 
 autodoc:
-  lucidoc:
-    - pkg: refgenconf
-      outfile: docs/refgenie/code/refgenconf-api.md
-    - pkg: refget
-      outfile: docs/refget/code/refgetclient.md
-      whitelist:
-        - RefGetClient
-        - SeqColClient
   jupyter:
     - in: refget/notebooks
       out: refget/code
     - in: refgenie/notebooks
       out: refgenie/code
+
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          show_source: true  # Optional: Show source code links
+          show_docstring: true  # Ensure docstrings are displayed
+          show_signature: true  # Show method signatures
+          show_if_no_docstring: false
+          docstring_section_style: table  # Optional: Format style
+          separate_signature: true  # Ensure __init__ appears clearly
+          merge_init_into_class: true  # This ensures __init__ is docum
+

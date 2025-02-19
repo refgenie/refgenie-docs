@@ -610,6 +610,8 @@ Since I already have the fasta asset, that means I don't need anything else to b
         reverse: 1
     Total time for backward call to driver() for mirror index: 00:00:00
     </pre>
+
+
     Command completed. Elapsed time: 0:00:00. Running peak memory: 0.003GB.  
       PID: 63609;	Command: bowtie2-build;	Return code: 0;	Memory used: 0.003GB
     
