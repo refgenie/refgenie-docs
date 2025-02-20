@@ -1,7 +1,5 @@
 # Package `refget` documentation
 
-::: refget._version.my_variable
-
 ## Class `RefGetClient`
 
 ::: refget.clients.RefGetClient
