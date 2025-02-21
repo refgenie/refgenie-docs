@@ -1,4 +1,4 @@
-site_name: Refgenie
+site_name: "Refgenie: granting wishes for reference genomes"
 
 theme:
   logo: img/refgenie_bug_light.svg
@@ -81,18 +81,24 @@ nav:
   - Intro: refgenieserver/README.md
 - Refget:
   - Intro: refget/README.md
-  - Client how-to guides:
-    - Using sequences: refget/code/sequences-tutorial.md
-    - Using a remote seqcol server: refget/seqcol-client-demo.md
+  - Local use:
+    - Using local packages: refget/local.md
+  - Clients how-to guides:
+    - Introduction: refget/clients.md
+    - Sequences: refget/code/sequences-tutorial.md
+    - Sequence Collections: refget/seqcol-client-demo.md
+  - Agents how-to- guides:
+    - Introduction: refget/agents.md
+    - Adding a refget agent: refget/agent.md
   - API how-to guides:
-    - Adding seqcolapi endpoints: refget/seqcolapi.md
+    - Adding a fastAPI router: refget/fastapi_router.md
   # - Outdated documentation:
   #   - Advanced tutorial: refget/code/advanced.md
   #   - Using local collections: refget/code/seqcol.md
   #   - Using local collections 2: refget/code/demo.md
   - Reference:
     - Changelog: refget/changelog.md
-    - RefGetClient API: refget/reference_docs.md
+    - Refget Python API: refget/reference_docs.md
 
 
 autodoc:
@@ -104,9 +110,14 @@ autodoc:
 
 plugins:
 - mkdocstrings:
+    default_handler: python
     handlers:
       python:
         options:
+          show_symbol_type_heading: true
+          show_symbol_type_toc: true
+          show_root_heading: true
+          show_root_full_path: false
           show_source: true  # Optional: Show source code links
           show_docstring: true  # Ensure docstrings are displayed
           show_signature: true  # Show method signatures

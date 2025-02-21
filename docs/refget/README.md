@@ -10,15 +10,7 @@
 
 ## The refget Python package
 
-The `refget` Python package aims to provide a Python interface for both remote and local use of the [GA4GH Refget Specifications](https://ga4gh.github.io/refget/).
-
-### The refget protocol
-
-Refget will consist of 3 standards for identifying and distributing reference genome data:
-
-- **Refget sequences**: a GA4GH-approved standard for individual sequences
-- **Refget sequence collections**: a standard for collections of sequences, under review 
-- **Refget pangenomes**: a future standard for which development is just beginning
+The `refget` Python package provides a Python implementation of the [GA4GH Refget Specifications](https://ga4gh.github.io/refget/), which define standards for identifying and distributing reference biological sequences, like reference genomes. It provides standards at 3 levels of data: **Refget sequences**: a GA4GH-approved standard for individual sequences; **Refget sequence collections**: a GA4GH-approved standard for collections of sequences; and **Refget pangenomes**: a future standard for which development is just beginning.
 
 <p align="center">
 <img src="img/refget-umbrella.svg" width="500">
@@ -38,6 +30,12 @@ Refget will consist of 3 standards for identifying and distributing reference ge
     3. Convenience functions for computing refget sequence collection digests from Python.
 
 3. For pangenome sequences: implementation is still a work in progress.
+
+# Clients and Agents
+
+`refget` defines a `Client` as **Python class for interacting with a remote Refget API**. If you want to **use** a refget service in your application, you can use refget to provide a Python client for you.
+
+`refget` defines an `Agent` as a **Python class for interacting with a database to produce an API**. If you want to **create** a refget service, or otherwise host your own refget database, then you can use refget Agents.
 
 
 ## Install
