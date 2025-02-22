@@ -44,7 +44,8 @@ print(args)
 
 # Read the mkdocs config
 with open("mkdocs.yml") as stream:
-    cfg = yaml.safe_load(stream)
+    # Had to use yaml.Loader instead of safe_load to accommodate unquoted "!!python//name" required for material-mkdocs extensions
+    cfg = yaml.load(stream, yaml.Loader)
 
 
 if "autodoc" not in cfg:
@@ -86,6 +87,10 @@ if args["x_usage"] is False and "cli_usage" in cfg:
 else:
     print("Skipping usage documentation")
 
+# template_path = os.path.abspath("")
+
+
+
 # # Render Juptyer notebooks to markdown
 if args["x_jupyter"] is False and "jupyter" in cfg:
     for item in cfg["jupyter"]:
@@ -94,9 +99,16 @@ if args["x_jupyter"] is False and "jupyter" in cfg:
             bn, _ = os.path.splitext(os.path.basename(nb))
             out = f"docs/{item['out']}/{bn}.md"
             print(f"Converting '{nb}' to '{out}'")
-            md_result = nbconvert.exporters.export(nbconvert.MarkdownExporter(), nb)[0]
+            md_result = nbconvert.exporters.export(nbconvert.MarkdownExporter(template_file = "mkdocs_html/notebook.html.j2", extra_template_paths= ["/home/nsheff/code/refgenie-docs"]), nb)[0]
+            html_exporter = nbconvert.HTMLExporter(template_file = "mkdocs_html/notebook.html.j2", extra_template_paths= ["/home/nsheff/code/refgenie-docs"])
+            # html_exporter.template_file = 'mkdocs_html/notebook.html.j2'
+            # html_exporter.template_paths.append("/home/nsheff/code/refgenie-docs/")
+            # html_exporter.template_paths.append("/home/nsheff/code/refgenie-docs/mkdocs_html")
+            # html_exporter.template_paths.append("/home/nsheff/code/refgenie-docs/mkdocs_html/assets")
+            # print(html_exporter.template_paths)
+            html_result = nbconvert.exporters.export(html_exporter, nb)[0]
             Path(os.path.dirname(out)).mkdir(parents=True, exist_ok=True)
             with open(out, "w") as stream:
-                stream.write(md_result)
+                stream.write(html_exporter)
 else:
     print("Skipping jupyter notebooks")

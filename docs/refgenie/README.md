@@ -5,7 +5,7 @@
 <p align="center">
 
 <a href="https://pepkit.github.io/img/PEP-compatible-green.svg"><img src="https://pepkit.github.io/img/PEP-compatible-green.svg"></a>
-<a href="https://img.shields.io/pypi/v/refgenie"><img src="https://img.shields.io/pypi/v/refgenie"></a>
+<a href="https://pypi.org/project/refgenie"><img src="https://img.shields.io/pypi/v/refgenie"></a>
 <a href="https://github.com/refgenie/refgenie"><img src="https://img.shields.io/badge/source-github-354a75?logo=github"></a>
 <iframe src="https://ghbtns.com/github-btn.html?user=refgenie&repo=refgenie&type=star&count=true" frameborder="0" scrolling="0" width="80" height="20" title="GitHub"></iframe>
 </p>

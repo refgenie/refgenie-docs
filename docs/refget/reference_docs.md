@@ -1,15 +1,15 @@
 # Package `refget` documentation
       
-::: refget.seqcol_router.create_refget_router
+::: refget.create_refget_router
 
-::: refget.clients.SequencesClient
+::: refget.clients.SequenceClient
     options:
       show_source: true
       show_signature: true
       heading_level: 2
 
 
-::: refget.clients.SequenceCollectionsClient
+::: refget.clients.SequenceCollectionClient
     options:
       show_source: true
       show_signature: true
@@ -20,7 +20,7 @@
     options:
       show_signature: true
 
-::: refget.agents.SeqColAgent
+::: refget.agents.SequenceCollectionAgent
 
 ::: refget.agents.SequenceAgent
 

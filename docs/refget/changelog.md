@@ -2,6 +2,15 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format. 
 
+## [0.8.0] - 2025-02-XX
+
+- Complete rewrite of the clients and agents.
+- New SequenceAgent class allows using the RefgetDBAgent class to store sequences. This is meant for testing purposes.
+- Completely refactored Clients work adds mature SequenceClient and SequenceCollectionClient classes.
+- Fix issues with rust digest calculations to improve flexibilty, using latest update to gtars interface.
+- Updates to latest ga4gh paging guidance
+- Removes some old stuff based on henge backend
+
 ## [0.7.0] - 2025-01-11
 
 - Major revamp to RefGetClient object, which now works with either sequences or seqcol servers, and can handle any of the seqcol API endpoints.

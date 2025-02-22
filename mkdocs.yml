@@ -16,7 +16,14 @@ theme:
     - content.action.view
     - navigation.tabs
     - navigation.top
+
 markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight:
       use_pygments: true
   - pymdownx.superfences:
@@ -80,18 +87,15 @@ nav:
 - Refgenie server:
   - Intro: refgenieserver/README.md
 - Refget:
-  - Intro: refget/README.md
-  - Local use:
-    - Using local packages: refget/local.md
-  - Clients how-to guides:
+  - Getting started:
+    - Getting started: refget/README.md
+  - How-to guides:
     - Introduction: refget/clients.md
-    - Sequences: refget/code/sequences-tutorial.md
-    - Sequence Collections: refget/seqcol-client-demo.md
-  - Agents how-to- guides:
-    - Introduction: refget/agents.md
-    - Adding a refget agent: refget/agent.md
-  - API how-to guides:
+    - Sequences Client: refget/notebooks/sequence-client.ipynb
+    - Sequence Collections Client: refget/notebooks/seqcol-client.ipynb
+    - RefgetDB Agent: refget/notebooks/agent.ipynb
     - Adding a fastAPI router: refget/fastapi_router.md
+    - Compliance testing: refget/compliance.md
   # - Outdated documentation:
   #   - Advanced tutorial: refget/code/advanced.md
   #   - Using local collections: refget/code/seqcol.md
@@ -109,6 +113,12 @@ autodoc:
       out: refgenie/code
 
 plugins:
+- mkdocs-jupyter:
+    include: 
+      - refget/notebooks/sequence-client.ipynb
+      - refget/notebooks/seqcol-client.ipynb
+      - refget/notebooks/agent.ipynb
+    ignore_h1_titles: True
 - mkdocstrings:
     default_handler: python
     handlers:

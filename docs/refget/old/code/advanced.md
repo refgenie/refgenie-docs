@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>tutorial</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>advanced</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7517,8 +7517,30 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Tutorial">Tutorial<a class="anchor-link" href="#Tutorial">¶</a></h1><p>I assume you've already installed refgenie. In this tutorial I'll show you a few ways to use refgenie from the command line (commands that start with a <code>!</code>), and also some Python commands.</p>
-<p>To start, initialize an empty refgenie configuration file from the shell and subscribe to the desired asset server:</p>
+<h1 id="Refget-py-tutorial">Refget-py tutorial<a class="anchor-link" href="#Refget-py-tutorial">¶</a></h1>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Introduction-and-prerequisites">Introduction and prerequisites<a class="anchor-link" href="#Introduction-and-prerequisites">¶</a></h2><p>This tutorial will introduce you to the <code>refget-py</code> python package. In addition to implementing the basic refget protocol, this tutorial will introduce the possibility of storing not just <em>sequences</em>, but <em>annotated sequence collections</em>, and other object types. This package is built on top of the <code>henge</code> package, which provides a generic ability to store and retrieve any data type.</p>
+<p>This tutorial assumes you are familiar with the basic refget protocol, and have installed <code>refget-py</code> and dependencies.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>To begin, let's import some required packages.</p>
 </div>
 </div>
 </div>
@@ -7530,7 +7552,11 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>refgenie<span class="w"> </span>init<span class="w"> </span>-c<span class="w"> </span>refgenie.yaml<span class="w"> </span>-s<span class="w"> </span>http://rg.databio.org
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">refget</span><span class="o">,</span> <span class="nn">pymongo</span><span class="o">,</span> <span class="nn">mongodict</span>
+<span class="kn">from</span> <span class="nn">henge</span> <span class="kn">import</span> <span class="n">connect_mongo</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">platform</span> <span class="kn">import</span> <span class="n">python_version</span> 
+<span class="n">python_version</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -7540,14 +7566,26 @@ a.anchor-link {
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Initialized genome configuration file: /Users/mstolarczyk/code/refgenie/docs_jupyter/refgenie.yaml
-Created directories:
- - /Users/mstolarczyk/code/refgenie/docs_jupyter/data
- - /Users/mstolarczyk/code/refgenie/docs_jupyter/alias
-</pre>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[1]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>'3.8.5'</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Run this command to increase logging output</span>
+<span class="c1"># import logmuse</span>
+<span class="c1"># logmuse.init_logger("refget", "DEBUG", devmode=True)</span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -7559,38 +7597,10 @@ Created directories:
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Here's what it looks like:</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>cat<span class="w"> </span>refgenie.yaml
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>config_version: 0.4
-genome_folder: /Users/mstolarczyk/code/refgenie/docs_jupyter
-genome_servers: 
- - http://rg.databio.org
-genomes: null
-</pre>
-</div>
+<h2 id="Initialize-the-back-end">Initialize the back-end<a class="anchor-link" href="#Initialize-the-back-end">¶</a></h2><p>We require some type of database to store the sequences and their digests. The <code>RefGetHenge</code> object just needs any object that extends a basic Python <code>dict</code>; so a simple <code>dict</code> is fine for testing. If you want data to persist, you can use a <a href="https://www.mongodb.com/">MongoDB</a> instance and a <code>MongoDict</code> object on top of it. You can start a mongo database with docker like this:'</p>
+<pre><code>docker run -v /PATH/TO/PERSISTENT/DATABASE:/data/db mongo
+</code></pre>
+<p>Populate the USERID, GROUPID, and PATH variables with values for your setup. Now, we'll use a helper function <code>connect_mongo</code> to create a <code>MongoDict</code> object to use this back-end and use this to instantate a new refget database (<code>rgdb</code>) object:</p>
 </div>
 </div>
 </div>
@@ -7602,7 +7612,7 @@ genomes: null
 <div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>refgenie<span class="w"> </span>listr<span class="w"> </span>-c<span class="w"> </span>refgenie.yaml
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span> <span class="o">=</span> <span class="n">refget</span><span class="o">.</span><span class="n">RefGetHenge</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="n">connect_mongo</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -7614,73 +7624,14 @@ genomes: null
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>                             Remote refgenie assets                             
-                       Server URL: http://rg.databio.org                        
-┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃<span class="ansi-bold"> </span><span class="ansi-bold">genome          </span><span class="ansi-bold"> </span>┃<span class="ansi-bold"> </span><span class="ansi-bold">assets                                                   </span><span class="ansi-bold"> </span>┃
-┡━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ rCRSd            │ fasta, bowtie2_index, bwa_index, hisat2_index,            │
-│                  │ star_index, bismark_bt2_index                             │
-│ hg18_cdna        │ fasta, kallisto_index                                     │
-│ hs38d1           │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ tallymer_index, hisat2_index, star_index,                 │
-│                  │ bismark_bt2_index                                         │
-│ hg38_cdna        │ fasta, kallisto_index, salmon_index                       │
-│ human_repeats    │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ tallymer_index, hisat2_index, star_index,                 │
-│                  │ bismark_bt2_index                                         │
-│ rn6_cdna         │ fasta, kallisto_index, salmon_index                       │
-│ mm10_cdna        │ fasta, kallisto_index, salmon_index                       │
-│ hg38_chr22       │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ tallymer_index, hisat2_index, star_index,                 │
-│                  │ bismark_bt2_index                                         │
-│ hg38             │ fasta, gencode_gtf, ensembl_gtf, refgene_anno,            │
-│                  │ fasta_txome, ensembl_rb, feat_annotation,                 │
-│                  │ suffixerator_index, cellranger_reference, bowtie2_index,  │
-│                  │ bwa_index, tallymer_index, hisat2_index, star_index,      │
-│                  │ bismark_bt2_index, salmon_partial_sa_index                │
-│ hg19_cdna        │ fasta, kallisto_index, salmon_index                       │
-│ human_rDNA       │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ tallymer_index, hisat2_index, star_index,                 │
-│                  │ bismark_bt2_index                                         │
-│ human_alu        │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ tallymer_index, hisat2_index, bismark_bt2_index           │
-│ human_alphasat   │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ tallymer_index, hisat2_index, star_index,                 │
-│                  │ bismark_bt2_index                                         │
-│ mouse_chrM2x     │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ tallymer_index, hisat2_index, star_index,                 │
-│                  │ bismark_bt2_index                                         │
-│ t7               │ fasta, bowtie2_index                                      │
-│ mm10             │ fasta, gencode_gtf, ensembl_gtf, refgene_anno,            │
-│                  │ fasta_txome, ensembl_rb, feat_annotation,                 │
-│                  │ suffixerator_index, cellranger_reference, bwa_index,      │
-│                  │ bowtie2_index, hisat2_index, tallymer_index, star_index,  │
-│                  │ bismark_bt2_index, salmon_partial_sa_index                │
-│ dm6              │ fasta, gencode_gtf, ensembl_gtf, refgene_anno,            │
-│                  │ bowtie2_index                                             │
-│ hg18             │ fasta, gencode_gtf, fasta_txome, suffixerator_index,      │
-│                  │ cellranger_reference, bwa_index, bowtie2_index,           │
-│                  │ tallymer_index, hisat2_index, star_index,                 │
-│                  │ bismark_bt2_index                                         │
-│ hg19             │ fasta, gencode_gtf, ensembl_gtf, refgene_anno,            │
-│                  │ fasta_txome, ensembl_rb, feat_annotation,                 │
-│                  │ suffixerator_index, cellranger_reference, bwa_index,      │
-│                  │ bowtie2_index, tallymer_index, hisat2_index, star_index,  │
-│                  │ salmon_partial_sa_index, bismark_bt2_index                │
-│ rn6              │ fasta, ensembl_gtf, refgene_anno, fasta_txome,            │
-│                  │ suffixerator_index, bwa_index, bowtie2_index,             │
-│                  │ tallymer_index, hisat2_index, star_index,                 │
-│                  │ bismark_bt2_index, salmon_partial_sa_index                │
-│ hg38_noalt_decoy │ fasta, suffixerator_index, bowtie2_index, bwa_index,      │
-│                  │ tallymer_index, hisat2_index, bismark_bt2_index           │
-│ mm10_primary     │ fasta, bowtie2_index, bwa_index                           │
-│ hg38_primary     │ fasta, bowtie2_index, bwa_index                           │
-│ hg38_mm10        │ fasta, bwa_index                                          │
-└──────────────────┴───────────────────────────────────────────────────────────┘
-             use refgenie listr -g &lt;genome&gt; for more detailed view              
-</pre>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-3-55a2cecd8904&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>rgdb <span class="ansi-blue-fg">=</span> refget<span class="ansi-blue-fg">.</span>RefGetHenge<span class="ansi-blue-fg">(</span>database<span class="ansi-blue-fg">=</span>connect_mongo<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">AttributeError</span>: module 'refget' has no attribute 'RefGetHenge'</pre>
 </div>
 </div>
 </div>
@@ -7692,11 +7643,48 @@ genomes: null
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Now let's enter python and do some stuff.</p>
+<p>We can easily load and retrieve sequences with the <code>load_seq</code> and <code>refget</code> functions:</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">load_seq</span><span class="p">(</span><span class="s2">"TCGA"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>'45d0ff9f1a9504cf2039f89c1ffb4c32'</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The returned digest is the md5 checksum of the sequence itself.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7704,21 +7692,21 @@ genomes: null
 <div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">refgenconf</span>
-<span class="n">rgc</span> <span class="o">=</span> <span class="n">refgenconf</span><span class="o">.</span><span class="n">RefGenConf</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="s2">"refgenie.yaml"</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">refget</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="s2">"TCGA"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>'45d0ff9f1a9504cf2039f89c1ffb4c32'</pre>
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Use <code>pull</code> to download one of the assets:</p>
 </div>
 </div>
 </div>
@@ -7730,7 +7718,7 @@ genomes: null
 <div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgc</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s2">"mouse_chrM2x"</span><span class="p">,</span> <span class="s2">"fasta"</span><span class="p">,</span> <span class="s2">"default"</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="s2">"45d0ff9f1a9504cf2039f89c1ffb4c32"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7740,45 +7728,11 @@ genomes: null
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Output()</pre>
-</div>
-</div>
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
 <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>(['43f14ba8beed34d52edb244e26f193df6edbb467bd55d37a', 'fasta', 'default'],
- {'asset_path': 'fasta',
-  'asset_digest': '8dfe402f7d29d5b036dd8937119e4404',
-  'archive_digest': 'bfb7877ee114c61a17a50bd471de47a2',
-  'asset_size': '39.4KB',
-  'archive_size': '9.1KB',
-  'seek_keys': {'fasta': '43f14ba8beed34d52edb244e26f193df6edbb467bd55d37a.fa',
-   'fai': '43f14ba8beed34d52edb244e26f193df6edbb467bd55d37a.fa.fai',
-   'chrom_sizes': '43f14ba8beed34d52edb244e26f193df6edbb467bd55d37a.chrom.sizes'},
-  'asset_parents': [],
-  'asset_children': ['43f14ba8beed34d52edb244e26f193df6edbb467bd55d37a/suffixerator_index:default',
-   '43f14ba8beed34d52edb244e26f193df6edbb467bd55d37a/bowtie2_index:default',
-   '43f14ba8beed34d52edb244e26f193df6edbb467bd55d37a/bwa_index:default',
-   '43f14ba8beed34d52edb244e26f193df6edbb467bd55d37a/tallymer_index:default',
-   '43f14ba8beed34d52edb244e26f193df6edbb467bd55d37a/hisat2_index:default',
-   '43f14ba8beed34d52edb244e26f193df6edbb467bd55d37a/star_index:default',
-   '43f14ba8beed34d52edb244e26f193df6edbb467bd55d37a/bismark_bt2_index:default']},
- 'http://rg.databio.org')</pre>
+<pre>{'sequence': 'TCGA'}</pre>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Once it's downloaded, use <code>seek</code> to retrieve a path to it.</p>
 </div>
 </div>
 </div>
@@ -7790,7 +7744,7 @@ genomes: null
 <div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgc</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="s2">"mouse_chrM2x"</span><span class="p">,</span> <span class="s2">"fasta"</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="s2">"45d0ff9f1a9504cf2039f89c1ffb4c32"</span><span class="p">,</span> <span class="n">postprocess</span><span class="o">=</span><span class="s2">"simplify"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7803,7 +7757,7 @@ genomes: null
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
 <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>'/Users/mstolarczyk/code/refgenie/docs_jupyter/alias/mouse_chrM2x/fasta/default/mouse_chrM2x.fa'</pre>
+<pre>'TCGA'</pre>
 </div>
 </div>
 </div>
@@ -7815,11 +7769,12 @@ genomes: null
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>You can get the unique asset identifier with <code>id()</code></p>
+<h2 id="Loading-sequence-collections">Loading sequence collections<a class="anchor-link" href="#Loading-sequence-collections">¶</a></h2><p>The back-end can handle not just raw sequences, but another object type we call <em>Annotated Sequence Digest Lists</em> -- these are roughly equivalent to a <code>fasta</code> file. In fact, if you have a fasta file, you can load that directly into the database and then retrieve it using its own digest.</p>
+<p>Let's demonstrate by loading and retreiving some fasta files. Define a few file paths here:</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7827,24 +7782,13 @@ genomes: null
 <div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgc</span><span class="o">.</span><span class="n">id</span><span class="p">(</span><span class="s2">"mouse_chrM2x"</span><span class="p">,</span> <span class="s2">"fasta"</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">fa_file1</span> <span class="o">=</span> <span class="s2">"demo_fasta/demo.fa.gz"</span>
+<span class="n">fa_file2</span> <span class="o">=</span> <span class="s2">"demo_fasta/demo2.fa.gz"</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>'8dfe402f7d29d5b036dd8937119e4404'</pre>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -7852,22 +7796,11 @@ genomes: null
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Building-and-pulling-from-the-command-line">Building and pulling from the command line<a class="anchor-link" href="#Building-and-pulling-from-the-command-line">¶</a></h2>
+<p>Load a fasta file directly into the database with the <code>load_fasta</code> function. The function will return 2 things: First, a <em>digest</em> that can be used to retrieve the entire contents of the fasta file, and also the contents (in <code>dict</code> form) that were loaded into the database.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Here, we can build a fasta asset instead of pulling one. Back to the shell, we'll grab the Revised Cambridge Reference Sequence (human mitochondrial genome, because it's small):</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7875,31 +7808,8 @@ genomes: null
 <div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>wget<span class="w"> </span>-O<span class="w"> </span>rCRSd.fa.gz<span class="w"> </span>http://big.databio.org/refgenie_raw/files.rCRSd.fasta.fasta
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">digest1</span><span class="p">,</span> <span class="n">content1</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">load_fasta</span><span class="p">(</span><span class="n">fa_file1</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>--2021-03-09 12:22:40--  http://big.databio.org/refgenie_raw/files.rCRSd.fasta.fasta
-Resolving big.databio.org (big.databio.org)... 128.143.245.181, 128.143.245.182
-Connecting to big.databio.org (big.databio.org)|128.143.245.181|:80... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: 8399 (8.2K) [application/octet-stream]
-Saving to: ‘rCRSd.fa.gz’
-
-rCRSd.fa.gz         100%[===================&gt;]   8.20K  --.-KB/s    in 0.006s  
-
-2021-03-09 12:22:40 (1.35 MB/s) - ‘rCRSd.fa.gz’ saved [8399/8399]
-
-</pre>
 </div>
 </div>
 </div>
@@ -7912,7 +7822,7 @@ rCRSd.fa.gz         100%[===================&gt;]   8.20K  --.-KB/s    in 0.006s
 <div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>refgenie<span class="w"> </span>build<span class="w"> </span>rCRSd/fasta<span class="w"> </span>-c<span class="w"> </span>refgenie.yaml<span class="w">  </span>--files<span class="w"> </span><span class="nv">fasta</span><span class="o">=</span>rCRSd.fa.gz<span class="w"> </span>-R
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">digest1</span>
 </pre></div>
 </div>
 </div>
@@ -7922,130 +7832,11 @@ rCRSd.fa.gz         100%[===================&gt;]   8.20K  --.-KB/s    in 0.006s
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Using 'default' as the default tag for 'rCRSd/fasta'
-Recipe validated successfully against a schema: /Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/refgenie/schemas/recipe_schema.yaml
-Building 'rCRSd/fasta:default' using 'fasta' recipe
-Initializing genome: rCRSd
-Loaded AnnotatedSequenceDigestList (1 sequences)
-Set genome alias (94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4: rCRSd)
-Created alias directories: 
- - /Users/mstolarczyk/code/refgenie/docs_jupyter/alias/rCRSd
-Saving outputs to:
-- content: /Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4
-- logs: /Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/fasta/default/_refgenie_build
-### Pipeline run code and environment:
-
-*              Command:  `/Library/Frameworks/Python.framework/Versions/3.6/bin/refgenie build rCRSd/fasta -c refgenie.yaml --files fasta=rCRSd.fa.gz -R`
-*         Compute host:  MichalsMBP
-*          Working dir:  /Users/mstolarczyk/code/refgenie/docs_jupyter
-*            Outfolder:  /Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/fasta/default/_refgenie_build/
-*  Pipeline started at:   (03-09 12:22:41) elapsed: 0.0 _TIME_
-
-### Version log:
-
-*       Python version:  3.6.5
-*          Pypiper dir:  `/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/pypiper`
-*      Pypiper version:  0.12.1
-*         Pipeline dir:  `/Library/Frameworks/Python.framework/Versions/3.6/bin`
-*     Pipeline version:  None
-
-### Arguments passed to pipeline:
-
-* `asset_registry_paths`:  `['rCRSd/fasta']`
-*             `assets`:  `None`
-*            `command`:  `build`
-*        `config_file`:  `refgenie.yaml`
-*             `docker`:  `False`
-*              `files`:  `[['fasta=rCRSd.fa.gz']]`
-*             `genome`:  `None`
-*      `genome_config`:  `refgenie.yaml`
-* `genome_description`:  `None`
-*             `logdev`:  `False`
-*          `new_start`:  `False`
-*          `outfolder`:  `/Users/mstolarczyk/code/refgenie/docs_jupyter/data`
-*             `params`:  `None`
-*             `recipe`:  `None`
-*            `recover`:  `True`
-*       `requirements`:  `False`
-*             `silent`:  `False`
-*     `skip_read_lock`:  `False`
-*    `tag_description`:  `None`
-*          `verbosity`:  `None`
-*            `volumes`:  `None`
-
-----------------------------------------
-
-Target to produce: `/Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/fasta/default/_refgenie_build/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4_fasta__default.flag`  
-
-&gt; `cp rCRSd.fa.gz /Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/fasta/default/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4.fa.gz` (63575)
-&lt;pre&gt;
-psutil.ZombieProcess process still exists but it's a zombie (pid=63575)
-Warning: couldn't add memory use for process: 63575
-&lt;/pre&gt;
-Command completed. Elapsed time: 0:00:00. Running peak memory: 0GB.  
-  PID: 63575;	Command: cp;	Return code: 0;	Memory used: 0GB
-
-
-&gt; `gzip -df /Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/fasta/default/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4.fa.gz` (63576)
-&lt;pre&gt;
-psutil.ZombieProcess process still exists but it's a zombie (pid=63576)
-Warning: couldn't add memory use for process: 63576
-&lt;/pre&gt;
-Command completed. Elapsed time: 0:00:00. Running peak memory: 0GB.  
-  PID: 63576;	Command: gzip;	Return code: 0;	Memory used: 0GB
-
-
-&gt; `samtools faidx /Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/fasta/default/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4.fa` (63577)
-&lt;pre&gt;
-&lt;/pre&gt;
-Command completed. Elapsed time: 0:00:00. Running peak memory: 0.001GB.  
-  PID: 63577;	Command: samtools;	Return code: 0;	Memory used: 0.001GB
-
-
-&gt; `cut -f 1,2 /Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/fasta/default/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4.fa.fai &gt; /Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/fasta/default/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4.chrom.sizes` (63578)
-&lt;pre&gt;
-psutil.ZombieProcess process still exists but it's a zombie (pid=63578)
-Warning: couldn't add memory use for process: 63578
-&lt;/pre&gt;
-Command completed. Elapsed time: 0:00:00. Running peak memory: 0.001GB.  
-  PID: 63578;	Command: cut;	Return code: 0;	Memory used: 0GB
-
-
-&gt; `touch /Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/fasta/default/_refgenie_build/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4_fasta__default.flag` (63580)
-&lt;pre&gt;
-psutil.ZombieProcess process still exists but it's a zombie (pid=63580)
-Warning: couldn't add memory use for process: 63580
-&lt;/pre&gt;
-Command completed. Elapsed time: 0:00:00. Running peak memory: 0.001GB.  
-  PID: 63580;	Command: touch;	Return code: 0;	Memory used: 0GB
-
-Asset digest: 4eb430296bc02ed7e4006624f1d5ac53
-Default tag for '94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/fasta' set to: default
-
-### Pipeline completed. Epilogue
-*        Elapsed time (this run):  0:00:00
-*  Total elapsed time (all runs):  0:00:00
-*         Peak memory (this run):  0.0015 GB
-*        Pipeline completed time: 2021-03-09 12:22:41
-Finished building 'fasta' asset
-Created alias directories: 
- - /Users/mstolarczyk/code/refgenie/docs_jupyter/alias/rCRSd/fasta/default
-</pre>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[9]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>'2bcaa3eadf4fea03f55f0c584af05378'</pre>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The asset should be available for local use, let's call <code>refgenie list</code> to check it:</p>
 </div>
 </div>
 </div>
@@ -8057,7 +7848,7 @@ Created alias directories:
 <div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>refgenie<span class="w"> </span>list<span class="w"> </span>-c<span class="w"> </span>refgenie.yaml<span class="w"> </span>--genome<span class="w"> </span>rCRSd
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">content1</span>
 </pre></div>
 </div>
 </div>
@@ -8067,17 +7858,17 @@ Created alias directories:
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>                        Local refgenie assets                         
-             Server subscriptions: http://rg.databio.org              
-┏━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┓
-┃<span class="ansi-bold"> </span><span class="ansi-bold">genome   </span><span class="ansi-bold"> </span>┃<span class="ansi-bold"> </span><span class="ansi-bold">asset (</span><span class="ansi-bold">seek_keys</span><span class="ansi-bold">)                         </span><span class="ansi-bold"> </span>┃<span class="ansi-bold"> </span><span class="ansi-bold">tags     </span><span class="ansi-bold"> </span>┃
-┡━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━┩
-│ rCRSd     │ fasta (fasta, fai, chrom_sizes)            │ default   │
-└───────────┴────────────────────────────────────────────┴───────────┘
-</pre>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>[{'name': 'chr1',
+  'length': 4,
+  'topology': 'linear',
+  'sequence_digest': 'f1f8f4bf413b16ad135722aa4591043e'},
+ {'name': 'chr2',
+  'length': 4,
+  'topology': 'linear',
+  'sequence_digest': '45d0ff9f1a9504cf2039f89c1ffb4c32'}]</pre>
 </div>
 </div>
 </div>
@@ -8089,7 +7880,8 @@ Created alias directories:
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>We can retrieve the path to this asset with:</p>
+<p>There are a few key concepts here. First, the digest returned here is not the same as the sequence digests we considered previously, because it maps to an <em>annotated sequence digest list</em>, rather than just to a sequence. Second, notice the content doesn't include actual sequences; rather, it includes <em>sequence digests</em>. These sequence digests can themselves be used with <code>refget</code> to retrieve the sequences themselves. In other words, these digests are <em>recursive</em>, and this is a critical feature of refget. Because these digests are recursive, we can either set a recursion limit to get the sequence-level digests, or we can set no limit and the <code>refget</code> function will recurse to retreive the sequences themselves.</p>
+<p>Consider the difference between these two function calls:</p>
 </div>
 </div>
 </div>
@@ -8101,7 +7893,7 @@ Created alias directories:
 <div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>refgenie<span class="w"> </span>seek<span class="w"> </span>rCRSd/fasta<span class="w"> </span>-c<span class="w"> </span>refgenie.yaml
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">digest1</span><span class="p">,</span> <span class="n">reclimit</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8111,23 +7903,18 @@ Created alias directories:
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>/Users/mstolarczyk/code/refgenie/docs_jupyter/alias/rCRSd/fasta/default/rCRSd.fa
-</pre>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[11]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>[{'name': 'chr1',
+  'length': '4',
+  'topology': 'linear',
+  'sequence_digest': 'f1f8f4bf413b16ad135722aa4591043e'},
+ {'name': 'chr2',
+  'length': '4',
+  'topology': 'linear',
+  'sequence_digest': '45d0ff9f1a9504cf2039f89c1ffb4c32'}]</pre>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Naturally, we can do the same thing from within Python:</p>
 </div>
 </div>
 </div>
@@ -8139,8 +7926,7 @@ Created alias directories:
 <div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgc</span> <span class="o">=</span> <span class="n">refgenconf</span><span class="o">.</span><span class="n">RefGenConf</span><span class="p">(</span><span class="s2">"refgenie.yaml"</span><span class="p">)</span>
-<span class="n">rgc</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="s2">"rCRSd"</span><span class="p">,</span> <span class="s2">"fasta"</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">digest1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8153,7 +7939,14 @@ Created alias directories:
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
 <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[12]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>'/Users/mstolarczyk/code/refgenie/docs_jupyter/alias/rCRSd/fasta/default/rCRSd.fa'</pre>
+<pre>[{'name': 'chr1',
+  'length': '4',
+  'topology': 'linear',
+  'sequence_digest': {'sequence': 'ACGT'}},
+ {'name': 'chr2',
+  'length': '4',
+  'topology': 'linear',
+  'sequence_digest': {'sequence': 'TCGA'}}]</pre>
 </div>
 </div>
 </div>
@@ -8165,8 +7958,7 @@ Created alias directories:
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Now, if we have bowtie2-build in our <code>$PATH</code> we can build the <code>bowtie2_index</code> asset with no further requirements.</p>
-<p>Let's check the requirements with <code>refgenie build --requirements</code>:</p>
+<p>By default, the <code>refget</code> function will automatically recurse to return the full sequences contained within. You can use the result like this or pass it through the <code>fasta_fmt</code> function to retrieve the original fasta file.</p>
 </div>
 </div>
 </div>
@@ -8178,7 +7970,7 @@ Created alias directories:
 <div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>refgenie<span class="w"> </span>build<span class="w"> </span>rCRSd/bowtie2_index<span class="w"> </span>-c<span class="w"> </span>refgenie.yaml<span class="w"> </span>--requirements
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rgdb</span><span class="o">.</span><span class="n">fasta_fmt</span><span class="p">(</span><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">digest1</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
@@ -8191,9 +7983,10 @@ Created alias directories:
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>'bowtie2_index' recipe requirements: 
-- assets:
-	fasta (fasta asset for genome); default: fasta
+<pre>&gt;chr1
+ACGT
+&gt;chr2
+TCGA
 </pre>
 </div>
 </div>
@@ -8206,11 +7999,11 @@ Created alias directories:
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Since I already have the fasta asset, that means I don't need anything else to build the bowtie2_index.</p>
+<p>Here's an example of a second fasta file that includes 2 of the same sequences. The database is smart enough to only store these sequences a single time, but they can live in multiple collections without issue.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8218,299 +8011,9 @@ Created alias directories:
 <div class="jp-InputPrompt jp-InputArea-prompt">In [14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>refgenie<span class="w"> </span>build<span class="w"> </span>rCRSd/bowtie2_index<span class="w"> </span>-c<span class="w"> </span>refgenie.yaml
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">digest2</span><span class="p">,</span> <span class="n">content2</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">load_fasta</span><span class="p">(</span><span class="n">fa_file2</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Using 'default' as the default tag for 'rCRSd/bowtie2_index'
-Recipe validated successfully against a schema: /Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/refgenie/schemas/recipe_schema.yaml
-Building 'rCRSd/bowtie2_index:default' using 'bowtie2_index' recipe
-Saving outputs to:
-- content: /Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4
-- logs: /Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/bowtie2_index/default/_refgenie_build
-### Pipeline run code and environment:
-
-*              Command:  `/Library/Frameworks/Python.framework/Versions/3.6/bin/refgenie build rCRSd/bowtie2_index -c refgenie.yaml`
-*         Compute host:  MichalsMBP
-*          Working dir:  /Users/mstolarczyk/code/refgenie/docs_jupyter
-*            Outfolder:  /Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/bowtie2_index/default/_refgenie_build/
-*  Pipeline started at:   (03-09 12:22:45) elapsed: 0.0 _TIME_
-
-### Version log:
-
-*       Python version:  3.6.5
-*          Pypiper dir:  `/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/pypiper`
-*      Pypiper version:  0.12.1
-*         Pipeline dir:  `/Library/Frameworks/Python.framework/Versions/3.6/bin`
-*     Pipeline version:  None
-
-### Arguments passed to pipeline:
-
-* `asset_registry_paths`:  `['rCRSd/bowtie2_index']`
-*             `assets`:  `None`
-*            `command`:  `build`
-*        `config_file`:  `refgenie.yaml`
-*             `docker`:  `False`
-*              `files`:  `None`
-*             `genome`:  `None`
-*      `genome_config`:  `refgenie.yaml`
-* `genome_description`:  `None`
-*             `logdev`:  `False`
-*          `new_start`:  `False`
-*          `outfolder`:  `/Users/mstolarczyk/code/refgenie/docs_jupyter/data`
-*             `params`:  `None`
-*             `recipe`:  `None`
-*            `recover`:  `False`
-*       `requirements`:  `False`
-*             `silent`:  `False`
-*     `skip_read_lock`:  `False`
-*    `tag_description`:  `None`
-*          `verbosity`:  `None`
-*            `volumes`:  `None`
-
-----------------------------------------
-
-Target to produce: `/Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/bowtie2_index/default/_refgenie_build/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4_bowtie2_index__default.flag`  
-
-&gt; `bowtie2-build /Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/fasta/default/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4.fa /Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/bowtie2_index/default/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4` (63609)
-&lt;pre&gt;
-Settings:
-  Output files: "/Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/bowtie2_index/default/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4.*.bt2"
-  Line rate: 6 (line is 64 bytes)
-  Lines per side: 1 (side is 64 bytes)
-  Offset rate: 4 (one in 16)
-  FTable chars: 10
-  Strings: unpacked
-  Max bucket size: default
-  Max bucket size, sqrt multiplier: default
-  Max bucket size, len divisor: 4
-  Difference-cover sample period: 1024
-  Endianness: little
-  Actual local endianness: little
-  Sanity checking: disabled
-  Assertions: disabled
-  Random seed: 0
-  Sizeofs: void*:8, int:4, long:8, size_t:8
-Input files DNA, FASTA:
-  /Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/fasta/default/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4.fa
-Building a SMALL index
-Reading reference sizes
-  Time reading reference sizes: 00:00:00
-Calculating joined length
-Writing header
-Reserving space for joined string
-Joining reference sequences
-  Time to join reference sequences: 00:00:00
-bmax according to bmaxDivN setting: 8284
-Using parameters --bmax 6213 --dcv 1024
-  Doing ahead-of-time memory usage test
-  Passed!  Constructing with these parameters: --bmax 6213 --dcv 1024
-Constructing suffix-array element generator
-Building DifferenceCoverSample
-  Building sPrime
-  Building sPrimeOrder
-  V-Sorting samples
-  V-Sorting samples time: 00:00:00
-  Allocating rank array
-  Ranking v-sort output
-  Ranking v-sort output time: 00:00:00
-  Invoking Larsson-Sadakane on ranks
-  Invoking Larsson-Sadakane on ranks time: 00:00:00
-  Sanity-checking and returning
-Building samples
-Reserving space for 12 sample suffixes
-Generating random suffixes
-QSorting 12 sample offsets, eliminating duplicates
-QSorting sample offsets, eliminating duplicates time: 00:00:00
-Multikey QSorting 12 samples
-  (Using difference cover)
-  Multikey QSorting samples time: 00:00:00
-Calculating bucket sizes
-Splitting and merging
-  Splitting and merging time: 00:00:00
-Avg bucket size: 33136 (target: 6212)
-Converting suffix-array elements to index image
-Allocating ftab, absorbFtab
-Entering Ebwt loop
-Getting block 1 of 1
-  No samples; assembling all-inclusive block
-  Sorting block of length 33136 for bucket 1
-  (Using difference cover)
-  Sorting block time: 00:00:00
-Returning block of 33137 for bucket 1
-Exited Ebwt loop
-fchr[A]: 0
-fchr[C]: 10248
-fchr[G]: 20610
-fchr[T]: 24948
-fchr[$]: 33136
-Exiting Ebwt::buildToDisk()
-Returning from initFromVector
-Wrote 4205567 bytes to primary EBWT file: /Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/bowtie2_index/default/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4.1.bt2
-Wrote 8292 bytes to secondary EBWT file: /Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/bowtie2_index/default/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4.2.bt2
-Re-opening _in1 and _in2 as input streams
-Returning from Ebwt constructor
-Headers:
-    len: 33136
-    bwtLen: 33137
-    sz: 8284
-    bwtSz: 8285
-    lineRate: 6
-    offRate: 4
-    offMask: 0xfffffff0
-    ftabChars: 10
-    eftabLen: 20
-    eftabSz: 80
-    ftabLen: 1048577
-    ftabSz: 4194308
-    offsLen: 2072
-    offsSz: 8288
-    lineSz: 64
-    sideSz: 64
-    sideBwtSz: 48
-    sideBwtLen: 192
-    numSides: 173
-    numLines: 173
-    ebwtTotLen: 11072
-    ebwtTotSz: 11072
-    color: 0
-    reverse: 0
-Total time for call to driver() for forward index: 00:00:00
-Reading reference sizes
-  Time reading reference sizes: 00:00:00
-Calculating joined length
-Writing header
-Reserving space for joined string
-Joining reference sequences
-  Time to join reference sequences: 00:00:00
-  Time to reverse reference sequence: 00:00:00
-bmax according to bmaxDivN setting: 8284
-Using parameters --bmax 6213 --dcv 1024
-  Doing ahead-of-time memory usage test
-  Passed!  Constructing with these parameters: --bmax 6213 --dcv 1024
-Constructing suffix-array element generator
-Building DifferenceCoverSample
-  Building sPrime
-  Building sPrimeOrder
-  V-Sorting samples
-  V-Sorting samples time: 00:00:00
-  Allocating rank array
-  Ranking v-sort output
-  Ranking v-sort output time: 00:00:00
-  Invoking Larsson-Sadakane on ranks
-  Invoking Larsson-Sadakane on ranks time: 00:00:00
-  Sanity-checking and returning
-Building samples
-Reserving space for 12 sample suffixes
-Generating random suffixes
-QSorting 12 sample offsets, eliminating duplicates
-QSorting sample offsets, eliminating duplicates time: 00:00:00
-Multikey QSorting 12 samples
-  (Using difference cover)
-  Multikey QSorting samples time: 00:00:00
-Calculating bucket sizes
-Splitting and merging
-  Splitting and merging time: 00:00:00
-Avg bucket size: 33136 (target: 6212)
-Converting suffix-array elements to index image
-Allocating ftab, absorbFtab
-Entering Ebwt loop
-Getting block 1 of 1
-  No samples; assembling all-inclusive block
-  Sorting block of length 33136 for bucket 1
-  (Using difference cover)
-  Sorting block time: 00:00:00
-Returning block of 33137 for bucket 1
-Exited Ebwt loop
-fchr[A]: 0
-fchr[C]: 10248
-fchr[G]: 20610
-fchr[T]: 24948
-fchr[$]: 33136
-Exiting Ebwt::buildToDisk()
-Returning from initFromVector
-Wrote 4205567 bytes to primary EBWT file: /Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/bowtie2_index/default/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4.rev.1.bt2
-Wrote 8292 bytes to secondary EBWT file: /Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/bowtie2_index/default/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4.rev.2.bt2
-Re-opening _in1 and _in2 as input streams
-Returning from Ebwt constructor
-Headers:
-    len: 33136
-    bwtLen: 33137
-    sz: 8284
-    bwtSz: 8285
-    lineRate: 6
-    offRate: 4
-    offMask: 0xfffffff0
-    ftabChars: 10
-    eftabLen: 20
-    eftabSz: 80
-    ftabLen: 1048577
-    ftabSz: 4194308
-    offsLen: 2072
-    offsSz: 8288
-    lineSz: 64
-    sideSz: 64
-    sideBwtSz: 48
-    sideBwtLen: 192
-    numSides: 173
-    numLines: 173
-    ebwtTotLen: 11072
-    ebwtTotSz: 11072
-    color: 0
-    reverse: 1
-Total time for backward call to driver() for mirror index: 00:00:00
-&lt;/pre&gt;
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Command completed. Elapsed time: 0:00:00. Running peak memory: 0.003GB.  
-  PID: 63609;	Command: bowtie2-build;	Return code: 0;	Memory used: 0.003GB
-
-
-&gt; `touch /Users/mstolarczyk/code/refgenie/docs_jupyter/data/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/bowtie2_index/default/_refgenie_build/94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4_bowtie2_index__default.flag` (63611)
-&lt;pre&gt;
-psutil.ZombieProcess process still exists but it's a zombie (pid=63611)
-Warning: couldn't add memory use for process: 63611
-&lt;/pre&gt;
-Command completed. Elapsed time: 0:00:00. Running peak memory: 0.003GB.  
-  PID: 63611;	Command: touch;	Return code: 0;	Memory used: 0GB
-
-Asset digest: 1262e30d4a87db9365d501de8559b3b4
-Default tag for '94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabbb4/bowtie2_index' set to: default
-
-### Pipeline completed. Epilogue
-*        Elapsed time (this run):  0:00:01
-*  Total elapsed time (all runs):  0:00:00
-*         Peak memory (this run):  0.0028 GB
-*        Pipeline completed time: 2021-03-09 12:22:46
-Finished building 'bowtie2_index' asset
-Created alias directories: 
- - /Users/mstolarczyk/code/refgenie/docs_jupyter/alias/rCRSd/bowtie2_index/default
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>We can see a list of available recipes like this:</p>
 </div>
 </div>
 </div>
@@ -8522,7 +8025,7 @@ Created alias directories:
 <div class="jp-InputPrompt jp-InputArea-prompt">In [15]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>refgenie<span class="w"> </span>list<span class="w"> </span>-c<span class="w"> </span>refgenie.yaml<span class="w"> </span>--recipes
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">digest2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8532,23 +8035,22 @@ Created alias directories:
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>bismark_bt1_index, bismark_bt2_index, blacklist, bowtie2_index, bwa_index, cellranger_reference, dbnsfp, dbsnp, ensembl_gtf, ensembl_rb, epilog_index, fasta, fasta_txome, feat_annotation, gencode_gtf, hisat2_index, kallisto_index, refgene_anno, salmon_index, salmon_partial_sa_index, salmon_sa_index, star_index, suffixerator_index, tallymer_index, tgMap
-</pre>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[15]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>[{'name': 'chr1',
+  'length': '4',
+  'topology': 'linear',
+  'sequence_digest': {'sequence': 'ACGT'}},
+ {'name': 'chr2',
+  'length': '4',
+  'topology': 'linear',
+  'sequence_digest': {'sequence': 'TCGA'}},
+ {'name': 'chrX',
+  'length': '8',
+  'topology': 'linear',
+  'sequence_digest': {'sequence': 'TTCCGGAA'}}]</pre>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>We can get the unique digest for any asset with <code>refgenie id</code>:</p>
 </div>
 </div>
 </div>
@@ -8560,7 +8062,7 @@ Created alias directories:
 <div class="jp-InputPrompt jp-InputArea-prompt">In [16]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>refgenie<span class="w"> </span>id<span class="w"> </span>rCRSd/fasta<span class="w"> </span>-c<span class="w"> </span>refgenie.yaml
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rgdb</span><span class="o">.</span><span class="n">fasta_fmt</span><span class="p">(</span><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">digest2</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
@@ -8573,7 +8075,12 @@ Created alias directories:
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>4eb430296bc02ed7e4006624f1d5ac53
+<pre>&gt;chr1
+ACGT
+&gt;chr2
+TCGA
+&gt;chrX
+TTCCGGAA
 </pre>
 </div>
 </div>
@@ -8586,7 +8093,8 @@ Created alias directories:
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Versions">Versions<a class="anchor-link" href="#Versions">¶</a></h2>
+<h2 id="Comparing-sequence-collections">Comparing sequence collections<a class="anchor-link" href="#Comparing-sequence-collections">¶</a></h2><p>We may be interested in if collections have the same sequences in different order, or with different names. The <code>compare</code> function can provide this information. Let's load some example fasta files with different sequences to demonstrate how the comparisons work.</p>
+<p>Now we can compare the content in <code>digest1</code> versus <code>digest2</code>. Notice that the 2 sequences in the first example are found in the second example, which adds a third sequence.</p>
 </div>
 </div>
 </div>
@@ -8595,11 +8103,10 @@ Created alias directories:
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [17]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [19]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">platform</span> <span class="kn">import</span> <span class="n">python_version</span> 
-<span class="n">python_version</span><span class="p">()</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">digest1</span><span class="p">,</span> <span class="n">digest2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8610,9 +8117,234 @@ Created alias directories:
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[17]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[19]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>'3.6.5'</pre>
+<pre>6165</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The compare function returns a flag that provides information about the comparison. This allows us to use logical operators to test what features were shared among the sequence collections, similar to the way we use sam flags to identify features of sequence reads.</p>
+<p>We can see the explanation of the flags like this:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [20]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">refget</span><span class="o">.</span><span class="n">FLAGS</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[20]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>{1: 'CONTENT_ALL_A_IN_B',
+ 2: 'CONTENT_ALL_B_IN_A',
+ 4: 'LENGTHS_ALL_A_IN_B',
+ 8: 'LENGTHS_ALL_B_IN_A',
+ 16: 'NAMES_ALL_A_IN_B',
+ 32: 'NAMES_ALL_B_IN_A',
+ 64: 'TOPO_ALL_A_IN_B',
+ 128: 'TOPO_ALL_B_IN_A',
+ 256: 'CONTENT_ANY_SHARED',
+ 512: 'LENGTHS_ANY_SHARED',
+ 1024: 'NAMES_ANY_SHARED',
+ 2048: 'CONTENT_A_ORDER',
+ 4096: 'CONTENT_B_ORDER'}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>So we can use this to ask questions, like, "Are all of the sequence in A contained in B?":</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [21]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">digest1</span><span class="p">,</span> <span class="n">digest2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[21]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>True</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Now to ask the inverse question:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [22]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">digest1</span><span class="p">,</span> <span class="n">digest2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[22]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>False</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Or, to ask both at the same time:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [23]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">digest1</span><span class="p">,</span> <span class="n">digest2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[23]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>False</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>As expected, we see that the all of A sequences are in B, but not the other way around. If the "&amp;3" query yielded <code>True</code>, that would indicate that the sequence content was identical. We can demonstrate this by running a comparison to the same digest:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [24]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">digest1</span><span class="p">,</span> <span class="n">digest1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[24]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>True</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>From this flag we can see that the all of the content (sequences) in A are in B, but not the other way around. Furthermore, the lengths in A all match with B (which <em>must</em> be true, since the content matches), and also the <em>names</em> match, which does not necessarily have to be true.</p>
+<p>Let's load some additional fasta files to demonstrate a few more comparisons.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [25]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">fa_file3</span> <span class="o">=</span> <span class="s2">"demo_fasta/demo3.fa"</span>
+<span class="n">fa_file4</span> <span class="o">=</span> <span class="s2">"demo_fasta/demo4.fa"</span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -8622,10 +8354,59 @@ Created alias directories:
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [18]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [26]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>refgenie<span class="w"> </span>--version
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">digest3</span><span class="p">,</span> <span class="n">content3</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">load_fasta</span><span class="p">(</span><span class="n">fa_file3</span><span class="p">)</span>
+<span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">digest3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[26]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>[{'name': '1',
+  'length': '4',
+  'topology': 'linear',
+  'sequence_digest': {'sequence': 'ACGT'}},
+ {'name': '2',
+  'length': '4',
+  'topology': 'linear',
+  'sequence_digest': {'sequence': 'TCGA'}},
+ {'name': 'X',
+  'length': '8',
+  'topology': 'linear',
+  'sequence_digest': {'sequence': 'TTCCGGAA'}}]</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The <code>demo3</code> file has the exact same sequence content as demo2, but the names are different. The compare function shows that the content and lengths match and are in the same order, but the name match flag is not set:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [27]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">digest2</span><span class="p">,</span> <span class="n">digest3</span><span class="p">,</span> <span class="n">explain</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8638,9 +8419,1951 @@ Created alias directories:
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>refgenie 0.10.0-dev | refgenconf 0.10.0-dev
+<pre>Flag: 6159
+Binary: 0b1100000001111
+
+CONTENT_ALL_A_IN_B
+CONTENT_ALL_B_IN_A
+LENGTHS_ALL_A_IN_B
+LENGTHS_ALL_B_IN_A
+CONTENT_A_ORDER
+CONTENT_B_ORDER
 </pre>
 </div>
+</div>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[27]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>6159</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The <code>demo4</code> example contains one of the sequences in <code>demo2</code>, but has no overlap with <code>demo1</code>:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [28]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">digest4</span><span class="p">,</span> <span class="n">content4</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">load_fasta</span><span class="p">(</span><span class="n">fa_file4</span><span class="p">)</span>
+<span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">digest4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[28]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>[{'name': 'chrX',
+  'length': '8',
+  'topology': 'linear',
+  'sequence_digest': {'sequence': 'TTCCGGAA'}}]</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [29]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">digest4</span><span class="p">,</span> <span class="n">digest2</span><span class="p">,</span> <span class="n">explain</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Flag: 21
+Binary: 0b10101
+
+CONTENT_ALL_A_IN_B
+LENGTHS_ALL_A_IN_B
+NAMES_ALL_A_IN_B
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[29]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>21</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [30]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">digest4</span><span class="p">,</span> <span class="n">digest1</span><span class="p">,</span> <span class="n">explain</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Flag: 0
+Binary: 0b0
+
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[30]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>0</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Sequence-reference-compatibility">Sequence reference compatibility<a class="anchor-link" href="#Sequence-reference-compatibility">¶</a></h2><p>We may be interested in comparing the compatibilty of the assembly, rather than the sequences themselves. We can do this using the same comparison function, but this time testing against a version of the genome that lacks actual sequences. Here, we'll insert a 'lengths only' ASDList into the database, which has lengths and topologies but no actual sequences. This is analogous to a <code>chrom_sizes</code> file which doesn't care about underlying sequences.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [31]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">fa_file5</span> <span class="o">=</span> <span class="s2">"demo_fasta/demo5.fa"</span>
+<span class="n">digest5</span><span class="p">,</span> <span class="n">content5</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">load_fasta</span><span class="p">(</span><span class="n">fa_file5</span><span class="p">,</span> <span class="n">lengths_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">digest5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[31]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>[{'name': 'chr1', 'length': '4', 'topology': 'linear', 'sequence_digest': ''},
+ {'name': 'chr2', 'length': '4', 'topology': 'linear', 'sequence_digest': ''},
+ {'name': 'chrX', 'length': '8', 'topology': 'linear', 'sequence_digest': ''}]</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>These are compatible with the <code>demo2</code> file in length and name. You can ask that with "&amp; 60".</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [32]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">digest5</span><span class="p">,</span> <span class="n">digest2</span><span class="p">,</span> <span class="n">explain</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Flag: 60
+Binary: 0b111100
+
+LENGTHS_ALL_A_IN_B
+LENGTHS_ALL_B_IN_A
+NAMES_ALL_A_IN_B
+NAMES_ALL_B_IN_A
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[32]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>60</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [33]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">digest5</span><span class="p">,</span> <span class="n">digest2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">60</span> <span class="o">==</span> <span class="mi">60</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[33]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>True</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>This is a very useful functionality that allows us to use this system not only to identify sequence matches, but also to establish reference assembly compatibility for questions that do not require strict sequence identity. For example, for a given genome reference, we can create a sequence-agnostic but length-enforced ASDList object and stick it into the database to get back a digest. Now, we can use the compare function to ensure that any future sequences are compatible with this reference assembly.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h1 id="3-layer-refget">3-layer refget<a class="anchor-link" href="#3-layer-refget">¶</a></h1><p>It is also possible to continue this recursion to another layer. To demonstrate, let's make a sequence that consists of 2 fasta files checksums, and load that into the database.</p>
+<p>This type of object is called an <em>Annotated Collection Digest List</em>, or <em>ACDList</em>, because it's a list of named collection digests. The RefGetHenge object will allow you to see what of its objects types would validate your given object. Here, we see that this henge would recognize this as validating the <em>ACDList</em> object type.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [34]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">ACDList</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"demo1"</span><span class="p">,</span> <span class="s2">"collection_digest"</span><span class="p">:</span> <span class="n">digest1</span><span class="p">},</span>
+           <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span><span class="s2">" demo2"</span><span class="p">,</span> <span class="s2">"collection_digest"</span><span class="p">:</span> <span class="n">digest2</span><span class="p">}]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [35]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">select_item_type</span><span class="p">(</span><span class="n">ACDList</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[35]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>['ACDList']</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [36]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">acdl_digest</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">ACDList</span><span class="p">,</span> <span class="s2">"ACDList"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Can we retrieve it? You bet! At any recursion level:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [37]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">acdl_digest</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[37]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>[{'name': 'demo1',
+  'collection_digest': [{'name': 'chr1',
+    'length': '4',
+    'topology': 'linear',
+    'sequence_digest': {'sequence': 'ACGT'}},
+   {'name': 'chr2',
+    'length': '4',
+    'topology': 'linear',
+    'sequence_digest': {'sequence': 'TCGA'}}]},
+ {'name': ' demo2',
+  'collection_digest': [{'name': 'chr1',
+    'length': '4',
+    'topology': 'linear',
+    'sequence_digest': {'sequence': 'ACGT'}},
+   {'name': 'chr2',
+    'length': '4',
+    'topology': 'linear',
+    'sequence_digest': {'sequence': 'TCGA'}},
+   {'name': 'chrX',
+    'length': '8',
+    'topology': 'linear',
+    'sequence_digest': {'sequence': 'TTCCGGAA'}}]}]</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [38]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">acdl_digest</span><span class="p">,</span> <span class="n">reclimit</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[38]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>[{'name': 'demo1', 'collection_digest': '2bcaa3eadf4fea03f55f0c584af05378'},
+ {'name': ' demo2', 'collection_digest': '1cabbd10bf54f733718f0d3bc786dc3b'}]</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [39]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">acdl_digest</span><span class="p">,</span> <span class="n">reclimit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[39]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>[{'name': 'demo1',
+  'collection_digest': [{'name': 'chr1',
+    'length': '4',
+    'topology': 'linear',
+    'sequence_digest': 'f1f8f4bf413b16ad135722aa4591043e'},
+   {'name': 'chr2',
+    'length': '4',
+    'topology': 'linear',
+    'sequence_digest': '45d0ff9f1a9504cf2039f89c1ffb4c32'}]},
+ {'name': ' demo2',
+  'collection_digest': [{'name': 'chr1',
+    'length': '4',
+    'topology': 'linear',
+    'sequence_digest': 'f1f8f4bf413b16ad135722aa4591043e'},
+   {'name': 'chr2',
+    'length': '4',
+    'topology': 'linear',
+    'sequence_digest': '45d0ff9f1a9504cf2039f89c1ffb4c32'},
+   {'name': 'chrX',
+    'length': '8',
+    'topology': 'linear',
+    'sequence_digest': 'adbd2580b1cb145667c79baf9bfd391a'}]}]</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [40]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">acdl_digest</span><span class="p">,</span> <span class="n">reclimit</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[40]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>[{'name': 'demo1',
+  'collection_digest': [{'name': 'chr1',
+    'length': '4',
+    'topology': 'linear',
+    'sequence_digest': {'sequence': 'ACGT'}},
+   {'name': 'chr2',
+    'length': '4',
+    'topology': 'linear',
+    'sequence_digest': {'sequence': 'TCGA'}}]},
+ {'name': ' demo2',
+  'collection_digest': [{'name': 'chr1',
+    'length': '4',
+    'topology': 'linear',
+    'sequence_digest': {'sequence': 'ACGT'}},
+   {'name': 'chr2',
+    'length': '4',
+    'topology': 'linear',
+    'sequence_digest': {'sequence': 'TCGA'}},
+   {'name': 'chrX',
+    'length': '8',
+    'topology': 'linear',
+    'sequence_digest': {'sequence': 'TTCCGGAA'}}]}]</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Under-the-hood:-using-the-raw-henge-interface">Under the hood: using the raw henge interface<a class="anchor-link" href="#Under-the-hood:-using-the-raw-henge-interface">¶</a></h2><p>Under the hood, the RefGetHenge is just a specialized class of <code>Henge</code> that provides convenience functions for dealing with sequences and sequence collections. Henge is a python package that builds back-ends for generic decomposable recursive unique identifiers (or, <em>druids</em>). It is intended to be used as a building block for refget 2.0 on collections, and also for other data types that need content-derived identifiers.</p>
+<p>Henge provides 2 key advances:</p>
+<ul>
+<li><p><strong>decomposing</strong>: identifiers in henge can retrieve tuples, not just sequences. These tuples can be tailored with a simple json schema document, so that henge can be used as a back-end for arbitrary data.</p>
+</li>
+<li><p><strong>recursion</strong>: individual elements retrieved by the henge object can be tagged as recursive, which means these attributes contain their own druids. Henge can recurse through these, providing arbitrary, multi-layer object retrieval.</p>
+</li>
+</ul>
+<p>To demonstrate how henge works as the back-end for the refget-py package, we'll now show  use the raw henge interface directly, if you want to wrap the metadata yourself.</p>
+<p>The way a henge works is that we have to specify what item types it can hold using schemas written in JSON-schema. The RefGetHenge knows about 5 different item types:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [43]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">item_types</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[43]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>['sequence', 'ASD', 'ASDList', 'ACDList', 'ACD']</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>We'll look more closely at these schemas in a moment. You can look through the actual schemas by looking at <code>rgdb.schemas</code>; for example, the <code>sequence</code> schema is quite simple:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [44]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">schemas</span><span class="p">[</span><span class="s2">"sequence"</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[44]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>{'description': 'Schema for a single raw sequence',
+ 'type': 'object',
+ 'properties': {'sequence': {'type': 'string',
+   'description': 'Actual sequence content'}},
+ 'required': ['sequence']}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The RefGetHenge class, handles all the object type control for you; it knows for example to insert a sequence as a 'sequence' object, and a fasta file as an 'ASDList' object. But, you can also use the base <code>Henge</code> interface to do this as well; all you have to do is insert the objects as <code>dicts</code> or <code>lists</code>, with the appropriate properties populated. Here's how we could insert some sequences directly:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [45]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">item_seq1</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'sequence'</span><span class="p">:</span> <span class="s2">"TCGA"</span><span class="p">}</span>
+<span class="n">item_seq2</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'sequence'</span><span class="p">:</span> <span class="s2">"TCGATCGATCGATCGA"</span><span class="p">}</span>
+<span class="n">item_seq3</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'sequence'</span><span class="p">:</span> <span class="s2">"GGAA"</span><span class="p">}</span>
+<span class="n">item_seq4</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'sequence'</span><span class="p">:</span> <span class="s2">"CGGCCCGGCGC"</span><span class="p">}</span>
+
+<span class="n">druid_seq1</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">item_seq1</span><span class="p">,</span> <span class="s2">"sequence"</span><span class="p">)</span>
+<span class="n">druid_seq2</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">item_seq2</span><span class="p">,</span> <span class="s2">"sequence"</span><span class="p">)</span>
+<span class="n">druid_seq3</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">item_seq3</span><span class="p">,</span> <span class="s2">"sequence"</span><span class="p">)</span>
+<span class="n">druid_seq4</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">item_seq4</span><span class="p">,</span> <span class="s2">"sequence"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Now, we can also insert <em>Annotated Sequence Digests</em> (ASDs):</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [46]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">asd1</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'sequence_digest'</span><span class="p">:</span> <span class="n">druid_seq1</span><span class="p">,</span>
+        <span class="s1">'name'</span><span class="p">:</span> <span class="s2">"chr1"</span><span class="p">,</span>
+        <span class="s1">'length'</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> 
+        <span class="s1">'topology'</span><span class="p">:</span> <span class="s2">"linear"</span><span class="p">}</span>
+<span class="n">asd2</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'sequence_digest'</span><span class="p">:</span> <span class="n">druid_seq2</span><span class="p">,</span>
+        <span class="s1">'name'</span><span class="p">:</span> <span class="s2">"chr2"</span><span class="p">,</span>
+        <span class="s1">'length'</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> 
+        <span class="s1">'topology'</span><span class="p">:</span> <span class="s2">"linear"</span><span class="p">}</span>
+<span class="n">asd3</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'sequence_digest'</span><span class="p">:</span> <span class="n">druid_seq3</span><span class="p">,</span>
+        <span class="s1">'name'</span><span class="p">:</span> <span class="s2">"chr3"</span><span class="p">,</span>
+        <span class="s1">'length'</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> 
+        <span class="s1">'topology'</span><span class="p">:</span> <span class="s2">"circular"</span><span class="p">}</span>
+<span class="n">asd4</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'sequence_digest'</span><span class="p">:</span> <span class="n">druid_seq4</span><span class="p">,</span>
+        <span class="s1">'name'</span><span class="p">:</span> <span class="s2">"chr4::mod"</span><span class="p">,</span>
+        <span class="s1">'length'</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span> 
+        <span class="s1">'topology'</span><span class="p">:</span> <span class="s2">"linear"</span><span class="p">}</span>                
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [47]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">druid_asd1</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">asd1</span><span class="p">,</span> <span class="s2">"ASD"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Take a look at the schema for an ASD object. Notice that the <code>sequence_digest</code> attribute is marked as <code>recursive</code> -- this means the henge will automatically know that upon retrieving one of these objects, that particular property could be recursively retrieved to get another object from the back-end.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [48]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">schemas</span><span class="p">[</span><span class="s2">"ASD"</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[48]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>{'description': 'Schema for an Annotated Sequence Digest; a digested Sequence plus metadata',
+ 'type': 'object',
+ 'properties': {'name': {'type': 'string'},
+  'length': {'type': 'integer'},
+  'topology': {'type': 'string',
+   'enum': ['circular', 'linear'],
+   'default': 'linear'},
+  'sequence_digest': {'type': 'string', 'description': 'The sequence digest'}},
+ 'required': ['length', 'name', 'topology'],
+ 'recursive': ['sequence_digest'],
+ 'not': {'required': ['sequence']}}</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [49]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">druid_asd1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[49]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>{'name': 'chr1',
+ 'length': '10',
+ 'topology': 'linear',
+ 'sequence_digest': {'sequence': 'TCGA'}}</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [50]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">druid_asd1</span><span class="p">,</span> <span class="n">reclimit</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[50]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>{'name': 'chr1',
+ 'length': '10',
+ 'topology': 'linear',
+ 'sequence_digest': '45d0ff9f1a9504cf2039f89c1ffb4c32'}</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [51]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">druid_seq1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[51]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>{'sequence': 'TCGA'}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>And here we can insert ASDLists (which are, of course, simply lists of ASD objects):</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [52]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">druid_asdlist1</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">insert</span><span class="p">([</span><span class="n">asd1</span><span class="p">,</span> <span class="n">asd2</span><span class="p">],</span> <span class="s2">"ASDList"</span><span class="p">)</span>
+<span class="n">druid_asdlist2</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">insert</span><span class="p">([</span><span class="n">asd3</span><span class="p">,</span> <span class="n">asd4</span><span class="p">],</span> <span class="s2">"ASDList"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [53]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="n">druid_asdlist1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[53]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>[{'name': 'chr1',
+  'length': '10',
+  'topology': 'linear',
+  'sequence_digest': {'sequence': 'TCGA'}},
+ {'name': 'chr2',
+  'length': '20',
+  'topology': 'linear',
+  'sequence_digest': {'sequence': 'TCGATCGATCGATCGA'}}]</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [54]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">acd1</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'collection_digest'</span><span class="p">:</span> <span class="n">druid_asdlist1</span><span class="p">,</span>
+        <span class="s1">'name'</span><span class="p">:</span> <span class="s2">"fasta1"</span><span class="p">}</span> 
+<span class="n">acd2</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'collection_digest'</span><span class="p">:</span> <span class="n">druid_asdlist2</span><span class="p">,</span>
+        <span class="s1">'name'</span><span class="p">:</span> <span class="s2">"fasta2"</span><span class="p">}</span> 
+
+<span class="n">druid_acdlist</span> <span class="o">=</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">insert</span><span class="p">([</span><span class="n">acd1</span><span class="p">,</span> <span class="n">acd2</span><span class="p">],</span> <span class="s2">"ACDList"</span><span class="p">)</span>    
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [55]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">druid_acdlist</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[55]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>'6eaefa29f5e59d6f93e723c02fb6d5fb'</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="How-items-are-stored">How items are stored<a class="anchor-link" href="#How-items-are-stored">¶</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Refget stores the items as delimited strings. It uses the schemas to map the stored, delimited properties to the correct properties when the item is returned. It builds a string with two delimiters, a <em>property delimiter</em> that separates the individual properties, in the order listed in the schema, and it uses an <em>item delimiter</em> to delimit items in lists in the order given.</p>
+<p>The <code>sequence</code> objects are really simple; they have only 1 property, named <code>sequence</code>:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [56]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">schemas</span><span class="p">[</span><span class="s2">"sequence"</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[56]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>{'description': 'Schema for a single raw sequence',
+ 'type': 'object',
+ 'properties': {'sequence': {'type': 'string',
+   'description': 'Actual sequence content'}},
+ 'required': ['sequence']}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>They are thus stored in the database as is; no delimiters are required because there is only 1 property, and no possibility of listing more than one item.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [57]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">database</span><span class="p">[</span><span class="n">druid_seq1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[57]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>'TCGA'</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The ASD objects have multiple properties, so they are stored as a delimited set of properties, ordered by the schema:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [58]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">schemas</span><span class="p">[</span><span class="s2">"ASD"</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[58]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>{'description': 'Schema for an Annotated Sequence Digest; a digested Sequence plus metadata',
+ 'type': 'object',
+ 'properties': {'name': {'type': 'string'},
+  'length': {'type': 'integer'},
+  'topology': {'type': 'string',
+   'enum': ['circular', 'linear'],
+   'default': 'linear'},
+  'sequence_digest': {'type': 'string', 'description': 'The sequence digest'}},
+ 'required': ['length', 'name', 'topology'],
+ 'recursive': ['sequence_digest'],
+ 'not': {'required': ['sequence']}}</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [59]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">database</span><span class="p">[</span><span class="n">druid_asd1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[59]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>'chr1\x1e10\x1elinear\x1e45d0ff9f1a9504cf2039f89c1ffb4c32'</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>ASDList objects are defined as lists, so they can hold more than one item. The items themselves are simply ASD objects; ASDLists are therefore stored as item-delimited strings, with a property-delimited string for each item.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [60]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">schemas</span><span class="p">[</span><span class="s2">"ASDList"</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[60]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>{'description': 'Schema for List of ASDs',
+ 'type': 'array',
+ 'items': {'type': 'object',
+  'properties': {'name': {'type': 'string'},
+   'length': {'type': 'integer'},
+   'topology': {'type': 'string',
+    'enum': ['circular', 'linear'],
+    'default': 'linear'},
+   'sequence_digest': {'type': 'string',
+    'description': 'The sequence digest'}},
+  'required': ['length', 'name', 'topology'],
+  'recursive': ['sequence_digest'],
+  'not': {'required': ['sequence']}}}</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [61]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">database</span><span class="p">[</span><span class="n">druid_asdlist1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[61]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>'chr1\x1e10\x1elinear\x1e45d0ff9f1a9504cf2039f89c1ffb4c32\tchr2\x1e20\x1elinear\x1eb835d2c026aa66c52a05838dcc0b59d4'</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Here we can see the schema for the ACDList, which is of type 'array', and each item will have 2 properties: <code>name</code> and <code>collection_digest</code>:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [62]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">schemas</span><span class="p">[</span><span class="s2">"ACDList"</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[62]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>{'description': 'Schema for a list of ACDs; analogous to a collection of fasta files',
+ 'type': 'array',
+ 'items': {'type': 'object',
+  'properties': {'name': {'type': 'string'},
+   'collection_digest': {'type': 'string'}},
+  'required': ['collection_digest'],
+  'recursive': ['collection_digest']}}</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [63]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">database</span><span class="p">[</span><span class="n">druid_acdlist</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[63]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>'fasta1\x1ead6311ad38f593e9529dc9adf82f126a\tfasta2\x1e2e9262aac405c20d6cba33295b9ff72f'</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [64]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rgdb</span><span class="o">.</span><span class="n">database</span><span class="p">[</span><span class="n">druid_acdlist</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>fasta1ad6311ad38f593e9529dc9adf82f126a	fasta22e9262aac405c20d6cba33295b9ff72f
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>You can also use the <code>retrieve</code> interface (which comes from the parent Henge object) to retrieve items at different recursion levels:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [65]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="n">druid_acdlist</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[65]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>[{'name': 'fasta1',
+  'collection_digest': [{'name': 'chr1',
+    'length': '10',
+    'topology': 'linear',
+    'sequence_digest': {'sequence': 'TCGA'}},
+   {'name': 'chr2',
+    'length': '20',
+    'topology': 'linear',
+    'sequence_digest': {'sequence': 'TCGATCGATCGATCGA'}}]},
+ {'name': 'fasta2',
+  'collection_digest': [{'name': 'chr3',
+    'length': '30',
+    'topology': 'circular',
+    'sequence_digest': {'sequence': 'GGAA'}},
+   {'name': 'chr4::mod',
+    'length': '40',
+    'topology': 'linear',
+    'sequence_digest': {'sequence': 'CGGCCCGGCGC'}}]}]</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [66]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="n">druid_acdlist</span><span class="p">,</span> <span class="n">reclimit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[66]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>[{'name': 'fasta1',
+  'collection_digest': [{'name': 'chr1',
+    'length': '10',
+    'topology': 'linear',
+    'sequence_digest': '45d0ff9f1a9504cf2039f89c1ffb4c32'},
+   {'name': 'chr2',
+    'length': '20',
+    'topology': 'linear',
+    'sequence_digest': 'b835d2c026aa66c52a05838dcc0b59d4'}]},
+ {'name': 'fasta2',
+  'collection_digest': [{'name': 'chr3',
+    'length': '30',
+    'topology': 'circular',
+    'sequence_digest': '31fc6ca291a32fb9df82b85e5f077e31'},
+   {'name': 'chr4::mod',
+    'length': '40',
+    'topology': 'linear',
+    'sequence_digest': 'c175211cccf95a0e3c43fc0c70a3226d'}]}]</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [67]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="n">druid_acdlist</span><span class="p">,</span> <span class="n">reclimit</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[67]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>[{'name': 'fasta1',
+  'collection_digest': [{'name': 'chr1',
+    'length': '10',
+    'topology': 'linear',
+    'sequence_digest': {'sequence': 'TCGA'}},
+   {'name': 'chr2',
+    'length': '20',
+    'topology': 'linear',
+    'sequence_digest': {'sequence': 'TCGATCGATCGATCGA'}}]},
+ {'name': 'fasta2',
+  'collection_digest': [{'name': 'chr3',
+    'length': '30',
+    'topology': 'circular',
+    'sequence_digest': {'sequence': 'GGAA'}},
+   {'name': 'chr4::mod',
+    'length': '40',
+    'topology': 'linear',
+    'sequence_digest': {'sequence': 'CGGCCCGGCGC'}}]}]</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The jsonschema validation system will prevent you from inserting an item that doesn't match the schema you are trying to insert:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [68]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">insert</span><span class="p">([{</span><span class="s1">'sequence'</span><span class="p">:</span> <span class="s2">"TCGA"</span><span class="p">,</span> <span class="s2">"topology"</span><span class="p">:</span><span class="s2">"circular"</span><span class="p">}],</span> <span class="s2">"sequence"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
+<pre>Not valid data
+Attempting to insert item: [{'sequence': 'TCGA', 'topology': 'circular'}]
+Item type: sequence
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>[{'sequence': 'TCGA', 'topology': 'circular'}] is not of type 'object'
+
+Failed validating 'type' in schema:
+    {'description': 'Schema for a single raw sequence',
+     'properties': {'sequence': {'description': 'Actual sequence content',
+                                 'type': 'string'}},
+     'required': ['sequence'],
+     'type': 'object'}
+
+On instance:
+    [{'sequence': 'TCGA', 'topology': 'circular'}]
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[68]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>False</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [69]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb</span><span class="o">.</span><span class="n">insert</span><span class="p">([{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s2">"chrX"</span><span class="p">,</span> <span class="s1">'sequence'</span><span class="p">:</span> <span class="s2">"TCGA"</span><span class="p">,</span> <span class="s2">"topology"</span><span class="p">:</span><span class="s2">"circular"</span><span class="p">,</span> <span class="s2">"length"</span><span class="p">:</span><span class="mi">4</span><span class="p">}],</span> <span class="s2">"asd"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
+<pre>I don't know about items of type 'asd'. I know of: '['sequence', 'ASD', 'ASDList', 'ACDList', 'ACD']'
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[69]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>False</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h1 id="Advanced-bonus-recipes">Advanced bonus recipes<a class="anchor-link" href="#Advanced-bonus-recipes">¶</a></h1><p>Here are some advanced things you can do:</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>List all the items in the database:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [70]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>45d0ff9f1a9504cf2039f89c1ffb4c32 TCGA
+45d0ff9f1a9504cf2039f89c1ffb4c32_item_type sequence
+45d0ff9f1a9504cf2039f89c1ffb4c32_digest_version md5
+f1f8f4bf413b16ad135722aa4591043e ACGT
+f1f8f4bf413b16ad135722aa4591043e_item_type sequence
+f1f8f4bf413b16ad135722aa4591043e_digest_version md5
+2bcaa3eadf4fea03f55f0c584af05378 chr14linearf1f8f4bf413b16ad135722aa4591043e	chr24linear45d0ff9f1a9504cf2039f89c1ffb4c32
+2bcaa3eadf4fea03f55f0c584af05378_item_type ASDList
+2bcaa3eadf4fea03f55f0c584af05378_digest_version md5
+adbd2580b1cb145667c79baf9bfd391a TTCCGGAA
+adbd2580b1cb145667c79baf9bfd391a_item_type sequence
+adbd2580b1cb145667c79baf9bfd391a_digest_version md5
+1cabbd10bf54f733718f0d3bc786dc3b chr14linearf1f8f4bf413b16ad135722aa4591043e	chr24linear45d0ff9f1a9504cf2039f89c1ffb4c32	chrX8linearadbd2580b1cb145667c79baf9bfd391a
+1cabbd10bf54f733718f0d3bc786dc3b_item_type ASDList
+1cabbd10bf54f733718f0d3bc786dc3b_digest_version md5
+2bcc40045a90366fdcc89feeed26ff3f 14linearf1f8f4bf413b16ad135722aa4591043e	24linear45d0ff9f1a9504cf2039f89c1ffb4c32	X8linearadbd2580b1cb145667c79baf9bfd391a
+2bcc40045a90366fdcc89feeed26ff3f_item_type ASDList
+2bcc40045a90366fdcc89feeed26ff3f_digest_version md5
+9fb8efcee89118d6035c4fd54fa41a3d chrX8linearadbd2580b1cb145667c79baf9bfd391a
+9fb8efcee89118d6035c4fd54fa41a3d_item_type ASDList
+9fb8efcee89118d6035c4fd54fa41a3d_digest_version md5
+e9974260ad53075f4021f96b0f7f64a0 chr14linear	chr24linear	chrX8linear
+e9974260ad53075f4021f96b0f7f64a0_item_type ASDList
+e9974260ad53075f4021f96b0f7f64a0_digest_version md5
+981f2447405240954ccef8031040d4c4 demo12bcaa3eadf4fea03f55f0c584af05378	 demo21cabbd10bf54f733718f0d3bc786dc3b
+981f2447405240954ccef8031040d4c4_item_type ACDList
+981f2447405240954ccef8031040d4c4_digest_version md5
+b835d2c026aa66c52a05838dcc0b59d4 TCGATCGATCGATCGA
+b835d2c026aa66c52a05838dcc0b59d4_item_type sequence
+b835d2c026aa66c52a05838dcc0b59d4_digest_version md5
+31fc6ca291a32fb9df82b85e5f077e31 GGAA
+31fc6ca291a32fb9df82b85e5f077e31_item_type sequence
+31fc6ca291a32fb9df82b85e5f077e31_digest_version md5
+c175211cccf95a0e3c43fc0c70a3226d CGGCCCGGCGC
+c175211cccf95a0e3c43fc0c70a3226d_item_type sequence
+c175211cccf95a0e3c43fc0c70a3226d_digest_version md5
+548acc8a98c34bbcdb17bdb7f8b7ea37 chr110linear45d0ff9f1a9504cf2039f89c1ffb4c32
+548acc8a98c34bbcdb17bdb7f8b7ea37_item_type ASD
+548acc8a98c34bbcdb17bdb7f8b7ea37_digest_version md5
+ad6311ad38f593e9529dc9adf82f126a chr110linear45d0ff9f1a9504cf2039f89c1ffb4c32	chr220linearb835d2c026aa66c52a05838dcc0b59d4
+ad6311ad38f593e9529dc9adf82f126a_item_type ASDList
+ad6311ad38f593e9529dc9adf82f126a_digest_version md5
+2e9262aac405c20d6cba33295b9ff72f chr330circular31fc6ca291a32fb9df82b85e5f077e31	chr4::mod40linearc175211cccf95a0e3c43fc0c70a3226d
+2e9262aac405c20d6cba33295b9ff72f_item_type ASDList
+2e9262aac405c20d6cba33295b9ff72f_digest_version md5
+6eaefa29f5e59d6f93e723c02fb6d5fb fasta1ad6311ad38f593e9529dc9adf82f126a	fasta22e9262aac405c20d6cba33295b9ff72f
+6eaefa29f5e59d6f93e723c02fb6d5fb_item_type ACDList
+6eaefa29f5e59d6f93e723c02fb6d5fb_digest_version md5
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>This is how you would clean out all items in the database:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [71]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">del</span> <span class="n">rgdb</span><span class="o">.</span><span class="n">database</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Look at the actual delimiters used by <code>Henge</code>.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [72]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">henge</span> 
+<span class="n">henge</span><span class="o">.</span><span class="n">DELIM_ATTR</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[72]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>'\x1e'</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [73]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">henge</span><span class="o">.</span><span class="n">DELIM_ITEM</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[73]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>'\t'</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Linking-henges">Linking henges<a class="anchor-link" href="#Linking-henges">¶</a></h2><p>It may be that we want to split information among servers; for example, we want the sequences themselves to be hosted in one location, because that data is large; but we want the collection-level information, which is just sets of pointers to sequences, in another location.</p>
+<p>We can do this by linking henges to one other. Here, we'll create two henges; one we call <em>heavy</em>, and it only knows how to store sequences. Another, we call <em>light</em> -- it stores everything else. Then, we'll tell the light henge that for sequences, it should interact with the heavy henge.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Here, I've started up 2 Mongo instances that both run locally but on different ports. These are effectively different databases and are simulating different servers. For development I do this with these commands:</p>
+<pre><code>docker run -it --network "host" --user=854360:25014  -v /ext/qumulo/database/mongo_local:/data/db mongo --port 27018
+
+docker run -it --network "host" --user=854360:25014  -v /ext/qumulo/database/mongo_remote:/data/db mongo --port 27019
+</code></pre>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">henge</span>
+<span class="kn">import</span> <span class="nn">os</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">backend_light</span> <span class="o">=</span> <span class="n">refget</span><span class="o">.</span><span class="n">MongoDict</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">'localhost'</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">27018</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="s1">'my_dict'</span><span class="p">,</span>
+                        <span class="n">collection</span><span class="o">=</span><span class="s1">'store'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">backend_heavy</span> <span class="o">=</span> <span class="n">refget</span><span class="o">.</span><span class="n">MongoDict</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">'localhost'</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">27019</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="s1">'my_dict'</span><span class="p">,</span>
+                        <span class="n">collection</span><span class="o">=</span><span class="s1">'store'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">schemas_light</span><span class="o">=</span> <span class="p">{</span> 
+                    <span class="s2">"ASD"</span><span class="p">:</span> <span class="n">henge</span><span class="o">.</span><span class="n">load_yaml</span><span class="p">(</span><span class="s2">"http://schema.databio.org/refget/annotated_sequence_digest.yaml"</span><span class="p">),</span>
+                    <span class="s2">"ASDList"</span><span class="p">:</span> <span class="n">henge</span><span class="o">.</span><span class="n">load_yaml</span><span class="p">(</span><span class="s2">"http://schema.databio.org/refget/ASDList.yaml"</span><span class="p">),</span>
+                    <span class="s2">"ACDList"</span><span class="p">:</span> <span class="n">henge</span><span class="o">.</span><span class="n">load_yaml</span><span class="p">(</span><span class="s2">"http://schema.databio.org/refget/ACDList.yaml"</span><span class="p">),</span>
+                    <span class="s2">"ACD"</span><span class="p">:</span> <span class="n">henge</span><span class="o">.</span><span class="n">load_yaml</span><span class="p">(</span><span class="s2">"http://schema.databio.org/refget/annotated_collection_digest.yaml"</span><span class="p">)}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">schemas_heavy</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"sequence"</span><span class="p">:</span> <span class="n">henge</span><span class="o">.</span><span class="n">load_yaml</span><span class="p">(</span><span class="s2">"http://schema.databio.org/refget/sequence.yaml"</span><span class="p">)}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb_heavy</span> <span class="o">=</span> <span class="n">refget</span><span class="o">.</span><span class="n">RefGetHenge</span><span class="p">(</span><span class="n">backend_heavy</span><span class="p">,</span> <span class="n">schemas</span><span class="o">=</span><span class="n">schemas_heavy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb_heavy</span><span class="o">.</span><span class="n">list_item_types</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Now when we create the light database, we'll need a dictionary that maps the item types to other henges, so this henge will know how to deal with these item types. We'll create a dict saying that <code>sequence</code> items should map to this heavy henge.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">heavy_henge_list</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"sequence"</span><span class="p">:</span> <span class="n">rgdb_heavy</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb_light</span> <span class="o">=</span> <span class="n">refget</span><span class="o">.</span><span class="n">RefGetHenge</span><span class="p">(</span><span class="n">backend_light</span><span class="p">,</span> <span class="n">schemas</span><span class="o">=</span><span class="n">schemas_light</span><span class="p">,</span> <span class="n">henges</span><span class="o">=</span><span class="n">heavy_henge_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>But notice that the light database includes sequences in its list of known item types, even though this was included in the schemas. It's because it is populated via it's connection to the heavy henge, which <em>does</em> understand sequences.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb_light</span><span class="o">.</span><span class="n">list_item_types</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb_light</span><span class="o">.</span><span class="n">load_seq</span><span class="p">(</span><span class="s2">"TCGA"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb_light</span><span class="o">.</span><span class="n">refget</span><span class="p">(</span><span class="s2">"45d0ff9f1a9504cf2039f89c1ffb4c32"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>We've just inserted and retrieved the sequence object through the light henge; however, this sequence is not actually stored in this henge, because it is not listed as one of its primary schemas; here we can show that the henge is actually inserting and retriving this object from the heavy henge"</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb_light</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rgdb_heavy</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Look at that; it put the heavy object in the heavy database (the 'storage henge') but can still retrieve it through the light database (the 'interface henge').</p>
 </div>
 </div>
 </div>
