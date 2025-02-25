@@ -43,16 +43,6 @@ The `refget` Python package provides a Python implementation of the [GA4GH Refge
 
     Implementation is still a work in progress.
 
-# Clients and Agents
-
-<div class="grid cards" markdown>
-
-- :material-api: **Clients** are for interacting with a remote Refget API. If you want to **use** a remote refget service in your application, you can use refget Clients.
-
-- :material-database-cog: **Agents**  are for interacting with a database to produce an API. If you want to **create** a refget service, or otherwise host your own refget database, then you can use refget Agents.
-
-</div>
-
 
 ## Install
 

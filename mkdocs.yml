@@ -90,7 +90,8 @@ nav:
   - Getting started:
     - Getting started: refget/README.md
   - How-to guides:
-    - Introduction: refget/clients.md
+    - Introduction: refget/introduction.md
+    - Computing digests: refget/notebooks/digests.ipynb
     - Sequences Client: refget/notebooks/sequence-client.ipynb
     - Sequence Collections Client: refget/notebooks/seqcol-client.ipynb
     - RefgetDB Agent: refget/notebooks/agent.ipynb
@@ -118,6 +119,7 @@ plugins:
       - refget/notebooks/sequence-client.ipynb
       - refget/notebooks/seqcol-client.ipynb
       - refget/notebooks/agent.ipynb
+      - refget/notebooks/digests.ipynb
     ignore_h1_titles: True
 - mkdocstrings:
     default_handler: python

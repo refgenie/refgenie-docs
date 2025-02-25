@@ -2,6 +2,10 @@
       
 ::: refget.create_refget_router
 
+::: refget.fasta_to_seqcol
+
+::: refget.fasta_to_digest
+
 ::: refget.clients.SequenceClient
     options:
       show_source: true
