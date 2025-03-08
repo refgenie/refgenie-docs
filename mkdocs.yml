@@ -104,6 +104,7 @@ nav:
   - Reference:
     - Changelog: refget/changelog.md
     - Refget Python API: refget/reference_docs.md
+    - Pydantic models: refget/models.md
 
 
 autodoc:
