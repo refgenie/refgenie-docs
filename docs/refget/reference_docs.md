@@ -2,7 +2,7 @@
       
 ::: refget.create_refget_router
 
-::: refget.fasta_to_seqcol
+::: refget.fasta_to_seqcol_dict
 
 ::: refget.fasta_to_digest
 

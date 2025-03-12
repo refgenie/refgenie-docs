@@ -97,6 +97,7 @@ nav:
     - RefgetDB Agent: refget/notebooks/agent.ipynb
     - Adding a fastAPI router: refget/fastapi_router.md
     - Compliance testing: refget/compliance.md
+    - Command-line interface: refget/cli.md
   # - Outdated documentation:
   #   - Advanced tutorial: refget/code/advanced.md
   #   - Using local collections: refget/code/seqcol.md
