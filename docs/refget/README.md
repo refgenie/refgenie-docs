@@ -17,32 +17,14 @@ The `refget` Python package provides a Python implementation of the [GA4GH Refge
 </p>
 
 
-| Standard | Local use | Client | Agent |
-|:--------:|:---------:|:------:|:----:|
-| Sequences | :material-check: | :material-check: | :material-check: |
-| Sequence Collections | :material-check: | :material-check: | :material-check: |
+### The `refget` Python package includes these capabilities:
 
 
-### The Python package `refget` includes these utilities:
-
-
-!!! note "Refget Sequences"
-
-    1. A lightweight Python client for a remote refget sequences server.
-    2. Local caching of retrieved results, improving performance for applications that require repeated lookups.
-    3. A fully functioning local implementation of the refget sequences protocol for local analysis backed by either memory, SQLite, or MongoDB.
-    4. Convenience functions for computing refget sequence digests from Python and handling FASTA files directly.
-
-!!! note "Refget Sequence Collections"
-
-    1. A lightweight Python client that can retrieve data from a remote refget sequence collections server (`refget.SequenceCollectionClient`).
-    2. A local implementation of the refget sequence collections protocol
-    3. Convenience functions for computing refget sequence collection digests from Python.
-
-!!! note "Refget Pangenomes"
-
-    Implementation is still a work in progress.
-
+| Standard | Local use<br>(computing digests locally)   | Client<br>(connecting to a remote API) | API<br>(implementing an http interface) | Agent<br>(managing a SQL database) |
+|:--------:|:---------:|:------:|:----:|:----:|
+| Sequences | :material-check: | :material-check: | :material-check: | :material-check: |
+| Sequence Collections | :material-check: | :material-check: | :material-check: | :material-check: |
+| Pangenomes | X | X | :material-check: | :material-check: |
 
 ## Install
 
