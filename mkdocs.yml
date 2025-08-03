@@ -46,7 +46,7 @@ copyright: >
     </a>
 
 nav:
-- Refgenie:
+- Refgenie: 
   - Getting Started:
     - Introduction: refgenie/README.md
     - Demo videos: refgenie/demo_videos.md
@@ -86,6 +86,32 @@ nav:
     - Changelog: refgenie/changelog.md
 - Refgenie server:
   - Intro: refgenieserver/README.md
+- Refgenie 1:
+  - Getting Started:
+    - Introduction: refgenie1/README.md
+    - Overview: refgenie1/overview.md
+    - Install: refgenie1/install.md
+    - Configure: refgenie1/configuration.md
+    - Citing refgenie: refgenie1/manuscripts.md
+  - How-to guides:
+    - Refer to assets: refgenie1/asset_registry_paths.md
+    - Download pre-built assets: refgenie1/pull.md
+    - Use refgenie from Python: refgenie1/code/refgenie.md
+    - Use data channels: refgenie1/data_channels.md
+    - Build assets: refgenie1/build.md
+    - Download pre-built assets: refgenie1/pull.md
+    - Retrieve paths to assets: refgenie1/seek.md
+    - Managing asset groups and naming: refgenie1/naming_assets.md
+    - Populate refgenie paths: refgenie1/populate.md
+  - Reference:
+    - Glossary: refgenie1/glossary.md
+    - Studies using refgenie: refgenie1/uses_refgenie.md
+    - Recipe: refgenie1/recipe_specification.md
+    - Asset class: refgenie1/asset_class_specification.md
+- Refgenie server 1:
+  - Intro: refgenieserver1/README.md
+  - Preparing servable assets at scale: refgenieserver1/archive_with_snakemake.md
+  - Data channels in refgenieserver1: refgenieserver1/data_channels.md
 - Refget:
   - Getting started:
     - Getting started: refget/README.md
@@ -114,6 +140,8 @@ autodoc:
       out: refget/code
     - in: refgenie/notebooks
       out: refgenie/code
+    - in: refgenie1/notebooks
+      out: refgenie1/code
 
 plugins:
 - mkdocs-jupyter:
