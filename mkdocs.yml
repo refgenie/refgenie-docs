@@ -118,6 +118,7 @@ nav:
   - How-to guides:
     - Introduction: refget/introduction.md
     - Computing digests: refget/notebooks/digests.ipynb
+    - GlobalRefgetStore: refget/notebooks/refgetstore.ipynb
     - Sequences Client: refget/notebooks/sequence-client.ipynb
     - Sequence Collections Client: refget/notebooks/seqcol-client.ipynb
     - RefgetDB Agent: refget/notebooks/agent.ipynb
