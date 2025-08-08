@@ -2,6 +2,28 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format. 
 
+
+## [0.8.4] - 2025-08-XX
+
+- performance fix for calculating jaccard similarties
+- add human_readable_name attribute to SequenceCollection
+- adding SequenceCollections via PEP will now add associated sample_name as human_readable_name
+
+## [0.8.3] - 2025-07-31
+
+- adds API endpoints for jaccard similarity calculations
+- some refactoring for newest gtars, v0.3.0
+- add class method from_PySequenceCollection for creating SequenceCollection from a gtars-created SequenceCollection
+- adds Similarity UI to frontend
+
+## [0.8.2] - 2025-03-26
+
+- updated add method to use boolean for updating SequenceCollection if already exists
+
+## [0.8.1] - 2025-03-21
+
+- addition of SCIM
+
 ## [0.8.0] - 2025-03-05
 
 - Complete rewrite of the clients and agents.
