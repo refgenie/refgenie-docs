@@ -111,7 +111,9 @@ nav:
 - Refgenie server 1:
   - Intro: refgenieserver1/README.md
   - Preparing servable assets at scale: refgenieserver1/archive_with_snakemake.md
-  - Data channels in refgenieserver1: refgenieserver1/data_channels.md
+  - Data channels: refgenieserver1/data_channels.md
+  - Remotes: refgenieserver1/remotes.md
+  - Persisting asset download stats: refgenieserver1/endpoint_hits_collector.md
 - Refget:
   - Getting started:
     - Getting started: refget/README.md
