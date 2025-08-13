@@ -99,16 +99,16 @@ if args["x_jupyter"] is False and "jupyter" in cfg:
             bn, _ = os.path.splitext(os.path.basename(nb))
             out = f"docs/{item['out']}/{bn}.md"
             print(f"Converting '{nb}' to '{out}'")
-            md_result = nbconvert.exporters.export(nbconvert.MarkdownExporter(template_file = "mkdocs_html/notebook.html.j2", extra_template_paths= ["/home/nsheff/code/refgenie-docs"]), nb)[0]
-            html_exporter = nbconvert.HTMLExporter(template_file = "mkdocs_html/notebook.html.j2", extra_template_paths= ["/home/nsheff/code/refgenie-docs"])
+            md_result = nbconvert.exporters.export(nbconvert.MarkdownExporter(), nb)[0]
+            #html_exporter = nbconvert.HTMLExporter(template_file = "mkdocs_html/notebook.html.j2", extra_template_paths= ["/home/nsheff/code/refgenie-docs"])
             # html_exporter.template_file = 'mkdocs_html/notebook.html.j2'
             # html_exporter.template_paths.append("/home/nsheff/code/refgenie-docs/")
             # html_exporter.template_paths.append("/home/nsheff/code/refgenie-docs/mkdocs_html")
             # html_exporter.template_paths.append("/home/nsheff/code/refgenie-docs/mkdocs_html/assets")
             # print(html_exporter.template_paths)
-            html_result = nbconvert.exporters.export(html_exporter, nb)[0]
+            #html_result = nbconvert.exporters.export(html_exporter, nb)[0]
             Path(os.path.dirname(out)).mkdir(parents=True, exist_ok=True)
             with open(out, "w") as stream:
-                stream.write(html_exporter)
+                stream.write(md_result)
 else:
     print("Skipping jupyter notebooks")

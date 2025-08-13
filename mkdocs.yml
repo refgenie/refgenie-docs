@@ -151,6 +151,7 @@ plugins:
       - refget/notebooks/seqcol-client.ipynb
       - refget/notebooks/agent.ipynb
       - refget/notebooks/digests.ipynb
+      - refget/notebooks/refgetstore.ipynb
     ignore_h1_titles: True
 - mkdocstrings:
     default_handler: python
