@@ -114,6 +114,7 @@ nav:
   - Data channels: refgenieserver1/data_channels.md
   - Remotes: refgenieserver1/remotes.md
   - Persisting asset download stats: refgenieserver1/endpoint_hits_collector.md
+  - Pagination and search: refgenieserver1/pagination_and_search.md
 - Refget:
   - Getting started:
     - Getting started: refget/README.md
