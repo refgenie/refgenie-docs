@@ -52,7 +52,7 @@ nav:
     - Demo videos: refgenie/demo_videos.md
     - Overview: refgenie/overview.md
     - Install and configure: refgenie/install.md
-    - Basic tutorial: refgenie/code/tutorial.md
+    - Basic tutorial: refgenie/notebooks/tutorial.ipynb
     - Citing refgenie: refgenie/manuscripts.md
   - How-to guides:
     - Refer to assets: refgenie/asset_registry_paths.md
@@ -61,7 +61,7 @@ nav:
     - Add custom assets: refgenie/custom_assets.md
     - Retrieve paths to assets: refgenie/seek.md
     - Use asset tags: refgenie/tag.md
-    - Use aliases: refgenie/code/aliases.md
+    - Use aliases: refgenie/notebooks/aliases.ipynb
     - Populate refgenie paths: refgenie/populate.md
     - Compare genomes: refgenie/compare.md
     - Run my own asset server: refgenie/refgenieserver.md
@@ -69,7 +69,7 @@ nav:
     - Use refgenie in your pipeline: refgenie/code_snippets.md
     - Use refgenie on the cloud: refgenie/remote.md
     - Use refgenie with iGenomes: refgenie/igenomes.md
-    - Upgrade from config 0.3 to 0.4: refgenie/code/config_upgrade_03_to_04.md
+    - Upgrade from config 0.3 to 0.4: refgenie/notebooks/config_upgrade_03_to_04.ipynb
   - Reference:
     - Studies using refgenie: refgenie/uses_refgenie.md
     - Genome configuration file: refgenie/genome_config.md
@@ -79,7 +79,7 @@ nav:
     - Buildable assets: refgenie/available_assets.md
     - Usage: refgenie/usage.md
     - Python API: refgenie/code/refgenconf-api.md
-    - Refgenconf usage: refgenie/code/refgenconf_usage.md
+    - Refgenconf usage: refgenie/notebooks/refgenconf_usage.ipynb
     - FAQ: refgenie/faq.md
     - Support: https://github.com/databio/refgenie/issues
     - Contributing: refgenie/contributing.md
@@ -96,7 +96,7 @@ nav:
   - How-to guides:
     - Refer to assets: refgenie1/asset_registry_paths.md
     - Download pre-built assets: refgenie1/pull.md
-    - Use refgenie from Python: refgenie1/code/refgenie.md
+    - Use refgenie from Python: refgenie1/notebooks/refgenie.ipynb
     - Use data channels: refgenie1/data_channels.md
     - Build assets: refgenie1/build.md
     - Download pre-built assets: refgenie1/pull.md
@@ -138,38 +138,34 @@ nav:
     - Pydantic models: refget/models.md
 
 
-autodoc:
-  jupyter:
-    - in: refget/notebooks
-      out: refget/code
-    - in: refgenie/notebooks
-      out: refgenie/code
-    - in: refgenie1/notebooks
-      out: refgenie1/code
-
 plugins:
 - mkdocs-jupyter:
-    include: 
+    include:
       - refget/notebooks/sequence-client.ipynb
       - refget/notebooks/seqcol-client.ipynb
       - refget/notebooks/agent.ipynb
       - refget/notebooks/digests.ipynb
       - refget/notebooks/refgetstore.ipynb
+      - refgenie/notebooks/aliases.ipynb
+      - refgenie/notebooks/config_upgrade_03_to_04.ipynb
+      - refgenie/notebooks/refgenconf_usage.ipynb
+      - refgenie/notebooks/tutorial.ipynb
+      - refgenie1/notebooks/refgenie.ipynb
     ignore_h1_titles: True
 - mkdocstrings:
     default_handler: python
     handlers:
       python:
         options:
+          docstring_style: google  # Default to Google style
           show_symbol_type_heading: true
           show_symbol_type_toc: true
           show_root_heading: true
           show_root_full_path: false
           show_source: true  # Optional: Show source code links
-          show_docstring: true  # Ensure docstrings are displayed
           show_signature: true  # Show method signatures
           show_if_no_docstring: false
           docstring_section_style: table  # Optional: Format style
           separate_signature: true  # Ensure __init__ appears clearly
-          merge_init_into_class: true  # This ensures __init__ is docum
+          merge_init_into_class: true  # This ensures __init__ is documented
 
