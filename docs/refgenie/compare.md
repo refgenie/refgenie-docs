@@ -9,7 +9,7 @@ To sum up, we need a more detailed comparison that may ignore sequences but allo
 
 ## Solution
 
-Refgenie facilitates such fine-grained comparison of genomes via `refgenie compare` command. A useful "byproduct" of genome initialization described in [Use aliases how-to guide](aliases.md) is a JSON file with annotated sequence digests, that are required to compare FASTA file contents.
+Refgenie facilitates such fine-grained comparison of genomes via `refgenie compare` command. A useful "byproduct" of genome initialization described in [Use aliases how-to guide](notebooks/aliases.ipynb) is a JSON file with annotated sequence digests, that are required to compare FASTA file contents.
 
 ## Usage
 

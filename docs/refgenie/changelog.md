@@ -33,7 +33,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [0.10.0] - 2021-03-11
 
-**Version `0.10.0` requires an upgrade to the configuration file and asset structure. Please refer to the [upgrade tutorial](config_upgrade_03_to_04.md) for instructions on how to migrate your config upon upgrade to `0.10.0`.**
+**Version `0.10.0` requires an upgrade to the configuration file and asset structure. Please refer to the [upgrade tutorial](notebooks/config_upgrade_03_to_04.ipynb) for instructions on how to migrate your config upon upgrade to `0.10.0`.**
 
 ### Changed
 
