@@ -1,4 +1,5 @@
 mkdocs-material
 mkdocstrings[python]
 refget
+refgenconf
 mkdocs-jupyter
