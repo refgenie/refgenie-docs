@@ -9,7 +9,6 @@ This guide walks you through creating your own data channel to distribute custom
     - How can I test a local or remote data channel to make sure it's set up correctly?
 
 
-
 ## Overview
 
 A data channel is a collection of asset classes and recipes hosted at a URL that can be consumed by refgenie clients. Setting up your own data channel allows you to:
@@ -27,7 +26,7 @@ A data channel is a collection of asset classes and recipes hosted at a URL that
 
 ## Step 1: Repository Structure
 
-Create a new repository with the following structure:
+The easiest way to do this is to clone the [Official Recipes Repository](https://github.com/refgenie/recipes), and then just delete the recipes and asset classes and add your own. Or, you can create your own repository with the following structure:
 
 ```
 my-data-channel/
@@ -63,13 +62,7 @@ seek_keys:
 parents: []
 ```
 
-Key fields:
-
-- `name`: Unique identifier for the asset class
-- `version`: Semantic version of the asset class definition
-- `description`: Human-readable description
-- `seek_keys`: Map of output files/directories the asset will provide
-- `parents`: List of parent asset classes (for inheritance)
+For more details, see [Asset Class specification](asset_class_specification.md).
 
 ## Step 3: Create Recipes
 
@@ -96,18 +89,11 @@ custom_properties:
 default_asset: "my-indexer-{{values.custom_properties.version}}"
 ```
 
-Key fields:
-
-- `name`: Recipe identifier
-- `output_asset_class`: Which asset class this recipe produces
-- `input_files`: Required input files
-- `input_assets`: Dependencies on other refgenie assets
-- `docker_image`: Container image to use for building
-- `command_templates`: Shell commands to execute (with template variables)
+For more details, see [Recipe specification](recipe_specification.md).
 
 ## Step 4: Generate the Index File
 
-Next we need to create the index file. The `build_index.py` script that comes in the demo repository will do this for you. Run it to generate your index:
+Next we need to create the index file. The `build_index.py` script will do this, and it will run automatically via a GitHub Action. If you like, you may also run it manually to generate your index:
 
 ```bash
 python build_index.py
@@ -125,9 +111,6 @@ recipe:
   files:
     - my_index_asset_recipe.yaml
 ```
-
-You can also just do this manually, if you wish.
-
 
 ## Step 5: Validate Your Data Channel
 
@@ -157,6 +140,222 @@ Upload your files to any static web server ensuring:
 - CORS headers allow cross-origin requests (if needed)
 - The `index.yaml` file is at the root of your channel URL
 
+
+## Data Channel API Specification
+
+Instead of hosting static files, you can implement a server that provides the Data Channel API. This allows for dynamic generation of asset classes and recipes, database-backed storage, authentication, and other advanced features.
+
+### API Overview
+
+A data channel server must provide the following HTTP endpoints:
+
+#### 1. Index Endpoint
+
+**URL:** `/index.yaml` (or base URL)
+**Method:** GET
+**Content-Type:** `text/yaml` or `application/x-yaml`
+
+**Response Format:**
+```yaml
+asset_class:
+  dir: asset_classes
+  files:
+    - file1.yaml
+    - file2.yaml
+recipe:
+  dir: recipes
+  files:
+    - recipe1.yaml
+    - recipe2.yaml
+```
+
+The index specifies:
+- `dir`: The relative path to the directory containing the files
+- `files`: List of available YAML files
+
+#### 2. Asset Class Endpoints
+
+**URL Pattern:** `/{asset_class_dir}/{filename}`
+**Method:** GET
+**Content-Type:** `text/yaml` or `application/x-yaml`
+
+**Response:** Asset class definition YAML conforming to the [Asset Class specification](asset_class_specification.md)
+
+#### 3. Recipe Endpoints
+
+**URL Pattern:** `/{recipe_dir}/{filename}`
+**Method:** GET
+**Content-Type:** `text/yaml` or `application/x-yaml`
+
+**Response:** Recipe definition YAML conforming to the [Recipe specification](recipe_specification.md)
+
+### Example Server Implementation
+
+Here's a minimal Python Flask server that implements the Data Channel API:
+
+```python
+from flask import Flask, Response, jsonify
+import yaml
+
+app = Flask(__name__)
+
+# In-memory storage (in practice, use a database)
+ASSET_CLASSES = {
+    "fasta.yaml": {
+        "name": "fasta",
+        "version": "0.0.1",
+        "description": "FASTA sequences",
+        "seek_keys": {
+            "fasta": {
+                "value": "{genome}.fa",
+                "description": "FASTA file",
+                "type": "file"
+            }
+        },
+        "parents": []
+    }
+}
+
+RECIPES = {
+    "fasta.yaml": {
+        "name": "fasta",
+        "version": "0.0.1",
+        "output_asset_class": "fasta",
+        "description": "Process FASTA file",
+        "input_files": {
+            "fasta": {"description": "Input FASTA"}
+        },
+        "docker_image": "docker.io/databio/refgenie",
+        "command_templates": ["cp {{values.files['fasta']}} {{values.output_folder}}/{{values.genome_digest}}.fa"]
+    }
+}
+
+@app.route('/index.yaml')
+def get_index():
+    index = {
+        "asset_class": {
+            "dir": "asset_classes",
+            "files": list(ASSET_CLASSES.keys())
+        },
+        "recipe": {
+            "dir": "recipes",
+            "files": list(RECIPES.keys())
+        }
+    }
+    return Response(yaml.dump(index), mimetype='text/yaml')
+
+@app.route('/asset_classes/<filename>')
+def get_asset_class(filename):
+    if filename in ASSET_CLASSES:
+        return Response(yaml.dump(ASSET_CLASSES[filename]), mimetype='text/yaml')
+    return "Not Found", 404
+
+@app.route('/recipes/<filename>')
+def get_recipe(filename):
+    if filename in RECIPES:
+        return Response(yaml.dump(RECIPES[filename]), mimetype='text/yaml')
+    return "Not Found", 404
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+```
+
+### Advanced Features
+
+Your server can provide additional functionality:
+
+#### Dynamic Generation
+Generate asset classes and recipes on-the-fly based on:
+- User permissions
+- Request parameters
+- Database queries
+- External service integrations
+
+#### Authentication & Authorization
+```python
+from flask import request
+
+@app.before_request
+def check_auth():
+    token = request.headers.get('Authorization')
+    if not validate_token(token):
+        return "Unauthorized", 401
+```
+
+#### Versioning
+Support multiple API versions:
+```
+/v1/index.yaml
+/v2/index.yaml
+```
+
+#### Content Negotiation
+Support multiple formats:
+```python
+@app.route('/index.<format>')
+def get_index_format(format):
+    if format == 'yaml':
+        return Response(yaml.dump(index), mimetype='text/yaml')
+    elif format == 'json':
+        return jsonify(index)
+```
+
+#### Caching Headers
+Improve performance with proper caching:
+```python
+from flask import make_response
+
+@app.route('/asset_classes/<filename>')
+def get_asset_class(filename):
+    response = make_response(yaml.dump(ASSET_CLASSES[filename]))
+    response.headers['Cache-Control'] = 'public, max-age=3600'
+    response.headers['ETag'] = generate_etag(filename)
+    return response
+```
+
+### API Requirements
+
+To be compatible with refgenie clients, your server must:
+
+1. **Return valid YAML:** All responses must be parseable YAML
+2. **Use correct MIME types:** Use `text/yaml` or `application/x-yaml`
+3. **Follow the index format:** The index must specify `dir` and `files` for each category
+4. **Provide accessible URLs:** All listed files must be retrievable via GET requests
+5. **Handle CORS:** If serving to web clients, configure appropriate CORS headers
+
+### Testing Your API
+
+Test your implementation with curl:
+
+```bash
+# Get the index
+curl https://your-server.com/index.yaml
+
+# Get an asset class
+curl https://your-server.com/asset_classes/fasta.yaml
+
+# Get a recipe
+curl https://your-server.com/recipes/fasta.yaml
+```
+
+Then validate with refgenie:
+
+```bash
+# Add your server as a data channel
+refgenie1 data_channel add my-api https://your-server.com/index.yaml
+
+# Sync the channel
+refgenie1 data_channel sync my-api --exists-ok
+```
+
+### Benefits of Server Implementation
+
+- **Dynamic content:** Generate definitions based on user context
+- **Access control:** Restrict certain recipes to authorized users
+- **Analytics:** Track which assets and recipes are most used
+- **Integration:** Connect with existing infrastructure and databases
+- **Validation:** Server-side validation of definitions before serving
+- **Scalability:** Use CDNs, load balancers, and caching strategies
 
 ## Step 7: Use your data channel
 
@@ -193,20 +392,24 @@ refgenie1 build genome/my_index --files fasta=/path/to/genome.fa
 ### Common Issues
 
 **Index file not updating:**
+
 - Ensure `build_index.py` is run after adding/modifying files
 - Check GitHub Actions logs if using CI/CD
 
 **404 errors when accessing channel:**
+
 - Verify GitHub Pages is enabled and deployed
 - Check the exact URL structure matches your repository name
 - Ensure all files are committed and pushed
 
 **YAML validation errors:**
+
 - Use a YAML linter to check syntax
 - Ensure all required fields are present
 - Check for proper indentation (spaces, not tabs)
 
 **Recipe execution failures:**
+
 - Verify Docker image is accessible
 - Check command templates for syntax errors
 - Ensure all template variables are properly escaped
@@ -227,4 +430,3 @@ The refgenie team will review and merge approved contributions.
 - [Refgenie Data Channels Documentation](/refgenie1/data_channels)
 - [Refgenieserver Data Channels](/refgenieserver1/data_channels)
 - [Official Recipes Repository](https://github.com/refgenie/recipes)
-- [Refgenie CLI Documentation](http://refgenie.databio.org)
