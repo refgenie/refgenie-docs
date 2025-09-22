@@ -1,0 +1,4919 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../../img/refgenie_bug.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Refgenconf - Refgenie: next-generation reference genome management</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#package-refgenconf-documentation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Refgenie: next-generation reference genome management" class="md-header__button md-logo" aria-label="Refgenie: next-generation reference genome management" data-md-component="logo">
+      
+  <img src="../../../img/refgenie_bug_light.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Refgenie: next-generation reference genome management
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Refgenconf
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Refgenie
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../refgenieserver/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Refgenie server
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../refgenie1/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Refgenie 1
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../refgenieserver1/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Refgenie server 1
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../refget/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Refget
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Refgenie: next-generation reference genome management" class="md-nav__button md-logo" aria-label="Refgenie: next-generation reference genome management" data-md-component="logo">
+      
+  <img src="../../../img/refgenie_bug_light.svg" alt="logo">
+
+    </a>
+    Refgenie: next-generation reference genome management
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Refgenie
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Refgenie
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_1" id="__nav_1_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../demo_videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Demo videos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Install and configure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Basic tutorial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../manuscripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Citing refgenie
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    How-to guides
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            How-to guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asset_registry_paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Refer to assets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pull/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Download pre-built assets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Build assets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../custom_assets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Add custom assets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seek/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Retrieve paths to assets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tag/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Use asset tags
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/aliases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Use aliases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../populate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Populate refgenie paths
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compare/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compare genomes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenieserver/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Run my own asset server
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenconf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Use refgenie from Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code_snippets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Use refgenie in your pipeline
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../remote/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Use refgenie on the cloud
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../igenomes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Use refgenie with iGenomes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/config_upgrade_03_to_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Upgrade from config 0.3 to 0.4
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../uses_refgenie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Studies using refgenie
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../genome_config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Genome configuration file
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../recipe_specification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Recipe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asset_class_specification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Asset class
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../available_assets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Buildable assets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../refgenconf-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Python API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/refgenconf_usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Refgenconf usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/databio/refgenie/issues" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../refgenieserver/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Refgenie server
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Refgenie server
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Refgenie 1
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Refgenie 1
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../refgenie1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie1/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie1/install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Install
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie1/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie1/manuscripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Citing refgenie
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    How-to guides
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            How-to guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie1/asset_registry_paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Refer to assets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie1/pull/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Download pre-built assets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie1/notebooks/refgenie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Use refgenie from Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie1/data_channels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Use data channels
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie1/build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Build assets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie1/pull/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Download pre-built assets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie1/seek/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Retrieve paths to assets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie1/naming_assets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Managing asset groups and naming
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie1/populate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Populate refgenie paths
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie1/set_up_data_channel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Set up your own data channel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie1/glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie1/uses_refgenie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Studies using refgenie
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie1/recipe_specification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Recipe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenie1/asset_class_specification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Asset class
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../refgenieserver1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Refgenie server 1
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Refgenie server 1
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenieserver1/archive_with_snakemake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Preparing servable assets at scale
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenieserver1/data_channels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data channels
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenieserver1/remotes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Remotes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenieserver1/endpoint_hits_collector/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Persisting asset download stats
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refgenieserver1/pagination_and_search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pagination and search
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Refget
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Refget
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../refget/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Getting started
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Getting started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    How-to guides
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            How-to guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refget/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refget/notebooks/digests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Computing digests
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refget/notebooks/refgetstore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GlobalRefgetStore
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refget/notebooks/sequence-client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sequences Client
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refget/notebooks/seqcol-client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sequence Collections Client
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refget/notebooks/agent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RefgetDB Agent
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refget/fastapi_router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Adding a fastAPI router
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refget/compliance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compliance testing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refget/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Command-line interface
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refget/changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refget/reference_docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Refget Python API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../refget/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pydantic models
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#class-refgenconf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Class RefGenConf
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Class RefGenConf">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raises" class="md-nav__link">
+    <span class="md-ellipsis">
+      Raises:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raises_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Raises:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raises_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Raises:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raises_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Raises:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raises_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Raises:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raises_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Raises:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raises_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Raises:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raises_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Raises:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raises_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Raises:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raises_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Raises:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raises_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Raises:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_40" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_40" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_41" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_41" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raises_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Raises:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_42" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_43" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_42" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_44" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_43" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_45" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_44" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_46" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_45" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_47" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_46" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_47" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_48" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_48" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raises_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Raises:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-genomeconfigformaterror" class="md-nav__link">
+    <span class="md-ellipsis">
+      Class GenomeConfigFormatError
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-missingasseterror" class="md-nav__link">
+    <span class="md-ellipsis">
+      Class MissingAssetError
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-missingconfigdataerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      Class MissingConfigDataError
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-missinggenomeerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      Class MissingGenomeError
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-refgenconferror" class="md-nav__link">
+    <span class="md-ellipsis">
+      Class RefgenconfError
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-unboundenvironmentvariableserror" class="md-nav__link">
+    <span class="md-ellipsis">
+      Class UnboundEnvironmentVariablesError
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Class UnboundEnvironmentVariablesError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_49" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_49" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_50" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_50" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters_51" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns_51" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raises_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      Raises:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+  document.querySelectorAll('h3 code').forEach((block) => {
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+<style>
+h3 .content { 
+    padding-left: 22px;
+    text-indent: -15px;
+ }
+h3 .hljs .content {
+    padding-left: 20px;
+    margin-left: 0px;
+    text-indent: -15px;
+    martin-bottom: 0px;
+}
+h4 .content, table .content, p .content, li .content { margin-left: 30px; }
+h4 .content { 
+    font-style: italic;
+    font-size: 1em;
+    margin-bottom: 0px;
+}
+
+</style>
+
+<h1 id="package-refgenconf-documentation">Package <code>refgenconf</code> Documentation</h1>
+<h2 id="class-refgenconf"><a name="RefGenConf"></a> Class <code>RefGenConf</code></h2>
+<p>A sort of oracle of available reference genome assembly assets</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">entries</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">writable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">wait_max</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">skip_read_lock</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">genome_exact</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">schema_source</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+<p>Create the config instance by with a filepath or key-value pairs.</p>
+<h4 id="parameters">Parameters:</h4>
+<ul>
+<li><code>filepath</code> (<code>str</code>):  a path to the YAML file to read</li>
+<li><code>entries</code> (<code>Iterable[(str, object)] | Mapping[str, object]</code>): config filepath or collection of key-value pairs</li>
+<li><code>writable</code> (<code>bool</code>):  whether to create the object with write capabilities</li>
+<li><code>wait_max</code> (<code>int</code>):  how long to wait for creating an object when thefile that data will be read from is locked</li>
+<li><code>skip_read_lock</code> (<code>bool</code>):  whether the file should not be locked forreading when object is created in read only mode</li>
+</ul>
+<h4 id="raises">Raises:</h4>
+<ul>
+<li><code>refgenconf.MissingConfigDataError</code>:  if a required configurationitem is missing</li>
+<li><code>ValueError</code>:  if entries is given as a string and is not a file</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">asset</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seek_keys</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>Add an external asset to the config</p>
+<h4 id="parameters_1">Parameters:</h4>
+<ul>
+<li><code>path</code> (<code>str</code>):  a path to the asset to add; must exist and be relativeto the genome_folder</li>
+<li><code>genome</code> (<code>str</code>):  genome name</li>
+<li><code>asset</code> (<code>str</code>):  asset name</li>
+<li><code>tag</code> (<code>str</code>):  tag name</li>
+<li><code>seek_keys</code> (<code>dict</code>):  seek keys to add</li>
+<li><code>force</code> (<code>bool</code>):  whether to force existing asset overwrite</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">alias_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</code></pre></div>
+<p>Path to the genome alias directory</p>
+<h4 id="returns">Returns:</h4>
+<ul>
+<li><code>str</code>:  path to the directory where the assets are stored</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">assets_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset_text</span><span class="o">=</span><span class="s1">&#39;  &#39;</span><span class="p">,</span> <span class="n">asset_sep</span><span class="o">=</span><span class="s1">&#39;, &#39;</span><span class="p">,</span> <span class="n">genome_assets_delim</span><span class="o">=</span><span class="s1">&#39;/ &#39;</span><span class="p">,</span> <span class="n">genome</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+<p>Create a block of text representing genome-to-asset mapping.</p>
+<h4 id="parameters_2">Parameters:</h4>
+<ul>
+<li><code>offset_text</code> (<code>str</code>):  text that begins each line of the textrepresentation that's produced</li>
+<li><code>asset_sep</code> (<code>str</code>):  the delimiter between names of types of assets,within each genome line</li>
+<li><code>genome_assets_delim</code> (<code>str</code>):  the delimiter to place betweenreference genome assembly name and its list of asset names</li>
+<li><code>genome</code> (<code>list[str] | str</code>):  genomes that the assets should be found for</li>
+<li><code>order</code> (<code>function(str) -&gt; object</code>):  how to key genome IDs and assetnames for sort</li>
+</ul>
+<h4 id="returns_1">Returns:</h4>
+<ul>
+<li><code>str</code>:  text representing genome-to-asset mapping</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">cfg_remove_assets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">asset</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">relationships</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<p>Remove data associated with a specified genome:asset:tag combination. If no tags are specified, the entire asset is removed from the genome.</p>
+<p>If no more tags are defined for the selected genome:asset after tag removal,
+the parent asset will be removed as well
+If no more assets are defined for the selected genome after asset removal,
+the parent genome will be removed as well</p>
+<h4 id="parameters_3">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str</code>):  genome to be removed</li>
+<li><code>asset</code> (<code>str</code>):  asset package to be removed</li>
+<li><code>tag</code> (<code>str</code>):  tag to be removed</li>
+<li><code>relationships</code> (<code>bool</code>):  whether the asset being removed shouldbe removed from its relatives as well</li>
+</ul>
+<h4 id="returns_2">Returns:</h4>
+<ul>
+<li><code>RefGenConf</code>:  updated object</li>
+</ul>
+<h4 id="raises_1">Raises:</h4>
+<ul>
+<li><code>TypeError</code>:  if genome argument type is not a list or str</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">cfg_tag_asset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">asset</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">new_tag</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>Retags the asset selected by the tag with the new_tag. Prompts if default already exists and overrides upon confirmation.</p>
+<p>This method does not override the original asset entry in the
+RefGenConf object. It creates its copy and tags it with the new_tag.
+Additionally, if the retagged asset has any children their parent will
+ be retagged as new_tag that was introduced upon this method execution.</p>
+<h4 id="parameters_4">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str</code>):  name of a reference genome assembly of interest</li>
+<li><code>asset</code> (<code>str</code>):  name of particular asset of interest</li>
+<li><code>tag</code> (<code>str</code>):  name of the tag that identifies the asset of interest</li>
+<li><code>new_tag</code> (<code>str</code>):  name of particular the new tag</li>
+<li><code>force</code> (<code>bool</code>):  force any actions that require approval</li>
+</ul>
+<h4 id="returns_3">Returns:</h4>
+<ul>
+<li><code>bool</code>:  a logical indicating whether the tagging was successful</li>
+</ul>
+<h4 id="raises_2">Raises:</h4>
+<ul>
+<li><code>ValueError</code>:  when the original tag is not specified</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">chk_digest_update_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">remote_asset_name</span><span class="p">,</span> <span class="n">child_name</span><span class="p">,</span> <span class="n">server_url</span><span class="p">)</span>
+</code></pre></div>
+<p>Check local asset digest against the remote one and populate children of the asset with the provided asset:tag.</p>
+<p>In case the local asset does not exist, the config is populated with the remote
+ asset digest and children data</p>
+<h4 id="parameters_5">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str</code>):  name of the genome to check the asset digests for</li>
+<li><code>remote_asset_name</code> (<code>str</code>): tag</li>
+<li><code>child_name</code> (<code>str</code>):  name to be appended to the children of the parent</li>
+<li><code>server_url</code> (<code>str</code>):  address of the server to query for the digests</li>
+</ul>
+<h4 id="raises_3">Raises:</h4>
+<ul>
+<li><code>RefgenconfError</code>:  if the local digest does not match its remote counterpart</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">compare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome1</span><span class="p">,</span> <span class="n">genome2</span><span class="p">,</span> <span class="n">explain</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>Check genomes compatibility level. Compares Annotated Sequence Digests (ASDs) -- digested sequences and metadata</p>
+<h4 id="parameters_6">Parameters:</h4>
+<ul>
+<li><code>genome1</code> (<code>str</code>):  name of the first genome to compare</li>
+<li><code>genome2</code> (<code>str</code>):  name of the first genome to compare</li>
+<li><code>explain</code> (<code>bool</code>):  whether the returned code explanation shouldbe displayed</li>
+</ul>
+<h4 id="returns_4">Returns:</h4>
+<ul>
+<li><code>int</code>:  compatibility code</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">data_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</code></pre></div>
+<p>Path to the genome data directory</p>
+<h4 id="returns_5">Returns:</h4>
+<ul>
+<li><code>str</code>:  path to the directory where the assets are stored</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</code></pre></div>
+<p>Path to the genome configuration file</p>
+<h4 id="returns_6">Returns:</h4>
+<ul>
+<li><code>str</code>:  path to the genome configuration file</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">filepath</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">asset</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s1">&#39;.tgz&#39;</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>Determine path to a particular asset for a particular genome.</p>
+<h4 id="parameters_7">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str</code>):  reference genome ID</li>
+<li><code>asset</code> (<code>str</code>):  asset name</li>
+<li><code>tag</code> (<code>str</code>):  tag name</li>
+<li><code>ext</code> (<code>str</code>):  file extension</li>
+<li><code>dir</code> (<code>bool</code>):  whether to return the enclosing directory instead of the file</li>
+</ul>
+<h4 id="returns_7">Returns:</h4>
+<ul>
+<li><code>str</code>:  path to asset for given genome and asset kind/name</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">genome_aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</code></pre></div>
+<p>Mapping of human-readable genome identifiers to genome identifiers</p>
+<h4 id="returns_8">Returns:</h4>
+<ul>
+<li><code>dict</code>:  mapping of human-readable genome identifiers to genomeidentifiers</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">genome_aliases_table</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</code></pre></div>
+<p>Mapping of human-readable genome identifiers to genome identifiers</p>
+<h4 id="returns_9">Returns:</h4>
+<ul>
+<li><code>dict</code>:  mapping of human-readable genome identifiers to genomeidentifiers</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">genomes_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+<p>Get a list of this configuration's reference genome assembly IDs.</p>
+<h4 id="returns_10">Returns:</h4>
+<ul>
+<li><code>Iterable[str]</code>:  list of this configuration's reference genomeassembly IDs</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">genomes_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+<p>Get as single string this configuration's reference genome assembly IDs.</p>
+<h4 id="parameters_8">Parameters:</h4>
+<ul>
+<li><code>order</code> (<code>function(str) -&gt; object</code>):  how to key genome IDs for sort</li>
+</ul>
+<h4 id="returns_11">Returns:</h4>
+<ul>
+<li><code>str</code>:  single string that lists this configuration's knownreference genome assembly IDs</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_asds_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">)</span>
+</code></pre></div>
+<p>Get path to the Annotated Sequence Digests JSON file for a given genome. Note that the path and/or genome may not exist.</p>
+<h4 id="parameters_9">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str</code>):  genome name</li>
+</ul>
+<h4 id="returns_12">Returns:</h4>
+<ul>
+<li><code>str</code>:  ASDs path</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_asset_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genomes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">server_url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">get_json_url</span><span class="o">=&lt;</span><span class="n">function</span> <span class="n">RefGenConf</span><span class="o">.&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x7f810efbc940</span><span class="o">&gt;</span><span class="p">)</span>
+</code></pre></div>
+<p>Get a rich.Table object representing assets available locally</p>
+<h4 id="parameters_10">Parameters:</h4>
+<ul>
+<li><code>genomes</code> (<code>list[str]</code>):  genomes to restrict the results with</li>
+<li><code>server_url</code> (<code>str</code>):  server URL to query for the remote genome data</li>
+<li><code>get_json_url</code> (<code>function(str, str) -&gt; str</code>):  how to build URL fromgenome server URL base, genome, and asset</li>
+</ul>
+<h4 id="returns_13">Returns:</h4>
+<ul>
+<li><code>rich.table.Table</code>:  table of assets available locally</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_default_tag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">asset</span><span class="p">,</span> <span class="n">use_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<p>Determine the asset tag to use as default. The one indicated by the 'default_tag' key in the asset section is returned. If no 'default_tag' key is found, by default the first listed tag is returned with a RuntimeWarning. This behavior can be turned off with use_existing=False</p>
+<h4 id="parameters_11">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str</code>):  name of a reference genome assembly of interest</li>
+<li><code>asset</code> (<code>str</code>):  name of the particular asset of interest</li>
+<li><code>use_existing</code> (<code>bool</code>):  whether the first tag in the config should bereturned in case there is no default tag defined for an asset</li>
+</ul>
+<h4 id="returns_14">Returns:</h4>
+<ul>
+<li><code>str</code>:  name of the tag to use as the default one</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_genome_alias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">digest</span><span class="p">,</span> <span class="n">fallback</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">all_aliases</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>Get the human readable alias for a genome digest</p>
+<h4 id="parameters_12">Parameters:</h4>
+<ul>
+<li><code>digest</code> (<code>str</code>):  digest to find human-readable alias for</li>
+<li><code>fallback</code> (<code>bool</code>):  whether to return the query digest in caseof failure</li>
+<li><code>all_aliases</code> (<code>bool</code>):  whether to return all aliases instead of justthe first one</li>
+</ul>
+<h4 id="returns_15">Returns:</h4>
+<ul>
+<li><code>str | list[str]</code>:  human-readable aliases</li>
+</ul>
+<h4 id="raises_4">Raises:</h4>
+<ul>
+<li><code>GenomeConfigFormatError</code>:  if "genome_digests" section doesnot exist in the config</li>
+<li><code>UndefinedAliasError</code>:  if a no alias has been defined for therequested digest</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_genome_alias_digest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">fallback</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>Get the human readable alias for a genome digest</p>
+<h4 id="parameters_13">Parameters:</h4>
+<ul>
+<li><code>alias</code> (<code>str</code>):  alias to find digest for</li>
+<li><code>fallback</code> (<code>bool</code>):  whether to return the query alias in caseof failure and in case it is one of the digests</li>
+</ul>
+<h4 id="returns_16">Returns:</h4>
+<ul>
+<li><code>str</code>:  genome digest</li>
+</ul>
+<h4 id="raises_5">Raises:</h4>
+<ul>
+<li><code>UndefinedAliasError</code>:  if the specified alias has been assigned toany digests</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_genome_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">)</span>
+</code></pre></div>
+<p>Get the dictionary attributes, like checksum, contents, description. Does not return the assets.</p>
+<h4 id="parameters_14">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str</code>):  genome to get the attributes dict for</li>
+</ul>
+<h4 id="returns_17">Returns:</h4>
+<ul>
+<li><code>Mapping[str, str]</code>:  available genome attributes</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_local_data_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+<p>List locally available reference genome IDs and assets by ID.</p>
+<h4 id="parameters_15">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>list[str] | str</code>):  genomes that the assets should be found for</li>
+<li><code>order</code> (<code>function(str) -&gt; object</code>):  how to key genome IDs and assetnames for sort</li>
+</ul>
+<h4 id="returns_18">Returns:</h4>
+<ul>
+<li><code>str, str</code>:  text reps of locally available genomes and assets</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_remote_data_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">get_url</span><span class="o">=&lt;</span><span class="n">function</span> <span class="n">RefGenConf</span><span class="o">.&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x7f810efb7670</span><span class="o">&gt;</span><span class="p">)</span>
+</code></pre></div>
+<p>List genomes and assets available remotely.</p>
+<h4 id="parameters_16">Parameters:</h4>
+<ul>
+<li><code>get_url</code> (<code>function(serverUrl, operationId) -&gt; str</code>):  how to determineURL request, given server URL and endpoint operationID</li>
+<li><code>genome</code> (<code>list[str] | str</code>):  genomes that the assets should be found for</li>
+<li><code>order</code> (<code>function(str) -&gt; object</code>):  how to key genome IDs and assetnames for sort</li>
+</ul>
+<h4 id="returns_19">Returns:</h4>
+<ul>
+<li><code>str, str</code>:  text reps of remotely available genomes and assets</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_symlink_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">asset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">all_aliases</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>Get path to the alias directory for the selected genome-asset-tag</p>
+<h4 id="parameters_17">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str</code>):  reference genome ID</li>
+<li><code>asset</code> (<code>str</code>):  asset name</li>
+<li><code>tag</code> (<code>str</code>):  tag name</li>
+<li><code>all_aliases</code> (<code>bool</code>):  whether to return a collection of symboliclinks or just the first one from the alias list</li>
+</ul>
+<h4 id="returns_20">Returns:</h4>
+<ul>
+<li><code>dict</code>: </li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">getseq</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">locus</span><span class="p">,</span> <span class="n">as_str</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>Return the sequence found in a selected range and chromosome. Something like the refget protocol.</p>
+<h4 id="parameters_18">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str</code>):  name of the sequence identifier</li>
+<li><code>locus</code> (<code>str</code>): 1-10'</li>
+<li><code>as_str</code> (<code>bool</code>):  whether to convert the resurned object to stringand return just the sequence</li>
+</ul>
+<h4 id="returns_21">Returns:</h4>
+<ul>
+<li><code>str | pyfaidx.FastaRecord | pyfaidx.Sequence</code>:  selected sequence</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">asset</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+<p>Returns the digest for the specified asset. The defined default tag will be used if not provided as an argument</p>
+<h4 id="parameters_19">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str</code>):  genome identifier</li>
+<li><code>asset</code> (<code>str</code>):  asset identifier</li>
+<li><code>tag</code> (<code>str</code>):  tag identifier</li>
+</ul>
+<h4 id="returns_22">Returns:</h4>
+<ul>
+<li><code>str</code>:  asset digest for the tag</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">initialize_config_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+<p>Initialize genome configuration file on disk</p>
+<h4 id="parameters_20">Parameters:</h4>
+<ul>
+<li><code>filepath</code> (<code>str</code>):  a valid path where the configuration file should be initialized</li>
+</ul>
+<h4 id="returns_23">Returns:</h4>
+<ul>
+<li><code>str</code>:  the filepath the file was initialized at</li>
+</ul>
+<h4 id="raises_6">Raises:</h4>
+<ul>
+<li><code>OSError</code>:  in case the file could not be initialized due to insufficient permissions or pre-existence</li>
+<li><code>TypeError</code>:  if no valid filepath cat be determined</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">initialize_genome</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fasta_path</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">fasta_unzipped</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">skip_alias_write</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>Initialize a genome</p>
+<p>Create a JSON file with Annotated Sequence Digests (ASDs)
+for the FASTA file in the genome directory.</p>
+<h4 id="parameters_21">Parameters:</h4>
+<ul>
+<li><code>fasta_path</code> (<code>str</code>):  path to a FASTA file to initialize genome with</li>
+<li><code>alias</code> (<code>str</code>):  alias to set for the genome</li>
+<li><code>skip_alias_write</code> (<code>bool</code>):  whether to skip writing the alias to the file</li>
+</ul>
+<h4 id="returns_24">Returns:</h4>
+<ul>
+<li><code>str, list[dict[]]</code>:  human-readable name for the genome</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">is_asset_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">asset</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span>
+</code></pre></div>
+<p>Check whether all required tag attributes are defined in the RefGenConf object. This is the way we determine tag completeness.</p>
+<h4 id="parameters_22">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str</code>):  genome to be checked</li>
+<li><code>asset</code> (<code>str</code>):  asset package to be checked</li>
+<li><code>tag</code> (<code>str</code>):  tag to be checked</li>
+</ul>
+<h4 id="returns_25">Returns:</h4>
+<ul>
+<li><code>bool</code>:  the decision</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">include_tags</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>List local assets; map each namespace to a list of available asset names</p>
+<h4 id="parameters_23">Parameters:</h4>
+<ul>
+<li><code>order</code> (<code>callable(str) -&gt; object</code>):  how to key genome IDs for sort</li>
+<li><code>genome</code> (<code>list[str] | str</code>):  genomes that the assets should be found for</li>
+<li><code>include_tags</code> (<code>bool</code>):  whether asset tags should be included in the returned dict</li>
+</ul>
+<h4 id="returns_26">Returns:</h4>
+<ul>
+<li><code>Mapping[str, Iterable[str]]</code>:  mapping from assembly name tocollection of available asset names.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">list_assets_by_genome</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">include_tags</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>List types/names of assets that are available for one--or all--genomes.</p>
+<h4 id="parameters_24">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str | NoneType</code>):  reference genome assembly ID, optional;if omitted, the full mapping from genome to asset names</li>
+<li><code>order</code> (<code>function(str) -&gt; object</code>):  how to key genome IDs and assetnames for sort</li>
+<li><code>include_tags</code> (<code>bool</code>):  whether asset tags should be included in thereturned dict</li>
+</ul>
+<h4 id="returns_27">Returns:</h4>
+<ul>
+<li><code>Iterable[str] | Mapping[str, Iterable[str]]</code>:  collection ofasset type names available for particular reference assembly if one is provided, else the full mapping between assembly ID and collection available asset type names</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">list_genomes_by_asset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">asset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+<p>List assemblies for which a particular asset is available.</p>
+<h4 id="parameters_25">Parameters:</h4>
+<ul>
+<li><code>asset</code> (<code>str | NoneType</code>):  name of type of asset of interest, optional</li>
+<li><code>order</code> (<code>function(str) -&gt; object</code>):  how to key genome IDs and assetnames for sort</li>
+</ul>
+<h4 id="returns_28">Returns:</h4>
+<ul>
+<li><code>Iterable[str] | Mapping[str, Iterable[str]]</code>:  collection ofassemblies for which the given asset is available; if asset argument is omitted, the full mapping from name of asset type to collection of assembly names for which the asset key is available will be returned.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">list_seek_keys_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genomes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">assets</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+<p>List values for all seek keys for the specified genome and asset. Leave the arguments out to get all seek keys values managed by refgenie.</p>
+<h4 id="parameters_26">Parameters:</h4>
+<ul>
+<li><code>genome_names</code> (<code>str | List[str]</code>):  optional list of genomes to include</li>
+<li><code>asset_names</code> (<code>str | List[str]</code>):  optional list of assets to include</li>
+</ul>
+<h4 id="returns_29">Returns:</h4>
+<ul>
+<li><code>dict</code>:  a nested dictionary with the seek key values</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">listr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">get_url</span><span class="o">=&lt;</span><span class="n">function</span> <span class="n">RefGenConf</span><span class="o">.&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x7f810efb7790</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">as_digests</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>List genomes and assets available remotely on all servers the object subscribes to</p>
+<h4 id="parameters_27">Parameters:</h4>
+<ul>
+<li><code>get_url</code> (<code>function(serverUrl, operationId) -&gt; str</code>):  how to determineURL request, given server URL and endpoint operationID</li>
+<li><code>genome</code> (<code>list[str] | str</code>):  genomes that the assets should be found for</li>
+<li><code>order</code> (<code>function(str) -&gt; object</code>):  how to key genome IDs and assetnames for sort</li>
+</ul>
+<h4 id="returns_30">Returns:</h4>
+<ul>
+<li><code>dict[OrderedDict[list]]</code>:  remotely available genomes and assetskeyed by genome keyed by source server endpoint</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plugins</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</code></pre></div>
+<p>Plugins registered by entry points in the current Python env</p>
+<h4 id="returns_31">Returns:</h4>
+<ul>
+<li><code>dict[dict[function(refgenconf.RefGenConf)]]</code>:  dict which keysare names of all possible hooks and values are dicts mapping registered functions names to their values</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">populate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">glob</span><span class="p">)</span>
+</code></pre></div>
+<p>Populates <em>local</em> refgenie references from refgenie://genome/asset.seek_key:tag registry paths</p>
+<h4 id="parameters_28">Parameters:</h4>
+<ul>
+<li><code>glob</code> (<code>dict | str | list</code>):  String which may contain refgenie registry paths asvalues; or a dict, for which values may contain refgenie registry paths. Dict include nested dicts.</li>
+</ul>
+<h4 id="returns_32">Returns:</h4>
+<ul>
+<li><code>dict | str | list</code>:  modified input dict with refgenie paths populated</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">populater</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">glob</span><span class="p">,</span> <span class="n">remote_class</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+<p>Populates <em>remote</em> refgenie references from refgenie://genome/asset:tag registry paths</p>
+<h4 id="parameters_29">Parameters:</h4>
+<ul>
+<li><code>glob</code> (<code>dict | str | list</code>):  String which may contain refgenie registry paths asvalues; or a dict, for which values may contain refgenie registry paths. Dict include nested dicts.</li>
+<li><code>remote_class</code> (<code>str</code>):  remote data provider class, e.g. 'http' or 's3'</li>
+</ul>
+<h4 id="returns_33">Returns:</h4>
+<ul>
+<li><code>dict | str | list</code>:  modified input dict with refgenie paths populated</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">pull</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">asset</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_large</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">size_cutoff</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">get_json_url</span><span class="o">=&lt;</span><span class="n">function</span> <span class="n">RefGenConf</span><span class="o">.&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x7f810efb7a60</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">build_signal_handler</span><span class="o">=&lt;</span><span class="n">function</span> <span class="n">_handle_sigint</span> <span class="n">at</span> <span class="mh">0x7f810f4541f0</span><span class="o">&gt;</span><span class="p">)</span>
+</code></pre></div>
+<p>Download and possibly unpack one or more assets for a given ref gen.</p>
+<h4 id="parameters_30">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str</code>):  name of a reference genome assembly of interest</li>
+<li><code>asset</code> (<code>str</code>):  name of particular asset to fetch</li>
+<li><code>tag</code> (<code>str</code>):  name of particular tag to fetch</li>
+<li><code>unpack</code> (<code>bool</code>):  whether to unpack a tarball</li>
+<li><code>force</code> (<code>bool | NoneType</code>):  how to handle case in which asset pathalready exists; null for prompt (on a per-asset basis), False to effectively auto-reply No to the prompt to replace existing file, and True to auto-replay Yes for existing asset replacement.</li>
+<li><code>force_large</code> (<code>bool | NoneType</code>):  how to handle case in large (&gt; 5GB)asset is to be pulled; null for prompt (on a per-asset basis), False to effectively auto-reply No to the prompt, and True to auto-replay Yes</li>
+<li><code>size_cutoff</code> (<code>float</code>):  maximum archive file size to download withno prompt</li>
+<li><code>get_json_url</code> (<code>function(str, str) -&gt; str</code>):  how to build URL fromgenome server URL base, genome, and asset</li>
+<li><code>build_signal_handler</code> (<code>function(str) -&gt; function</code>):  how to createa signal handler to use during the download; the single argument to this function factory is the download filepath</li>
+</ul>
+<h4 id="returns_34">Returns:</h4>
+<ul>
+<li><code>(list[str], dict, str)</code>:  a list of genome, asset, tag namesand a key-value pair with which genome config file should be updated if pull succeeds, else asset key and a null value</li>
+</ul>
+<h4 id="raises_7">Raises:</h4>
+<ul>
+<li><code>refgenconf.UnboundEnvironmentVariablesError</code>:  if genome folderpath contains any env. var. that's unbound</li>
+<li><code>refgenconf.RefGenConfError</code>:  if the object update is requested ina non-writable state</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">asset</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">relationships</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>Remove data associated with a specified genome:asset:tag combination. If no tags are specified, the entire asset is removed from the genome.</p>
+<p>If no more tags are defined for the selected genome:asset after tag removal,
+the parent asset will be removed as well
+If no more assets are defined for the selected genome after asset removal,
+the parent genome will be removed as well</p>
+<h4 id="parameters_31">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str</code>):  genome to be removed</li>
+<li><code>asset</code> (<code>str</code>):  asset package to be removed</li>
+<li><code>tag</code> (<code>str</code>):  tag to be removed</li>
+<li><code>relationships</code> (<code>bool</code>):  whether the asset being removed shouldbe removed from its relatives as well</li>
+<li><code>files</code> (<code>bool</code>):  whether the asset files from disk should be removed</li>
+<li><code>force</code> (<code>bool</code>):  whether the removal prompts should be skipped</li>
+</ul>
+<h4 id="returns_35">Returns:</h4>
+<ul>
+<li><code>RefGenConf</code>:  updated object</li>
+</ul>
+<h4 id="raises_8">Raises:</h4>
+<ul>
+<li><code>TypeError</code>:  if genome argument type is not a list or str</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">remove_asset_from_relatives</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">asset</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span>
+</code></pre></div>
+<p>Remove any relationship links associated with the selected asset</p>
+<h4 id="parameters_32">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str</code>):  genome to be removed from its relatives' relatives list</li>
+<li><code>asset</code> (<code>str</code>):  asset to be removed from its relatives' relatives list</li>
+<li><code>tag</code> (<code>str</code>):  tag to be removed from its relatives' relatives list</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">remove_genome_aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">digest</span><span class="p">,</span> <span class="n">aliases</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+<p>Remove alias for a specified genome digest. This method will remove the digest both from the genomes object and from the aliases mapping in tbe config</p>
+<h4 id="parameters_33">Parameters:</h4>
+<ul>
+<li><code>digest</code> (<code>str</code>):  genome digest to remove an alias for</li>
+<li><code>aliases</code> (<code>list[str]</code>):  a collection to aliases to remove for thegenome. If not provided, all aliases for the digest will be remove</li>
+</ul>
+<h4 id="returns_36">Returns:</h4>
+<ul>
+<li><code>bool</code>:  whether the removal has been performed</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run_plugins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hook</span><span class="p">)</span>
+</code></pre></div>
+<p>Runs all installed plugins for the specified hook.</p>
+<h4 id="parameters_34">Parameters:</h4>
+<ul>
+<li><code>hook</code> (<code>str</code>):  hook identifier</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">seek</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome_name</span><span class="p">,</span> <span class="n">asset_name</span><span class="p">,</span> <span class="n">tag_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seek_key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">strict_exists</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enclosing_dir</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">all_aliases</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">check_exist</span><span class="o">=&lt;</span><span class="n">function</span> <span class="n">RefGenConf</span><span class="o">.&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x7f810efbcf70</span><span class="o">&gt;</span><span class="p">)</span>
+</code></pre></div>
+<p>Seek path to a specified genome-asset-tag alias</p>
+<h4 id="parameters_35">Parameters:</h4>
+<ul>
+<li><code>genome_name</code> (<code>str</code>):  name of a reference genome assembly of interest</li>
+<li><code>asset_name</code> (<code>str</code>):  name of the particular asset to fetch</li>
+<li><code>tag_name</code> (<code>str</code>):  name of the particular asset tag to fetch</li>
+<li><code>seek_key</code> (<code>str</code>):  name of the particular subasset to fetch</li>
+<li><code>strict_exists</code> (<code>bool | NoneType</code>):  how to handle case in whichpath doesn't exist; True to raise IOError, False to raise RuntimeWarning, and None to do nothing at all. Default: None (do not check).</li>
+<li><code>check_exist</code> (<code>function(callable) -&gt; bool</code>):  how to check forasset/path existence</li>
+<li><code>enclosing_dir</code> (<code>bool</code>):  whether a path to the entire enclosingdirectory should be returned, e.g. for a fasta asset that has 3 seek_keys pointing to 3 files in an asset dir, that asset dir is returned</li>
+<li><code>all_aliases</code> (<code>bool</code>):  whether to return paths to all asset aliases orjust the one for the specified 'genome_name` argument</li>
+</ul>
+<h4 id="returns_37">Returns:</h4>
+<ul>
+<li><code>str</code>:  path to the asset</li>
+</ul>
+<h4 id="raises_9">Raises:</h4>
+<ul>
+<li><code>TypeError</code>:  if the existence check is not a one-arg function</li>
+<li><code>refgenconf.MissingGenomeError</code>:  if the named assembly isn't knownto this configuration instance</li>
+<li><code>refgenconf.MissingAssetError</code>:  if the names assembly is known tothis configuration instance, but the requested asset is unknown</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">seek_src</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome_name</span><span class="p">,</span> <span class="n">asset_name</span><span class="p">,</span> <span class="n">tag_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seek_key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">strict_exists</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enclosing_dir</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">check_exist</span><span class="o">=&lt;</span><span class="n">function</span> <span class="n">RefGenConf</span><span class="o">.&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x7f810efb71f0</span><span class="o">&gt;</span><span class="p">)</span>
+</code></pre></div>
+<p>Seek path to a specified genome-asset-tag</p>
+<h4 id="parameters_36">Parameters:</h4>
+<ul>
+<li><code>genome_name</code> (<code>str</code>):  name of a reference genome assembly of interest</li>
+<li><code>asset_name</code> (<code>str</code>):  name of the particular asset to fetch</li>
+<li><code>tag_name</code> (<code>str</code>):  name of the particular asset tag to fetch</li>
+<li><code>seek_key</code> (<code>str</code>):  name of the particular subasset to fetch</li>
+<li><code>strict_exists</code> (<code>bool | NoneType</code>):  how to handle case in whichpath doesn't exist; True to raise IOError, False to raise RuntimeWarning, and None to do nothing at all. Default: None (do not check).</li>
+<li><code>check_exist</code> (<code>function(callable) -&gt; bool</code>):  how to check forasset/path existence</li>
+<li><code>enclosing_dir</code> (<code>bool</code>):  whether a path to the entire enclosingdirectory should be returned, e.g. for a fasta asset that has 3 seek_keys pointing to 3 files in an asset dir, that asset dir is returned</li>
+</ul>
+<h4 id="returns_38">Returns:</h4>
+<ul>
+<li><code>str</code>:  path to the asset</li>
+</ul>
+<h4 id="raises_10">Raises:</h4>
+<ul>
+<li><code>TypeError</code>:  if the existence check is not a one-arg function</li>
+<li><code>refgenconf.MissingGenomeError</code>:  if the named assembly isn't knownto this configuration instance</li>
+<li><code>refgenconf.MissingAssetError</code>:  if the names assembly is known tothis configuration instance, but the requested asset is unknown</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">seekr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome_name</span><span class="p">,</span> <span class="n">asset_name</span><span class="p">,</span> <span class="n">tag_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seek_key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remote_class</span><span class="o">=</span><span class="s1">&#39;http&#39;</span><span class="p">,</span> <span class="n">get_url</span><span class="o">=&lt;</span><span class="n">function</span> <span class="n">RefGenConf</span><span class="o">.&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x7f810efb70d0</span><span class="o">&gt;</span><span class="p">)</span>
+</code></pre></div>
+<p>Seek a remote path to a specified genome/asset.seek_key:tag</p>
+<h4 id="parameters_37">Parameters:</h4>
+<ul>
+<li><code>genome_name</code> (<code>str</code>):  name of a reference genome assembly of interest</li>
+<li><code>asset_name</code> (<code>str</code>):  name of the particular asset to fetch</li>
+<li><code>tag_name</code> (<code>str</code>):  name of the particular asset tag to fetch</li>
+<li><code>seek_key</code> (<code>str</code>):  name of the particular subasset to fetch</li>
+<li><code>remote_class</code> (<code>str</code>):  remote data provider class, e.g. 'http' or 's3'</li>
+<li><code>get_url</code> (<code>function(serverUrl, operationId) -&gt; str</code>):  how to determineURL request, given server URL and endpoint operationID</li>
+</ul>
+<h4 id="returns_39">Returns:</h4>
+<ul>
+<li><code>str</code>:  path to the asset</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">set_default_pointer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">asset</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">force_exists</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">force_digest</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_fasta</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>Point to the selected tag by default</p>
+<h4 id="parameters_38">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str</code>):  name of a reference genome assembly of interest</li>
+<li><code>asset</code> (<code>str</code>):  name of the particular asset of interest</li>
+<li><code>tag</code> (<code>str</code>):  name of the particular asset tag to point to by default</li>
+<li><code>force_digest</code> (<code>str</code>):  digest to force update of. The alias willnot be converted to the digest, even if provided.</li>
+<li><code>force_fasta</code> (<code>bool</code>):  whether setting a default tag for a fasta assetshould be forced. Beware: This could lead to genome identity issues</li>
+<li><code>force_exists</code> (<code>bool</code>):  whether the default tag change should beforced (even if it exists)</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">set_genome_alias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">digest</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">servers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reset_digest</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">create_genome</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">no_write</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">get_json_url</span><span class="o">=&lt;</span><span class="n">function</span> <span class="n">RefGenConf</span><span class="o">.&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x7f810efb7d30</span><span class="o">&gt;</span><span class="p">)</span>
+</code></pre></div>
+<p>Assign a human-readable alias to a genome identifier.</p>
+<p>Genomes are identified by a unique identifier which is derived from the
+FASTA file (part of fasta asset). This way we can ensure genome
+provenance and compatibility with the server. This function maps a
+human-readable identifier to make referring to the genomes easier.</p>
+<h4 id="parameters_39">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str</code>):  name of the genome to assign to an identifier</li>
+<li><code>digest</code> (<code>str</code>):  identifier to use</li>
+<li><code>overwrite</code> (<code>bool</code>):  whether all the previously set aliases should beremoved and just the current one stored</li>
+<li><code>no_write</code> (<code>bool</code>):  whether to skip writing the alias to the file</li>
+</ul>
+<h4 id="returns_40">Returns:</h4>
+<ul>
+<li><code>bool</code>:  whether the alias has been established</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">subscribe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">urls</span><span class="p">,</span> <span class="n">reset</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">no_write</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>Add URLs the list of genome_servers.</p>
+<p>Use reset argument to overwrite the current list.
+Otherwise the current one will be appended to.</p>
+<h4 id="parameters_40">Parameters:</h4>
+<ul>
+<li><code>urls</code> (<code>list[str] | str</code>):  urls to update the genome_servers list with</li>
+<li><code>reset</code> (<code>bool</code>):  whether the current list should be overwritten</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">tag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">asset</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">new_tag</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>Retags the asset selected by the tag with the new_tag. Prompts if default already exists and overrides upon confirmation.</p>
+<p>This method does not override the original asset entry in the RefGenConf
+object. It creates its copy and tags it with the new_tag.
+Additionally, if the retagged asset has any children their parent will
+be retagged as new_tag that was introduced upon this method execution.
+By default, the files on disk will be also renamed to reflect the
+genome configuration file changes</p>
+<h4 id="parameters_41">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str</code>):  name of a reference genome assembly of interest</li>
+<li><code>asset</code> (<code>str</code>):  name of particular asset of interest</li>
+<li><code>tag</code> (<code>str</code>):  name of the tag that identifies the asset of interest</li>
+<li><code>new_tag</code> (<code>str</code>):  name of particular the new tag</li>
+<li><code>files</code> (<code>bool</code>):  whether the asset files on disk should be renamed</li>
+</ul>
+<h4 id="returns_41">Returns:</h4>
+<ul>
+<li><code>bool</code>:  a logical indicating whether the tagging was successful</li>
+</ul>
+<h4 id="raises_11">Raises:</h4>
+<ul>
+<li><code>ValueError</code>:  when the original tag is not specified</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">unsubscribe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">urls</span><span class="p">,</span> <span class="n">no_write</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>Remove URLs the list of genome_servers.</p>
+<h4 id="parameters_42">Parameters:</h4>
+<ul>
+<li><code>urls</code> (<code>list[str] | str</code>):  urls to update the genome_servers list with</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">update_assets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">asset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_digest</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+<p>Updates the genomes in RefGenConf object at any level. If a requested genome-asset mapping is missing, it will be created</p>
+<h4 id="parameters_43">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str</code>):  genome to be added/updated</li>
+<li><code>asset</code> (<code>str</code>):  asset to be added/updated</li>
+<li><code>force_digest</code> (<code>str</code>):  digest to force update of. The alias willnot be converted to the digest, even if provided.</li>
+<li><code>data</code> (<code>Mapping</code>):  data to be added/updated</li>
+</ul>
+<h4 id="returns_42">Returns:</h4>
+<ul>
+<li><code>RefGenConf</code>:  updated object</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">update_genomes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_digest</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+<p>Updates the genomes in RefGenConf object at any level. If a requested genome is missing, it will be added</p>
+<h4 id="parameters_44">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str</code>):  genome to be added/updated</li>
+<li><code>force_digest</code> (<code>str</code>):  digest to force update of. The alias willnot be converted to the digest, even if provided.</li>
+<li><code>data</code> (<code>Mapping</code>):  data to be added/updated</li>
+</ul>
+<h4 id="returns_43">Returns:</h4>
+<ul>
+<li><code>RefGenConf</code>:  updated object</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">update_relatives_assets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">asset</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">children</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>A convenience method which wraps the update assets and uses it to update the asset relatives of an asset.</p>
+<h4 id="parameters_45">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str</code>):  genome to be added/updated</li>
+<li><code>asset</code> (<code>str</code>):  asset to be added/updated</li>
+<li><code>tag</code> (<code>str</code>):  tag to be added/updated</li>
+<li><code>data</code> (<code>list</code>):  asset parents or children to be added/updated</li>
+<li><code>children</code> (<code>bool</code>):  a logical indicating whether the relationship to beadded is 'children'</li>
+</ul>
+<h4 id="returns_44">Returns:</h4>
+<ul>
+<li><code>RefGenConf</code>:  updated object</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">update_seek_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">asset</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_digest</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+<p>A convenience method which wraps the updated assets and uses it to update the seek keys for a tagged asset.</p>
+<h4 id="parameters_46">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str</code>):  genome to be added/updated</li>
+<li><code>asset</code> (<code>str</code>):  asset to be added/updated</li>
+<li><code>tag</code> (<code>str</code>):  tag to be added/updated</li>
+<li><code>force_digest</code> (<code>str</code>):  digest to force update of. The alias willnot be converted to the digest, even if provided.</li>
+<li><code>keys</code> (<code>Mapping</code>):  seek_keys to be added/updated</li>
+</ul>
+<h4 id="returns_45">Returns:</h4>
+<ul>
+<li><code>RefGenConf</code>:  updated object</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">update_tags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">asset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_digest</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+<p>Updates the genomes in RefGenConf object at any level. If a requested genome-asset-tag mapping is missing, it will be created</p>
+<h4 id="parameters_47">Parameters:</h4>
+<ul>
+<li><code>genome</code> (<code>str</code>):  genome to be added/updated</li>
+<li><code>asset</code> (<code>str</code>):  asset to be added/updated</li>
+<li><code>tag</code> (<code>str</code>):  tag to be added/updated</li>
+<li><code>force_digest</code> (<code>str</code>):  digest to force update of. The alias willnot be converted to the digest, even if provided.</li>
+<li><code>data</code> (<code>Mapping</code>):  data to be added/updated</li>
+</ul>
+<h4 id="returns_46">Returns:</h4>
+<ul>
+<li><code>RefGenConf</code>:  updated object</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">writable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</code></pre></div>
+<p>Return writability flag or None if not set</p>
+<h4 id="returns_47">Returns:</h4>
+<ul>
+<li><code>bool | None</code>:  whether the object is writable now</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+<p>Write the contents to a file. If pre- and post-update plugins are defined, they will be executed automatically</p>
+<h4 id="parameters_48">Parameters:</h4>
+<ul>
+<li><code>filepath</code> (<code>str</code>):  a file path to write to</li>
+</ul>
+<h4 id="returns_48">Returns:</h4>
+<ul>
+<li><code>str</code>:  the path to the created files</li>
+</ul>
+<h4 id="raises_12">Raises:</h4>
+<ul>
+<li><code>OSError</code>:  when the object has been created in a read only mode or otherprocess has locked the file</li>
+<li><code>TypeError</code>:  when the filepath cannot be determined.This takes place only if YacAttMap initialized with a Mapping as an input, not read from file.</li>
+<li><code>OSError</code>:  when the write is called on an object with no write capabilitiesor when writing to a file that is locked by a different object</li>
+</ul>
+<h2 id="class-genomeconfigformaterror"><a name="GenomeConfigFormatError"></a> Class <code>GenomeConfigFormatError</code></h2>
+<p>Exception for invalid genome config file format.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+</code></pre></div>
+<p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<h2 id="class-missingasseterror"><a name="MissingAssetError"></a> Class <code>MissingAssetError</code></h2>
+<p>Error type for request of an unavailable genome asset.</p>
+<h2 id="class-missingconfigdataerror"><a name="MissingConfigDataError"></a> Class <code>MissingConfigDataError</code></h2>
+<p>Missing required configuration instance items</p>
+<h2 id="class-missinggenomeerror"><a name="MissingGenomeError"></a> Class <code>MissingGenomeError</code></h2>
+<p>Error type for request of unknown genome/assembly.</p>
+<h2 id="class-refgenconferror"><a name="RefgenconfError"></a> Class <code>RefgenconfError</code></h2>
+<p>Base exception type for this package</p>
+<h2 id="class-unboundenvironmentvariableserror"><a name="UnboundEnvironmentVariablesError"></a> Class <code>UnboundEnvironmentVariablesError</code></h2>
+<p>Use of environment variable that isn't bound to a value.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">select_genome_config</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">conf_env_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;REFGENIE&#39;</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div>
+<p>Get path to genome configuration file.</p>
+<h4 id="parameters_49">Parameters:</h4>
+<ul>
+<li><code>filename</code> (<code>str</code>):  name/path of genome configuration file</li>
+<li><code>conf_env_vars</code> (<code>Iterable[str]</code>):  names of environment variables toconsider; basically, a prioritized search list</li>
+</ul>
+<h4 id="returns_49">Returns:</h4>
+<ul>
+<li><code>str</code>:  path to genome configuration file</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_dir_digest</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">pm</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+<p>Generate a MD5 digest that reflects just the contents of the files in the selected directory.</p>
+<h4 id="parameters_50">Parameters:</h4>
+<ul>
+<li><code>path</code> (<code>str</code>):  path to the directory to digest</li>
+<li><code>pm</code> (<code>pypiper.PipelineManager</code>):  a pipeline object, optional.The subprocess module will be used if not provided</li>
+</ul>
+<h4 id="returns_50">Returns:</h4>
+<ul>
+<li><code>str</code>:  a digest, e.g. a3c46f201a3ce7831d85cf4a125aa334</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">looper_refgenie_populate</span><span class="p">(</span><span class="n">namespaces</span><span class="p">)</span>
+</code></pre></div>
+<p>A looper plugin that populates refgenie references in a PEP from refgenie://genome/asset:tag registry paths. This can be used to convert all refgenie references into their local paths at the looper stage, so the final paths are passed to the workflow. This way the workflow does not need to depend on refgenie to resolve the paths. This is useful for example for CWL pipelines, which are built to have paths resolved outside the workflow.</p>
+<p>The namespaces structure required to run the plugin is:
+<code>namespaces["pipeline"]["var_templates"]["refgenie_config"]</code></p>
+<h4 id="parameters_51">Parameters:</h4>
+<ul>
+<li><code>namespaces</code> (<code>Mapping</code>):  a nested variable namespaces dict</li>
+</ul>
+<h4 id="returns_51">Returns:</h4>
+<ul>
+<li><code>dict</code>:  sample namespace dict</li>
+</ul>
+<h4 id="raises_13">Raises:</h4>
+<ul>
+<li><code>TypeError</code>:  if the input namespaces is not a mapping</li>
+<li><code>KeyError</code>:  if the namespaces mapping does not include 'pipeline'</li>
+<li><code>NotImplementedError</code>:  if 'var_templates' key is missing in the 'pipeline' namespace or'refgenie_config' is missing in 'var_templates' section.</li>
+</ul>
+<p><em>Version Information: <code>refgenconf</code> v0.12.2, generated by <code>lucidoc</code> v0.4.3</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a class="" href="http://databio.org/">
+  <img src="https://databio.org/images/logo/logo_databio_long.svg"
+    style="height:60px;"
+    alt="Databio logo">
+</a>
+
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["header.autohide", "navigation.sections", "navigation.footer", "navigation.indexes", "toc.follow", "content.action.edit", "content.action.view", "navigation.tabs", "navigation.top"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

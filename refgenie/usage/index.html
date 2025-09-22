@@ -1,0 +1,3776 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../available_assets/">
+      
+      
+        <link rel="next" href="../code/refgenconf-api/">
+      
+      
+      <link rel="icon" href="../../img/refgenie_bug.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Usage - Refgenie: next-generation reference genome management</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#usage-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Refgenie: next-generation reference genome management" class="md-header__button md-logo" aria-label="Refgenie: next-generation reference genome management" data-md-component="logo">
+      
+  <img src="../../img/refgenie_bug_light.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Refgenie: next-generation reference genome management
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Usage
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Refgenie
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../refgenieserver/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Refgenie server
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../refgenie1/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Refgenie 1
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../refgenieserver1/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Refgenie server 1
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../refget/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Refget
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Refgenie: next-generation reference genome management" class="md-nav__button md-logo" aria-label="Refgenie: next-generation reference genome management" data-md-component="logo">
+      
+  <img src="../../img/refgenie_bug_light.svg" alt="logo">
+
+    </a>
+    Refgenie: next-generation reference genome management
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Refgenie
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Refgenie
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_1" id="__nav_1_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demo_videos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Demo videos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Install and configure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Basic tutorial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manuscripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Citing refgenie
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    How-to guides
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            How-to guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../asset_registry_paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Refer to assets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pull/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Download pre-built assets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Build assets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom_assets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Add custom assets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../seek/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Retrieve paths to assets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tag/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Use asset tags
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/aliases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Use aliases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../populate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Populate refgenie paths
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compare/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compare genomes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../refgenieserver/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Run my own asset server
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../refgenconf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Use refgenie from Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../code_snippets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Use refgenie in your pipeline
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../remote/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Use refgenie on the cloud
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../igenomes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Use refgenie with iGenomes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/config_upgrade_03_to_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Upgrade from config 0.3 to 0.4
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uses_refgenie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Studies using refgenie
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../genome_config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Genome configuration file
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recipe_specification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Recipe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../asset_class_specification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Asset class
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../available_assets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Buildable assets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Usage
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Usage
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-init-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie init --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-list-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie list --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-listr-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie listr --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-pull-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie pull --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-build-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie build --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-seek-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie seek --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-seekr-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie seekr --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-populate-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie populate --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-populater-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie populater --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-add-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie add --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-remove-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie remove --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-getseq-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie getseq --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-tag-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie tag --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-id-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie id --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-subscribe-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie subscribe --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-unsubscribe-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie unsubscribe --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-alias-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie alias --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-upgrade-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie upgrade --help
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../code/refgenconf-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Python API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/refgenconf_usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Refgenconf usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/databio/refgenie/issues" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../refgenieserver/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Refgenie server
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Refgenie server
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Refgenie 1
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Refgenie 1
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../refgenie1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenie1/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenie1/install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Install
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenie1/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenie1/manuscripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Citing refgenie
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    How-to guides
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            How-to guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenie1/asset_registry_paths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Refer to assets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenie1/pull/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Download pre-built assets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenie1/notebooks/refgenie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Use refgenie from Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenie1/data_channels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Use data channels
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenie1/build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Build assets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenie1/pull/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Download pre-built assets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenie1/seek/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Retrieve paths to assets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenie1/naming_assets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Managing asset groups and naming
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenie1/populate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Populate refgenie paths
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenie1/set_up_data_channel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Set up your own data channel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenie1/glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenie1/uses_refgenie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Studies using refgenie
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenie1/recipe_specification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Recipe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenie1/asset_class_specification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Asset class
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../refgenieserver1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Refgenie server 1
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Refgenie server 1
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenieserver1/archive_with_snakemake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Preparing servable assets at scale
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenieserver1/data_channels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data channels
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenieserver1/remotes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Remotes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenieserver1/endpoint_hits_collector/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Persisting asset download stats
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refgenieserver1/pagination_and_search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pagination and search
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Refget
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Refget
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../refget/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Getting started
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Getting started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    How-to guides
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            How-to guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refget/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refget/notebooks/digests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Computing digests
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refget/notebooks/refgetstore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GlobalRefgetStore
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refget/notebooks/sequence-client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sequences Client
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refget/notebooks/seqcol-client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sequence Collections Client
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refget/notebooks/agent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RefgetDB Agent
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refget/fastapi_router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Adding a fastAPI router
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refget/compliance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compliance testing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refget/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Command-line interface
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refget/changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refget/reference_docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Refget Python API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../refget/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pydantic models
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-init-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie init --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-list-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie list --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-listr-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie listr --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-pull-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie pull --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-build-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie build --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-seek-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie seek --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-seekr-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie seekr --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-populate-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie populate --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-populater-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie populater --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-add-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie add --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-remove-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie remove --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-getseq-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie getseq --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-tag-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie tag --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-id-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie id --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-subscribe-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie subscribe --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-unsubscribe-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie unsubscribe --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-alias-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie alias --help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refgenie-upgrade-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      refgenie upgrade --help
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="usage-reference">Usage reference</h1>
+<h2 id="refgenie-help"><code>refgenie --help</code></h2>
+<div class="highlight"><pre><span></span><code><span class="go">version: 0.11.1-dev | refgenconf 0.11.2-dev</span>
+<span class="go">usage: refgenie [-h] [--version] [--silent] [--verbosity V] [--logdev]</span>
+<span class="go">                {init,list,listr,pull,build,seek,seekr,add,remove,getseq,tag,id,subscribe,unsubscribe,alias,compare,upgrade,populate,populater}</span>
+<span class="go">                ...</span>
+
+<span class="go">refgenie - reference genome asset manager</span>
+
+<span class="go">positional arguments:</span>
+<span class="go">  {init,list,listr,pull,build,seek,seekr,add,remove,getseq,tag,id,subscribe,unsubscribe,alias,compare,upgrade,populate,populater}</span>
+<span class="go">    init                Initialize a genome configuration.</span>
+<span class="go">    list                List available local assets.</span>
+<span class="go">    listr               List available remote assets.</span>
+<span class="go">    pull                Download assets.</span>
+<span class="go">    build               Build genome assets.</span>
+<span class="go">    seek                Get the path to a local asset.</span>
+<span class="go">    seekr               Get the path to a remote asset.</span>
+<span class="go">    add                 Add local asset to the config file.</span>
+<span class="go">    remove              Remove a local asset.</span>
+<span class="go">    getseq              Get sequences from a genome.</span>
+<span class="go">    tag                 Tag an asset.</span>
+<span class="go">    id                  Return the asset digest.</span>
+<span class="go">    subscribe           Add a refgenieserver URL to the config.</span>
+<span class="go">    unsubscribe         Remove a refgenieserver URL from the config.</span>
+<span class="go">    alias               Interact with aliases.</span>
+<span class="go">    compare             Compare two genomes.</span>
+<span class="go">    upgrade             Upgrade config. This will alter the files on disk.</span>
+<span class="go">    populate            Populate registry paths with local paths.</span>
+<span class="go">    populater           Populate registry paths with remote paths.</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help            show this help message and exit</span>
+<span class="go">  --version             show program&#39;s version number and exit</span>
+<span class="go">  --silent              Silence logging. Overrides verbosity.</span>
+<span class="go">  --verbosity V         Set logging level (1-5 or logging module level name)</span>
+<span class="go">  --logdev              Expand content of logging message format.</span>
+
+<span class="go">https://refgenie.databio.org</span>
+</code></pre></div>
+<h2 id="refgenie-init-help"><code>refgenie init --help</code></h2>
+<div class="highlight"><pre><span></span><code><span class="go">usage: refgenie init [-h] -c C [--skip-read-lock] [-s GENOME_SERVER [GENOME_SERVER ...]]</span>
+<span class="go">                     [-f GENOME_FOLDER] [-a GENOME_ARCHIVE_FOLDER]</span>
+<span class="go">                     [-b GENOME_ARCHIVE_CONFIG] [-u REMOTE_URL_BASE] [-j SETTINGS_JSON]</span>
+
+<span class="go">Initialize a genome configuration.</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help                            show this help message and exit</span>
+<span class="go">  -c C, --genome-config C               Path to local genome configuration file. Optional</span>
+<span class="go">                                        if REFGENIE environment variable is set.</span>
+<span class="go">  --skip-read-lock                      Whether the config file should not be locked for</span>
+<span class="go">                                        reading</span>
+<span class="go">  -s GENOME_SERVER [GENOME_SERVER ...], --genome-server GENOME_SERVER [GENOME_SERVER ...]</span>
+<span class="go">                                        URL(s) to use for the genome_servers attribute in</span>
+<span class="go">                                        config file. Default:</span>
+<span class="go">                                        http://refgenomes.databio.org.</span>
+<span class="go">  -f GENOME_FOLDER, --genome-folder GENOME_FOLDER</span>
+<span class="go">                                        Absolute path to parent folder refgenie-managed</span>
+<span class="go">                                        assets.</span>
+<span class="go">  -a GENOME_ARCHIVE_FOLDER, --genome-archive-folder GENOME_ARCHIVE_FOLDER</span>
+<span class="go">                                        Absolute path to parent archive folder refgenie-</span>
+<span class="go">                                        managed assets; used by refgenieserver.</span>
+<span class="go">  -b GENOME_ARCHIVE_CONFIG, --genome-archive-config GENOME_ARCHIVE_CONFIG</span>
+<span class="go">                                        Absolute path to desired archive config file; used</span>
+<span class="go">                                        by refgenieserver.</span>
+<span class="go">  -u REMOTE_URL_BASE, --remote-url-base REMOTE_URL_BASE</span>
+<span class="go">                                        URL to use as an alternative, remote archive</span>
+<span class="go">                                        location; used by refgenieserver.</span>
+<span class="go">  -j SETTINGS_JSON, --settings-json SETTINGS_JSON</span>
+<span class="go">                                        Absolute path to a JSON file with the key value</span>
+<span class="go">                                        pairs to inialize the configuration file with.</span>
+<span class="go">                                        Overwritten by itemized specifications.</span>
+</code></pre></div>
+<h2 id="refgenie-list-help"><code>refgenie list --help</code></h2>
+<div class="highlight"><pre><span></span><code><span class="go">usage: refgenie list [-h] [-c C] [--skip-read-lock] [-g [G ...]] [-r]</span>
+
+<span class="go">List available local assets.</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help                    show this help message and exit</span>
+<span class="go">  -c C, --genome-config C       Path to local genome configuration file. Optional if</span>
+<span class="go">                                REFGENIE environment variable is set.</span>
+<span class="go">  --skip-read-lock              Whether the config file should not be locked for reading</span>
+<span class="go">  -g [G ...], --genome [G ...]  Reference assembly ID, e.g. mm10.</span>
+<span class="go">  -r, --recipes                 List available recipes.</span>
+</code></pre></div>
+<h2 id="refgenie-listr-help"><code>refgenie listr --help</code></h2>
+<div class="highlight"><pre><span></span><code><span class="go">usage: refgenie listr [-h] [-c C] [--skip-read-lock] [-g [G ...]] [-s S [S ...]] [-p]</span>
+
+<span class="go">List available remote assets.</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help                            show this help message and exit</span>
+<span class="go">  -c C, --genome-config C               Path to local genome configuration file. Optional</span>
+<span class="go">                                        if REFGENIE environment variable is set.</span>
+<span class="go">  --skip-read-lock                      Whether the config file should not be locked for</span>
+<span class="go">                                        reading</span>
+<span class="go">  -g [G ...], --genome [G ...]          Reference assembly ID, e.g. mm10.</span>
+<span class="go">  -s S [S ...], --genome-server S [S ...]</span>
+<span class="go">                                        One or more URLs to use. This information will not</span>
+<span class="go">                                        persist in the genome config file.</span>
+<span class="go">  -p, --append-server                   Whether the provided servers should be appended to</span>
+<span class="go">                                        the list.</span>
+</code></pre></div>
+<h2 id="refgenie-pull-help"><code>refgenie pull --help</code></h2>
+<div class="highlight"><pre><span></span><code><span class="go">usage: refgenie pull [-h] [-c C] [--skip-read-lock] [-g G]</span>
+<span class="go">                     [--no-overwrite | --force-overwrite] [--no-large | --pull-large]</span>
+<span class="go">                     [--size-cutoff S] [-b]</span>
+<span class="go">                     asset-registry-paths [asset-registry-paths ...]</span>
+
+<span class="go">Download assets.</span>
+
+<span class="go">positional arguments:</span>
+<span class="go">  asset-registry-paths     One or more registry path strings that identify assets (e.g.</span>
+<span class="go">                           hg38/fasta or hg38/fasta:tag).</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help               show this help message and exit</span>
+<span class="go">  -c C, --genome-config C  Path to local genome configuration file. Optional if REFGENIE</span>
+<span class="go">                           environment variable is set.</span>
+<span class="go">  --skip-read-lock         Whether the config file should not be locked for reading</span>
+<span class="go">  -g G, --genome G         Reference assembly ID, e.g. mm10.</span>
+
+<span class="go">Prompt handling:</span>
+<span class="go">  These flags configure the pull prompt responses.</span>
+
+<span class="go">  --no-overwrite           Do not overwrite if asset exists.</span>
+<span class="go">  --force-overwrite        Overwrite if asset exists.</span>
+<span class="go">  --no-large               Do not pull archives over 5GB.</span>
+<span class="go">  --pull-large             Pull any archive, regardless of its size.</span>
+<span class="go">  --size-cutoff S          Maximum archive file size to download with no confirmation</span>
+<span class="go">                           required (in GB, default: 10)</span>
+<span class="go">  -b, --batch              Use batch mode: pull large archives, do no overwrite</span>
+</code></pre></div>
+<h2 id="refgenie-build-help"><code>refgenie build --help</code></h2>
+<div class="highlight"><pre><span></span><code><span class="go">usage: refgenie build [-h] [-c C] [--skip-read-lock] [-R] [-C CONFIG_FILE] [-N]</span>
+<span class="go">                      [--tag-description TAG_DESCRIPTION]</span>
+<span class="go">                      [--genome-description GENOME_DESCRIPTION] [-d] [--map]</span>
+<span class="go">                      [--pull-parents] [--reduce] [--assets ASSETS [ASSETS ...]]</span>
+<span class="go">                      [--files FILES [FILES ...]] [--params PARAMS [PARAMS ...]]</span>
+<span class="go">                      [-v VOLUMES [VOLUMES ...]] [-q] [-r RECIPE] [-g G]</span>
+<span class="go">                      [asset-registry-paths ...]</span>
+
+<span class="go">Build genome assets.</span>
+
+<span class="go">positional arguments:</span>
+<span class="go">  asset-registry-paths                  One or more registry path strings that identify</span>
+<span class="go">                                        assets (e.g. hg38/fasta or hg38/fasta:tag).</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help                            show this help message and exit</span>
+<span class="go">  -c C, --genome-config C               Path to local genome configuration file. Optional</span>
+<span class="go">                                        if REFGENIE environment variable is set.</span>
+<span class="go">  --skip-read-lock                      Whether the config file should not be locked for</span>
+<span class="go">                                        reading</span>
+<span class="go">  -R, --recover                         Overwrite locks to recover from previous failed</span>
+<span class="go">                                        run</span>
+<span class="go">  -C CONFIG_FILE, --config CONFIG_FILE  Pipeline configuration file (YAML). Relative paths</span>
+<span class="go">                                        are with respect to the pipeline script.</span>
+<span class="go">  -N, --new-start                       Overwrite all results to start a fresh run</span>
+<span class="go">  --tag-description TAG_DESCRIPTION     Add tag level description (e.g. built with version</span>
+<span class="go">                                        0.3.2).</span>
+<span class="go">  --genome-description GENOME_DESCRIPTION</span>
+<span class="go">                                        Add genome level description (e.g. The mouse</span>
+<span class="go">                                        mitochondrial genome, released in Dec 2013).</span>
+<span class="go">  -d, --docker                          Run all commands in the refgenie docker container.</span>
+<span class="go">  --map                                 Run the map procedure: build assets and store the</span>
+<span class="go">                                        metadata in separate configs.</span>
+<span class="go">  --pull-parents                        Automatically pull the default parent asset if</span>
+<span class="go">                                        required but not provided</span>
+<span class="go">  --reduce                              Run the reduce procedure: gather the metadata</span>
+<span class="go">                                        produced with `refgenie build --map`.</span>
+<span class="go">  --assets ASSETS [ASSETS ...]          Override the default genome, asset and tag of the</span>
+<span class="go">                                        parents (e.g. fasta=hg38/fasta:default</span>
+<span class="go">                                        gtf=mm10/gencode_gtf:default).</span>
+<span class="go">  --files FILES [FILES ...]             Provide paths to the required files (e.g.</span>
+<span class="go">                                        fasta=/path/to/file.fa.gz).</span>
+<span class="go">  --params PARAMS [PARAMS ...]          Provide required parameter values (e.g.</span>
+<span class="go">                                        param1=value1).</span>
+<span class="go">  -v VOLUMES [VOLUMES ...], --volumes VOLUMES [VOLUMES ...]</span>
+<span class="go">                                        If using docker, also mount these folders as</span>
+<span class="go">                                        volumes.</span>
+<span class="go">  -q, --requirements                    Show the build requirements for the specified</span>
+<span class="go">                                        asset and exit.</span>
+<span class="go">  -r RECIPE, --recipe RECIPE            Provide a recipe to use.</span>
+<span class="go">  -g G, --genome G                      Reference assembly ID, e.g. mm10.</span>
+</code></pre></div>
+<h2 id="refgenie-seek-help"><code>refgenie seek --help</code></h2>
+<div class="highlight"><pre><span></span><code><span class="go">usage: refgenie seek [-h] [-c C] [--skip-read-lock] [-g G] [-e]</span>
+<span class="go">                     asset-registry-paths [asset-registry-paths ...]</span>
+
+<span class="go">Get the path to a local asset.</span>
+
+<span class="go">positional arguments:</span>
+<span class="go">  asset-registry-paths     One or more registry path strings that identify assets (e.g.</span>
+<span class="go">                           hg38/fasta or hg38/fasta:tag or hg38/fasta.fai:tag).</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help               show this help message and exit</span>
+<span class="go">  -c C, --genome-config C  Path to local genome configuration file. Optional if REFGENIE</span>
+<span class="go">                           environment variable is set.</span>
+<span class="go">  --skip-read-lock         Whether the config file should not be locked for reading</span>
+<span class="go">  -g G, --genome G         Reference assembly ID, e.g. mm10.</span>
+<span class="go">  -e, --check-exists       Whether the returned asset path should be checked for existence</span>
+<span class="go">                           on disk.</span>
+</code></pre></div>
+<h2 id="refgenie-seekr-help"><code>refgenie seekr --help</code></h2>
+<div class="highlight"><pre><span></span><code><span class="go">usage: refgenie seekr [-h] [-c C] [--skip-read-lock] [-g G] [-s S [S ...]] [-p]</span>
+<span class="go">                      [--remote-class RC]</span>
+<span class="go">                      asset-registry-paths [asset-registry-paths ...]</span>
+
+<span class="go">Get the path to a remote asset.</span>
+
+<span class="go">positional arguments:</span>
+<span class="go">  asset-registry-paths                  One or more registry path strings that identify</span>
+<span class="go">                                        assets (e.g. hg38/fasta or hg38/fasta:tag or</span>
+<span class="go">                                        hg38/fasta.fai:tag).</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help                            show this help message and exit</span>
+<span class="go">  -c C, --genome-config C               Path to local genome configuration file. Optional</span>
+<span class="go">                                        if REFGENIE environment variable is set.</span>
+<span class="go">  --skip-read-lock                      Whether the config file should not be locked for</span>
+<span class="go">                                        reading</span>
+<span class="go">  -g G, --genome G                      Reference assembly ID, e.g. mm10.</span>
+<span class="go">  -s S [S ...], --genome-server S [S ...]</span>
+<span class="go">                                        One or more URLs to use. This information will not</span>
+<span class="go">                                        persist in the genome config file.</span>
+<span class="go">  -p, --append-server                   Whether the provided servers should be appended to</span>
+<span class="go">                                        the list.</span>
+<span class="go">  --remote-class RC                     Remote data provider class, e.g. &#39;http&#39; or &#39;s3&#39;</span>
+</code></pre></div>
+<h2 id="refgenie-populate-help"><code>refgenie populate --help</code></h2>
+<div class="highlight"><pre><span></span><code><span class="go">usage: refgenie populate [-h] [-c C] [--skip-read-lock] [-f F]</span>
+
+<span class="go">Populate registry paths with local paths.</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help               show this help message and exit</span>
+<span class="go">  -c C, --genome-config C  Path to local genome configuration file. Optional if REFGENIE</span>
+<span class="go">                           environment variable is set.</span>
+<span class="go">  --skip-read-lock         Whether the config file should not be locked for reading</span>
+<span class="go">  -f F, --file F           File with registry paths to populate</span>
+</code></pre></div>
+<h2 id="refgenie-populater-help"><code>refgenie populater --help</code></h2>
+<div class="highlight"><pre><span></span><code><span class="go">usage: refgenie populater [-h] [-c C] [--skip-read-lock] [-s S [S ...]] [-p]</span>
+<span class="go">                          [--remote-class RC] [-f F]</span>
+
+<span class="go">Populate registry paths with remote paths.</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help                            show this help message and exit</span>
+<span class="go">  -c C, --genome-config C               Path to local genome configuration file. Optional</span>
+<span class="go">                                        if REFGENIE environment variable is set.</span>
+<span class="go">  --skip-read-lock                      Whether the config file should not be locked for</span>
+<span class="go">                                        reading</span>
+<span class="go">  -s S [S ...], --genome-server S [S ...]</span>
+<span class="go">                                        One or more URLs to use. This information will not</span>
+<span class="go">                                        persist in the genome config file.</span>
+<span class="go">  -p, --append-server                   Whether the provided servers should be appended to</span>
+<span class="go">                                        the list.</span>
+<span class="go">  --remote-class RC                     Remote data provider class, e.g. &#39;http&#39; or &#39;s3&#39;</span>
+<span class="go">  -f F, --file F                        File with registry paths to populate</span>
+</code></pre></div>
+<h2 id="refgenie-add-help"><code>refgenie add --help</code></h2>
+<div class="highlight"><pre><span></span><code><span class="go">usage: refgenie add [-h] [-c C] [--skip-read-lock] [-g G] [-f] -p P [-s S]</span>
+<span class="go">                    asset-registry-paths [asset-registry-paths ...]</span>
+
+<span class="go">Add local asset to the config file.</span>
+
+<span class="go">positional arguments:</span>
+<span class="go">  asset-registry-paths     One or more registry path strings that identify assets (e.g.</span>
+<span class="go">                           hg38/fasta or hg38/fasta:tag).</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help               show this help message and exit</span>
+<span class="go">  -c C, --genome-config C  Path to local genome configuration file. Optional if REFGENIE</span>
+<span class="go">                           environment variable is set.</span>
+<span class="go">  --skip-read-lock         Whether the config file should not be locked for reading</span>
+<span class="go">  -g G, --genome G         Reference assembly ID, e.g. mm10.</span>
+<span class="go">  -f, --force              Do not prompt before action, approve upfront.</span>
+<span class="go">  -p P, --path P           Relative local path to asset.</span>
+<span class="go">  -s S, --seek-keys S      String representation of a JSON object with seek_keys, e.g.</span>
+<span class="go">                           &#39;{&quot;seek_key1&quot;: &quot;file.txt&quot;}&#39;</span>
+</code></pre></div>
+<h2 id="refgenie-remove-help"><code>refgenie remove --help</code></h2>
+<div class="highlight"><pre><span></span><code><span class="go">usage: refgenie remove [-h] [-c C] [--skip-read-lock] [-g G] [-f] [-a]</span>
+<span class="go">                       asset-registry-paths [asset-registry-paths ...]</span>
+
+<span class="go">Remove a local asset.</span>
+
+<span class="go">positional arguments:</span>
+<span class="go">  asset-registry-paths     One or more registry path strings that identify assets (e.g.</span>
+<span class="go">                           hg38/fasta or hg38/fasta:tag).</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help               show this help message and exit</span>
+<span class="go">  -c C, --genome-config C  Path to local genome configuration file. Optional if REFGENIE</span>
+<span class="go">                           environment variable is set.</span>
+<span class="go">  --skip-read-lock         Whether the config file should not be locked for reading</span>
+<span class="go">  -g G, --genome G         Reference assembly ID, e.g. mm10.</span>
+<span class="go">  -f, --force              Do not prompt before action, approve upfront.</span>
+<span class="go">  -a, --aliases            Remove the genome alias if last asset for that genome is</span>
+<span class="go">                           removed.</span>
+</code></pre></div>
+<h2 id="refgenie-getseq-help"><code>refgenie getseq --help</code></h2>
+<div class="highlight"><pre><span></span><code><span class="go">usage: refgenie getseq [-h] [-c C] [--skip-read-lock] -g G -l LOCUS</span>
+
+<span class="go">Get sequences from a genome.</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help               show this help message and exit</span>
+<span class="go">  -c C, --genome-config C  Path to local genome configuration file. Optional if REFGENIE</span>
+<span class="go">                           environment variable is set.</span>
+<span class="go">  --skip-read-lock         Whether the config file should not be locked for reading</span>
+<span class="go">  -g G, --genome G         Reference assembly ID, e.g. mm10.</span>
+<span class="go">  -l LOCUS, --locus LOCUS  Coordinates of desired sequence; e.g. &#39;chr1:50000-50200&#39;.</span>
+</code></pre></div>
+<h2 id="refgenie-tag-help"><code>refgenie tag --help</code></h2>
+<div class="highlight"><pre><span></span><code><span class="go">usage: refgenie tag [-h] [-c C] [--skip-read-lock] [-g G] [-f] (-t TAG | -d)</span>
+<span class="go">                    asset-registry-paths [asset-registry-paths ...]</span>
+
+<span class="go">Tag an asset.</span>
+
+<span class="go">positional arguments:</span>
+<span class="go">  asset-registry-paths     One or more registry path strings that identify assets (e.g.</span>
+<span class="go">                           hg38/fasta or hg38/fasta:tag).</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help               show this help message and exit</span>
+<span class="go">  -c C, --genome-config C  Path to local genome configuration file. Optional if REFGENIE</span>
+<span class="go">                           environment variable is set.</span>
+<span class="go">  --skip-read-lock         Whether the config file should not be locked for reading</span>
+<span class="go">  -g G, --genome G         Reference assembly ID, e.g. mm10.</span>
+<span class="go">  -f, --force              Do not prompt before action, approve upfront.</span>
+<span class="go">  -t TAG, --tag TAG        Tag to assign to an asset.</span>
+<span class="go">  -d, --default            Set the selected asset tag as the default one.</span>
+</code></pre></div>
+<h2 id="refgenie-id-help"><code>refgenie id --help</code></h2>
+<div class="highlight"><pre><span></span><code><span class="go">usage: refgenie id [-h] [-c C] [--skip-read-lock] [-g G]</span>
+<span class="go">                   asset-registry-paths [asset-registry-paths ...]</span>
+
+<span class="go">Return the asset digest.</span>
+
+<span class="go">positional arguments:</span>
+<span class="go">  asset-registry-paths     One or more registry path strings that identify assets (e.g.</span>
+<span class="go">                           hg38/fasta or hg38/fasta:tag).</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help               show this help message and exit</span>
+<span class="go">  -c C, --genome-config C  Path to local genome configuration file. Optional if REFGENIE</span>
+<span class="go">                           environment variable is set.</span>
+<span class="go">  --skip-read-lock         Whether the config file should not be locked for reading</span>
+<span class="go">  -g G, --genome G         Reference assembly ID, e.g. mm10.</span>
+</code></pre></div>
+<h2 id="refgenie-subscribe-help"><code>refgenie subscribe --help</code></h2>
+<div class="highlight"><pre><span></span><code><span class="go">usage: refgenie subscribe [-h] [-c C] [--skip-read-lock] [-r] -s S [S ...]</span>
+
+<span class="go">Add a refgenieserver URL to the config.</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help                            show this help message and exit</span>
+<span class="go">  -c C, --genome-config C               Path to local genome configuration file. Optional</span>
+<span class="go">                                        if REFGENIE environment variable is set.</span>
+<span class="go">  --skip-read-lock                      Whether the config file should not be locked for</span>
+<span class="go">                                        reading</span>
+<span class="go">  -r, --reset                           Overwrite the current list of server URLs.</span>
+<span class="go">  -s S [S ...], --genome-server S [S ...]</span>
+<span class="go">                                        One or more URLs to add to the genome_servers</span>
+<span class="go">                                        attribute in config file.</span>
+</code></pre></div>
+<h2 id="refgenie-unsubscribe-help"><code>refgenie unsubscribe --help</code></h2>
+<div class="highlight"><pre><span></span><code><span class="go">usage: refgenie unsubscribe [-h] [-c C] [--skip-read-lock] -s S [S ...]</span>
+
+<span class="go">Remove a refgenieserver URL from the config.</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help                            show this help message and exit</span>
+<span class="go">  -c C, --genome-config C               Path to local genome configuration file. Optional</span>
+<span class="go">                                        if REFGENIE environment variable is set.</span>
+<span class="go">  --skip-read-lock                      Whether the config file should not be locked for</span>
+<span class="go">                                        reading</span>
+<span class="go">  -s S [S ...], --genome-server S [S ...]</span>
+<span class="go">                                        One or more URLs to remove from the genome_servers</span>
+<span class="go">                                        attribute in config file.</span>
+</code></pre></div>
+<h2 id="refgenie-alias-help"><code>refgenie alias --help</code></h2>
+<div class="highlight"><pre><span></span><code><span class="go">usage: refgenie alias [-h] {remove,set,get} ...</span>
+
+<span class="go">Interact with aliases.</span>
+
+<span class="go">positional arguments:</span>
+<span class="go">  {remove,set,get}</span>
+<span class="go">    remove          Remove aliases.</span>
+<span class="go">    set             Set aliases.</span>
+<span class="go">    get             Get aliases.</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help        show this help message and exit</span>
+</code></pre></div>
+<h2 id="refgenie-upgrade-help"><code>refgenie upgrade --help</code></h2>
+<div class="highlight"><pre><span></span><code><span class="go">usage: refgenie upgrade [-h] [-c C] [--skip-read-lock] -v V [-f]</span>
+
+<span class="go">Upgrade config. This will alter the files on disk.</span>
+
+<span class="go">optional arguments:</span>
+<span class="go">  -h, --help                show this help message and exit</span>
+<span class="go">  -c C, --genome-config C   Path to local genome configuration file. Optional if REFGENIE</span>
+<span class="go">                            environment variable is set.</span>
+<span class="go">  --skip-read-lock          Whether the config file should not be locked for reading</span>
+<span class="go">  -v V, --target-version V  Target config version for the upgrade.</span>
+<span class="go">  -f, --force               Do not prompt before action, approve upfront.</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../available_assets/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Buildable assets">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Buildable assets
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../code/refgenconf-api/" class="md-footer__link md-footer__link--next" aria-label="Next: Python API">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Python API
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a class="" href="http://databio.org/">
+  <img src="https://databio.org/images/logo/logo_databio_long.svg"
+    style="height:60px;"
+    alt="Databio logo">
+</a>
+
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["header.autohide", "navigation.sections", "navigation.footer", "navigation.indexes", "toc.follow", "content.action.edit", "content.action.view", "navigation.tabs", "navigation.top"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
