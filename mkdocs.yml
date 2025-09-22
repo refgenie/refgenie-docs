@@ -103,6 +103,7 @@ nav:
     - Retrieve paths to assets: refgenie1/seek.md
     - Managing asset groups and naming: refgenie1/naming_assets.md
     - Populate refgenie paths: refgenie1/populate.md
+    - Set up your own data channel: refgenie1/set_up_data_channel.md
   - Reference:
     - Glossary: refgenie1/glossary.md
     - Studies using refgenie: refgenie1/uses_refgenie.md
