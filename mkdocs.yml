@@ -126,6 +126,7 @@ nav:
           - GlobalRefgetStore: refget/notebooks/refgetstore.ipynb
           - Sequences Client: refget/notebooks/sequence-client.ipynb
           - Sequence Collections Client: refget/notebooks/seqcol-client.ipynb
+          - FASTA DRS Client: refget/notebooks/fasta-drs-client.ipynb
           - RefgetDB Agent: refget/notebooks/agent.ipynb
           - Adding a fastAPI router: refget/fastapi_router.md
           - Compliance testing: refget/compliance.md
@@ -144,6 +145,7 @@ plugins:
       include:
         - refget/notebooks/sequence-client.ipynb
         - refget/notebooks/seqcol-client.ipynb
+        - refget/notebooks/fasta-drs-client.ipynb
         - refget/notebooks/agent.ipynb
         - refget/notebooks/digests.ipynb
         - refget/notebooks/refgetstore.ipynb
@@ -169,4 +171,5 @@ plugins:
             docstring_section_style: table # Optional: Format style
             separate_signature: true # Ensure __init__ appears clearly
             merge_init_into_class: true # This ensures __init__ is documented
+            allow_inspection: true # Enable runtime inspection for compiled extensions
 
