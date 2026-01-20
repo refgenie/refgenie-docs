@@ -87,6 +87,7 @@ Agent for individual sequence operations:
       heading_level: 3
 
 
+
 ## RefgetStore (gtars)
 
 ::: gtars.refget.RefgetStore
