@@ -11,23 +11,23 @@ This guide explains how to publish a local RefgetStore to S3 for remote access.
 ## Creating the store
 
 ```python
-from gtars.refget import GlobalRefgetStore, StorageMode
+from gtars.refget import RefgetStore
 
-store = GlobalRefgetStore(StorageMode.Encoded)
-store.import_fasta("genome.fa")
-store.write_store_to_directory("/path/to/my_store", "sequences/%s2/%s.seq")
+store = RefgetStore.on_disk("/path/to/my_store")
+store.add_sequence_collection_from_fasta("genome.fa")
 ```
 
 This creates a directory structure:
 
 ```
 my_store/
-├── index.json          # Store metadata
-├── sequences.farg      # Sequence index
+├── rgstore.json        # Store metadata
+├── sequences.rgsi      # Sequence index
+├── collections.rgci    # Collection metadata index
 ├── sequences/          # Encoded sequence data
 │   └── {prefix}/{digest}.seq
-└── collections/        # Collection .farg files
-    └── {digest}.farg
+└── collections/        # Collection files
+    └── {digest}.rgsi
 ```
 
 ## Uploading to S3
@@ -46,16 +46,16 @@ aws s3 sync /path/to/my_store s3://bucket-name/my_store
 Check that files are publicly accessible:
 
 ```bash
-curl -I "https://bucket-name.s3.us-east-1.amazonaws.com/my_store/index.json"
+curl -I "https://bucket-name.s3.us-east-1.amazonaws.com/my_store/rgstore.json"
 # Should return HTTP 200
 ```
 
 ## Using the remote store
 
 ```python
-from gtars.refget import GlobalRefgetStore
+from gtars.refget import RefgetStore
 
-store = GlobalRefgetStore.load_remote(
+store = RefgetStore.load_remote(
     cache_path="~/.refget/cache",
     remote_url="https://bucket-name.s3.us-east-1.amazonaws.com/my_store"
 )
@@ -92,7 +92,7 @@ https://refgenie.s3.us-east-1.amazonaws.com/pangenome_refget_store
 ```
 
 ```python
-store = GlobalRefgetStore.load_remote(
+store = RefgetStore.load_remote(
     cache_path="~/.refget/pangenome_cache",
     remote_url="https://refgenie.s3.us-east-1.amazonaws.com/pangenome_refget_store"
 )
