@@ -46,7 +46,7 @@ Or [conda](https://anaconda.org/bioconda/refgenie):
 conda install refgenie
 ```
 
-And that's it! If you wish to use refgenie in *remote mode*, see [further reading on remote mode in refgenie](remote.md).
+And that's it! If you wish to use refgenie in *remote mode*, see [further reading on remote mode in refgenie](../refgenie/remote.md).
 
 If you're connected to the Internet, call a test command, e.g.:
 
@@ -149,7 +149,7 @@ refgenie seekr mm10/fasta.fai
 
 This will return the path to the particular remote file of interest, here: FASTA index file, which is a part of `mm10/fasta` asset.
 
-See [further reading on using refgenie in remote mode](remote.md).
+See [further reading on using refgenie in remote mode](../refgenie/remote.md).
 
 ---
 If you want to read more about the motivation behind refgenie and the software engineering that makes refgenie work, proceed next to the [overview](overview.md).

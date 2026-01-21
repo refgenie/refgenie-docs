@@ -122,6 +122,44 @@ Validate the configuration file.
 refget config validate
 ```
 
+### config add
+
+Add a server or store to the configuration.
+
+```bash
+refget config add RESOURCE_TYPE URL [--name NAME]
+```
+
+**Arguments:**
+
+- `RESOURCE_TYPE`: One of: `seqcol_server`, `remote_store`, or `sequence_server`
+- `URL`: URL of the server/store to add
+
+**Options:**
+
+- `--name, -n`: Optional name for this server/store
+
+**Examples:**
+```bash
+refget config add seqcol_server https://seqcolapi.databio.org --name databio
+refget config add remote_store s3://bucket/store/ --name primary
+refget config add sequence_server https://www.ebi.ac.uk/ena/cram/ --name ebi
+```
+
+### config remove
+
+Remove a server or store from the configuration.
+
+```bash
+refget config remove RESOURCE_TYPE NAME
+```
+
+**Examples:**
+```bash
+refget config remove seqcol_server databio
+refget config remove remote_store primary
+```
+
 ---
 
 ## FASTA Commands
@@ -222,6 +260,26 @@ refget fasta validate FILE
 
 Returns exit code 0 if valid, non-zero if invalid.
 
+### fasta rgsi
+
+Compute .rgsi (RefgetStore sequence index) from a FASTA file.
+
+```bash
+refget fasta rgsi FILE [-o OUTPUT]
+```
+
+The .rgsi file contains sequence metadata in RefgetStore format.
+
+### fasta rgci
+
+Compute .rgci (RefgetStore collection index) from a FASTA file.
+
+```bash
+refget fasta rgci FILE [-o OUTPUT]
+```
+
+The .rgci file contains collection metadata in RefgetStore format.
+
 ---
 
 ## Store Commands
@@ -245,12 +303,26 @@ refget store init [--path PATH]
 Import a FASTA file to the local store.
 
 ```bash
-refget store add FASTA [--path PATH]
+refget store add FASTA [--path PATH] [--mode MODE]
 ```
+
+**Options:**
+
+- `--path, -p`: Store path (default: from config)
+- `--mode, -m`: Storage mode: `encoded` (compressed, ~4x smaller, default) or `raw` (faster access)
 
 **Output:** JSON with digest and sequence count
 ```json
 {"digest": "abc123...", "fasta": "/path/to/file.fa", "sequences": 25}
+```
+
+**Examples:**
+```bash
+# Add with default encoding (compressed)
+refget store add genome.fa
+
+# Add with raw encoding (faster access)
+refget store add genome.fa --mode raw
 ```
 
 ### store list
@@ -258,8 +330,13 @@ refget store add FASTA [--path PATH]
 List collections in the store.
 
 ```bash
-refget store list [--path PATH]
+refget store list [--path PATH] [--server URL]
 ```
+
+**Options:**
+
+- `--path, -p`: Store path (default: from config)
+- `--server, -s`: Remote store URL (overrides --path)
 
 **Output:**
 ```json
@@ -271,10 +348,28 @@ refget store list [--path PATH]
 Get a collection by digest.
 
 ```bash
-refget store get DIGEST [--path PATH]
+refget store get DIGEST [--path PATH] [--server URL]
 ```
 
+**Options:**
+
+- `--path, -p`: Store path (default: from config)
+- `--server, -s`: Remote store URL (overrides --path)
+
 **Output:** Full seqcol with names, lengths, and sequences arrays.
+
+### store pull
+
+Pull a collection from a remote store to local store.
+
+```bash
+refget store pull DIGEST [--server URL] [--path PATH]
+```
+
+**Options:**
+
+- `--server, -s`: Remote store URL to pull from
+- `--path, -p`: Local store path (default: from config)
 
 ### store export
 
@@ -440,18 +535,91 @@ List known seqcol servers from configuration.
 refget seqcol servers
 ```
 
-### seqcol lookup
+### seqcol show
 
-Look up a sequence collection by digest from a remote server.
+Get a sequence collection by digest from local store or remote server.
 
 ```bash
-refget seqcol lookup DIGEST [--level LEVEL] [--server URL]
+refget seqcol show DIGEST [--level LEVEL] [--server URL]
 ```
+
+Resolution order: local store -> configured seqcol_servers -> `--server` override
 
 **Options:**
 
 - `--level, -l`: Seqcol level: 1 (digests only) or 2 (full arrays). Default: 2
 - `--server, -s`: Server URL override
+
+**Examples:**
+```bash
+refget seqcol show XZlrcEGi6mlopZ2uD8ObHkQB1d0oDwKk
+refget seqcol show XZlrcEGi6mlopZ2uD8ObHkQB1d0oDwKk --level 1
+refget seqcol show XZlrcEGi6mlopZ2uD8ObHkQB1d0oDwKk --server https://seqcolapi.databio.org
+```
+
+### seqcol list
+
+List collections available on the server.
+
+```bash
+refget seqcol list [--server URL] [--limit N] [--offset N]
+```
+
+**Options:**
+
+- `--server, -s`: Server URL override
+- `--limit, -n`: Maximum number of collections to return (default: 100)
+- `--offset`: Offset for pagination (default: 0)
+
+### seqcol search
+
+Find collections that share an attribute.
+
+```bash
+refget seqcol search [--names DIGEST] [--lengths DIGEST] [--sequences DIGEST] [--server URL]
+```
+
+The attribute digest is the digest of an attribute array (e.g., from level 1 output).
+
+**Options:**
+
+- `--names`: Names array digest to search for
+- `--lengths`: Lengths array digest to search for
+- `--sequences`: Sequences array digest to search for
+- `--server, -s`: Server URL override
+
+**Example workflow:**
+```bash
+# Get names digest from level 1
+names_digest=$(refget fasta seqcol genome.fa --level 1 | jq -r '.names')
+
+# Search for collections with same names
+refget seqcol search --names $names_digest
+```
+
+### seqcol attribute
+
+Retrieve the actual array values for an attribute digest.
+
+```bash
+refget seqcol attribute ATTRIBUTE_NAME DIGEST [--server URL]
+```
+
+**Examples:**
+```bash
+refget seqcol attribute lengths cGRMZIb3AVgkcAfNv39RN7hnT5Chk7RX
+refget seqcol attribute names Fw1r9eRxfOZD98KKrhlYQNEdSRHoVxAG
+```
+
+### seqcol info
+
+Get server information and capabilities.
+
+```bash
+refget seqcol info [--server URL]
+```
+
+Returns service info including supported algorithms and features.
 
 ---
 
@@ -506,6 +674,70 @@ refget admin load genome.fa --name "Human GRCh38"
 refget admin load genome.seqcol.json
 refget admin load --pep genomes.yaml --fa-root /data/fasta
 refget admin load --pephub nsheff/human_fasta_ref --fa-root /data/fasta
+```
+
+### admin register
+
+Upload a FASTA file to S3 and create a DRS record.
+
+```bash
+refget admin register FASTA --bucket BUCKET [--prefix PREFIX] [--cloud CLOUD] [--region REGION] [--digest DIGEST]
+```
+
+Does NOT load seqcol metadata. Use `ingest` for combined operation, or run `load` first.
+
+**Required Options:**
+
+- `--bucket, -b`: S3 bucket name for upload
+
+**Optional Options:**
+
+- `--prefix, -p`: S3 key prefix (default: none)
+- `--cloud, -c`: Cloud provider (default: aws)
+- `--region, -r`: Cloud region (default: us-east-1)
+- `--digest, -d`: Seqcol digest (if not provided, will be computed from FASTA)
+
+**Examples:**
+```bash
+refget admin register genome.fa --bucket my-refget-bucket
+refget admin register genome.fa -b my-bucket -p fasta/ -c aws -r us-west-2
+refget admin register genome.fa -b my-bucket --digest abc123...
+```
+
+### admin ingest
+
+Load seqcol metadata AND register FASTA with cloud storage (combined operation).
+
+```bash
+refget admin ingest [FASTA] --bucket BUCKET [--prefix PREFIX] [--cloud CLOUD] [--region REGION] [--pep PEP] [--pephub PROJECT] [--fa-root PATH] [--name NAME]
+```
+
+Combines `load` and `register` in a single operation:
+
+1. Parse FASTA and extract seqcol metadata
+2. Store metadata in PostgreSQL
+3. Upload FASTA to S3
+4. Create DRS record for access
+
+**Required Options:**
+
+- `--bucket, -b`: S3 bucket name for upload
+
+**Optional Options:**
+
+- `--prefix, -p`: S3 key prefix
+- `--cloud, -c`: Cloud provider (default: aws)
+- `--region, -r`: Cloud region (default: us-east-1)
+- `--pep`: PEP project file for batch ingestion
+- `--pephub`: PEPhub project (e.g., `nsheff/human_fasta_ref`)
+- `--fa-root`: Root directory for FASTA files (used with `--pep`/`--pephub`)
+- `--name, -n`: Human-readable name for the FASTA
+
+**Examples:**
+```bash
+refget admin ingest genome.fa --bucket my-bucket
+refget admin ingest genome.fa -b my-bucket --name "Human GRCh38"
+refget admin ingest --pep genomes.yaml --fa-root /data/fasta --bucket my-bucket
 ```
 
 ---

@@ -40,4 +40,3 @@ bt2idx = rgc.seek(genome, "bowtie2_index")
 
 This enables you to write python software that will work on any computing environment without having to worry about passing around brittle environment-specific file paths. See [this tutorial](notebooks/refgenconf_usage.ipynb) for more comprehensive example of how to work with `refgenconf` as a tool developer.
 
-See the complete [refgenconf python API](code/refgenconf-api.md) for more details.

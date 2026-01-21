@@ -78,7 +78,6 @@ nav:
           - Glossary: refgenie/glossary.md
           - Buildable assets: refgenie/available_assets.md
           - Usage: refgenie/usage.md
-          - Python API: refgenie/code/refgenconf-api.md
           - Refgenconf usage: refgenie/notebooks/refgenconf_usage.ipynb
           - FAQ: refgenie/faq.md
           - Support: https://github.com/databio/refgenie/issues
@@ -126,7 +125,6 @@ nav:
           - RefgetStore: refget/notebooks/refgetstore.ipynb
           - Sequences Client: refget/notebooks/sequence-client.ipynb
           - Sequence Collections Client: refget/notebooks/seqcol-client.ipynb
-          - FASTA DRS Client: refget/notebooks/fasta-drs-client.ipynb
           - RefgetDB Agent: refget/notebooks/agent.ipynb
           - Adding a fastAPI router: refget/fastapi_router.md
           - Compliance testing: refget/compliance.md
@@ -145,7 +143,6 @@ plugins:
       include:
         - refget/notebooks/sequence-client.ipynb
         - refget/notebooks/seqcol-client.ipynb
-        - refget/notebooks/fasta-drs-client.ipynb
         - refget/notebooks/agent.ipynb
         - refget/notebooks/digests.ipynb
         - refget/notebooks/refgetstore.ipynb

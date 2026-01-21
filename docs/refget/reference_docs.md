@@ -19,17 +19,17 @@ The `refget` package provides a Python implementation of the GA4GH refget protoc
 
 Functions for converting FASTA files to refget-compatible formats:
 
-::: refget.fasta_to_seqcol_dict
+::: refget.processing.fasta_to_seqcol_dict
     options:
       heading_level: 3
 
-::: refget.fasta_to_digest
+::: refget.processing.fasta_to_digest
     options:
       heading_level: 3
 
 ### FastAPI Integration
 
-::: refget.create_refget_router
+::: refget.refget_router.create_refget_router
     options:
       heading_level: 3
 
@@ -91,4 +91,3 @@ Agent for individual sequence operations:
 ## RefgetStore (gtars)
 
 ::: gtars.refget.RefgetStore
-
