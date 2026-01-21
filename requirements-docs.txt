@@ -3,3 +3,4 @@ mkdocstrings[python]
 refget
 refgenconf
 mkdocs-jupyter
+gtars @ git+https://github.com/databio/gtars@master#subdirectory=gtars-python
