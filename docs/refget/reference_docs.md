@@ -90,4 +90,14 @@ Agent for individual sequence operations:
 
 ## RefgetStore (gtars)
 
+RefgetStore provides high-performance local sequence storage implemented in Rust. It supports:
+
+- **In-memory and on-disk storage** with optional compression
+- **Remote store access** with local caching
+- **Sequence retrieval** by digest or by collection + name
+- **BED file region extraction** for batch operations
+- **FASTA export** for individual sequences or regions
+
+See the [RefgetStore tutorial](notebooks/refgetstore.py) for usage examples.
+
 ::: gtars.refget.RefgetStore

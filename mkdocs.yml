@@ -122,7 +122,7 @@ nav:
       - How-to guides:
           - Introduction: refget/introduction.md
           - Computing digests: refget/notebooks/digests.ipynb
-          - RefgetStore: refget/notebooks/refgetstore.ipynb
+          - RefgetStore: refget/notebooks/refgetstore.py
           - Sequences Client: refget/notebooks/sequence-client.ipynb
           - Sequence Collections Client: refget/notebooks/seqcol-client.ipynb
           - RefgetDB Agent: refget/notebooks/agent.ipynb
@@ -134,6 +134,7 @@ nav:
       #   - Using local collections: refget/code/seqcol.md
       #   - Using local collections 2: refget/code/demo.md
       - Reference:
+          - RefgetStore file format: refget/refgetstore-format.md
           - Changelog: refget/changelog.md
           - Refget Python API: refget/reference_docs.md
           - Pydantic models: refget/models.md
@@ -145,7 +146,7 @@ plugins:
         - refget/notebooks/seqcol-client.ipynb
         - refget/notebooks/agent.ipynb
         - refget/notebooks/digests.ipynb
-        - refget/notebooks/refgetstore.ipynb
+        - refget/notebooks/refgetstore.py
         - refgenie/notebooks/aliases.ipynb
         - refgenie/notebooks/config_upgrade_03_to_04.ipynb
         - refgenie/notebooks/refgenconf_usage.ipynb
