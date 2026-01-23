@@ -84,6 +84,13 @@ with open(fasta2_path, "w") as f:
 print(f"Created: {fasta1_path}")
 print(f"Created: {fasta2_path}")
 
+
+# %% [markdown] output
+# ```
+# Created: /tmp/refget_tutorial_x4ugn1ot/genome1.fa
+# Created: /tmp/refget_tutorial_x4ugn1ot/genome2.fa
+# ```
+
 # %% [markdown]
 # ### In-memory store
 
@@ -95,11 +102,12 @@ store.add_sequence_collection_from_fasta(fasta2_path)
 print(f"Created in-memory store with {len(store)} sequences")
 
 
-# %% [markdown]
+
+# %% [markdown] output
 # ```
-# Processing .../genome1.fa...
+# Processing /tmp/refget_tutorial_x4ugn1ot/genome1.fa...
 # Added NikmJ6xnuvO741NgL-zszh5_p4DsD3nV (2 seqs) in 0.0s [0.0s digest + 0.0s encode]
-# Processing .../genome2.fa...
+# Processing /tmp/refget_tutorial_x4ugn1ot/genome2.fa...
 # Added zmVRc4oI2ny1UgSMdSdjj-FG-TkaUtvh (2 seqs) in 0.0s [0.0s digest + 0.0s encode]
 # Created in-memory store with 4 sequences
 # ```
@@ -115,14 +123,16 @@ disk_store.add_sequence_collection_from_fasta(fasta1_path)
 
 print(f"Store saved to: {store_path}")
 
+
+# %% [markdown] output
+# ```
+# Processing /tmp/refget_tutorial_x4ugn1ot/genome1.fa...
+# Added NikmJ6xnuvO741NgL-zszh5_p4DsD3nV (2 seqs) in 0.0s [0.0s digest + 0.0s encode]
+# Store saved to: /tmp/refget_tutorial_x4ugn1ot/my_refget_store
+# ```
+
 # %% [markdown]
 # See [RefgetStore file format](../reference/refgetstore-format.md) for details on the directory structure.
-#
-# ```
-# Processing .../genome1.fa...
-# Added NikmJ6xnuvO741NgL-zszh5_p4DsD3nV (2 seqs) in 0.0s [0.0s digest + 0.0s encode]
-# Store saved to: /tmp/.../my_refget_store
-# ```
 
 # %% [markdown]
 # ### Loading an existing store
@@ -133,9 +143,10 @@ loaded_store = RefgetStore.load_local(store_path)
 print(f"Loaded store: {loaded_store.stats()}")
 
 
-# %% [markdown]
+
+# %% [markdown] output
 # ```
-# Loaded store: {'storage_mode': 'Encoded', 'n_sequences_loaded': '0', 'n_collections': '1', 'n_sequences': '3', 'n_collections_loaded': '0'}
+# Loaded store: {'n_sequences_loaded': '0', 'n_sequences': '2', 'n_collections': '1', 'storage_mode': 'Encoded', 'n_collections_loaded': '0'}
 # ```
 
 # %% [markdown]
@@ -157,10 +168,10 @@ remote_store = RefgetStore.load_remote(
 print(f"Loaded {len(remote_store)} sequences from remote store")
 
 
-# %% [markdown]
+
+# %% [markdown] output
 # ```
 # Loaded 37603 sequences from remote store
-# Stats: {'storage_mode': 'Encoded', 'n_collections': '96', 'n_sequences': '37603', 'n_sequences_loaded': '0', 'n_collections_loaded': '0'}
 # ```
 
 # %% [markdown]
@@ -184,11 +195,13 @@ for rec in records:
     print(f"{m.name}: {m.length} bp, sha512t24u={m.sha512t24u}")
 
 
-# %% [markdown]
+
+# %% [markdown] output
 # ```
 # chr1: 32 bp, sha512t24u=EjrJJS1FmLaytz_EHgNvVZ8owSU7kbNb
+# chrY: 16 bp, sha512t24u=xNe1wHi4Bzi0uC62_W69LX1JLrPbLCDH
+# chrX: 28 bp, sha512t24u=RCjXT2ppbKhHY6S2106R43I6-QpTqgwT
 # chr2: 16 bp, sha512t24u=8zS0M3VBpV7-TNdB7RjfpMbC8hrz6SbH
-# chr3: 28 bp, sha512t24u=RCjXT2ppbKhHY6S2106R43I6-QpTqgwT
 # ```
 
 # %% [markdown]
@@ -205,7 +218,8 @@ if record:
     print(f"Length: {record.metadata.length}")
 
 
-# %% [markdown]
+
+# %% [markdown] output
 # ```
 # Name: chr1
 # Length: 32
@@ -223,7 +237,8 @@ substring = store.get_substring(first_digest, 5, 15)
 print(f"Bases 5-15: {substring}")
 
 
-# %% [markdown]
+
+# %% [markdown] output
 # ```
 # First 10 bases: ATGCATGCAT
 # Bases 5-15: TGCATGCAGT
@@ -247,7 +262,8 @@ if record:
     print(f"Digest: {record.metadata.sha512t24u}")
 
 
-# %% [markdown]
+
+# %% [markdown] output
 # ```
 # Found: JAGYVX010000006.1 unmasked:primary_assembly HG03540.pri.mat....
 # Length: 96,320,881 bp
@@ -283,10 +299,9 @@ for seq in sequences:
     print(f"{seq.start}-{seq.end}: {seq.sequence}")
 
 
-# %% [markdown]
+
+# %% [markdown] output
 # ```
-# Processing FASTA file: /tmp/refget_tutorial_nbhl66fs/example.fa
-# Collection digest: YJ_36mehIHxX_yuu1xaX93YX5fB7W5Dn
 # 0-10: ATGCATGCAT
 # 5-20: TGCATGCAGTCGTAG
 # 0-8: GGGGAAAA
@@ -304,9 +319,10 @@ with open(output_fasta) as f:
     print(f.read())
 
 
-# %% [markdown]
+
+# %% [markdown] output
 # ```
-# Exported to: /tmp/refget_tutorial_nbhl66fs/regions.fa
+# Exported to: /tmp/refget_tutorial_x4ugn1ot/regions.fa
 # >chr1 32 dna3bit EjrJJS1FmLaytz_EHgNvVZ8owSU7kbNb f64c9fb6ad2f6baad56e5a59ee07be63
 # ATGCATGCATTGCATGCAGTCGTAG
 # >chr2 16 dna2bit 8zS0M3VBpV7-TNdB7RjfpMbC8hrz6SbH 2640016f34792dc6302231ed4d027110
@@ -333,13 +349,14 @@ with open(output_path) as f:
     print(f.read())
 
 
-# %% [markdown]
+
+# %% [markdown] output
 # ```
 # Exported FASTA:
 # >chr1
 # ATGCATGCATGCAGTCGTAGCNNNATGCATGC
-# >chr2
-# GGGGAAAATTTTCCCC
+# >chrY
+# TTTTAAAACCCCGGGG
 # ```
 
 # %% [markdown]
@@ -364,7 +381,8 @@ with open(remote_output) as f:
         print(line.rstrip()[:70])
 
 
-# %% [markdown]
+
+# %% [markdown] output
 # ```
 # >JAGYVI010000141.1 unmasked:primary_assembly HG02257.alt.pat.f1_v2:JAG
 # ACATAAAATATCAAATAACACAAACTATATATTACATACTGTACTTAAAATATCAAACTACCCATACTAT
@@ -435,7 +453,8 @@ import shutil
 shutil.rmtree(temp_dir)
 print("Tutorial complete!")
 
-# %% [markdown]
+
+# %% [markdown] output
 # ```
 # Tutorial complete!
 # ```

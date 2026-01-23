@@ -50,17 +50,17 @@ The root metadata file containing store configuration.
 
 - `version` (integer): Format version number (currently `1`)
 - `seqdata_path_template` (string): Template for sequence file paths
-  - `%s` = full digest string
-  - `%s2` = first 2 characters of digest
-  - `%s4` = first 4 characters of digest
-  - Example: `"sequences/%s2/%s.seq"` → `"sequences/Ab/AbCdEf123....seq"`
+    - `%s` = full digest string
+    - `%s2` = first 2 characters of digest
+    - `%s4` = first 4 characters of digest
+    - Example: `"sequences/%s2/%s.seq"` → `"sequences/Ab/AbCdEf123....seq"`
 - `collections_path_template` (string): Template for collection file paths
-  - Example: `"collections/%s.rgsi"`
+    - Example: `"collections/%s.rgsi"`
 - `sequence_index` (string): Path to the sequence metadata index file
-  - Default: `"sequences.rgsi"`
+    - Default: `"sequences.rgsi"`
 - `mode` (string): Storage mode for sequence data
-  - `"Raw"`: Uncompressed sequence data
-  - `"Encoded"`: Bit-packed encoded sequences (space efficient)
+    - `"Raw"`: Uncompressed sequence data
+    - `"Encoded"`: Bit-packed encoded sequences (space efficient)
 - `created_at` (string): ISO 8601 timestamp of store creation
 
 ### sequences.rgsi

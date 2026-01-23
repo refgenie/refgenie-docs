@@ -65,6 +65,10 @@ print(collection)
 
 ### Set up a local RefgetStore
 
+RefgetStore is basically an attempt to:
+- solve efficiency issues with the original refget sequences protocol.
+- provide a way to download the actual data in a sequence collection, which is not provided by the current sequence collection standard.
+
 ```bash
 # Initialize a local store
 refget store init
