@@ -1,7 +1,7 @@
 # %% [markdown]
 # # RefgetStore Tutorial
 #
-# ## Why RefgetStore?
+# ## Introduction 
 #
 # RefgetStore is a high-performance, content-addressable sequence database that solves
 # common problems with managing reference genomes:
@@ -9,25 +9,40 @@
 # - **Automatic deduplication**: Identical sequences are stored once, even across assemblies.
 #   For example, chrM is often identical between GRCh38 and GRCh37 - RefgetStore stores it once.
 #
-# - **Universal identifiers**: Every sequence gets a GA4GH-compliant digest. The same sequence
-#   has the same identifier everywhere, enabling reproducible research and federated data sharing.
+# - **Collection management**: RefgetStore stores not only sequences, it also stores sequence collections, so you
+#   can manage, query by, and retrieve collections in the same repository (e.g., genome assemblies).
 #
-# - **Efficient storage**: 2-bit encoding compresses DNA sequences 4x (human chr1: 248 MB → 62 MB).
+# - **Universal identifiers**: Every sequence and sequence collection gets a GA4GH-compliant digest.
+#   Collections can be retrieved by their digest, and sequences can be retrieved using either sequence digests, or sequence collection digests + local sequence names.
+#   This facilitates reproducible research and federated data sharing.
+#   RefgetStore also computes additional digests like name_length_pairs and sorted_name_length_pairs, providing
+#   ability to quickly identify coordinate systems, collections of unnamed sequences, and more.
 #
-# - **Lazy remote access**: Connect to remote stores and download only the sequences you need,
-#   with automatic local caching.
+# - **Efficient storage**: RefgetStore automatically adapts to 2-bit, 3-bit, 4-bit, 5-bit, or 8-bit encoding
+#   to compress each sequence based on its alphabet (DNA, RNA, protein, ambiguous). This provides fixed-width encoding, 
+#   retaining fast random access while achieving better compression than gzip-based compression.
 #
-# - **Fast substring retrieval**: Extract any region without loading entire chromosomes into memory.
+# - **Lazy remote access**: A local client connects to remote stores and downloads only the sequences requested,
+#   on the fly, with automatic local caching.
 #
-# - **Batch BED extraction**: Pull sequences for thousands of regions in a single operation.
+# - **Fast substring retrieval**: Extract regions without loading entire collections into memory.
 #
-# ## What you'll learn
+# - **Batch BED extraction**: Pull sequences for thousands of regions in a single operation, faster than competing tools.
 #
-# 1. **Creating a local RefgetStore** from FASTA files
-# 2. **Connecting to remote stores** and caching sequences locally
-# 3. **Retrieving sequences** by digest or by name
-# 4. **Extracting BED regions** for batch operations
-# 5. **Exporting to FASTA** for downstream tools
+# - **File-system based**: No external database required. RefgetStore uses a simple directory structure, so a remote store 
+#   can be hosted on S3, HTTP, or any file server, and local stores are portable, backed up with regular file system tools, 
+#   and easy to inspect.
+#
+# <div class="admonition success">
+#   <p class="admonition-title">Learning objectives</p>
+#   <ul>
+#     <li>How do I create and load a RefgetStore from FASTA files?</li>
+#     <li>How do I connect to a remote RefgetStore and cache sequences locally?</li>
+#     <li>How do I retrieve sequences by digest or by name?</li>
+#     <li>How do I extract regions from a BED file?</li>
+#     <li>How do I export sequences back to FASTA format?</li>
+#   </ul>
+# </div>
 
 # %% [markdown]
 # ## 1. Creating or loading a local RefgetStore from FASTA
@@ -48,7 +63,7 @@ import os
 import tempfile
 from pathlib import Path
 
-from refget import RefgetStore, digest_fasta
+from refget.store import RefgetStore, digest_fasta
 
 # %% [markdown]
 # ### Create demo FASTA files (or use your own)
@@ -82,25 +97,12 @@ print(f"Created in-memory store with {len(store)} sequences")
 
 # %% [markdown]
 # ```
-# Loading rgsi index...
-# from path with cache: reading from file: "/tmp/refget_tutorial_nbhl66fs/example.fa"
-# RGSI file path: "/tmp/refget_tutorial_nbhl66fs/example.rgsi"
-# Computing digests...: "/tmp/refget_tutorial_nbhl66fs/example.rgsi"
-# Processing FASTA file: /tmp/refget_tutorial_nbhl66fs/example.fa
-# lvl1 digest: YJ_36mehIHxX_yuu1xaX93YX5fB7W5Dn
-# Writing collection rgsi file: "/tmp/refget_tutorial_nbhl66fs/example.rgsi"
-# RGSI file written to "/tmp/refget_tutorial_nbhl66fs/example.rgsi"
-# Loading sequences into RefgetStore...
-#   [1] chr1 (32 bp)
-#   [2] chr2 (16 bp)
-#   [3] chr3 (28 bp)
-# Loaded 3 sequences into RefgetStore (Encoded) in 0.00s.
-# Created in-memory store with 3 sequences
-# Stats: {'storage_mode': 'Encoded', 'n_sequences_loaded': '3', 'n_collections': '1', 'n_sequences': '3', 'n_collections_loaded': '1'}
+# Processing .../genome1.fa...
+# Added NikmJ6xnuvO741NgL-zszh5_p4DsD3nV (2 seqs) in 0.0s [0.0s digest + 0.0s encode]
+# Processing .../genome2.fa...
+# Added zmVRc4oI2ny1UgSMdSdjj-FG-TkaUtvh (2 seqs) in 0.0s [0.0s digest + 0.0s encode]
+# Created in-memory store with 4 sequences
 # ```
-#
-# The `.rgsi` file is a sequence index that caches metadata (names, lengths, digests) so
-# subsequent loads skip digest computation.
 
 # %% [markdown]
 # ### On-disk store (for larger datasets)
@@ -114,28 +116,12 @@ disk_store.add_sequence_collection_from_fasta(fasta1_path)
 print(f"Store saved to: {store_path}")
 
 # %% [markdown]
-# See [RefgetStore file format](../refgetstore-format.md) for details on the directory structure.
-
-
-# %% [markdown]
+# See [RefgetStore file format](../reference/refgetstore-format.md) for details on the directory structure.
+#
 # ```
-# Loading rgsi index...
-# from path with cache: reading from file: "/tmp/refget_tutorial_nbhl66fs/example.fa"
-# RGSI file path: "/tmp/refget_tutorial_nbhl66fs/example.rgsi"
-# Reading from existing rgsi file: "/tmp/refget_tutorial_nbhl66fs/example.rgsi"
-# Writing sequences rgsi file: "/tmp/refget_tutorial_nbhl66fs/my_refget_store/sequences.rgsi"
-# Loading sequences into RefgetStore...
-#   [1] chr1 (32 bp)
-#   [2] chr2 (16 bp)
-#   [3] chr3 (28 bp)
-# Loaded 3 sequences into RefgetStore (Encoded) in 0.00s.
-# Store saved to: /tmp/refget_tutorial_nbhl66fs/my_refget_store
-# Stats: {'storage_mode': 'Encoded', 'n_sequences': '3', 'n_sequences_loaded': '0', 'n_collections': '1', 'n_collections_loaded': '1'}
-#   - rgstore.json
-#   - collections.rgci
-#   - sequences
-#   - sequences.rgsi
-#   - collections
+# Processing .../genome1.fa...
+# Added NikmJ6xnuvO741NgL-zszh5_p4DsD3nV (2 seqs) in 0.0s [0.0s digest + 0.0s encode]
+# Store saved to: /tmp/.../my_refget_store
 # ```
 
 # %% [markdown]
@@ -300,7 +286,7 @@ for seq in sequences:
 # %% [markdown]
 # ```
 # Processing FASTA file: /tmp/refget_tutorial_nbhl66fs/example.fa
-# lvl1 digest: YJ_36mehIHxX_yuu1xaX93YX5fB7W5Dn
+# Collection digest: YJ_36mehIHxX_yuu1xaX93YX5fB7W5Dn
 # 0-10: ATGCATGCAT
 # 5-20: TGCATGCAGTCGTAG
 # 0-8: GGGGAAAA
@@ -431,26 +417,17 @@ with open(remote_output) as f:
 # ```
 
 # %% [markdown]
-# ## Summary
-#
-# **Creating stores:**
-# - `RefgetStore.in_memory()` - temporary, fast
-# - `RefgetStore.on_disk(path)` - persistent, for larger datasets
-# - `store.add_sequence_collection_from_fasta(path)` - add sequences
-#
-# **Loading stores:**
-# - `RefgetStore.load_local(path)` - load from disk
-# - `RefgetStore.load_remote(cache_path, remote_url)` - load from URL with caching
-#
-# **Retrieving sequences:**
-# - `store.get_sequence_by_id(digest)` - lookup by SHA-512/24u or MD5
-# - `store.get_sequence_by_collection_and_name(collection, name)` - lookup by name
-# - `store.get_substring(digest, start, end)` - get subsequence
-#
-# **Batch operations:**
-# - `store.substrings_from_regions(collection, bed_path)` - extract BED regions
-# - `store.export_fasta_from_regions(collection, bed_path, output)` - export regions
-# - `store.export_fasta_by_digests(digests, output, line_width)` - export by digest
+# <div class="admonition success">
+#   <p class="admonition-title">Summary</p>
+#   <ul>
+#     <li><code>RefgetStore.in_memory()</code> / <code>RefgetStore.on_disk(path)</code> - create stores</li>
+#     <li><code>RefgetStore.load_local(path)</code> / <code>RefgetStore.load_remote(cache, url)</code> - load stores</li>
+#     <li><code>store.add_sequence_collection_from_fasta(path)</code> - add sequences from FASTA</li>
+#     <li><code>store.get_sequence_by_id(digest)</code> - retrieve by digest</li>
+#     <li><code>store.get_sequence_by_collection_and_name(collection, name)</code> - retrieve by name</li>
+#     <li><code>store.substrings_from_regions(collection, bed_path)</code> - batch extract regions</li>
+#   </ul>
+# </div>
 
 # %%
 # Cleanup

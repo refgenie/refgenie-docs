@@ -28,9 +28,50 @@ The `refget` Python package provides a Python implementation of the [GA4GH Refge
 
 ## Install
 
-The built package is hosted on PyPI.
-Install with your flavor of:
-
 ```console
 pip install refget
+```
+
+## Quick start
+
+### Compute a sequence collection digest from a FASTA file
+
+```bash
+refget fasta digest genome.fa
+```
+
+### Query a remote seqcol server
+
+```bash
+# Get a collection by digest
+refget seqcol show XZlrcEGi6mlopZ2uD8ObHkQB1d0oDwKk
+
+# Compare two collections
+refget seqcol compare digest1 digest2
+
+# List collections on the server
+refget seqcol list
+```
+
+### Use the Python client
+
+```python
+from refget.clients import SequenceCollectionClient
+
+client = SequenceCollectionClient()
+collection = client.get_collection("XZlrcEGi6mlopZ2uD8ObHkQB1d0oDwKk")
+print(collection)
+```
+
+### Set up a local RefgetStore
+
+```bash
+# Initialize a local store
+refget store init
+
+# Import a FASTA file
+refget store add genome.fa
+
+# Export sequences
+refget store export <digest> --output output.fa
 ```

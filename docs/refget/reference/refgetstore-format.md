@@ -11,8 +11,8 @@ A RefgetStore is a self-contained directory that stores sequence data in individ
 ```
 refget-store/
 ├── rgstore.json                  # Store metadata and configuration
-├── sequences.rgsi                # Index of all sequences
-├── collections.rgci              # Index of all collections
+├── sequences.rgsi                # refget sequence index file, for all sequences
+├── collections.rgci              # refget collection index file
 ├── sequences/                    # Sequence data files
 │   ├── Ab/                       # Subdirectories by digest prefix
 │   │   ├── AbCdEf123....seq     # Individual sequence file
@@ -20,7 +20,7 @@ refget-store/
 │   └── Xy/
 │       └── XyZabc456....seq
 └── collections/                  # Collection metadata
-    ├── collection1.rgsi
+    ├── collection1.rgsi          # Each collection is represented as a refget sequence index file
     └── collection2.rgsi
 ```
 
@@ -62,9 +62,6 @@ The root metadata file containing store configuration.
   - `"Raw"`: Uncompressed sequence data
   - `"Encoded"`: Bit-packed encoded sequences (space efficient)
 - `created_at` (string): ISO 8601 timestamp of store creation
-
-!!! note "Backward Compatibility"
-    RefgetStore also supports loading stores with the older `index.json` format and `.farg` file extensions for backward compatibility.
 
 ### sequences.rgsi
 
@@ -189,10 +186,10 @@ RefgetStore implements the [GA4GH refget specification](https://samtools.github.
 ### Creating a Store
 
 ```python
-from gtars.refget import RefgetStore, StorageMode
+from refget.store import RefgetStore
 
-# Create new store
-store = RefgetStore(StorageMode.Encoded)
+# Create a disk-backed store (encoded storage)
+store = RefgetStore.on_disk("/path/to/store")
 
 # Import FASTA file
 store.import_fasta("genome.fa")
@@ -207,7 +204,7 @@ store.write_store_to_directory(
 ### Loading a Store
 
 ```python
-from gtars.refget import RefgetStore
+from refget.store import RefgetStore
 
 # Load from local directory (with lazy loading)
 store = RefgetStore.load_local("/path/to/store")
@@ -351,4 +348,4 @@ MD5 support provides compatibility with legacy systems, easier migration from MD
 
 - [GA4GH refget specification](https://samtools.github.io/hts-specs/refget.html)
 - [RefgetStore Python API](reference_docs.md#refgetstore-gtars)
-- [RefgetStore notebook tutorial](notebooks/refgetstore.py)
+- [RefgetStore tutorial](../using-services/refgetstore.py)
