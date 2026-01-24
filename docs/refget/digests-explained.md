@@ -1,6 +1,6 @@
-# What are GA4GH digests?
+# What are refget digests?
 
-GA4GH digests are content-addressable identifiers for biological sequences. Instead of relying on arbitrary names like "chr1" or "GRCh38", digests identify sequences by their actual content using cryptographic hashes.
+GA4GH refget digests are content-addressable identifiers for biological sequences and collections. Instead of relying on arbitrary names like "chr1" or "GRCh38", digests identify sequences by their actual content using cryptographic hashes.
 
 ## Why use content-addressable identifiers?
 
@@ -12,7 +12,7 @@ GA4GH digests are content-addressable identifiers for biological sequences. Inst
 
 The refget standards define two types of digests:
 
-### Sequence digests
+### Refget Sequence digests
 
 Individual sequences are identified with the `SQ.` prefix:
 
@@ -26,7 +26,7 @@ This digest is computed by:
 3. Truncating to 24 bytes
 4. Base64url encoding the result
 
-### Collection digests
+### Refget Sequence Collection digests
 
 Sequence collections (groups of sequences, like a genome assembly) use unprefixed digests:
 

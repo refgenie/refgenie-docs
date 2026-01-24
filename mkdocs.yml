@@ -50,6 +50,7 @@ copyright: >
   </a>
 
 nav:
+  - Home: README.md
   - Refgenie:
       - Getting Started:
           - Introduction: refgenie/README.md
@@ -123,7 +124,7 @@ nav:
   - Refget:
       - Getting started:
           - Introduction: refget/README.md
-          - What are GA4GH digests?: refget/digests-explained.md
+          - What are refget digests?: refget/digests-explained.md
           - Package components: refget/reference/components.md
       - Using refget services:
           - Computing digests: refget/using-services/digests.ipynb
