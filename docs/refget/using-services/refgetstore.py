@@ -93,10 +93,11 @@ print(f"Created: {fasta2_path}")
 
 
 
+
 # %% [markdown] output
 # ```
-# Created: /tmp/refget_tutorial_r5fdeobc/genome1.fa
-# Created: /tmp/refget_tutorial_r5fdeobc/genome2.fa
+# Created: /tmp/refget_tutorial_2nl7t4d4/genome1.fa
+# Created: /tmp/refget_tutorial_2nl7t4d4/genome2.fa
 # ```
 
 # %% [markdown]
@@ -117,11 +118,12 @@ print(f"Created in-memory store with {len(store)} sequences")
 
 
 
+
 # %% [markdown] output
 # ```
-# Processing /tmp/refget_tutorial_r5fdeobc/genome1.fa...
+# Processing /tmp/refget_tutorial_2nl7t4d4/genome1.fa...
 # Added NikmJ6xnuvO741NgL-zszh5_p4DsD3nV (2 seqs) in 0.0s [0.0s digest + 0.0s encode]
-# Processing /tmp/refget_tutorial_r5fdeobc/genome2.fa...
+# Processing /tmp/refget_tutorial_2nl7t4d4/genome2.fa...
 # Added zmVRc4oI2ny1UgSMdSdjj-FG-TkaUtvh (2 seqs) in 0.0s [0.0s digest + 0.0s encode]
 # Created in-memory store with 4 sequences
 # ```
@@ -131,7 +133,7 @@ print(f"Created in-memory store with {len(store)} sequences")
 #
 # For larger datasets, you'll want to persist sequences to disk. This creates a
 # directory structure that can be loaded later or even served remotely.
-# See [RefgetStore file format](../reference/refgetstore-format.md) for details on the directory structure.
+# See [RefgetStore file format](/refget/reference/refgetstore-format/) for details on the directory structure.
 
 # %%
 # Create a persistent store on disk
@@ -149,13 +151,14 @@ print(f"Store saved to: {store_path}")
 
 
 
+
 # %% [markdown] output
 # ```
-# Processing /tmp/refget_tutorial_r5fdeobc/genome1.fa...
+# Processing /tmp/refget_tutorial_2nl7t4d4/genome1.fa...
 # Added NikmJ6xnuvO741NgL-zszh5_p4DsD3nV (2 seqs) in 0.0s [0.0s digest + 0.0s encode]
-# Processing /tmp/refget_tutorial_r5fdeobc/genome2.fa...
+# Processing /tmp/refget_tutorial_2nl7t4d4/genome2.fa...
 # Added zmVRc4oI2ny1UgSMdSdjj-FG-TkaUtvh (2 seqs) in 0.0s [0.0s digest + 0.0s encode]
-# Store saved to: /tmp/refget_tutorial_r5fdeobc/my_refget_store
+# Store saved to: /tmp/refget_tutorial_2nl7t4d4/my_refget_store
 # ```
 
 # %% [markdown]
@@ -171,6 +174,7 @@ resp = quiet_store.add_sequence_collection_from_fasta(fasta1_path)  # No output
 
 print(f"Quiet mode enabled: {quiet_store.quiet}")
 print(f"Store has {len(quiet_store)} sequences")
+
 
 
 
@@ -203,9 +207,10 @@ print(f"Loaded store: {loaded_store.stats()}")
 
 
 
+
 # %% [markdown] output
 # ```
-# Loaded store: {'n_sequences_loaded': '0', 'n_sequences': '4', 'total_disk_size': '1848', 'n_collections': '2', 'n_collections_loaded': '0', 'storage_mode': 'Encoded'}
+# Loaded store: {'n_collections_loaded': '0', 'n_sequences_loaded': '0', 'n_sequences': '4', 'storage_mode': 'Encoded', 'n_collections': '2', 'total_disk_size': '1848'}
 # ```
 
 # %% [markdown]
@@ -239,9 +244,10 @@ print("Persistence disabled - new sequences stay in memory only")
 
 
 
+
 # %% [markdown] output
 # ```
-# Enabled persistence to: /tmp/refget_tutorial_r5fdeobc/persisted_store
+# Enabled persistence to: /tmp/refget_tutorial_2nl7t4d4/persisted_store
 # Persistence disabled - new sequences stay in memory only
 # ```
 
@@ -266,6 +272,7 @@ for m in records:
 collection = digest_fasta(fasta1_path)
 collection_digest = collection.digest
 print(f"\nCollection digest: {collection_digest}")
+
 
 
 
@@ -306,6 +313,7 @@ with open(output_path) as f:
 
 
 
+
 # %% [markdown] output
 # ```
 # Exported FASTA:
@@ -336,6 +344,7 @@ with open(all_output) as f:
 print("Subset (chr1 only):")
 with open(subset_output) as f:
     print(f.read())
+
 
 
 
@@ -387,6 +396,7 @@ if record:
 
 
 
+
 # %% [markdown] output
 # ```
 # Name: chr2
@@ -405,6 +415,7 @@ print(f"First 10 bases: {subsequence}")
 
 subsequence = store.get_substring(first_digest, 5, 15)
 print(f"Bases 5-15: {subsequence}")
+
 
 
 
@@ -453,6 +464,7 @@ print(f"\nCollection loaded: {store.is_collection_loaded(first_collection_digest
 
 
 
+
 # %% [markdown] output
 # ```
 # Collection NikmJ6xnuvO741NgL-zs...: 2 sequences
@@ -489,6 +501,7 @@ for seq in collection.sequences:
 
 
 
+
 # %% [markdown] output
 # ```
 # Collection digest: NikmJ6xnuvO741NgL-zszh5_p4DsD3nV
@@ -511,6 +524,7 @@ if record:
     print(f"Found: {record.metadata.name}")
     print(f"Length: {record.metadata.length} bp")
     print(f"Digest: {record.metadata.sha512t24u}")
+
 
 
 
@@ -558,6 +572,7 @@ for seq in sequences:
 
 
 
+
 # %% [markdown] output
 # ```
 # 0-10: ATGCATGCAT
@@ -586,9 +601,10 @@ with open(output_fasta) as f:
 
 
 
+
 # %% [markdown] output
 # ```
-# Exported to: /tmp/refget_tutorial_r5fdeobc/regions.fa
+# Exported to: /tmp/refget_tutorial_2nl7t4d4/regions.fa
 # >chr1 32 dna3bit EjrJJS1FmLaytz_EHgNvVZ8owSU7kbNb f64c9fb6ad2f6baad56e5a59ee07be63
 # ATGCATGCATTGCATGCAGTCGTAG
 # >chr2 16 dna2bit 8zS0M3VBpV7-TNdB7RjfpMbC8hrz6SbH 2640016f34792dc6302231ed4d027110
@@ -602,23 +618,30 @@ with open(output_fasta) as f:
 # from a public repository? RefgetStore can connect to remote stores hosted on S3, HTTP,
 # or any file server.
 #
-# The key insight is that you can use your local store as a cache for remote data.
-# Let's connect to a remote pangenome store and cache downloaded sequences into our
-# existing local store:
+# The key insight is that you can use a local store as a cache for remote data.
+# Sequences are downloaded on-demand and cached locally for future access.
+# Let's connect to a remote pangenome store:
 
 # %%
-# Remote store URL (2023 Human Pangenome Reference - 47 haplotype-resolved assemblies)
+# Remote store URL (Human Pangenome Reference - haplotype-resolved assemblies)
 REMOTE_URL = "https://refgenie.s3.us-east-1.amazonaws.com/pangenome_refget_store"
 
-# Use our existing local store as the cache - remote sequences will be added here!
+# Create a fresh cache directory for the remote store
+remote_cache_path = os.path.join(temp_dir, "remote_cache")
 remote_store = RefgetStore.open_remote(
-    cache_path=store_path,
+    cache_path=remote_cache_path,
     remote_url=REMOTE_URL
 )
 
-# Show initial state - only local sequences are loaded
-print(f"Local sequences in cache: {len(remote_store)}")
+# The remote index is fetched automatically - stats show all remote collections!
 print(f"Remote store stats: {remote_store.stats()}")
+
+# List available collections from the remote store
+remote_collections = list(remote_store.list_collections())
+print(f"\nRemote collections available: {len(remote_collections)}")
+for c in remote_collections[:3]:
+    print(f"  {c.digest}: {c.n_sequences} sequences")
+
 
 
 
@@ -629,26 +652,36 @@ print(f"Remote store stats: {remote_store.stats()}")
 
 # %% [markdown] output
 # ```
-# Local sequences in cache: 4
-# Remote store stats: {'n_collections_loaded': '0', 'total_disk_size': '1848', 'n_sequences_loaded': '0', 'n_sequences': '4', 'n_collections': '2', 'storage_mode': 'Encoded'}
+# Remote store stats: {'n_collections': '96', 'storage_mode': 'Encoded', 'n_sequences': '37603', 'total_disk_size': '6651362', 'n_sequences_loaded': '0', 'n_collections_loaded': '0'}
+# 
+# Remote collections available: 96
+#   -Sfh5nx4f7dSrGDdfmz7xA0nsN5jh-mN: 566 sequences
+#   -Z38q8izmrexleQATeOvcp0sZo6aSXMa: 436 sequences
+#   0qveCdMlbF_kYn6XWb7YBy-FtRZ6gSAL: 481 sequences
 # ```
 
 # %% [markdown]
-# Initially, only our local sequences are visible. The remote store's collection index
-# hasn't been fetched yet. When we request a sequence from a remote collection,
-# RefgetStore will download the collection metadata and then fetch the sequence data
-# on demand:
+# The remote index is fetched automatically when opening the store, so `n_collections`
+# and `n_sequences` show the full remote catalog. However, no sequence *data* has been
+# downloaded yet (`n_sequences_loaded: 0`).
 #
-# Let's retrieve a sequence - this will download it and cache it in our local store:
+# Let's retrieve a sequence - this will download it and cache it locally:
 
 # %%
-# Retrieve a sequence by collection + name (this triggers download)
-EXAMPLE_COLLECTION = "0aHV7I-94paL9Z1H4LNlqsW3WxJhlou5"
-EXAMPLE_SEQ_NAME = "JAGYVX010000006.1 unmasked:primary_assembly HG03540.pri.mat.f1_v2:JAGYVX010000006.1:1:96320881:1"
+# Pick a collection from the remote store
+EXAMPLE_COLLECTION = remote_collections[0].digest
 
+# Get the collection to see its sequences
+example_coll = remote_store.get_collection(EXAMPLE_COLLECTION)
+EXAMPLE_SEQ_NAME = example_coll.sequences[0].metadata.name
+
+print(f"Collection: {EXAMPLE_COLLECTION}")
+print(f"Sequence: {EXAMPLE_SEQ_NAME}")
+
+# Retrieve the sequence (this downloads and caches it)
 record = remote_store.get_sequence_by_name(EXAMPLE_COLLECTION, EXAMPLE_SEQ_NAME)
 if record:
-    print(f"Downloaded: {record.metadata.name[:50]}...")
+    print(f"\nDownloaded: {record.metadata.name}")
     print(f"Length: {record.metadata.length:,} bp")
 
 # The sequence is now cached locally
@@ -661,21 +694,23 @@ print(f"\nRemote store stats: {remote_store.stats()}")
 
 
 
+
 # %% [markdown] output
 # ```
-# Downloading collection 0aHV7I-94paL9Z1H4LNlqsW3WxJhlou5...
-# Downloading sequence G8nBQLmLVRhsrIq31xku2dNu5dHExVkE...
-# Downloaded: JAGYVX010000006.1 unmasked:primary_assembly HG0354...
-# Length: 96,320,881 bp
+# Downloading collection -Sfh5nx4f7dSrGDdfmz7xA0nsN5jh-mN...
+# Downloading sequence mqck23WRTrJRrmR-8bRb2IL4KJqP4AZf...
+# Collection: -Sfh5nx4f7dSrGDdfmz7xA0nsN5jh-mN
+# Sequence: JAHEOS010000235.1
 # 
-# Remote store stats: {'n_sequences_loaded': '1', 'storage_mode': 'Encoded', 'total_disk_size': '24158937', 'n_collections_loaded': '1', 'n_sequences': '438', 'n_collections': '3'}
+# Downloaded: JAHEOS010000235.1
+# Length: 8,613,509 bp
+# 
+# Remote store stats: {'n_sequences': '37603', 'n_collections_loaded': '1', 'total_disk_size': '8904984', 'storage_mode': 'Encoded', 'n_collections': '96', 'n_sequences_loaded': '1'}
 # ```
 
 # %% [markdown]
-# Notice the stats changed: `n_sequences` jumped from 4 to 438 because we downloaded
-# the collection index, which reveals all sequences in that collection. But
-# `n_sequences_loaded: 1` shows only one sequence has actually been downloaded.
-# The sequence is now cached locally - subsequent requests will be served from disk.
+# Notice how `n_sequences_loaded` increased - the sequence data is now cached locally.
+# Subsequent requests for this sequence will be served from disk without network access.
 
 # %% [markdown]
 # ### Extract regions from a remote collection
@@ -694,7 +729,7 @@ with open(remote_bed_path, "w") as f:
 # Extract regions - this uses the cached sequence, no re-download needed
 remote_regions = remote_store.substrings_from_regions(EXAMPLE_COLLECTION, remote_bed_path)
 for seq in remote_regions:
-    print(f"{seq.chrom_name[:30]}... {seq.start}-{seq.end}: {seq.sequence[:40]}...")
+    print(f"{seq.chrom_name} {seq.start}-{seq.end}: {seq.sequence[:40]}...")
 
 # Export to FASTA
 remote_regions_fasta = os.path.join(temp_dir, "remote_regions.fa")
@@ -708,12 +743,13 @@ print(f"\nExported to {remote_regions_fasta}")
 
 
 
+
 # %% [markdown] output
 # ```
-# JAGYVX010000006.1 unmasked:pri... 1000-1050: TATCCTCGATACACATTGTTTCCATGAATAGAGTTTAGTG...
-# JAGYVX010000006.1 unmasked:pri... 5000-5100: CATCCTGAGAGTGTCAGAAATCCTGATGTGGGAGGCAGCT...
+# JAHEOS010000235.1 1000-1050: CTCCCCGTGGGATGGGCAAGCGGGCGAGGCTGGACAGGAC...
+# JAHEOS010000235.1 5000-5100: GGAGTGGGGCTGTCTGAGGTTCCCCAGTGAACTTTGTGCT...
 # 
-# Exported to /tmp/refget_tutorial_r5fdeobc/remote_regions.fa
+# Exported to /tmp/refget_tutorial_2nl7t4d4/remote_regions.fa
 # ```
 
 # %% [markdown]
@@ -747,16 +783,17 @@ run_cli(["refget", "store", "stats", "--path", store_path])
 
 
 
+
 # %% [markdown] output
 # ```
-# $ refget store stats --path /tmp/refget_tutorial_r5fdeobc/my_refget_store
+# $ refget store stats --path /tmp/refget_tutorial_2nl7t4d4/my_refget_store
 # {
-#   "n_collections_loaded": "0",
-#   "n_sequences": "4",
-#   "storage_mode": "Encoded",
 #   "n_sequences_loaded": "0",
-#   "total_disk_size": "24158937",
+#   "storage_mode": "Encoded",
+#   "total_disk_size": "1848",
+#   "n_sequences": "4",
 #   "n_collections": "2",
+#   "n_collections_loaded": "0",
 #   "collections": 2
 # }
 # ```
@@ -778,9 +815,10 @@ run_cli(["refget", "store", "seq", first_digest, "--path", store_path, "--start"
 
 
 
+
 # %% [markdown] output
 # ```
-# $ refget store seq 8zS0M3VBpV7-TNdB7RjfpMbC8hrz6SbH --path /tmp/refget_tutorial_r5fdeobc/my_refget_store --start 0 --end 10
+# $ refget store seq 8zS0M3VBpV7-TNdB7RjfpMbC8hrz6SbH --path /tmp/refget_tutorial_2nl7t4d4/my_refget_store --start 0 --end 10
 # GGGGAAAATT
 # ```
 
