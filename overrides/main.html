@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {{ super() }}
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  {% if page and page.file %}
+  <script>
+    // Inject copy button into Material's content actions bar
+    (function() {
+      const actionsContainer = document.querySelector('.md-content__button');
+      if (!actionsContainer) return;
+
+      const button = document.createElement('a');
+      button.href = '#';
+      button.className = 'md-content__button md-icon';
+      button.title = 'Copy page as Markdown';
+      button.dataset.repoUrl = '{{ config.repo_url }}';
+      button.dataset.srcPath = '{{ page.file.src_path }}';
+      button.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+        </svg>
+      `;
+
+      // Insert before the first action button
+      actionsContainer.parentNode.insertBefore(button, actionsContainer);
+
+      button.addEventListener('click', async (e) => {
+        e.preventDefault();
+
+        const repoUrl = button.dataset.repoUrl;
+        const srcPath = button.dataset.srcPath;
+
+        if (!repoUrl || !srcPath) {
+          console.error('Missing repo URL or source path');
+          return;
+        }
+
+        const rawUrl = repoUrl
+          .replace('https://github.com/', 'https://raw.githubusercontent.com/')
+          .replace(/\/$/, '') + '/master/docs/' + srcPath;
+
+        try {
+          const response = await fetch(rawUrl);
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+          const markdown = await response.text();
+          await navigator.clipboard.writeText(markdown);
+
+          // Visual feedback
+          button.style.color = '#4caf50';
+          setTimeout(() => button.style.color = '', 2000);
+        } catch (err) {
+          console.error('Failed to copy:', err);
+          button.style.color = '#f44336';
+          setTimeout(() => button.style.color = '', 2000);
+        }
+      });
+    })();
+  </script>
+  {% endif %}
+{% endblock %}

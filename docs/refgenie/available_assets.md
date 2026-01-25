@@ -164,7 +164,7 @@ refgenie build test/dbnsfp --files dbnsfp=dbNSFP4.0a.zip
 
 ## Derived assets you can build
 
-For many of the following derived assets, you will need the corresponding software to build the asset.  You can either [install software on a case-by-case basis natively](build.md#install-building-software-natively), or you can [build the assets using `docker`](build.md#building-assets-with-docker).
+For many of the following derived assets, you will need the corresponding software to build the asset.  You can either [install software on a case-by-case basis natively](build.md#install-build-software-natively), or you can [build the assets using `docker`](build.md#build-assets-with-docker).
 
 ### bowtie2_index
 
@@ -280,7 +280,7 @@ refgenie build test/tallymer_index --params mersize=30 minocc=2
 
 <i class="fas fa-file-import"></i> required files: *none*
 <i class="fas fa-sliders-h"></i> required parameters: *none*
-<i class="fas fa-exclamation-triangle"></i> required asset: [`ensembl_gtf`](build.md#ensembl-gtf), [`ensembl_rb`](build.md#ensembl-rb)
+<i class="fas fa-exclamation-triangle"></i> required asset: [`ensembl_gtf`](#ensembl_gtf), [`ensembl_rb`](#ensembl_rb)
 <i class="fas fa-tools"></i> required software: *none*
 
 The `feat_annotation` asset includes the following genomic feature annotations: enhancers, promoters, promoter flanking regions, 5' UTR, 3' UTR, exons, and introns.
