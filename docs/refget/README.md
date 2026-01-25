@@ -26,6 +26,24 @@ The `refget` Python package provides a Python implementation of the [GA4GH Refge
 | Sequence Collections | :material-check: | :material-check: | :material-check: | :material-check: |
 | Pangenomes | X | X | :material-check: | :material-check: |
 
+## Package components
+
+The `refget` package provides several components for working with GA4GH refget standards:
+
+- **Local digest functions** - Python interface to fast Rust-based implementations of GA4GH digests for sequences and sequence collections.
+
+- **RefgetStore** - High-performance local storage for sequences and collections. Supports in-memory and on-disk modes, sequence retrieval by digest, FASTA export, and connecting to remote stores.
+
+- **Clients** - For interacting with remote Refget APIs: `SequenceClient`, `SequenceCollectionClient`, and `FastaDrsClient`.
+
+- **Agents** - For creating refget services with a PostgreSQL database backend. `RefgetDBAgent` is the primary interface.
+
+- **FastAPI router** - Implements the refget API endpoints. Attach to an existing FastAPI service to deploy your own sequence collections API.
+
+- **Compliance tests** - Evaluate a remote API instance against the sequence collections standard.
+
+- **CLI** - Commands for computing digests (`refget fasta`), managing local stores (`refget store`), querying remote servers (`refget seqcol`), and database administration (`refget admin`).
+
 ## Install
 
 ```console

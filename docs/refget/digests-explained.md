@@ -1,6 +1,6 @@
 # What are refget digests?
 
-GA4GH refget digests are content-addressable identifiers for biological sequences and collections. Instead of relying on arbitrary names like "chr1" or "GRCh38", digests identify sequences by their actual content using cryptographic hashes.
+GA4GH refget digests are content-addressable identifiers for biological sequences and sequence collections, such as reference genomes. Instead of relying on arbitrary names like "chr1" or "GRCh38", digests identify sequences by their actual content using cryptographic hashes.
 
 ## Why use content-addressable identifiers?
 
@@ -49,4 +49,4 @@ Sequence collections can be represented at different levels of detail:
 ## Learn more
 
 - [Computing digests locally](using-services/digests.ipynb) - Tutorial on computing digests
-- [GA4GH refget specification](https://samtools.github.io/hts-specs/refget.html) - Official specification
+- [GA4GH refget specification](https://ga4gh.github.io/refget/) - Official specification

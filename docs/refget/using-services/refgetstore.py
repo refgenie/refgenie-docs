@@ -4,7 +4,27 @@
 # ## Introduction
 #
 # RefgetStore is a high-performance, content-addressable sequence database that solves
-# common problems with managing reference genomes:
+# common problems with managing reference genomes, including a data structure that stores both sequences
+# and collections of sequences, automatic deduplication of identical sequences, universal identifiers for
+# both sequences and collections using GA4GH-approved standard refget digests, and efficient storage using adaptive
+# encoding, optimized for remote and local access, and a file-based storage and retrieval system. Overall,
+# RefgetStore provides substantial advantages over traditional FASTA/2bit/bgzip files and other sequence storage solutions.
+# This tutorial will introduce you to the basic use of RefgetStore for managing and retrieving sequences.
+#
+# <div class="admonition success">
+#   <p class="admonition-title">Learning objectives</p>
+#   <ul>
+#     <li>How do I create and load a RefgetStore from FASTA files?</li>
+#     <li>How do I retrieve sequences by sequence digest or name from a RefgetStore for analysis in Python?</li>
+#     <li>How do I extract specific subsequences, given coordinates of regions from a RefgetStore?</li>
+#     <li>How do I export sequences from my RefgetStore into FASTA format?</li>
+#     <li>How do I connect to a remote RefgetStore to download sequences or sequence collections into memory or into a local RefgetStore cache?</li>
+#   </ul>
+# </div>
+
+
+# %% [markdown]
+# ## Features of RefgetStore
 #
 # - **Automatic deduplication**: Identical sequences are stored once, even across assemblies.
 #   For example, chrM is often identical between GRCh38 and GRCh37 - RefgetStore stores it once.
@@ -32,17 +52,7 @@
 # - **File-system based**: No external database required. RefgetStore uses a simple directory structure, so a remote store
 #   can be hosted on S3, HTTP, or any file server, and local stores are portable, backed up with regular file system tools,
 #   and easy to inspect.
-#
-# <div class="admonition success">
-#   <p class="admonition-title">Learning objectives</p>
-#   <ul>
-#     <li>How do I create and load a RefgetStore from FASTA files?</li>
-#     <li>How do I retrieve sequences by sequence digest or name from a RefgetStore for analysis in Python?</li>
-#     <li>How do I extract specific subsequences, given coordinates of regions from a RefgetStore?</li>
-#     <li>How do I export sequences from my RefgetStore into FASTA format?</li>
-#     <li>How do I connect to a remote RefgetStore to download sequences or sequence collections into memory or into a local RefgetStore cache?</li>
-#   </ul>
-# </div>
+
 
 # %% [markdown]
 # ## 1. Creating a local RefgetStore from FASTA
