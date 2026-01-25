@@ -125,6 +125,7 @@ nav:
       - Getting started:
           - Introduction: refget/README.md
           - What are refget digests?: refget/digests-explained.md
+          - What is RefgetStore?: refget/refgetstore-explained.md
       - Using refget services:
           - Computing digests: refget/using-services/digests.ipynb
           - Python SequenceClient: refget/using-services/sequence-client.ipynb
