@@ -1,7 +1,21 @@
 # Changelog
 
-This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format. 
+This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format.
 
+
+## [0.10.0] - 2026-01-26
+
+- Major restructure of the package with new comprehensive CLI (`refget` command)
+- New CLI subcommands: `admin`, `config`, `fasta`, `seqcol`, and `store`
+- Implement FASTA DRS objects for serving FASTA files via GA4GH DRS endpoints
+- Add RefgetStore integration for local sequence storage via gtars
+- Refactor to isolate gtars dependency, improving import performance
+- Add service-info capabilities for fasta_drs and refget_store features
+- New integration test framework with ephemeral Docker PostgreSQL
+- Comprehensive CLI test suite
+- API compliance tests against GA4GH seqcol specification
+- Fix endpoint path: `/list/collection` (was `/list/collections` in client)
+- Frontend security updates for react-router, vega-functions, and vega-selections
 
 ## [0.9.0] - 2025-08-13
 
