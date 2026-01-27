@@ -3,7 +3,9 @@
 #
 # This tutorial shows how to use RefgetStore for storing and retrieving sequences.
 # For background on what RefgetStore is and why you'd use it, see
-# [What is RefgetStore?](../refgetstore-explained.md).
+# [What is RefgetStore?](../refgetstore-explained/) This tutorial assumes you can already
+# [install the refget package](../../#install),
+# and know the basics of [refget digests](../../digests-explained/).
 #
 # <div class="admonition success">
 #   <p class="admonition-title">Learning objectives</p>
@@ -898,7 +900,7 @@ run_cli(["refget", "store", "seq", first_digest, "--path", store_path, "--start"
 # ```
 
 # %% [markdown]
-# For the full list of CLI commands and options, see the [CLI reference](../reference/cli.md).
+# For the full list of CLI commands and options, see the [CLI reference](../reference/cli/).
 
 # %% [markdown]
 # <div class="admonition success">
