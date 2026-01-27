@@ -65,7 +65,7 @@ seqcol_2 = scclient.get_collection("3mTg0tAA3PS-R1TzelLVWJ2ilUzoWfVq", level=2)
 Now that you have the seqeuence digests, if you gave the client a sequences API URL, you could also retrieve the actual sequences like this (optional):
 
 ```python
-rgc = refget.RefGetClient(seq_api_urls=[]"https://www.ebi.ac.uk/ena/cram/sequence/"])
+rgc = refget.RefGetClient(seq_api_urls=["https://www.ebi.ac.uk/ena/cram/sequence/"])
 rgc.get_sequence(seqcol['sequences'][0])
 ```
 

@@ -22,7 +22,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - performance fix for calculating jaccard similarties
 - add human_readable_name list as an attribute to SequenceCollection for displaying similarity results
 - adding SequenceCollections via PEP will now add associated sample_name as a human_readable_name
-- add wrapper for gtars GlobalRefgetStore so it can be called directly from refget
+- add wrapper for gtars RefgetStore so it can be called directly from refget
 
 ## [0.8.3] - 2025-07-31
 

@@ -12,7 +12,6 @@ Refgenie stores its configuration in a database (SQLite or PostgreSQL) and uses 
 - Subscribed remote servers
 - Registered data channels and remotes
 
-A visual overview of the configuration and database model is available in the [database model diagram](refgenie_db_model_diagram.svg).
 
 ## Initialization
 
@@ -110,7 +109,7 @@ refgenie1 subscribe http://refgenomes.databio.org
 refgenie1 unsubscribe -s http://refgenomes.databio.org
 ```
 
-You can list, add, or remove remote servers and data channels at any time. See the [CLI documentation](refgenie-cli.md) for details.
+You can list, add, or remove remote servers and data channels at any time using `refgenie1 subscribe` and `refgenie1 unsubscribe`.
 
 ## Inspecting Configuration
 
@@ -214,4 +213,4 @@ This programmatic approach enables full control for advanced, production, or tes
 
 ### Database Migrations
 
-Refgenie uses Alembic for database schema migrations. For advanced users or developers, see the [migrations README](../refgenie/db/migrations/README.md) for details on managing schema changes.
+Refgenie uses Alembic for database schema migrations.

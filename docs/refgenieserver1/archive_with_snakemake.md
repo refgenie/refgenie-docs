@@ -33,7 +33,7 @@ To run the workflow, ensure that Snakemake and Refgenie are installed and config
 
 ### Input Files
 
-Many recipes require input files (e.g. `fasta` recipe requires an input FASTA file), which need to be available to the asset building software. If needed, refer to [Extra: Downloading recipe input files](#extra-downloading-recipe-input-files) section below for more information on how the download process can be streamlined.
+Many recipes require input files (e.g. `fasta` recipe requires and input FASTA file), which need to be available to the asset building software. If needed, refer to [Extra: Downloading recipe input files](#extra-downloading-recipe-input-files) section below for more information on how the download process can be streamlined.
 
 ### Configuration
 
@@ -43,6 +43,7 @@ The workflow expects a [PEP (Portable Encapsulated Project)](https://pep.databio
 
 - `genome_name`: The name of the genome to prepare the servable archive for.
 - `genome_description`: A description of the genome.
+- `species_name`: The scientific name of the species (e.g., "Homo sapiens", "Mus musculus").
 - `fasta_file_path`: The path to the FASTA file for the genome.
 - `asset_groups`: A list of asset groups to build for the genome.
 
@@ -66,18 +67,16 @@ sample_modifiers:
       path: ${REFGENIE_INPUTS}/{genome_name}.fa
 ```
 
-A real-life [example of a PEP config](./pep/config.yaml) file
 
 **sample_table.csv**:
 
 ```csv
-sample_name,genome_name,genome_description
-rCRSd,rCRSd,The revised Cambridge reference sequence.
-mm10,mm10,The GCA_000001635.5 sequences for alignment pipelines from NCBI.
-hg38,hg38,The GCA_000001405.15 GRCh38 no-alt analysis set from NCBI.
+sample_name,genome_name,genome_description,species_name
+rCRSd,rCRSd,The revised Cambridge reference sequence.,Homo sapiens
+mm10,mm10,The GCA_000001635.5 sequences for alignment pipelines from NCBI.,Mus musculus
+hg38,hg38,The GCA_000001405.15 GRCh38 no-alt analysis set from NCBI.,Homo sapiens
 ```
 
-A real-life [example of PEP sample table](./pep/sample_table.csv) file
 
 **subsample_table.csv**:
 
@@ -89,7 +88,6 @@ rCRSd,bwa_index
 dm6,fasta
 ```
 
-A real-life [example of PEP subssample table](./pep/assets.csv) file
 
 ### Environment Variables
 
@@ -124,7 +122,6 @@ The recipes very often require specialized bioinformatics software to build the 
 Here are potential ways to manage the software dependencies:
 
 - (recommended) [Bulker Refgenie tutorial](https://bulker.databio.org/en/latest/refgenie_tutorial/)
-  - we use [more recent bulker Refgenie manifest](refgenie1_bulker_manifest.yaml)
 - [Snakemake: using-environment-modules](https://snakemake.readthedocs.io/en/latest/snakefiles/deployment.html#using-environment-modules)
 - [Snakemake: running-jobs-in-containers](https://snakemake.readthedocs.io/en/latest/snakefiles/deployment.html#running-jobs-in-containers)
   - `snakemake --software-deployment-method apptainer`
@@ -132,7 +129,7 @@ Here are potential ways to manage the software dependencies:
 
 ## Extra: Using Taskfile
 
-The workflow can also be run using [Taskfile](https://taskfile.dev/#/) for easier management of tasks. To run the workflow using Taskfile, use the following command which uses the tasks defined in [Taskfile.yaml](https://github.com/refgenie/refgenieserver1/blob/master/Taskfile.yaml)
+The workflow can also be run using [Taskfile](https://taskfile.dev/#/) for easier management of tasks. To run the workflow using Taskfile, use the following command:
 
 ```bash
 task archive

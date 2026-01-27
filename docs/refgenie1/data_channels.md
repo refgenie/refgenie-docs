@@ -1,16 +1,27 @@
 # Refgenie Data Channels
 
+## Introduction
+
 Refgenie data channels are a powerful mechanism for extending and sharing asset classes and recipes across the refgenie ecosystem. Data channels enable tool developers, organizations, and the community to publish, distribute, and synchronize new types of reference genome assets and build instructions without modifying the core refgenie codebase.
 
+!!! success "Learning objectives"
+    - What are refgenie data channels?
+    - Why are data channels useful?
+    - How do I connect my local refgenie to a remote data channel?
+    
 
-## What is a Data Channel?
+!!! warning "Warning"
+    This guide only shows you how to *use existing channels*. If you want to set up your own channel, please see [Set up your own data channel](set_up_data_channel.md)
+
+
+## What is a data channel?
 
 A data channel is an external source (typically a remote repository or URL) that provides definitions for asset classes and recipes. These definitions describe how to build, manage, and use new types of reference genome assets. Data channels are registered with your local refgenie instance and can be synchronized to keep your asset classes and recipes up to date.
 
 - **Asset class**: Defines the structure and seek keys for a type of asset (e.g., `fasta`, `bwa_index`).
 - **Recipe**: Describes how to build an asset class from input files and parameters.
 
-A data channel is represented by an `index.yaml` file that lists available asset class and recipe files, for example:
+A data channel is basically a set of `.yaml` files representing asset classes and recipes, listed in an `index.yaml` file, like this:
 
 ```yaml
 asset_class:
@@ -25,14 +36,14 @@ recipe:
     - bowtie2_index.yaml
 ```
 
-## Why Use Data Channels?
+## Why use data channels?
 
 - **Community-driven extension**: Anyone can publish new asset classes and recipes for others to use.
 - **Separation of concerns**: Core refgenie remains stable while new types of assets and related recipes are distributed via channels.
 - **Easy updates**: Syncing a channel brings in the latest definitions without reinstalling refgenie.
 - **Reproducibility**: Standardized recipes and asset classes can be shared and reused across projects and organizations.
 
-## Example Data Channel
+## Example data channel
 
 Refgenie authors maintain a demo data channel at [https://refgenie.github.io/recipes](https://refgenie.github.io/recipes). This channel is served via GitHub Pages and provides a curated collection of asset class and recipe definitions, an index file, and a simple landing page. It is designed as a reference implementation and a starting point for anyone wishing to distribute their own asset classes and recipes.
 
@@ -60,7 +71,8 @@ For more information or to contribute, visit the [GitHub repository](https://git
 You can add a data channel to your refgenie instance using the CLI:
 
 ```bash
-refgenie1 data_channel add my-channel https://refgenie.github.io/recipes/index.yaml
+refgenie1 data_channel add my-channel \
+  https://refgenie.github.io/recipes/index.yaml
 ```
 
 List registered data channels:

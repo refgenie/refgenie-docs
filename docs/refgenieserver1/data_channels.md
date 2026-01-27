@@ -1,6 +1,12 @@
 # Data Channels in Refgenieserver
 
-The [refgenieserver](https://github.com/refgenie/refgenieserver) companion software provides a robust implementation of the data channel concept, making it easy to serve and aggregate asset class and recipe definitions for refgenie users.
+## Overview
+
+Data channels provide a way for a third-party user to provide recipes and asset classes to the refgenie ecosystem.
+Refgenie users or servers can then subscribe to different channels, which makes available the recipes from those channels.
+
+
+
 
 ## Configuring Data Channels
 
