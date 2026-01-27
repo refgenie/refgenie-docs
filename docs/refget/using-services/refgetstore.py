@@ -28,10 +28,11 @@
 # RefgetStore offers two storage modes:
 #
 # - **`in_memory()`**: Loads all sequences into RAM. Best for maximum lookup speed
-#   when you have sufficient memory.
+#   when you have sufficient memory (rare, for specific use cases).
 #
 # - **`on_disk(path)`**: Lazy-loads sequences from disk as they're accessed. Best for
-#   large genomes or when you only need a subset of sequences.
+#   large genomes or when you only need a subset of sequences, or if you're wanting to 
+#   persist sequences to disk for later use (most common).
 #
 # We'll create both types so you can see how they work.
 
@@ -43,6 +44,8 @@ from refget.store import RefgetStore, digest_fasta
 
 # %% [markdown]
 # ### Create demo FASTA files (or use your own)
+#
+# Just grab some dummy data for this tutorial.
 
 # %%
 temp_dir = tempfile.mkdtemp(prefix="refget_tutorial_")
@@ -221,7 +224,7 @@ print(f"Loaded store: {loaded_store.stats()}")
 # ```
 
 # %% [markdown]
-# Note: `n_sequences_loaded: 0` means no sequence data has been loaded into memory yet, while `n_sequences` shows the total number of sequences in the store.
+# Note: `n_sequences_loaded: 0` means no sequence data has been loaded into memory yet, while `n_sequences` shows the total number of sequences in the store on disk, available for loading.
 
 # %% [markdown]
 # ### Suppressing progress output (quiet mode)
@@ -454,7 +457,7 @@ print(f"Bases 5-15: {subsequence}")
 # %% [markdown]
 # ### Browse collections
 #
-# Beyond individual sequences, RefgetStore tracks collections - groups of sequences
+# Beyond individual sequences, RefgetStore tracks collections, which are groups of sequences
 # that belong together (like a genome assembly). You can browse collection metadata
 # without loading the full collection:
 

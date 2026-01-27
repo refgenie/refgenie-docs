@@ -65,6 +65,6 @@ No database server required. A RefgetStore is just a directory structure that ca
 
 ## Learn more
 
-- [RefgetStore tutorial](using-services/refgetstore/) - Hands-on guide to using RefgetStore
-- [RefgetStore file format](reference/refgetstore-format/) - Technical specification of the directory structure
-- [CLI reference](reference/cli/) - Command-line interface for RefgetStore operations
+- [RefgetStore tutorial](using-services/refgetstore.py) - Hands-on guide to using RefgetStore
+- [RefgetStore file format](reference/refgetstore-format.md) - Technical specification of the directory structure
+- [CLI reference](reference/cli.md) - Command-line interface for RefgetStore operations
