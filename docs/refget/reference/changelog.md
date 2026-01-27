@@ -3,6 +3,12 @@
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format.
 
 
+## [0.10.1] - 2026-01-27
+
+- Fix CLI `store list` JSON serialization error (was returning non-serializable metadata objects)
+- Fix CLI `store get`, `store remove`, and `store pull` commands that failed to find collections
+- Update CLI to use `iter_collections()` API instead of removed `collections()` method
+
 ## [0.10.0] - 2026-01-26
 
 - Major restructure of the package with new comprehensive CLI (`refget` command)
