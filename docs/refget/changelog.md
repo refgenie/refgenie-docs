@@ -15,7 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Comprehensive CLI test suite
 - API compliance tests against GA4GH seqcol specification
 - Fix endpoint path: `/list/collection` (was `/list/collections` in client)
-- Frontend security updates for react-router, vega-functions, and vega-selections
+- New browser-based `/digest` feature for computing seqcol digests from FASTA files entirely client-side using [@databio/gtars](https://www.npmjs.com/package/@databio/gtars) WASM module
 
 ## [0.9.0] - 2025-08-13
 
