@@ -263,6 +263,6 @@ The refgenie team will review and merge approved contributions.
 
 ## Additional Resources
 
-- [Refgenie Data Channels Documentation](/refgenie1/data_channels)
-- [Refgenieserver Data Channels](/refgenieserver1/data_channels)
+- [Refgenie Data Channels Documentation](data_channels.md)
+- [Refgenieserver Data Channels](../refgenieserver1/data_channels.md)
 - [Official Recipes Repository](https://github.com/refgenie/recipes)
