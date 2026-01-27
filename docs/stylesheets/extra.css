@@ -21,10 +21,7 @@
 /* For jumbotron home page */
 .header-container {
   background-color: black;
-  background: url("../img/bg.jpg") no-repeat 50% 0;
   color: #fff;
-  background-size: cover;
-  background-position: center 36%;
   margin-top: -17px; }
 
 .header-container h1 {
