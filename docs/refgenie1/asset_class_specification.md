@@ -136,3 +136,65 @@ Each seek key schema must include:
 ## parents
 
 The `parents` key is a list of asset class names and/or definition sources (absolute file path or URL) of the parents of this asset class. **If parents are specified**, then either these parent asset classes must be already managed by refgenie, or the definition files must be present in the same directory as the child asset class definition file.
+
+## Managing Asset Classes via CLI
+
+Refgenie provides CLI commands to manage asset classes. All commands are available under the `asset_class` subcommand.
+
+### Listing asset classes
+
+To see all registered asset classes:
+
+```bash
+refgenie1 asset_class list
+```
+
+This displays a table of all asset classes currently managed by refgenie.
+
+### Adding an asset class
+
+To register a new asset class from a YAML file:
+
+```bash
+refgenie1 asset_class add /path/to/asset_class.yaml
+```
+
+You can also add an asset class from a URL:
+
+```bash
+refgenie1 asset_class add https://example.com/asset_classes/my_asset.yaml
+```
+
+If an asset class with the same name already exists, use `--force` to overwrite it:
+
+```bash
+refgenie1 asset_class add /path/to/asset_class.yaml --force
+```
+
+### Showing asset class details
+
+To view the YAML definition of a registered asset class:
+
+```bash
+refgenie1 asset_class show fasta
+```
+
+You can show multiple asset classes at once:
+
+```bash
+refgenie1 asset_class show fasta bowtie2_index
+```
+
+### Removing an asset class
+
+To remove a registered asset class:
+
+```bash
+refgenie1 asset_class remove my_asset_class
+```
+
+You can remove multiple asset classes at once:
+
+```bash
+refgenie1 asset_class remove asset_class1 asset_class2
+```

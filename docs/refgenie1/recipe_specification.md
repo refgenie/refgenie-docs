@@ -55,6 +55,76 @@ default_tag: "{{custom_properties.version}}"
 
 This GitHub repository contains numerous recipe examples: [refgenie/recipes](https://github.com/refgenie/recipes/tree/master/recipes)
 
+## Managing Recipes via CLI
+
+Refgenie provides several CLI commands for managing recipes. These commands allow you to list, add, inspect, and remove recipes from your refgenie configuration.
+
+### Listing recipes
+
+To see all registered recipes:
+
+```bash
+refgenie1 recipe list
+```
+
+This displays a table of all recipes currently available in your refgenie installation.
+
+### Adding a recipe
+
+You can add a recipe from a local file or from a URL:
+
+```bash
+# From a local file
+refgenie1 recipe add /path/to/recipe.yaml
+
+# From a URL
+refgenie1 recipe add https://example.com/recipes/my_recipe.yaml
+```
+
+If a recipe with the same name already exists, use `--force` to overwrite it:
+
+```bash
+refgenie1 recipe add /path/to/recipe.yaml --force
+```
+
+### Showing recipe details
+
+To view the full YAML definition of a recipe:
+
+```bash
+refgenie1 recipe show my_recipe
+```
+
+If multiple versions of a recipe exist, you can specify a particular version:
+
+```bash
+refgenie1 recipe show my_recipe --recipe-version 0.0.2
+```
+
+### Removing a recipe
+
+To remove a recipe from your configuration:
+
+```bash
+refgenie1 recipe remove my_recipe
+```
+
+To remove a specific version:
+
+```bash
+refgenie1 recipe remove my_recipe --recipe-version 0.0.1
+```
+
+### Checking recipe requirements
+
+To see what inputs (files, parameters, and assets) a recipe requires:
+
+```bash
+refgenie1 recipe reqs my_recipe
+```
+
+This displays a table showing all required inputs, which is useful before building an asset to understand what you need to provide.
+
 # Details of the recipe components
 
 Let's describe the components of the recipe specification in more detail, i.e. their internal structure and the impact they have on the asset build process.

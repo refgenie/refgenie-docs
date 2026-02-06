@@ -96,6 +96,7 @@ nav:
           - Overview: refgenie1/overview.md
           - Install: refgenie1/install.md
           - Configure: refgenie1/configuration.md
+          - CLI Tutorial: refgenie1/cli_tutorial.md
           - Citing refgenie: refgenie1/manuscripts.md
       - How-to guides:
           - Refer to assets: refgenie1/asset_registry_paths.md
@@ -103,11 +104,13 @@ nav:
           - Use refgenie from Python: refgenie1/notebooks/refgenie.ipynb
           - Use data channels: refgenie1/data_channels.md
           - Build assets: refgenie1/build.md
-          - Download pre-built assets: refgenie1/pull.md
           - Retrieve paths to assets: refgenie1/seek.md
+          - Manage aliases: refgenie1/alias.md
+          - Create archives: refgenie1/archive.md
           - Managing asset groups and naming: refgenie1/naming_assets.md
           - Populate refgenie paths: refgenie1/populate.md
           - Set up your own data channel: refgenie1/set_up_data_channel.md
+          - Run a server: refgenie1/server_tutorial.md
       - Reference:
           - Glossary: refgenie1/glossary.md
           - Studies using refgenie: refgenie1/uses_refgenie.md
