@@ -31,7 +31,7 @@
 #   when you have sufficient memory (rare, for specific use cases).
 #
 # - **`on_disk(path)`**: Lazy-loads sequences from disk as they're accessed. Best for
-#   large genomes or when you only need a subset of sequences, or if you're wanting to 
+#   large genomes or when you only need a subset of sequences, or if you're wanting to
 #   persist sequences to disk for later use (most common).
 #
 # We'll create both types so you can see how they work.
@@ -63,23 +63,10 @@ with open(fasta2_path, "w") as f:
 print(f"Created: {fasta1_path}")
 print(f"Created: {fasta2_path}")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 # %% [markdown] output
 # ```
-# Created: /tmp/refget_tutorial_bkhiy1dl/genome1.fa
-# Created: /tmp/refget_tutorial_bkhiy1dl/genome2.fa
+# Created: /tmp/refget_tutorial_nk_w1nqa/genome1.fa
+# Created: /tmp/refget_tutorial_nk_w1nqa/genome2.fa
 # ```
 
 # %% [markdown]
@@ -92,25 +79,11 @@ store.add_sequence_collection_from_fasta(fasta2_path)
 
 print(f"Created in-memory store with {len(store)} sequences")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # %% [markdown] output
 # ```
-# Processing /tmp/refget_tutorial_bkhiy1dl/genome1.fa...
+# Processing /tmp/refget_tutorial_nk_w1nqa/genome1.fa...
 # Added NikmJ6xnuvO741NgL-zszh5_p4DsD3nV (2 seqs) in 0.0s [0.0s digest + 0.0s encode]
-# Processing /tmp/refget_tutorial_bkhiy1dl/genome2.fa...
+# Processing /tmp/refget_tutorial_nk_w1nqa/genome2.fa...
 # Added zmVRc4oI2ny1UgSMdSdjj-FG-TkaUtvh (2 seqs) in 0.0s [0.0s digest + 0.0s encode]
 # Created in-memory store with 4 sequences
 # ```
@@ -131,26 +104,13 @@ disk_store.add_sequence_collection_from_fasta(fasta2_path)
 
 print(f"Store saved to: {store_path}")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 # %% [markdown] output
 # ```
-# Processing /tmp/refget_tutorial_bkhiy1dl/genome1.fa...
+# Processing /tmp/refget_tutorial_nk_w1nqa/genome1.fa...
 # Added NikmJ6xnuvO741NgL-zszh5_p4DsD3nV (2 seqs) in 0.0s [0.0s digest + 0.0s encode]
-# Processing /tmp/refget_tutorial_bkhiy1dl/genome2.fa...
+# Processing /tmp/refget_tutorial_nk_w1nqa/genome2.fa...
 # Added zmVRc4oI2ny1UgSMdSdjj-FG-TkaUtvh (2 seqs) in 0.0s [0.0s digest + 0.0s encode]
-# Store saved to: /tmp/refget_tutorial_bkhiy1dl/my_refget_store
+# Store saved to: /tmp/refget_tutorial_nk_w1nqa/my_refget_store
 # ```
 
 # %% [markdown]
@@ -173,24 +133,11 @@ print(f"Enabled persistence to: {persist_path}")
 persist_store.disable_persistence()
 print("Persistence disabled - new sequences stay in memory only")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 # %% [markdown] output
 # ```
-# Processing /tmp/refget_tutorial_bkhiy1dl/genome1.fa...
+# Processing /tmp/refget_tutorial_nk_w1nqa/genome1.fa...
 # Added NikmJ6xnuvO741NgL-zszh5_p4DsD3nV (2 seqs) in 0.0s [0.0s digest + 0.0s encode]
-# Enabled persistence to: /tmp/refget_tutorial_bkhiy1dl/persisted_store
+# Enabled persistence to: /tmp/refget_tutorial_nk_w1nqa/persisted_store
 # Persistence disabled - new sequences stay in memory only
 # ```
 
@@ -204,23 +151,9 @@ print("Persistence disabled - new sequences stay in memory only")
 loaded_store = RefgetStore.open_local(store_path)
 print(f"Loaded store: {loaded_store.stats()}")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # %% [markdown] output
 # ```
-# Loaded store: {'storage_mode': 'Encoded', 'n_sequences_loaded': '0', 'n_collections': '2', 'n_sequences': '4', 'n_collections_loaded': '0', 'total_disk_size': '1848'}
+# Loaded store: {'n_collections_loaded': '0', 'storage_mode': 'Encoded', 'n_sequences_loaded': '0', 'total_disk_size': '2209', 'n_sequences': '4', 'n_collections': '2'}
 # ```
 
 # %% [markdown]
@@ -239,9 +172,6 @@ resp = quiet_store.add_sequence_collection_from_fasta(fasta1_path)  # No output
 
 print(f"Quiet mode enabled: {quiet_store.quiet}")
 print(f"Store has {len(quiet_store)} sequences")
-
-
-
 
 # %% [markdown] output
 # ```
@@ -271,27 +201,13 @@ collection = digest_fasta(fasta1_path)
 collection_digest = collection.digest
 print(f"\nCollection digest: {collection_digest}")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # %% [markdown] output
 # ```
 # chr2: 16 bp, sha512t24u=8zS0M3VBpV7-TNdB7RjfpMbC8hrz6SbH
 # chr1: 32 bp, sha512t24u=EjrJJS1FmLaytz_EHgNvVZ8owSU7kbNb
 # chrX: 28 bp, sha512t24u=RCjXT2ppbKhHY6S2106R43I6-QpTqgwT
 # chrY: 16 bp, sha512t24u=xNe1wHi4Bzi0uC62_W69LX1JLrPbLCDH
-# 
+#
 # Collection digest: NikmJ6xnuvO741NgL-zszh5_p4DsD3nV
 # ```
 
@@ -308,19 +224,6 @@ store.export_fasta_by_digests(digests, output_path, line_width=60)
 print("Exported FASTA:")
 with open(output_path) as f:
     print(f.read())
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # %% [markdown] output
 # ```
@@ -353,27 +256,14 @@ print("Subset (chr1 only):")
 with open(subset_output) as f:
     print(f.read())
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 # %% [markdown] output
 # ```
 # All sequences:
-# >chr2
-# GGGGAAAATTTTCCCC
 # >chr1
 # ATGCATGCATGCAGTCGTAGCNNNATGCATGC
-# 
+# >chr2
+# GGGGAAAATTTTCCCC
+#
 # Subset (chr1 only):
 # >chr1
 # ATGCATGCATGCAGTCGTAGCNNNATGCATGC
@@ -401,20 +291,6 @@ if record:
     print(f"Name: {record.metadata.name}")
     print(f"Length: {record.metadata.length}")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # %% [markdown] output
 # ```
 # Name: chr2
@@ -433,20 +309,6 @@ print(f"First 10 bases: {subsequence}")
 
 subsequence = store.get_substring(first_digest, 5, 15)
 print(f"Bases 5-15: {subsequence}")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # %% [markdown] output
 # ```
@@ -480,30 +342,45 @@ if collection_meta:
 # Check if a collection is fully loaded in memory
 print(f"\nCollection loaded: {store.is_collection_loaded(first_collection_digest)}")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 # %% [markdown] output
 # ```
 # Collection NikmJ6xnuvO741NgL-zs...: 2 sequences
 # Collection zmVRc4oI2ny1UgSMdSdj...: 2 sequences
-# 
+#
 # Collection details:
 #   Sequences: 2
 #   Names digest: XEsH8IMZ09CBX17iXEWRagH50VGfARLo
-# 
+#
 # Collection loaded: True
 # ```
+
+# %% [markdown]
+# ### Compare two collections
+#
+# Since we have two genome collections loaded, we can compare them to see what they share:
+
+# %%
+second_collection_digest = collections[1].digest
+comparison = store.compare(first_collection_digest, second_collection_digest)
+
+print(f"Shared attributes: {comparison['attributes']['a_and_b']}")
+print(f"A-only attributes: {comparison['attributes']['a_only']}")
+print(f"B-only attributes: {comparison['attributes']['b_only']}")
+
+# %% [markdown] output
+# ```
+# Shared attributes: ['lengths', 'name_length_pairs', 'names', 'sequences', 'sorted_name_length_pairs', 'sorted_sequences']
+# A-only attributes: []
+# B-only attributes: []
+# ```
+
+# %% [markdown]
+# RefgetStore supports additional GA4GH Sequence Collections spec operations, including
+# level 1/2 retrieval, attribute lookups, and ancillary digests.
+# See [Seqcol Operations](seqcol-operations.py) for details.
+#
+# You can also assign human-readable aliases to collections (like "hg38" or "GRCh38.p14")
+# organized by namespace. See [Working with Aliases](aliases.py) for details.
 
 # %% [markdown]
 # ### Iterate through sequences in a collection
@@ -523,27 +400,14 @@ for seq in collection.sequences:
     first_10 = store.get_substring(seq.metadata.sha512t24u, 0, 10)
     print(f"  {seq.metadata.name}: {seq.metadata.length} bp, starts with {first_10}...")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 # %% [markdown] output
 # ```
 # Collection digest: NikmJ6xnuvO741NgL-zszh5_p4DsD3nV
 # Number of sequences: 2
-# 
+#
 # Sequences in collection:
-#   chr2: 16 bp, starts with GGGGAAAATT...
 #   chr1: 32 bp, starts with ATGCATGCAT...
+#   chr2: 16 bp, starts with GGGGAAAATT...
 # ```
 
 # %% [markdown]
@@ -561,19 +425,6 @@ if record:
     print(f"Digest: {record.metadata.sha512t24u}")
     print(f"Starts with: {first_10}...")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 # %% [markdown] output
 # ```
 # Found: chr1
@@ -581,6 +432,11 @@ if record:
 # Digest: EjrJJS1FmLaytz_EHgNvVZ8owSU7kbNb
 # Starts with: ATGCATGCAT...
 # ```
+
+# %% [markdown]
+# For more flexible naming, RefgetStore also supports **sequence aliases** — human-readable
+# names organized by namespace (e.g., "ucsc/chr1", "ncbi/NC_000001.11") that map to
+# sequence digests. See [Working with Aliases](aliases.py) for details.
 
 # %% [markdown]
 # ## 4. Extracting Regions from BED Files
@@ -606,20 +462,6 @@ sequences = store.substrings_from_regions(collection_digest, bed_path)
 for seq in sequences:
     print(f"{seq.chrom_name}:{seq.start}-{seq.end}: {seq.sequence}")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # %% [markdown] output
 # ```
 # chr1:0-10: ATGCATGCAT
@@ -640,23 +482,9 @@ print(f"Exported to: {output_fasta}")
 with open(output_fasta) as f:
     print(f.read())
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # %% [markdown] output
 # ```
-# Exported to: /tmp/refget_tutorial_bkhiy1dl/regions.fa
+# Exported to: /tmp/refget_tutorial_nk_w1nqa/regions.fa
 # >chr1 32 dna3bit EjrJJS1FmLaytz_EHgNvVZ8owSU7kbNb f64c9fb6ad2f6baad56e5a59ee07be63
 # ATGCATGCATTGCATGCAGTCGTAG
 # >chr2 16 dna2bit 8zS0M3VBpV7-TNdB7RjfpMbC8hrz6SbH 2640016f34792dc6302231ed4d027110
@@ -694,23 +522,10 @@ print(f"\nRemote collections available: {len(remote_collections)}")
 for c in remote_collections[:3]:
     print(f"  {c.digest}: {c.n_sequences} sequences")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 # %% [markdown] output
 # ```
-# Remote store stats: {'n_sequences_loaded': '0', 'storage_mode': 'Encoded', 'n_sequences': '37603', 'n_collections_loaded': '0', 'total_disk_size': '6651362', 'n_collections': '96'}
-# 
+# Remote store stats: {'n_collections_loaded': '0', 'total_disk_size': '6651362', 'n_sequences': '37603', 'storage_mode': 'Encoded', 'n_sequences_loaded': '0', 'n_collections': '96'}
+#
 # Remote collections available: 96
 #   -Sfh5nx4f7dSrGDdfmz7xA0nsN5jh-mN: 566 sequences
 #   -Z38q8izmrexleQATeOvcp0sZo6aSXMa: 436 sequences
@@ -746,31 +561,18 @@ if record:
 # The sequence is now cached locally
 print(f"\nRemote store stats: {remote_store.stats()}")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 # %% [markdown] output
 # ```
 # Downloading collection -Sfh5nx4f7dSrGDdfmz7xA0nsN5jh-mN...
-# Downloading sequence 9UsGdTCWa6xeY-MZ6sqOs_pj9U54VyyW...
+# Downloading sequence tikrfFado1spIG9SfD_E0SN4WYGCQjbi...
 # Collection: -Sfh5nx4f7dSrGDdfmz7xA0nsN5jh-mN
-# Sequence: JAHEOS010000393.1
-# 
-# Downloaded: JAHEOS010000393.1
-# Length: 199,881 bp
-# Starts with: GATTTCTAAG...
-# 
-# Remote store stats: {'n_sequences': '37603', 'n_collections_loaded': '1', 'storage_mode': 'Encoded', 'total_disk_size': '6801577', 'n_collections': '96', 'n_sequences_loaded': '1'}
+# Sequence: JAHEOS010000074.1
+#
+# Downloaded: JAHEOS010000074.1
+# Length: 6,063,115 bp
+# Starts with: TATATATGTA...
+#
+# Remote store stats: {'n_sequences_loaded': '1', 'n_collections_loaded': '1', 'storage_mode': 'Encoded', 'total_disk_size': '8267385', 'n_collections': '96', 'n_sequences': '37603'}
 # ```
 
 # %% [markdown]
@@ -801,25 +603,12 @@ remote_regions_fasta = os.path.join(temp_dir, "remote_regions.fa")
 remote_store.export_fasta_from_regions(EXAMPLE_COLLECTION, remote_bed_path, remote_regions_fasta)
 print(f"\nExported to {remote_regions_fasta}")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 # %% [markdown] output
 # ```
-# JAHEOS010000393.1 1000-1050: TGATATTCTGATCACATCAGAATTACATTACTTGTGTTCA...
-# JAHEOS010000393.1 5000-5100: CTGTCACCCTGGTAGTGAACATAGTACCAAAAAGGTAGTT...
-# 
-# Exported to /tmp/refget_tutorial_bkhiy1dl/remote_regions.fa
+# JAHEOS010000074.1 1000-1050: CCTAAAGTCACAAAGCTGAGACTCAAACCTAGGTCTCAGG...
+# JAHEOS010000074.1 5000-5100: CCATCATTGTGGAGAAATTTTTACTGAGATATAATGGACA...
+#
+# Exported to /tmp/refget_tutorial_nk_w1nqa/remote_regions.fa
 # ```
 
 # %% [markdown]
@@ -846,29 +635,16 @@ def run_cli(args):
 
 run_cli(["refget", "store", "stats", "--path", store_path])
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 # %% [markdown] output
 # ```
-# $ refget store stats --path /tmp/refget_tutorial_bkhiy1dl/my_refget_store
+# $ refget store stats --path /tmp/refget_tutorial_nk_w1nqa/my_refget_store
 # {
+#   "n_sequences_loaded": "0",
 #   "n_collections": "2",
 #   "n_collections_loaded": "0",
-#   "storage_mode": "Encoded",
 #   "n_sequences": "4",
-#   "total_disk_size": "1848",
-#   "n_sequences_loaded": "0",
+#   "storage_mode": "Encoded",
+#   "total_disk_size": "2209",
 #   "collections": 2
 # }
 # ```
@@ -883,22 +659,9 @@ run_cli(["refget", "store", "stats", "--path", store_path])
 # %%
 run_cli(["refget", "store", "seq", first_digest, "--path", store_path, "--start", "0", "--end", "10"])
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 # %% [markdown] output
 # ```
-# $ refget store seq 8zS0M3VBpV7-TNdB7RjfpMbC8hrz6SbH --path /tmp/refget_tutorial_bkhiy1dl/my_refget_store --start 0 --end 10
+# $ refget store seq 8zS0M3VBpV7-TNdB7RjfpMbC8hrz6SbH --path /tmp/refget_tutorial_nk_w1nqa/my_refget_store --start 0 --end 10
 # GGGGAAAATT
 # ```
 
@@ -917,6 +680,15 @@ run_cli(["refget", "store", "seq", first_digest, "--path", store_path, "--start"
 #     <li>The same operations are available via <strong>Python API</strong> or <strong>command-line interface</strong>.</li>
 #   </ul>
 # </div>
+
+# %% [markdown]
+# ## What's next?
+#
+# This tutorial covered the core RefgetStore operations. For more advanced features, see:
+#
+# - [Seqcol Operations](seqcol-operations.py) — Compare collections, retrieve level 1/2 representations, search by attribute digests, and work with ancillary digests.
+# - [Working with Aliases](aliases.py) — Assign human-readable names to sequences and collections, organized by namespace (e.g., "ucsc/chr1", "gencode/GRCh38.p14").
+# - [FHR Metadata Headers](fhr-metadata.py) — Attach FAIR Headers Reference genome (FHR) metadata to collections, describing species, version, authors, and other assembly-level context.
 
 # %%
 # Cleanup

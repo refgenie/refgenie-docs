@@ -19,9 +19,17 @@ refget-store/
 │   │   └── AbXyZ789....seq
 │   └── Xy/
 │       └── XyZabc456....seq
-└── collections/                  # Collection metadata
-    ├── collection1.rgsi          # Each collection is represented as a refget sequence index file
-    └── collection2.rgsi
+├── collections/                  # Collection metadata
+│   ├── collection1.rgsi          # Each collection is represented as a refget sequence index file
+│   ├── collection1.fhr.json      # FHR sidecar metadata file (optional)
+│   └── collection2.rgsi
+└── aliases/                      # Human-readable name mappings
+    ├── sequences/                # Sequence alias namespaces
+    │   ├── insdc.tsv
+    │   └── genbank.tsv
+    └── collections/              # Collection alias namespaces
+        ├── ncbi.tsv
+        └── ucsc.tsv
 ```
 
 ## File Specifications
@@ -73,17 +81,17 @@ Master index of all sequences in the store.
 
 **Schema:**
 ```
-#name    length    alphabet    sha512t24u                md5
-chr1     248956422  dna2bit    AbCdEf123GhIjK...         a1b2c3d4e5f6...
+#name    length    alphabet    sha512t24u                md5                               description
+chr1     248956422  dna2bit    AbCdEf123GhIjK...         a1b2c3d4e5f6...                   Homo sapiens chromosome 1
 chr2     242193529  dna2bit    XyZabc456DefGh...         f7e8d9c0b1a2...
-chrM     16569      dna2bit    MnOpQr789StUv...          1a2b3c4d5e6f...
+chrM     16569      dna2bit    MnOpQr789StUv...          1a2b3c4d5e6f...                   Mitochondrial DNA
 ```
 
 The header line starts with `#` and defines column names.
 
 **Data Columns:**
 
-1. **name** (string): Sequence name (e.g., chromosome name)
+1. **name** (string): Sequence name (the first word from the FASTA header line)
 2. **length** (integer): Sequence length in base pairs
 3. **alphabet** (string): Alphabet type
    - `dna2bit`: 2-bit DNA encoding (ACGT only)
@@ -95,7 +103,9 @@ The header line starts with `#` and defines column names.
    - Content-addressable identifier
    - Used as primary key for sequence lookup
 5. **md5** (string): MD5 digest (hex, 32 chars)
-   - Legacy support for backwards compatibility
+   - Enables cross-referencing with MD5-based systems
+6. **description** (string, optional): Text from the FASTA header after the first word
+   - May be empty; trailing whitespace is stripped
 
 Each sequence occupies one line, with lines starting with `#` serving as comments or headers. Fields are tab-separated and no quoting is required since sequence names cannot contain tabs.
 
@@ -125,15 +135,73 @@ Metadata files grouping sequences into collections (e.g., genome assemblies).
 ##names_digest=zxcvbnmasdfghjkl
 ##sequences_digest=qwertyuiopasdfgh
 ##lengths_digest=poiuytrewqlkjhgf
-#name	length	alphabet	sha512t24u	md5
-chr1	248956422	dna2bit	AbCdEf123GhIjK...	a1b2c3d4e5f6...
+##name_length_pairs_digest=abcdefghijklmnop
+##sorted_name_length_pairs_digest=mnopqrstuvwxyzab
+##sorted_sequences_digest=stuvwxyzabcdefgh
+#name	length	alphabet	sha512t24u	md5	description
+chr1	248956422	dna2bit	AbCdEf123GhIjK...	a1b2c3d4e5f6...	Homo sapiens chromosome 1
 chr2	242193529	dna2bit	XyZabc456DefGh...	f7e8d9c0b1a2...
 ```
 
-The header section uses `##` (double hash) for collection-level metadata headers, including the sequence collection digest (`##seqcol_digest`), and digests for the names, sequences, and lengths arrays. The data section header uses `#` (single hash) and is tab-separated.
+The header section uses `##` (double hash) for collection-level metadata headers. These include:
+
+- `##seqcol_digest`: The GA4GH sequence collection digest (level 1 digest)
+- `##names_digest`: Digest of the `names` array
+- `##sequences_digest`: Digest of the `sequences` array
+- `##lengths_digest`: Digest of the `lengths` array
+- `##name_length_pairs_digest`: Digest of the `name_length_pairs` array
+- `##sorted_name_length_pairs_digest`: Digest of the `sorted_name_length_pairs` array (coordinate system identifier)
+- `##sorted_sequences_digest`: Digest of the `sorted_sequences` array
+
+The data section header uses `#` (single hash) and is tab-separated.
 
 **Data Section:**
-Same format as `sequences.rgsi`, but only sequences in this collection.
+Same format as `sequences.rgsi` (6 columns including `description`), but only the sequences in this collection.
+
+### Alias Files (.tsv)
+
+Alias files map human-readable names to sequence or collection digests, organized by namespace.
+
+**Location:** `<store-root>/aliases/sequences/<namespace>.tsv` or `<store-root>/aliases/collections/<namespace>.tsv`
+
+**Format:** Tab-separated values (TSV), two columns
+
+**Schema:**
+```
+alias	digest
+chr1	AbCdEf123GhIjKlMnOpQrStUvWxYzAb
+NC_000001.11	AbCdEf123GhIjKlMnOpQrStUvWxYzAb
+hg38	uC_UorBNf3YUu1YIDainBhI94CedlNeH
+```
+
+Each row maps one alias string (column 1) to one digest (column 2), tab-separated. No header line is used. Multiple aliases from different namespaces can point to the same digest.
+
+**Namespace directories:**
+
+- `aliases/sequences/` — contains one file per namespace for sequence aliases (e.g., `insdc.tsv`, `genbank.tsv`)
+- `aliases/collections/` — contains one file per namespace for collection aliases (e.g., `ucsc.tsv`, `ncbi.tsv`)
+
+### FHR Sidecar Files (.fhr.json)
+
+FHR (FAIR Headers Reference genome) sidecar files attach structured metadata to a collection, following the [FHR specification](https://fair-headers.github.io/fair-reference-genome/).
+
+**Location:** `<store-root>/collections/<collection-digest>.fhr.json`
+
+**Format:** JSON
+
+**Example:**
+```json
+{
+  "schema_version": 1,
+  "accessionID": {"id": "GCA_000001405.15", "source": "NCBI"},
+  "taxon": [{"name": "Homo sapiens", "taxid": "9606"}],
+  "description": "GRCh38 human reference genome",
+  "scholarly_article": "https://doi.org/10.1038/nature15393",
+  "funding": "National Human Genome Research Institute"
+}
+```
+
+Each collection may have at most one `.fhr.json` sidecar. The sidecar is loaded automatically when the collection is opened, and an empty metadata object is stored if no sidecar file exists (zero-cost). See the [FHR specification](https://fair-headers.github.io/fair-reference-genome/) for the full field list.
 
 ## Storage Modes
 
@@ -181,107 +249,9 @@ Only 3 sequence files needed, even though we have 4 sequence references.
 
 RefgetStore implements the [GA4GH refget specification](https://samtools.github.io/hts-specs/refget.html), using SHA-512/24u digests (truncated SHA-512, base64url encoded) and supporting both Level 1 and Level 2 sequence collection digests.
 
-## Usage Patterns
+## Using RefgetStore
 
-### Creating a Store
-
-```python
-from refget.store import RefgetStore
-
-# Create a disk-backed store (encoded storage)
-store = RefgetStore.on_disk("/path/to/store")
-
-# Import FASTA file
-store.import_fasta("genome.fa")
-
-# Write to directory
-store.write_store_to_directory(
-    "/path/to/store",
-    "sequences/%s2/%s.seq"
-)
-```
-
-### Loading a Store
-
-```python
-from refget.store import RefgetStore
-
-# Load from local directory (with lazy loading)
-store = RefgetStore.load_local("/path/to/store")
-
-# Load from remote URL with local caching
-store = RefgetStore.load_remote(
-    "/path/to/cache",                    # Local cache directory
-    "https://example.com/refget-store"   # Remote URL
-)
-
-# Create or load a disk-backed store
-store = RefgetStore.on_disk("/path/to/store")
-```
-
-### Querying Sequences
-
-```python
-# Get sequence by digest
-record = store.get_sequence_by_id("AbCdEf123GhIjK...")
-if record:
-    print(f"Found: {record.metadata.name}, length: {record.metadata.length}")
-
-# Get sequence by name in a collection
-record = store.get_sequence_by_collection_and_name(
-    "uC_UorBNf3YUu1YIDainBhI94CedlNeH",  # collection digest
-    "chr1"
-)
-
-# Get substring (0-based, half-open interval)
-substring = store.get_substring(
-    "AbCdEf123GhIjK...",
-    1000,    # start
-    2000     # end (exclusive)
-)
-```
-
-### Extracting Sequences from BED file
-
-```python
-# Extract sequences for regions in BED file to FASTA
-store.get_seqs_bed_file(
-    "collection_digest",
-    "regions.bed",
-    "output.fa"
-)
-
-# Or get as list of RetrievedSequence objects
-sequences = store.get_seqs_bed_file_to_vec(
-    "collection_digest",
-    "regions.bed"
-)
-for seq in sequences:
-    print(f"{seq.chrom_name}:{seq.start}-{seq.end}: {seq.sequence[:50]}...")
-```
-
-### Exporting to FASTA
-
-```python
-# Export entire collection to FASTA
-store.export_fasta(
-    "collection_digest",
-    "output.fa"
-)
-
-# Export specific sequences by name
-store.export_fasta(
-    "collection_digest",
-    "output.fa",
-    sequence_names=["chr1", "chr2", "chrM"]
-)
-
-# Export by digests
-store.export_fasta_by_digests(
-    ["digest1", "digest2", "digest3"],
-    "output.fa"
-)
-```
+For Python API usage (creating, loading, querying, and exporting), see the [RefgetStore tutorial](../using-services/refgetstore.py). For API reference documentation, see the [Python API reference](reference_docs.md#refgetstore-gtars).
 
 ## Distribution
 
@@ -299,32 +269,19 @@ aws s3 sync /path/to/refget-store/ s3://bucket/refget-store/
 
 # HTTP server
 python -m http.server -d /path/to/refget-store/
-
-# Users access via URL with explicit cache location
-store = RefgetStore.load_remote(
-    "/local/cache/path",                              # User-specified cache
-    "https://mybucket.s3.amazonaws.com/refget-store"  # Remote URL
-)
 ```
 
-Remote access provides lazy loading (only downloading sequences when requested), user-controlled caching (you specify where cached data is stored), bandwidth efficiency (only transferring needed data), and selective downloads (skipping sequences you don't need).
+Remote access provides lazy loading (only downloading sequences when requested), user-controlled caching (you specify where cached data is stored), bandwidth efficiency (only transferring needed data), and selective downloads (skipping sequences you don't need). See the [RefgetStore tutorial](../using-services/refgetstore.py) for Python API examples of connecting to remote stores.
 
 ## Cache Directory
 
-When loading remote stores with `load_remote()`, you **explicitly specify** the cache location:
+When a remote store is accessed, a local cache directory mirrors the remote store structure. The cache location is user-specified (not automatic), giving explicit control over disk usage and placement.
 
-```python
-# Example: Cache in a specific directory
-cache_dir = "/data/genomes/cache/hg38"
-store = RefgetStore.load_remote(
-    cache_dir,
-    "https://example.com/hg38-store"
-)
-```
+The cache directory has the same on-disk layout as any RefgetStore:
 
-The cache directory has the same structure as the remote store, with `rgstore.json` and `sequences.rgsi` downloaded on load, while sequence files in `sequences/` and collection files are downloaded on-demand only when accessed.
-
-**Important**: The cache location is **user-controlled**, not automatic, giving you control over disk usage location, the ability to share caches between processes, explicit cleanup (just delete the directory), and no hidden ~/.cache directories.
+- `rgstore.json` and `sequences.rgsi` are downloaded on the initial connection
+- `sequences/` and `collections/` files are downloaded on-demand only when a specific sequence or collection is first accessed
+- The cache can be shared between processes and is cleaned up by simply deleting the directory
 
 ## Design Rationale
 

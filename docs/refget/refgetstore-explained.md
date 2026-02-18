@@ -65,6 +65,9 @@ No database server required. A RefgetStore is just a directory structure that ca
 
 ## Learn more
 
+- [Getting started tutorial](using-services/getting-started.py) - Quick introduction to computing digests
 - [RefgetStore tutorial](using-services/refgetstore.py) - Hands-on guide to using RefgetStore
 - [RefgetStore file format](reference/refgetstore-format.md) - Technical specification of the directory structure
 - [CLI reference](reference/cli.md) - Command-line interface for RefgetStore operations
+- [Names, aliases, and identifiers](names-and-aliases-explained.md) - How human-readable registry identifiers work alongside digests and sequence names
+- [Understanding FHR metadata](fhr-metadata-explained.md) - How to attach structured assembly-level metadata to collections

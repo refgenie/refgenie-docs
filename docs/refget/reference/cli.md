@@ -458,6 +458,51 @@ Remove a collection from the store.
 refget store remove DIGEST [--path PATH]
 ```
 
+### store metadata
+
+Show FHR (FAIR Headers Reference genome) metadata for a collection.
+
+```bash
+refget store metadata DIGEST [--path PATH]
+```
+
+**Arguments:**
+
+- `DIGEST`: Collection digest
+
+**Options:**
+
+- `--path, -p`: Store path (default: from config)
+
+**Output:** JSON with FHR metadata fields (if available)
+
+**Example:**
+```bash
+refget store metadata abc123...
+```
+
+### store metadata-set
+
+Set FHR metadata for a collection from a JSON file.
+
+```bash
+refget store metadata-set DIGEST FILE [--path PATH]
+```
+
+**Arguments:**
+
+- `DIGEST`: Collection digest
+- `FILE`: Path to FHR JSON file
+
+**Options:**
+
+- `--path, -p`: Store path (default: from config)
+
+**Example:**
+```bash
+refget store metadata-set abc123... fhr_metadata.json
+```
+
 ---
 
 ## Seqcol Commands

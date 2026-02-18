@@ -127,13 +127,20 @@ nav:
   - Refget:
       - Getting started:
           - Introduction: refget/README.md
+          - Getting started tutorial: refget/using-services/getting-started.py
           - What are refget digests?: refget/digests-explained.md
           - What is RefgetStore?: refget/refgetstore-explained.md
+          - Names, aliases, and identifiers: refget/names-and-aliases-explained.md
+          - Understanding FHR metadata: refget/fhr-metadata-explained.md
       - Using refget services:
           - Computing digests: refget/using-services/digests.ipynb
           - Python SequenceClient: refget/using-services/sequence-client.ipynb
           - Python SequenceCollectionClient: refget/using-services/seqcol-client.ipynb
-          - RefgetStore (local storage): refget/using-services/refgetstore.py
+      - Using RefgetStore:
+          - RefgetStore tutorial: refget/using-services/refgetstore.py
+          - Seqcol operations: refget/using-services/seqcol-operations.py
+          - Working with aliases: refget/using-services/aliases.py
+          - FHR metadata headers: refget/using-services/fhr-metadata.py
       - Hosting refget services:
           - Adding a FastAPI router: refget/hosting-services/fastapi_router.md
           - RefgetDB Agent: refget/hosting-services/agent.ipynb
@@ -150,11 +157,15 @@ nav:
 plugins:
   - mkdocs-jupyter:
       include:
+        - refget/using-services/getting-started.py
         - refget/using-services/sequence-client.ipynb
         - refget/using-services/seqcol-client.ipynb
         - refget/hosting-services/agent.ipynb
         - refget/using-services/digests.ipynb
         - refget/using-services/refgetstore.py
+        - refget/using-services/seqcol-operations.py
+        - refget/using-services/aliases.py
+        - refget/using-services/fhr-metadata.py
         - refgenie/notebooks/aliases.ipynb
         - refgenie/notebooks/config_upgrade_03_to_04.ipynb
         - refgenie/notebooks/refgenconf_usage.ipynb
