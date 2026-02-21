@@ -111,6 +111,7 @@ nav:
           - Populate refgenie paths: refgenie1/populate.md
           - Set up your own data channel: refgenie1/set_up_data_channel.md
           - Run a server: refgenie1/server_tutorial.md
+          - Use the dashboard: refgenie1/dash.md
       - Reference:
           - Glossary: refgenie1/glossary.md
           - Studies using refgenie: refgenie1/uses_refgenie.md

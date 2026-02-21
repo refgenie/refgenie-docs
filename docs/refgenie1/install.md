@@ -14,6 +14,34 @@ Download and install the wheel from any release found here: <https://github.com/
 pip install refgenie1-*.whl
 ```
 
+## Verify installation
+
+```bash
+refgenie1 --version
+```
+
+## Optional extras
+
+Install with dashboard support (local web UI for browsing assets):
+
+```bash
+pip install refgenie1[dash]
+```
+
+Install with server support (includes dash plus background scheduling):
+
+```bash
+pip install refgenie1[server]
+```
+
+### Development install
+
+To install from a local clone for development:
+
+```bash
+pip install -e ".[dash]"
+```
+
 ## Next steps
 
 Configure refgenie!

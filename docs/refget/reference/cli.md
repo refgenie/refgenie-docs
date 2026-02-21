@@ -327,48 +327,77 @@ refget store add genome.fa --mode raw
 
 ### store list
 
-List collections in the store.
+List collections or sequences in the store.
 
 ```bash
-refget store list [--path PATH] [--server URL]
+refget store list [--sequences] [--path PATH] [--remote URL]
 ```
 
 **Options:**
 
+- `--sequences, -s`: List sequences instead of collections
 - `--path, -p`: Store path (default: from config)
-- `--server, -s`: Remote store URL (overrides --path)
+- `--remote, -r`: Remote store URL (overrides --path)
 
 **Output:**
 ```json
+# Collections (default)
 {"collections": [{"digest": "abc123..."}, {"digest": "def456..."}]}
+
+# Sequences (with --sequences)
+{"sequences": [{"digest": "abc123...", "name": "chr1", "length": 12345}, ...]}
 ```
 
 ### store get
 
-Get a collection by digest.
+Get a collection or sequence by digest.
 
 ```bash
-refget store get DIGEST [--path PATH] [--server URL]
+refget store get DIGEST [--sequence] [--name NAME] [--start N] [--end M] [--path PATH] [--remote URL]
 ```
 
 **Options:**
 
+- `--sequence, -s`: Get a sequence instead of a collection
+- `--name, -n`: Get sequence by name from a collection (requires collection digest)
+- `--start`: Subsequence start position (0-based)
+- `--end`: Subsequence end position (exclusive)
 - `--path, -p`: Store path (default: from config)
-- `--server, -s`: Remote store URL (overrides --path)
+- `--remote, -r`: Remote store URL (overrides --path)
 
-**Output:** Full seqcol with names, lengths, and sequences arrays.
+**Output:** Full seqcol JSON (default), or raw sequence string with `--sequence` or `--name`.
+
+**Examples:**
+```bash
+# Get collection by digest
+refget store get abc123
+
+# Get sequence by digest
+refget store get <seq_digest> --sequence
+
+# Get sequence by name from collection
+refget store get <coll_digest> --name chr1
+
+# Get subsequence
+refget store get <seq_digest> --sequence --start 100 --end 200
+
+# Get from remote store
+refget store get abc123 --remote https://example.com/store
+```
+
+**Note:** Digests with `SQ.` prefix (e.g., `SQ.abc123`) are automatically normalized—the prefix is stripped before lookup.
 
 ### store pull
 
 Pull a collection from a remote store to local store.
 
 ```bash
-refget store pull DIGEST [--server URL] [--path PATH]
+refget store pull DIGEST [--remote URL] [--path PATH]
 ```
 
 **Options:**
 
-- `--server, -s`: Remote store URL to pull from
+- `--remote, -r`: Remote store URL to pull from
 - `--path, -p`: Local store path (default: from config)
 
 ### store export
@@ -396,29 +425,6 @@ refget store export abc123 -o subset.fa --name chr1 --name chr2
 
 # Export regions from BED file
 refget store export abc123 -o regions.fa --bed regions.bed
-```
-
-### store seq
-
-Get a sequence or subsequence.
-
-```bash
-refget store seq DIGEST [--name NAME] [--start N] [--end M] [--path PATH]
-```
-
-**Examples:**
-```bash
-# Full sequence by digest
-refget store seq <seq_digest>
-
-# Subsequence
-refget store seq <seq_digest> --start 100 --end 200
-
-# By collection and name
-refget store seq <coll_digest> --name chr1
-
-# Subsequence by name
-refget store seq <coll_digest> --name chr1 --start 100 --end 200
 ```
 
 ### store fai
