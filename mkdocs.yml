@@ -54,77 +54,38 @@ nav:
   - Refgenie:
       - Getting Started:
           - Introduction: refgenie/README.md
-          - Demo videos: refgenie/demo_videos.md
           - Overview: refgenie/overview.md
-          - Install and configure: refgenie/install.md
-          - Basic tutorial: refgenie/notebooks/tutorial.ipynb
+          - Install: refgenie/install.md
+          - Configure: refgenie/configuration.md
+          - CLI Tutorial: refgenie/cli_tutorial.md
           - Citing refgenie: refgenie/manuscripts.md
       - How-to guides:
           - Refer to assets: refgenie/asset_registry_paths.md
           - Download pre-built assets: refgenie/pull.md
+          - Use refgenie from Python: refgenie/notebooks/refgenie.ipynb
+          - Use data channels: refgenie/data_channels.md
           - Build assets: refgenie/build.md
-          - Add custom assets: refgenie/custom_assets.md
           - Retrieve paths to assets: refgenie/seek.md
-          - Use asset tags: refgenie/tag.md
-          - Use aliases: refgenie/notebooks/aliases.ipynb
+          - Manage aliases: refgenie/alias.md
+          - Create archives: refgenie/archive.md
+          - Managing asset groups and naming: refgenie/naming_assets.md
           - Populate refgenie paths: refgenie/populate.md
-          - Compare genomes: refgenie/compare.md
-          - Run my own asset server: refgenie/refgenieserver.md
-          - Use refgenie from Python: refgenie/refgenconf.md
-          - Use refgenie in your pipeline: refgenie/code_snippets.md
-          - Use refgenie on the cloud: refgenie/remote.md
-          - Use refgenie with iGenomes: refgenie/igenomes.md
-          - Upgrade from config 0.3 to 0.4: refgenie/notebooks/config_upgrade_03_to_04.ipynb
+          - Set up your own data channel: refgenie/set_up_data_channel.md
+          - Run a server: refgenie/server_tutorial.md
+          - Use the dashboard: refgenie/dash.md
+      - Server:
+          - Intro: refgenie/server/README.md
+          - Preparing servable assets at scale: refgenie/server/archive_with_snakemake.md
+          - Data channels: refgenie/server/data_channels.md
+          - Remotes: refgenie/server/remotes.md
+          - Persisting asset download stats: refgenie/server/endpoint_hits_collector.md
+          - Pagination and search: refgenie/server/pagination_and_search.md
+          - Data Channels Configuration: refgenie/server/data_channels_configuration.md
       - Reference:
+          - Glossary: refgenie/glossary.md
           - Studies using refgenie: refgenie/uses_refgenie.md
-          - Genome configuration file: refgenie/genome_config.md
           - Recipe: refgenie/recipe_specification.md
           - Asset class: refgenie/asset_class_specification.md
-          - Glossary: refgenie/glossary.md
-          - Buildable assets: refgenie/available_assets.md
-          - Usage: refgenie/usage.md
-          - Refgenconf usage: refgenie/notebooks/refgenconf_usage.ipynb
-          - FAQ: refgenie/faq.md
-          - Support: https://github.com/databio/refgenie/issues
-          - Contributing: refgenie/contributing.md
-          - Changelog: refgenie/changelog.md
-  - Refgenie server:
-      - Intro: refgenieserver/README.md
-  - Refgenie 1:
-      - Getting Started:
-          - Introduction: refgenie1/README.md
-          - Overview: refgenie1/overview.md
-          - Install: refgenie1/install.md
-          - Configure: refgenie1/configuration.md
-          - CLI Tutorial: refgenie1/cli_tutorial.md
-          - Citing refgenie: refgenie1/manuscripts.md
-      - How-to guides:
-          - Refer to assets: refgenie1/asset_registry_paths.md
-          - Download pre-built assets: refgenie1/pull.md
-          - Use refgenie from Python: refgenie1/notebooks/refgenie.ipynb
-          - Use data channels: refgenie1/data_channels.md
-          - Build assets: refgenie1/build.md
-          - Retrieve paths to assets: refgenie1/seek.md
-          - Manage aliases: refgenie1/alias.md
-          - Create archives: refgenie1/archive.md
-          - Managing asset groups and naming: refgenie1/naming_assets.md
-          - Populate refgenie paths: refgenie1/populate.md
-          - Set up your own data channel: refgenie1/set_up_data_channel.md
-          - Run a server: refgenie1/server_tutorial.md
-          - Use the dashboard: refgenie1/dash.md
-      - Reference:
-          - Glossary: refgenie1/glossary.md
-          - Studies using refgenie: refgenie1/uses_refgenie.md
-          - Recipe: refgenie1/recipe_specification.md
-          - Asset class: refgenie1/asset_class_specification.md
-  - Refgenie server 1:
-      - Intro: refgenieserver1/README.md
-      - Preparing servable assets at scale: refgenieserver1/archive_with_snakemake.md
-      - Data channels: refgenieserver1/data_channels.md
-      - Remotes: refgenieserver1/remotes.md
-      - Persisting asset download stats: refgenieserver1/endpoint_hits_collector.md
-      - Pagination and search: refgenieserver1/pagination_and_search.md
-      - Data Channels Configuration: refgenieserver1/data_channels_configuration.md
   - Refget:
       - Getting started:
           - Introduction: refget/README.md
@@ -154,6 +115,44 @@ nav:
           - Data models: refget/reference/models.md
           - RefgetStore format: refget/reference/refgetstore-format.md
           - Changelog: refget/reference/changelog.md
+  - Refgenie legacy:
+      - legacy/README.md
+      - Refgenie (pre-1.0):
+          - Introduction: legacy/refgenie/README.md
+          - Demo videos: legacy/refgenie/demo_videos.md
+          - Overview: legacy/refgenie/overview.md
+          - Install and configure: legacy/refgenie/install.md
+          - Basic tutorial: legacy/refgenie/notebooks/tutorial.ipynb
+          - Citing refgenie: legacy/refgenie/manuscripts.md
+          - Refer to assets: legacy/refgenie/asset_registry_paths.md
+          - Download pre-built assets: legacy/refgenie/pull.md
+          - Build assets: legacy/refgenie/build.md
+          - Add custom assets: legacy/refgenie/custom_assets.md
+          - Retrieve paths to assets: legacy/refgenie/seek.md
+          - Use asset tags: legacy/refgenie/tag.md
+          - Use aliases: legacy/refgenie/notebooks/aliases.ipynb
+          - Populate refgenie paths: legacy/refgenie/populate.md
+          - Compare genomes: legacy/refgenie/compare.md
+          - Run my own asset server: legacy/refgenie/refgenieserver.md
+          - Use refgenie from Python: legacy/refgenie/refgenconf.md
+          - Use refgenie in your pipeline: legacy/refgenie/code_snippets.md
+          - Use refgenie on the cloud: legacy/refgenie/remote.md
+          - Use refgenie with iGenomes: legacy/refgenie/igenomes.md
+          - Upgrade from config 0.3 to 0.4: legacy/refgenie/notebooks/config_upgrade_03_to_04.ipynb
+          - Studies using refgenie: legacy/refgenie/uses_refgenie.md
+          - Genome configuration file: legacy/refgenie/genome_config.md
+          - Recipe: legacy/refgenie/recipe_specification.md
+          - Asset class: legacy/refgenie/asset_class_specification.md
+          - Glossary: legacy/refgenie/glossary.md
+          - Buildable assets: legacy/refgenie/available_assets.md
+          - Usage: legacy/refgenie/usage.md
+          - Refgenconf usage: legacy/refgenie/notebooks/refgenconf_usage.ipynb
+          - FAQ: legacy/refgenie/faq.md
+          - Support: https://github.com/databio/refgenie/issues
+          - Contributing: legacy/refgenie/contributing.md
+          - Changelog: legacy/refgenie/changelog.md
+      - Refgenie server (pre-1.0):
+          - Intro: legacy/refgenieserver/README.md
 
 plugins:
   - mkdocs-jupyter:
@@ -167,11 +166,11 @@ plugins:
         - refget/using-services/seqcol-operations.py
         - refget/using-services/aliases.py
         - refget/using-services/fhr-metadata.py
-        - refgenie/notebooks/aliases.ipynb
-        - refgenie/notebooks/config_upgrade_03_to_04.ipynb
-        - refgenie/notebooks/refgenconf_usage.ipynb
-        - refgenie/notebooks/tutorial.ipynb
-        - refgenie1/notebooks/refgenie.ipynb
+        - legacy/refgenie/notebooks/aliases.ipynb
+        - legacy/refgenie/notebooks/config_upgrade_03_to_04.ipynb
+        - legacy/refgenie/notebooks/refgenconf_usage.ipynb
+        - legacy/refgenie/notebooks/tutorial.ipynb
+        - refgenie/notebooks/refgenie.ipynb
       ignore_h1_titles: True
   - mkdocstrings:
       default_handler: python

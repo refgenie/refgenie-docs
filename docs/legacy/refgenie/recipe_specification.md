@@ -55,76 +55,6 @@ default_tag: "{{custom_properties.version}}"
 
 This GitHub repository contains numerous recipe examples: [refgenie/recipes](https://github.com/refgenie/recipes/tree/master/recipes)
 
-## Managing Recipes via CLI
-
-Refgenie provides several CLI commands for managing recipes. These commands allow you to list, add, inspect, and remove recipes from your refgenie configuration.
-
-### Listing recipes
-
-To see all registered recipes:
-
-```bash
-refgenie1 recipe list
-```
-
-This displays a table of all recipes currently available in your refgenie installation.
-
-### Adding a recipe
-
-You can add a recipe from a local file or from a URL:
-
-```bash
-# From a local file
-refgenie1 recipe add /path/to/recipe.yaml
-
-# From a URL
-refgenie1 recipe add https://example.com/recipes/my_recipe.yaml
-```
-
-If a recipe with the same name already exists, use `--force` to overwrite it:
-
-```bash
-refgenie1 recipe add /path/to/recipe.yaml --force
-```
-
-### Showing recipe details
-
-To view the full YAML definition of a recipe:
-
-```bash
-refgenie1 recipe show my_recipe
-```
-
-If multiple versions of a recipe exist, you can specify a particular version:
-
-```bash
-refgenie1 recipe show my_recipe --recipe-version 0.0.2
-```
-
-### Removing a recipe
-
-To remove a recipe from your configuration:
-
-```bash
-refgenie1 recipe remove my_recipe
-```
-
-To remove a specific version:
-
-```bash
-refgenie1 recipe remove my_recipe --recipe-version 0.0.1
-```
-
-### Checking recipe requirements
-
-To see what inputs (files, parameters, and assets) a recipe requires:
-
-```bash
-refgenie1 recipe reqs my_recipe
-```
-
-This displays a table showing all required inputs, which is useful before building an asset to understand what you need to provide.
-
 # Details of the recipe components
 
 Let's describe the components of the recipe specification in more detail, i.e. their internal structure and the impact they have on the asset build process.
@@ -182,20 +112,20 @@ The command template list is the most critical part of the recipe. It is a list 
 
 Within the `command_template_list`, you have access to variables from several sources. These variables are divided into namespaces depending on the variable source. You can access the values of these variables in the command template using the double-brace Jinja2 template language syntax: `{{namespace.variable}}`. Below is a list of the namespaces available to the command templates:
 
-- asset_group_name: a `str` representing the asset group name
-- genome_digest: a `str` representing the digest uniquely identifying the genome
-- output_folder: a `pathlib.Path` object indicating the output folder
-- assets: a `Dict[str, Asset]` mapping asset group names to resolved asset names: specified by the user, or defaults
-- params: a `Dict[str, Any]` mapping of parameter names to values: specified by the user, or defaults
-- files: a `Dict[str, Path]` mapping of file names to file paths: specified by the user, or defaults
-- custom_properties: a `Dict[str, Any]` mapping of custom properties, may include software versions, etc.
+- genome (`str`): The genome digest.
+- asset (`str`): The asset name.
+- params (`Dict[str, Dict[str, str]]`): The _resolved_ input parameters.
+- files (`Dict[str, Dict[str, str]]`): The _resolved_ input files.
+- assets (`Dict[str, Dict[str, str]]`): The _resolved_ input assets.
+- custom*properties (`Dict[str, Dict[str, Any]]`): The \_resolved* custom properties.
+- test (`Dict[str, Dict[str, str]]`): The recipe testing setup.
 
 This is a dict-like representation of an example namespaces object available to the command templates:
 
 ```python
 namespaces = {
-    "genome_digest": "6c5f19c9c2850e62cc3f89b04047fa05eee911662bd77905",
-    "asset_group_name": "my_asset1",
+    "genome": "6c5f19c9c2850e62cc3f89b04047fa05eee911662bd77905",
+    "asset": "my_asset1",
     "assets": {
         "fasta": "/path/to/genomes/fasta.fa.gz"
     },
@@ -220,3 +150,23 @@ The `default_tag` value can be a string or a Jinja2 template, that combines the 
 ## custom_properties
 
 This section is an object where keys are the names of custom properties and values are shell commands that will be executed in the asset building requirement. This is a way to record any computing enviroment specific information, like the version of a software package used to produce the asset. Please note that the build namespaces are not available to the commands in this section.
+
+## test
+
+This section is used to specify the test setup for the recipe. The test setup is a dictionary of test parameters, which include:
+
+- `genome`: the genome digest to use for derived asset tests. Any input assets will be sourced from this genome namespace.
+- `inputs`: the input files to the recipes. The values must be URLs to remote files, so that the recipes are portable. The keys in this section must match the keys in the `inputs.files` section or the recipe. Currently `inputs.params` and `inputs.assets` cannot be changed, default values from the top-level `inputs` section are used.
+- `outputs`: the outputs to test the results of running the recipe commands against. There are two ways the outputs can be tested: 1) by comparing the file checksum (`checksum`), or 2) by comparing the value (`value`). The keys in this section must match the `seek_keys` in the asset class definition.
+
+```yaml
+test:
+  genome: 6c5f19c9c2850e62cc3f89b04047fa05eee911662bd77905
+  inputs:
+    fasta: /path/to/genome/fasta.fa
+  outputs:
+    html:
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+      # OR
+      value: 100
+```
