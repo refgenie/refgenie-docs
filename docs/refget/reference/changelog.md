@@ -3,6 +3,25 @@
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format.
 
 
+## [0.11.0] - 2026-02-18
+
+### Added
+- New gtars features exposed in refget Python API: `compute_fai`, `digest_sequence`, and `SequenceCollection` now available via `import refget`
+- FHR metadata support: `refget store metadata` and `refget store metadata-set` commands for managing collection metadata
+- `refget store pull` command for fetching collections from remote servers into your local store
+- Seqcol CLI commands (`show`, `compare`, `validate`) now look up collections in the local store before querying remote servers
+- GA4GH compliance test suite with 65 checks covering all seqcol spec endpoints, runnable via pytest or the web UI
+- Web UI compliance runner with real-time streaming results, stop button, and per-test descriptions
+- Swagger/OpenAPI documentation for all API query parameters
+- gtars version displayed in service-info and frontend footer badges
+- Download collections in seqcol JSON format from the web UI
+
+### Changed
+- seqcolapi no longer has independent versioning; it now versions with refget
+- Improved FASTA digest page UI
+- Improved error messages and error handling across frontend fetch calls
+- Frontend cleanup: removed dead code, simplified component structure
+
 ## [0.10.1] - 2026-01-27
 
 - Fix CLI `store list` JSON serialization error (was returning non-serializable metadata objects)
