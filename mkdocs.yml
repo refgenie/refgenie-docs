@@ -101,6 +101,9 @@ nav:
       - Using RefgetStore:
           - RefgetStore tutorial: refget/using-services/refgetstore.py
           - Seqcol operations: refget/using-services/seqcol-operations.py
+          - Matching by sequences: refget/using-services/sorted-sequences.py
+          - Retrieving subsequences by digest: refget/using-services/subsequences-by-digest.py
+          - Coordinate system matching: refget/using-services/coordinate-system-digests.py
           - Working with aliases: refget/using-services/aliases.py
           - FHR metadata headers: refget/using-services/fhr-metadata.py
       - Hosting refget services:
@@ -164,6 +167,9 @@ plugins:
         - refget/using-services/digests.ipynb
         - refget/using-services/refgetstore.py
         - refget/using-services/seqcol-operations.py
+        - refget/using-services/sorted-sequences.py
+        - refget/using-services/subsequences-by-digest.py
+        - refget/using-services/coordinate-system-digests.py
         - refget/using-services/aliases.py
         - refget/using-services/fhr-metadata.py
         - legacy/refgenie/notebooks/aliases.ipynb
