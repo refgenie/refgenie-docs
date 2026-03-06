@@ -1,0 +1,129 @@
+/* Refgenie color scheme */
+:root {
+  --sl-color-accent-low: #1a2744;
+  --sl-color-accent: #354a75;
+  --sl-color-accent-high: #5a7ab5;
+  --sl-color-text-accent: #354aa5;
+}
+
+:root[data-theme='light'] {
+  --sl-color-accent-low: #dce5f5;
+  --sl-color-accent: #354a75;
+  --sl-color-accent-high: #1a2744;
+  --sl-color-text-accent: #354aa5;
+}
+
+/* Wider content area to reduce gap between sidebar and content */
+:root {
+  --sl-content-width: 65rem;
+}
+
+/* Typography */
+:root {
+  --sl-font: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+blockquote {
+  padding: 11px 22px;
+  margin: 0 0 22px;
+  font-size: 19px;
+  border-left: 1px solid #ddd;
+  color: #6f6f6f;
+}
+
+/* Stats widget on homepage */
+.stats-container {
+  display: flex;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.stat-card {
+  flex: 1;
+  text-align: center;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+}
+
+:root[data-theme='dark'] .stat-card {
+  background: #1a1a2e;
+  border-color: #333;
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a73e8;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 0.25rem;
+}
+
+:root[data-theme='dark'] .stat-label {
+  color: #aaa;
+}
+
+/* Layout utilities */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col-md-6 {
+  flex: 0 0 50%;
+  padding: 20px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .col-md-6 {
+    flex: 0 0 100%;
+  }
+  .stats-container {
+    flex-direction: column;
+  }
+}
+
+/* Image utilities */
+.img-header {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 300px;
+}
+
+.img-white-bg {
+  background: #fff;
+  padding: 4px;
+}
+
+/* Constrain hero image on splash pages */
+.hero img {
+  max-width: 400px;
+  width: 100%;
+}
+
+/* Citations */
+.paper-title {
+  color: #224477;
+  font-size: 1.05em;
+  font-weight: bold;
+}
+
+/* TOC spacing */
+.toc ul {
+  line-height: 1.0;
+}

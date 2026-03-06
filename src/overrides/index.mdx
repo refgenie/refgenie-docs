@@ -1,0 +1,76 @@
+---
+title: "Refgenie"
+template: splash
+hero:
+  title: "Refgenie"
+  tagline: "Reference genome management, rebuilt from the ground up"
+  image:
+    html: <img src="/img/refgenie_reloaded.svg" alt="Refgenie" />
+  actions:
+    - text: Get started
+      link: /refgenie/
+      icon: right-arrow
+      variant: primary
+    - text: View on GitHub
+      link: https://github.com/refgenie/refgenie
+      icon: external
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<div class="stats-container">
+  <div class="stat-card">
+    <div class="stat-value" id="stat-bytes">...</div>
+    <div class="stat-label">TOTAL DATA SERVED</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value" id="stat-requests">...</div>
+    <div class="stat-label">TOTAL REQUESTS SERVED</div>
+  </div>
+</div>
+
+<script>
+{`
+fetch('https://databio.org/stats/stats/aws/summary.json')
+  .then(r => r.json())
+  .then(d => {
+    document.getElementById('stat-bytes').textContent = (d.BytesDownloaded / 1e12).toFixed(1) + ' TB';
+    document.getElementById('stat-requests').textContent = (d.AllRequests / 1e6).toFixed(1) + ' million';
+  });
+`}
+</script>
+
+## What's new
+
+<CardGrid>
+  <Card title="Database-backed storage" icon="seti:db">
+    SQLite by default, PostgreSQL for scale. No more flat YAML config files.
+  </Card>
+  <Card title="Built-in server" icon="laptop">
+    Serve your assets over HTTP without a separate package.
+  </Card>
+  <Card title="GA4GH identifiers" icon="approve-check">
+    Sequence-derived genome identifiers replace arbitrary genome names.
+  </Card>
+  <Card title="Remote operation" icon="cloud">
+    Use `seekr` to access assets on S3 or other cloud storage.
+  </Card>
+</CardGrid>
+
+## Quick start
+
+```console
+pip install refgenie
+
+refgenie --help
+```
+
+## Documentation
+
+Head to the [**Refgenie**](/refgenie/) section for full documentation, including installation, tutorials, and how-to guides.
+
+Looking for the refget Python package? See the [**Refget**](/refget/) section.
+
+:::note[Upgrading from pre-1.0?]
+Documentation for the original refgenie and refgenie server is available in the [**Legacy**](/legacy/) section.
+:::

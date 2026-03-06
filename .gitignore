@@ -1,2 +1,14 @@
-/docs/refget/notebooks/.ipynb_checkpoints/refgetstore-checkpoint.ipynb
+# MkDocs
 site/
+
+# Astro/Starlight
+dist/
+node_modules/
+src/content/docs/
+.astro/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Python
+__pycache__/

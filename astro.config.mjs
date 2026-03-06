@@ -1,0 +1,212 @@
+import { defineConfig } from 'astro/config';
+import starlight from '@astrojs/starlight';
+import starlightSidebarTopics from 'starlight-sidebar-topics';
+
+export default defineConfig({
+  site: 'https://refgenie.org',
+  integrations: [
+    starlight({
+      title: 'Refgenie',
+      logo: {
+        src: './public/img/refgenie_bug_light.svg',
+      },
+      favicon: '/img/refgenie_bug.svg',
+      editLink: {
+        baseUrl: 'https://github.com/refgenie/refgenie-docs/edit/master/docs/',
+      },
+      customCss: ['./src/styles/custom.css'],
+      components: {
+        PageTitle: './src/components/PageTitle.astro',
+      },
+      plugins: [
+        starlightSidebarTopics([
+          {
+            label: 'Refgenie',
+            link: '/refgenie/',
+            icon: 'open-book',
+            items: [
+              {
+                label: 'Getting started',
+                items: [
+                  { label: 'Introduction', slug: 'refgenie' },
+                  { label: 'Overview', slug: 'refgenie/overview' },
+                  { label: 'Install', slug: 'refgenie/install' },
+                  { label: 'Configure', slug: 'refgenie/configuration' },
+                  { label: 'CLI tutorial', slug: 'refgenie/cli_tutorial' },
+                  { label: 'Genome initialization', slug: 'refgenie/genome_tutorial' },
+                  { label: 'Citing refgenie', slug: 'refgenie/manuscripts' },
+                ],
+              },
+              {
+                label: 'How-to guides',
+                items: [
+                  { label: 'Refer to assets', slug: 'refgenie/asset_registry_paths' },
+                  { label: 'Download pre-built assets', slug: 'refgenie/pull' },
+                  { label: 'Use refgenie from Python', slug: 'refgenie/notebooks/refgenie' },
+                  { label: 'Use data channels', slug: 'refgenie/data_channels' },
+                  { label: 'Build assets', slug: 'refgenie/build' },
+                  { label: 'Building and serving tutorial', slug: 'refgenie/building_tutorial' },
+                  { label: 'Retrieve paths to assets', slug: 'refgenie/seek' },
+                  { label: 'Manage aliases', slug: 'refgenie/alias' },
+                  { label: 'Managing asset groups and naming', slug: 'refgenie/naming_assets' },
+                  { label: 'Populate refgenie paths', slug: 'refgenie/populate' },
+                  { label: 'Set up your own data channel', slug: 'refgenie/set_up_data_channel' },
+                  { label: 'Run a server', slug: 'refgenie/server_tutorial' },
+                  { label: 'Use the dashboard', slug: 'refgenie/dash' },
+                ],
+              },
+              {
+                label: 'Server',
+                items: [
+                  { label: 'Intro', slug: 'refgenie/server' },
+                  { label: 'Data channels', slug: 'refgenie/server/data_channels' },
+                  { label: 'Remotes', slug: 'refgenie/server/remotes' },
+                  { label: 'Persisting download stats', slug: 'refgenie/server/endpoint_hits_collector' },
+                  { label: 'Pagination and search', slug: 'refgenie/server/pagination_and_search' },
+                  { label: 'Data channels configuration', slug: 'refgenie/server/data_channels_configuration' },
+                ],
+              },
+              {
+                label: 'Reference',
+                items: [
+                  { label: 'Glossary', slug: 'refgenie/glossary' },
+                  { label: 'Studies using refgenie', slug: 'refgenie/uses_refgenie' },
+                  { label: 'Recipe specification', slug: 'refgenie/recipe_specification' },
+                  { label: 'Asset class specification', slug: 'refgenie/asset_class_specification' },
+                ],
+              },
+            ],
+          },
+          {
+            label: 'Refget',
+            link: '/refget/',
+            icon: 'open-book',
+            items: [
+              {
+                label: 'Getting started',
+                items: [
+                  { label: 'Introduction', slug: 'refget' },
+                  { label: 'Getting started tutorial', slug: 'refget/using-services/getting-started' },
+                  { label: 'What are refget digests?', slug: 'refget/digests-explained' },
+                  { label: 'What is RefgetStore?', slug: 'refget/refgetstore-explained' },
+                  { label: 'Names, aliases, and identifiers', slug: 'refget/names-and-aliases-explained' },
+                  { label: 'Understanding FHR metadata', slug: 'refget/fhr-metadata-explained' },
+                  { label: 'The brickyard genome collection', slug: 'refget/genome-collections-explained' },
+                ],
+              },
+              {
+                label: 'Using refget services',
+                items: [
+                  { label: 'Computing digests', slug: 'refget/using-services/digests' },
+                  { label: 'Python SequenceClient', slug: 'refget/using-services/sequence-client' },
+                  { label: 'Python SequenceCollectionClient', slug: 'refget/using-services/seqcol-client' },
+                ],
+              },
+              {
+                label: 'Using RefgetStore',
+                items: [
+                  { label: 'RefgetStore tutorial', slug: 'refget/using-services/refgetstore' },
+                  { label: 'Seqcol operations', slug: 'refget/using-services/seqcol-operations' },
+                  { label: 'Working with aliases', slug: 'refget/using-services/aliases' },
+                  { label: 'FHR metadata headers', slug: 'refget/using-services/fhr-metadata' },
+                  { label: 'Exploring the genome store', slug: 'refget/using-services/genome-store' },
+                ],
+              },
+              {
+                label: 'Hosting refget services',
+                items: [
+                  { label: 'Adding a FastAPI router', slug: 'refget/hosting-services/fastapi_router' },
+                  { label: 'RefgetDB Agent', slug: 'refget/hosting-services/agent' },
+                  { label: 'Compliance testing', slug: 'refget/hosting-services/compliance' },
+                ],
+              },
+              {
+                label: 'Reference',
+                items: [
+                  { label: 'CLI', slug: 'refget/reference/cli' },
+                  { label: 'CLI Configuration', slug: 'refget/reference/configuration' },
+                  { label: 'REST API', link: 'https://seqcolapi.databio.org/docs' },
+                  { label: 'Python API', slug: 'refget/reference/reference_docs' },
+                  { label: 'Data models', slug: 'refget/reference/models' },
+                  { label: 'RefgetStore format', slug: 'refget/reference/refgetstore-format' },
+                  { label: 'Changelog', slug: 'refget/reference/changelog' },
+                ],
+              },
+            ],
+          },
+          {
+            label: 'Legacy',
+            link: '/legacy/',
+            icon: 'open-book',
+            items: [
+              { label: 'Overview', slug: 'legacy' },
+              {
+                label: 'Refgenie (pre-1.0)',
+                items: [
+                  { label: 'Introduction', slug: 'legacy/refgenie' },
+                  { label: 'Demo videos', slug: 'legacy/refgenie/demo_videos' },
+                  { label: 'Overview', slug: 'legacy/refgenie/overview' },
+                  { label: 'Install and configure', slug: 'legacy/refgenie/install' },
+                  { label: 'Basic tutorial', slug: 'legacy/refgenie/notebooks/tutorial' },
+                  { label: 'Citing refgenie', slug: 'legacy/refgenie/manuscripts' },
+                  { label: 'Refer to assets', slug: 'legacy/refgenie/asset_registry_paths' },
+                  { label: 'Download pre-built assets', slug: 'legacy/refgenie/pull' },
+                  { label: 'Build assets', slug: 'legacy/refgenie/build' },
+                  { label: 'Add custom assets', slug: 'legacy/refgenie/custom_assets' },
+                  { label: 'Retrieve paths to assets', slug: 'legacy/refgenie/seek' },
+                  { label: 'Use asset tags', slug: 'legacy/refgenie/tag' },
+                  { label: 'Use aliases', slug: 'legacy/refgenie/notebooks/aliases' },
+                  { label: 'Populate refgenie paths', slug: 'legacy/refgenie/populate' },
+                  { label: 'Compare genomes', slug: 'legacy/refgenie/compare' },
+                  { label: 'Run my own asset server', slug: 'legacy/refgenie/refgenieserver' },
+                  { label: 'Use refgenie from Python', slug: 'legacy/refgenie/refgenconf' },
+                  { label: 'Use refgenie in your pipeline', slug: 'legacy/refgenie/code_snippets' },
+                  { label: 'Use refgenie on the cloud', slug: 'legacy/refgenie/remote' },
+                  { label: 'Use refgenie with iGenomes', slug: 'legacy/refgenie/igenomes' },
+                  { label: 'Upgrade from config 0.3 to 0.4', slug: 'legacy/refgenie/notebooks/config_upgrade_03_to_04' },
+                  { label: 'Studies using refgenie', slug: 'legacy/refgenie/uses_refgenie' },
+                  { label: 'Genome configuration file', slug: 'legacy/refgenie/genome_config' },
+                  { label: 'Recipe specification', slug: 'legacy/refgenie/recipe_specification' },
+                  { label: 'Asset class specification', slug: 'legacy/refgenie/asset_class_specification' },
+                  { label: 'Glossary', slug: 'legacy/refgenie/glossary' },
+                  { label: 'Buildable assets', slug: 'legacy/refgenie/available_assets' },
+                  { label: 'Usage', slug: 'legacy/refgenie/usage' },
+                  { label: 'Refgenconf usage', slug: 'legacy/refgenie/notebooks/refgenconf_usage' },
+                  { label: 'FAQ', slug: 'legacy/refgenie/faq' },
+                  { label: 'Support', link: 'https://github.com/databio/refgenie/issues' },
+                  { label: 'Contributing', slug: 'legacy/refgenie/contributing' },
+                  { label: 'Changelog', slug: 'legacy/refgenie/changelog' },
+                ],
+              },
+              {
+                label: 'Refgenie server (pre-1.0)',
+                items: [
+                  { label: 'Intro', slug: 'legacy/refgenieserver' },
+                ],
+              },
+            ],
+          },
+        ], {
+          exclude: [
+            '/index',
+            '/.archive/**',
+            '/refgenie/build_output',
+            '/refgenie/code/**',
+            '/refgenie/code_snippets',
+            '/refgenie/compare',
+            '/refgenie/contributing',
+            '/refgenie/custom_assets',
+            '/refgenie/faq',
+            '/refgenie/flexible_asset_types',
+            '/refgenie/refgenie_object',
+            '/refgenie/refgenieserver',
+            '/refgenie/servers',
+            '/refgenie/serving_modes',
+            '/refget/reference/refgetstore-case-sensitivity',
+            '/legacy/refgenie/build_output',
+          ],
+        }),
+      ],
+    }),
+  ],
+});
