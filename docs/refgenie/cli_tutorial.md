@@ -266,13 +266,10 @@ Once you have a FASTA asset, you can build derived assets like indexes:
 refgenie1 build my_genome/bowtie2_index
 ```
 
-!!! info "Learn More"
-    Building assets requires understanding of inputs, recipes, and optionally Docker. See the [Build documentation](build.md) for complete details on:
+!!! info "Full build/stage/push workflow"
+    For the complete workflow — including how to stage assets for serving, serve them locally, build in bulk with Snakemake, and push to cloud remotes — see the [Building and Serving Tutorial](building_tutorial.md).
 
-    - Checking recipe requirements
-    - Providing input files and parameters
-    - Using Docker for reproducible builds
-    - Building assets with dependencies
+    For reference documentation on building, see [Build](build.md).
 
 ## Quick Reference
 

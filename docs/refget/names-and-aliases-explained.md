@@ -178,3 +178,4 @@ The three-level system reflects the reality of how biological sequences are iden
 - [Working with Aliases](using-services/aliases.py) -- How to add, resolve, browse, and remove aliases
 - [RefgetStore tutorial](using-services/refgetstore.py) -- Hands-on guide including sequence name lookups
 - [What are refget digests?](digests-explained.md) -- How digests are computed and what they encode
+- [The brickyard genome collection](genome-collections-explained.md) -- How aliases are used in practice across a large genome collection

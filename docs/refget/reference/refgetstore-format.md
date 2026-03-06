@@ -50,7 +50,9 @@ The root metadata file containing store configuration.
   "collections_path_template": "collections/%s.rgsi",
   "sequence_index": "sequences.rgsi",
   "mode": "Encoded",
-  "created_at": "2025-01-15T10:30:00Z"
+  "created_at": "2025-01-15T10:30:00Z",
+  "sequence_alias_namespaces": ["insdc", "genbank"],
+  "collection_alias_namespaces": ["ncbi", "ucsc"]
 }
 ```
 
@@ -70,6 +72,8 @@ The root metadata file containing store configuration.
     - `"Raw"`: Uncompressed sequence data
     - `"Encoded"`: Bit-packed encoded sequences (space efficient)
 - `created_at` (string): ISO 8601 timestamp of store creation
+- `sequence_alias_namespaces` (array of strings, optional): List of available sequence alias namespace names (e.g., `["insdc", "genbank"]`)
+- `collection_alias_namespaces` (array of strings, optional): List of available collection alias namespace names (e.g., `["ncbi", "ucsc"]`)
 
 ### sequences.rgsi
 

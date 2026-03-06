@@ -58,6 +58,7 @@ nav:
           - Install: refgenie/install.md
           - Configure: refgenie/configuration.md
           - CLI Tutorial: refgenie/cli_tutorial.md
+          - Genome initialization: refgenie/genome_tutorial.md
           - Citing refgenie: refgenie/manuscripts.md
       - How-to guides:
           - Refer to assets: refgenie/asset_registry_paths.md
@@ -65,9 +66,9 @@ nav:
           - Use refgenie from Python: refgenie/notebooks/refgenie.ipynb
           - Use data channels: refgenie/data_channels.md
           - Build assets: refgenie/build.md
+          - Building and serving tutorial: refgenie/building_tutorial.md
           - Retrieve paths to assets: refgenie/seek.md
           - Manage aliases: refgenie/alias.md
-          - Create archives: refgenie/archive.md
           - Managing asset groups and naming: refgenie/naming_assets.md
           - Populate refgenie paths: refgenie/populate.md
           - Set up your own data channel: refgenie/set_up_data_channel.md
@@ -75,7 +76,6 @@ nav:
           - Use the dashboard: refgenie/dash.md
       - Server:
           - Intro: refgenie/server/README.md
-          - Preparing servable assets at scale: refgenie/server/archive_with_snakemake.md
           - Data channels: refgenie/server/data_channels.md
           - Remotes: refgenie/server/remotes.md
           - Persisting asset download stats: refgenie/server/endpoint_hits_collector.md
@@ -94,6 +94,7 @@ nav:
           - What is RefgetStore?: refget/refgetstore-explained.md
           - Names, aliases, and identifiers: refget/names-and-aliases-explained.md
           - Understanding FHR metadata: refget/fhr-metadata-explained.md
+          - The brickyard genome collection: refget/genome-collections-explained.md
       - Using refget services:
           - Computing digests: refget/using-services/digests.ipynb
           - Python SequenceClient: refget/using-services/sequence-client.ipynb
@@ -103,6 +104,7 @@ nav:
           - Seqcol operations: refget/using-services/seqcol-operations.py
           - Working with aliases: refget/using-services/aliases.py
           - FHR metadata headers: refget/using-services/fhr-metadata.py
+          - Exploring the genome store: refget/using-services/genome-store.py
       - Hosting refget services:
           - Adding a FastAPI router: refget/hosting-services/fastapi_router.md
           - RefgetDB Agent: refget/hosting-services/agent.ipynb
@@ -166,6 +168,7 @@ plugins:
         - refget/using-services/seqcol-operations.py
         - refget/using-services/aliases.py
         - refget/using-services/fhr-metadata.py
+        - refget/using-services/genome-store.py
         - legacy/refgenie/notebooks/aliases.ipynb
         - legacy/refgenie/notebooks/config_upgrade_03_to_04.ipynb
         - legacy/refgenie/notebooks/refgenconf_usage.ipynb

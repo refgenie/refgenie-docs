@@ -71,3 +71,4 @@ No database server required. A RefgetStore is just a directory structure that ca
 - [CLI reference](reference/cli.md) - Command-line interface for RefgetStore operations
 - [Names, aliases, and identifiers](names-and-aliases-explained.md) - How human-readable registry identifiers work alongside digests and sequence names
 - [Understanding FHR metadata](fhr-metadata-explained.md) - How to attach structured assembly-level metadata to collections
+- [The brickyard genome collection](genome-collections-explained.md) - A curated collection of ~1,952 reference genomes organized in a RefgetStore

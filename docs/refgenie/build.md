@@ -1,6 +1,9 @@
 <h1>Build</h1>
 [TOC]
 
+!!! tip "See also"
+    For a complete end-to-end walkthrough covering build, stage, serve, and push, see the [Building and Serving Tutorial](building_tutorial.md).
+
 ## Introduction
 Once you've [installed refgenie](install.md), you can use `refgenie pull` to [download pre-built assets](pull.md) without installing any additional software. However, you may need to use the `build` function for genomes or assets that are not available on the server. You can build assets for any genome for which you can provide the required inputs.
 
