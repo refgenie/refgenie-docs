@@ -211,6 +211,8 @@ Each collection may have at most one `.fhr.json` sidecar. The sidecar is loaded 
 
 RefgetStore supports two storage modes: **Raw mode** stores sequences as plain text (for DNA/protein), making them simple to debug and inspect with no decoding overhead, but results in larger file sizes without compression—use this when storage space is not a concern, you need human-readable sequences, or during debugging and development. **Encoded mode** provides 2-4× smaller file sizes through efficient bit-packing and faster I/O, though it requires decoding and is slightly more complex—use this for production deployments and storing large genomes where storage space matters.
 
+For details on how RefgetStore's bit-packed encoding works and how it compares to the UCSC 2bit format, see [RefgetStore encoding](encoding-comparison.md).
+
 ## Path Templates
 
 Templates use placeholders to organize files hierarchically:
@@ -308,5 +310,6 @@ MD5 support provides compatibility with legacy systems, easier migration from MD
 ## See Also
 
 - [GA4GH refget specification](https://samtools.github.io/hts-specs/refget.html)
+- [RefgetStore encoding](encoding-comparison.md) — bit-packing details and comparison with UCSC 2bit
 - [RefgetStore Python API](reference_docs.md#refgetstore-gtars)
 - [RefgetStore tutorial](../using-services/refgetstore.py)
