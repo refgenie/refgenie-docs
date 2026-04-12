@@ -22,7 +22,7 @@ Refgenie manages storage, access, and transfer of reference genome resources. It
 
 4. **It provides remote operation mode**, useful for cloud applications. Get a path to an asset file hosted on AWS S3: `refgenie seekr hg38/fasta --remote-class s3`.
 
-5. **It includes a Python API**. For tool developers, you use `rgc = refgenconf.RefGenConf("genomes.yaml")` to get a Python object with paths to any genome asset, *e.g.*, `rgc.seek("hg38", "kallisto_index")`.
+5. **It includes a Python API**. For tool developers, you use `from refgenie import Refgenie` to get a Python object with paths to any genome asset, *e.g.*, `rgc = Refgenie(); rgc.seek("hg38", "kallisto_index")`.
 
 6. **It strictly determines genomes compatibility**. Users refer to genomes with arbitrary aliases, like "hg38", but refgenie uses sequence-derived identifiers to verify genome identity with asset servers.
 
@@ -32,18 +32,10 @@ Refgenie manages storage, access, and transfer of reference genome resources. It
 
 ### Install
 
-> Not released yet! Check the [README](https://github.com/refgenie/refgenie1?tab=readme-ov-file#installation) for the temporary installation instructions.
-
 Refgenie is a Python package, install from [PyPi](https://pypi.org/project/refgenie/):
 
 ```console
-pip install --user refgenie
-```
-
-Or [conda](https://anaconda.org/bioconda/refgenie):
-
-```console
-conda install refgenie
+pip install refgenie
 ```
 
 And that's it! If you wish to use refgenie in *remote mode*, see [further reading on remote mode in refgenie](../refgenie/remote.md).
@@ -79,8 +71,6 @@ Response:
 ┃ Genome digest                                    ┃ Asset group             ┃ Asset   ┃
 ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━┩
 │ 047c6e1eda552b50c5add59ff0995a40bc4ce1732e3cc4ae │ bowtie2_index           │ default │
-│ 047c6e1eda552b50c5add59ff0995a40bc4ce1732e3cc4ae │ bowtie2_index           │ default │
-│ 047c6e1eda552b50c5add59ff0995a40bc4ce1732e3cc4ae │ bwa_index               │ default │
 │ 047c6e1eda552b50c5add59ff0995a40bc4ce1732e3cc4ae │ bwa_index               │ default │
 │ 047c6e1eda552b50c5add59ff0995a40bc4ce1732e3cc4ae │ fasta                   │ default │
 ....
@@ -94,25 +84,12 @@ refgenie pull rCRSd/bowtie2_index
 
 Response:
 ```console
-refgenie1 pull hg38/fasta
-WARNING  No local digest for genome alias: hg38. Setting genome identity with server: http://refgenomes.databio.org                                   refgenie.py:2980
-INFO     HTTP Request: GET http://refgenomes.databio.org/openapi.json "HTTP/1.1 200 OK"                                                                _client.py:1027
-INFO     Connected to server: title='refgenieserver' version='0.7.0' description='a web interface and RESTful API for reference genome assets'            client.py:32
-INFO     Setting 'hg38' identity with server: http://refgenomes.databio.org                                                                           refgenie.py:1022
-INFO     HTTP Request: GET http://refgenomes.databio.org/v3/genomes/genome_digest/hg38 "HTTP/1.1 200 OK"                                               _client.py:1027
-INFO     HTTP Request: GET http://refgenomes.databio.org/v3/genomes/attrs/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4 "HTTP/1.1 200 OK"           _client.py:1027
-INFO     Determined digest for hg38: 2230c535660fb4774114bfa966a62f823fdb6d21acf138d4                                                                 refgenie.py:1096
-INFO     Set genome alias: hg38                                                                                                                       refgenie.py:2990
-INFO     HTTP Request: GET http://refgenomes.databio.org/v3/assets/default_tag/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4/fasta "HTTP/1.1 200    _client.py:1027
-         OK"
-INFO     HTTP Request: GET http://refgenomes.databio.org/v3/assets/attrs/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4/fasta?tag=default "HTTP/1.1  _client.py:1027
-         200 OK"
-INFO     HTTP Request: GET http://refgenomes.databio.org/v3/assets/archive/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4/fasta?tag=default          _client.py:1027
-         "HTTP/1.1 307 Temporary Redirect"
-INFO     HTTP Request: GET                                                                                                                             _client.py:1027
-         http://awspds.refgenie.databio.org/refgenomes.databio.org/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4/fasta__default.tgz "HTTP/1.1 200
-         OK"
-hg38/fasta:default ━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 15.7% • 131.1/833.4 MB • 8.0 MB/s
+WARNING  No local digest for genome alias: rCRSd. Setting genome identity with server: http://refgenomes.databio.org
+INFO     Connected to server: title='refgenieserver' version='0.7.0'
+INFO     Setting 'rCRSd' identity with server: http://refgenomes.databio.org
+INFO     Determined digest for rCRSd: 94e0d21feb576e6af61cd2a798ad30682ef2428bb7eabf8c1c2db5a6c0c7b2a8
+INFO     Set genome alias: rCRSd
+rCRSd/bowtie2_index:default ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% • 52.3/52.3 kB
 ...
 ```
 
@@ -150,6 +127,17 @@ refgenie seekr mm10/fasta.fai
 This will return the path to the particular remote file of interest, here: FASTA index file, which is a part of `mm10/fasta` asset.
 
 See [further reading on using refgenie in remote mode](../refgenie/remote.md).
+
+### Use refgenie from Python
+
+```python
+from refgenie import Refgenie
+
+rgc = Refgenie()
+rgc.seek("hg38", "bowtie2_index")
+```
+
+The `Refgenie` object connects to the configured database and provides the same functionality as the CLI. See [the Refgenie Python object](refgenie_object.md) for details.
 
 ---
 If you want to read more about the motivation behind refgenie and the software engineering that makes refgenie work, proceed next to the [overview](overview.md).

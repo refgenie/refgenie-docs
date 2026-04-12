@@ -19,13 +19,35 @@ This two-pronged approach enables users to either retrieve or produce *identical
 
 ## Refgenie ecosystem
 
-Refgenie consists of 2 independent tools that work together:
+Refgenie is a single unified package that provides everything you need to manage, build, serve, and distribute reference genome assets.
 
-### 1. The `refgenie` command-line interface (CLI)
+### The `refgenie` command-line interface (CLI)
 
-The component that most users will interact with is the command-line interface. A simple `pip install refgenie` provides the `refgenie` command, which can be used to `pull` or `build` an asset of interest. Additionally, `refgenie` can be used programmatically from Python through its Python API, allowing developers to integrate refgenie functionality directly into their scripts and applications. For detailed usage examples and API documentation, see the [refgenie usage documentation](code/refgenie.md).
+A simple `pip install refgenie` provides the `refgenie` command, which can be used to `pull` or `build` an asset of interest. Additionally, `refgenie` can be used programmatically from Python through its Python API, allowing developers to integrate refgenie functionality directly into their scripts and applications. For detailed usage examples and API documentation, see the [refgenie usage documentation](code/refgenie.md).
 
+### Built-in server
 
-### 2. The `refgenieserver` package
+Refgenie includes a built-in server that you start with `refgenie serve`. The server provides a web interface and REST API that can be used by the CLI (or by any other tool), allowing users to list available assets and download them. We host a public instance at [refgenomes.databio.org](http://refgenomes.databio.org), but you can also run your own instance. See the [server documentation](server/README.md) for details.
 
-While the `refgenie` CLI is useful by itself by allowing `refgenie build` without any remote component, it becomes even more powerful when it can communicate with a remote server via `refgenie pull`. In order to do this, we provide a remote counterpart called `refgenieserver`, which provides a web interface and an API that can be used by the CLI (or by any other tool), and allows users to list available assets and download them. We host a public instance at [refgenomes.databio.org](http://refgenomes.databio.org), but you can also use the software to run your own instance if you like.
+### Two operating modes
+
+Refgenie supports two database backends:
+
+| Backend | Use case | Setup |
+|---|---|---|
+| **SQLite** (default) | Single-user workstations, local development | Zero configuration -- works out of the box |
+| **PostgreSQL** | Multi-user servers, production deployments, cloud | Requires a PostgreSQL server; configured via a YAML file |
+
+See [Database backends](database.md) for configuration details.
+
+### RefgetStore
+
+When you initialize a genome with `refgenie genome init`, refgenie loads all sequences into a local **RefgetStore** -- a content-addressable store where every sequence is identified by its GA4GH digest. This enables deduplication across genomes, direct subsequence retrieval with `refgenie getseq`, and verification of genome identity. See [Genome initialization and the RefgetStore](genome_tutorial.md) for the full workflow.
+
+### Data channels
+
+Refgenie's extensibility is powered by **data channels** -- external sources that provide definitions for asset classes and recipes. Data channels enable the community to publish, distribute, and synchronize new types of reference genome assets and build instructions without requiring changes to the core refgenie codebase. See [Data channels](data_channels.md) for details.
+
+### Staging and remote storage
+
+Built assets can be **staged** for serving and then **pushed** to remote storage like S3. Staging prepares assets according to their serving modes (file or archive). See [Stage assets for serving](staging.md) and [Configure remote storage](remotes.md).

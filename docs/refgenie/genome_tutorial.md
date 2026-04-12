@@ -181,6 +181,48 @@ These serve different purposes:
 
 You must `genome init` before you can `build`. But you can use `getseq` immediately after `genome init` -- no `build` needed.
 
+## Sequence collections and genome comparison
+
+The RefgetStore uses the GA4GH **sequence collections** (seqcol) standard to represent genomes. Each genome is a sequence collection -- a set of sequences with names, lengths, and GA4GH digests. This enables powerful comparison features.
+
+### Compare two genomes
+
+Use `refgenie compare` to see how two genomes relate to each other:
+
+```bash
+refgenie compare hg38 hg38_custom
+```
+
+This performs a sequence collection comparison and reports:
+- Which sequences are shared between the two genomes
+- Which sequences are unique to each genome
+- Whether the genomes differ only in sequence names, ordering, or actual sequence content
+
+### How sequence collection digests work
+
+Each genome's identity is a **sequence collection digest** -- computed from the sorted, digested set of all its sequences. This means:
+
+- Two genomes built from the same FASTA file will always have the same digest, regardless of who built them or where
+- Adding or removing even one sequence changes the digest
+- Renaming sequences (e.g., `chr1` vs `1`) produces a different digest, but `compare` can still detect that the underlying sequences are identical
+
+### Integration with remote seqcol servers
+
+The RefgetStore is compatible with the [GA4GH seqcol specification](https://ga4gh.github.io/seqcol-spec/). You can initialize genomes from remote seqcol servers and compare local genomes against remote collections:
+
+```bash
+# Initialize from a remote seqcol server
+refgenie genome init \
+  --store https://seqcolapi.databio.org \
+  --digest abc123... \
+  --name hg38_remote
+
+# Browse available genomes on a remote server
+refgenie genome browse https://seqcolapi.databio.org
+```
+
+This interoperability means refgenie can participate in the broader GA4GH ecosystem for genome identification and comparison.
+
 ## Next steps
 
 Now that you have a genome initialized, you can build assets, stage them for serving, and push them to cloud storage. The [Building and Serving Tutorial](building_tutorial.md) walks through the complete lifecycle step by step.

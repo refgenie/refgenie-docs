@@ -125,6 +125,31 @@ refgenie build ...
 
 Bulker works on both singularity and docker systems. The bulker docs also contain a [more complete tutorial of using bulker and refgenie together](http://bulker.databio.org/en/latest/refgenie_tutorial/).
 
+## Staging after building
+
+Once you have built an asset, you can **stage** it to make it available for serving or pushing to cloud storage. You can do this in a separate step:
+
+```console
+refgenie build hg38/bowtie2_index
+refgenie stage stage hg38/bowtie2_index
+```
+
+Or combine building and staging in one command with the `--stage` flag:
+
+```console
+refgenie build hg38/bowtie2_index --stage
+```
+
+You can also create push intent records at the same time using `--push-to`:
+
+```console
+refgenie build hg38/bowtie2_index --stage --push-to my-s3-remote
+```
+
+The `--push-to` flag accepts one or more remote names or IDs. After the build and stage complete, refgenie creates records indicating that these assets should be pushed to the specified remotes. You then run `refgenie push` to execute the actual upload.
+
+See [Stage assets for serving](staging.md) for details on the staging system and [Configure remote storage](remotes.md) for setting up remotes.
+
 ## Versioning the assets
 
 Refgenie supports tags to facilitate management of multiple "versions" of the same asset. Simply add a `:your_asset_name` appendix to the asset registry path in the `refgenie build` command and the created asset will be tagged:

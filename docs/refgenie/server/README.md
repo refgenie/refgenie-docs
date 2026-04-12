@@ -1,81 +1,100 @@
-[![Build Status](https://travis-ci.org/databio/refgenieserver.svg?branch=master)](https://travis-ci.org/databio/refgenieserver)
+# Run a refgenie server
 
-# refgenieserver
+Refgenie includes a built-in server that exposes a REST API for listing, browsing, and downloading genome assets. The server also provides GA4GH DRS endpoints and can aggregate data channels from multiple sources.
 
-This folder contains code for an API to provide reference genomes. `refgenieserver` can do 2 things: `archive` an existing refgenie folder, and then `serve` it. 
+## Start the server
 
-## How to `serve`
-
-### Building container
-
-In the same directory as the `Dockerfile`:
-
-```
-docker build -t refgenieserverim .
+```bash
+refgenie serve
 ```
 
-### Running container for development:
+This starts the server on port 8000 by default.
 
-You can run it directly after installing with `pip install`, like this:
+### Flags
 
-```
-refgenieserver serve -c refgenie.yaml -p 5000
-```
+| Flag | Description |
+|---|---|
+| `-p`, `--port` | Port to run the server on (default: 8000) |
+| `-r`, `--reload` | Enable auto-reload on code changes (for development) |
 
-Better, though, is to use the container. Mount a directory of files to serve at `/genomes`:
+Example with custom port:
 
-```
-docker run --rm -p 80:80 --name refgenieservercon \
-  -v $(pwd)/files:/genomes \
-  refgenieserverim refgenieserver serve -c refgenie.yaml 
-```
-
-### Running container for production:
-Run the container from the image you just built:
-
-```
-docker run --rm -d -p 80:80 \
-  -v /path/to/genomes_archive:/genomes \
-  --name refgenieservercon \
-  refgenieserverim refgenieserver serve -c /genomes/genome_config.yaml 
+```bash
+refgenie serve -p 5000
 ```
 
-Make sure the `genome_config.yaml` filename matches what you've named your configuration file! We use `-d` to detach so it's in background. You shouldn't need to mount the app (`-v /path/to/refgenieserver:/app`) because in this case we're running it directly. Terminate container when finished:
+## Configuration via environment variables
 
-```
-docker stop refgenieservercon
-```
+The server reads the same environment variables as the CLI:
 
+| Variable | Default | Description |
+|---|---|---|
+| `REFGENIE_HOME_PATH` | `~/.refgenie` | Base directory for refgenie files |
+| `REFGENIE_DB_CONFIG_PATH` | `$REFGENIE_HOME_PATH/refgenie_db_config.yaml` | Path to database config |
+| `REFGENIE_GENOME_FOLDER` | `$REFGENIE_HOME_PATH/genomes` | Directory for genome asset data |
+| `REFGENIE_GENOME_STAGE_FOLDER` | `$REFGENIE_HOME_PATH/archives` | Directory for staged assets (served to clients) |
+| `REFGENIE_LOG_LEVEL` | `INFO` | Log verbosity |
 
-### Interacting with the API web server
+For production deployments, configure PostgreSQL as the database backend. See [Database backends](../database.md) for setup details.
 
-Navigate to [http://localhost/](http://localhost/) to see the server in action.
+## Staging workflow for serving
 
-You can see the automatic docs and interactive swagger openAPI interface at [http://localhost/docs](http://localhost/docs). That will also tell you all the endpoints, etc.
+The server serves assets from the stage folder (`REFGENIE_GENOME_STAGE_FOLDER`). Before assets are available to clients, they must be built and staged:
 
+```bash
+# 1. Build the asset
+refgenie build hg38/fasta
 
-### Monitoring for errors
+# 2. Stage the asset (creates symlinks or tarballs in the stage folder)
+refgenie stage stage hg38/fasta
 
-Attach to container to see debug output:
-
-```
-docker attach refgenieservercon
-```
-
-Grab errors:
-
-```
-docker events | grep -oP "(?<=die )[^ ]+"
-```
-
-View those error codes:
-
-```
-docker logs <error_code>
+# 3. Start the server
+refgenie serve
 ```
 
-Enter an interactive shell to explore the container contents:
+You can combine building and staging in one step:
 
+```bash
+refgenie build hg38/fasta --stage
 ```
-docker exec -it refgenieservercon sh
+
+See [Stage assets for serving](../staging.md) for details on the staging system.
+
+## Interacting with the API
+
+Once the server is running, you can:
+
+- Browse the API docs at `http://localhost:8000/docs` (Swagger UI)
+- List available assets via the REST API
+- Use `refgenie pull` from any client machine pointed at your server
+
+### Subscribe a client to a server
+
+On a client machine, subscribe to a remote server:
+
+```bash
+refgenie subscribe -s http://your-server:8000
 ```
+
+Then pull assets:
+
+```bash
+refgenie pull hg38/fasta
+```
+
+## Server vs. dashboard
+
+| Feature | `refgenie serve` | `refgenie dash` |
+|---|---|---|
+| Purpose | Serve assets to remote clients via API | Browse your local refgenie instance |
+| Network | Exposes HTTP API for external clients | Local web UI only |
+| Default port | 8000 | 8080 |
+
+See [Use the dashboard](../dash.md) for dashboard documentation.
+
+## Related pages
+
+- [Serving modes](../serving_modes.md) -- How asset classes declare their delivery strategy
+- [Configure remote storage](../remotes.md) -- Push staged assets to S3 or other cloud storage
+- [Database backends](../database.md) -- SQLite vs. PostgreSQL configuration
+- [Use the dashboard](../dash.md) -- Local web UI for browsing genomes and assets
