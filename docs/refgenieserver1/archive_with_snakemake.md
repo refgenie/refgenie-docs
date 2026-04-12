@@ -67,6 +67,7 @@ sample_modifiers:
       path: ${REFGENIE_INPUTS}/{genome_name}.fa
 ```
 
+A real-life [example of a PEP config](https://github.com/refgenie/refgenieserver1/blob/master/pep/config.yaml) file
 
 **sample_table.csv**:
 
@@ -77,6 +78,7 @@ mm10,mm10,The GCA_000001635.5 sequences for alignment pipelines from NCBI.,Mus m
 hg38,hg38,The GCA_000001405.15 GRCh38 no-alt analysis set from NCBI.,Homo sapiens
 ```
 
+A real-life [example of PEP sample table](https://github.com/refgenie/refgenieserver1/blob/master/pep/sample_table.csv) file
 
 **subsample_table.csv**:
 
@@ -88,6 +90,7 @@ rCRSd,bwa_index
 dm6,fasta
 ```
 
+A real-life [example of PEP subsample table](https://github.com/refgenie/refgenieserver1/blob/master/pep/assets.csv) file
 
 ### Environment Variables
 
@@ -122,6 +125,7 @@ The recipes very often require specialized bioinformatics software to build the 
 Here are potential ways to manage the software dependencies:
 
 - (recommended) [Bulker Refgenie tutorial](https://bulker.databio.org/en/latest/refgenie_tutorial/)
+  - we use [more recent bulker Refgenie manifest](https://github.com/refgenie/refgenieserver1/blob/master/refgenie1_bulker_manifest.yaml)
 - [Snakemake: using-environment-modules](https://snakemake.readthedocs.io/en/latest/snakefiles/deployment.html#using-environment-modules)
 - [Snakemake: running-jobs-in-containers](https://snakemake.readthedocs.io/en/latest/snakefiles/deployment.html#running-jobs-in-containers)
   - `snakemake --software-deployment-method apptainer`

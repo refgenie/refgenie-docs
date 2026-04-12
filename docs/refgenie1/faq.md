@@ -14,7 +14,7 @@ Not to the central server -- at least, not automatically. But what you *can* do 
 
 ## Can I maintain multiple versions of an asset?
 
-Yes, you can. In `refgenie v0.7.0` we've introduced [tagging](../refgenie/tag.md), to facilitate just that!
+Yes, you can. In `refgenie v0.7.0` we've introduced [tagging](naming_assets.md), to facilitate just that!
 
 ## Can multiple users share a single refgenie instance?
 

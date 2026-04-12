@@ -1,7 +1,4 @@
 site_name: "Refgenie: next-generation reference genome management"
-repo_url: https://github.com/refgenie/refgenie-docs
-repo_name: refgenie/refgenie-docs
-edit_uri: edit/master/docs/
 
 theme:
   logo: img/refgenie_bug_light.svg
@@ -22,7 +19,6 @@ theme:
 
 markdown_extensions:
   - admonition
-  - pymdownx.details
   - attr_list
   - md_in_html
   - pymdownx.emoji:
@@ -34,7 +30,7 @@ markdown_extensions:
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+          format: "!!python/name:pymdownx.superfences.fence_code_format"
 
 extra_css:
   - stylesheets/extra.css
@@ -50,7 +46,6 @@ copyright: >
   </a>
 
 nav:
-  - Home: README.md
   - Refgenie:
       - Getting Started:
           - Introduction: refgenie/README.md
@@ -83,6 +78,7 @@ nav:
           - Glossary: refgenie/glossary.md
           - Buildable assets: refgenie/available_assets.md
           - Usage: refgenie/usage.md
+          - Python API: refgenie/code/refgenconf-api.md
           - Refgenconf usage: refgenie/notebooks/refgenconf_usage.ipynb
           - FAQ: refgenie/faq.md
           - Support: https://github.com/databio/refgenie/issues
@@ -96,7 +92,6 @@ nav:
           - Overview: refgenie1/overview.md
           - Install: refgenie1/install.md
           - Configure: refgenie1/configuration.md
-          - CLI Tutorial: refgenie1/cli_tutorial.md
           - Citing refgenie: refgenie1/manuscripts.md
       - How-to guides:
           - Refer to assets: refgenie1/asset_registry_paths.md
@@ -104,13 +99,11 @@ nav:
           - Use refgenie from Python: refgenie1/notebooks/refgenie.ipynb
           - Use data channels: refgenie1/data_channels.md
           - Build assets: refgenie1/build.md
+          - Download pre-built assets: refgenie1/pull.md
           - Retrieve paths to assets: refgenie1/seek.md
-          - Manage aliases: refgenie1/alias.md
-          - Create archives: refgenie1/archive.md
           - Managing asset groups and naming: refgenie1/naming_assets.md
           - Populate refgenie paths: refgenie1/populate.md
           - Set up your own data channel: refgenie1/set_up_data_channel.md
-          - Run a server: refgenie1/server_tutorial.md
       - Reference:
           - Glossary: refgenie1/glossary.md
           - Studies using refgenie: refgenie1/uses_refgenie.md
@@ -126,35 +119,34 @@ nav:
       - Data Channels Configuration: refgenieserver1/data_channels_configuration.md
   - Refget:
       - Getting started:
-          - Introduction: refget/README.md
-          - What are refget digests?: refget/digests-explained.md
-          - What is RefgetStore?: refget/refgetstore-explained.md
-      - Using refget services:
-          - Computing digests: refget/using-services/digests.ipynb
-          - Python SequenceClient: refget/using-services/sequence-client.ipynb
-          - Python SequenceCollectionClient: refget/using-services/seqcol-client.ipynb
-          - RefgetStore (local storage): refget/using-services/refgetstore.py
-      - Hosting refget services:
-          - Adding a FastAPI router: refget/hosting-services/fastapi_router.md
-          - RefgetDB Agent: refget/hosting-services/agent.ipynb
-          - Compliance testing: refget/hosting-services/compliance.md
+          - Getting started: refget/README.md
+      - How-to guides:
+          - Introduction: refget/introduction.md
+          - Computing digests: refget/notebooks/digests.ipynb
+          - GlobalRefgetStore: refget/notebooks/refgetstore.ipynb
+          - Sequences Client: refget/notebooks/sequence-client.ipynb
+          - Sequence Collections Client: refget/notebooks/seqcol-client.ipynb
+          - RefgetDB Agent: refget/notebooks/agent.ipynb
+          - Adding a fastAPI router: refget/fastapi_router.md
+          - Compliance testing: refget/compliance.md
+          - Command-line interface: refget/cli.md
+      # - Outdated documentation:
+      #   - Advanced tutorial: refget/code/advanced.md
+      #   - Using local collections: refget/code/seqcol.md
+      #   - Using local collections 2: refget/code/demo.md
       - Reference:
-          - CLI: refget/reference/cli.md
-          - CLI Configuration: refget/reference/configuration.md
-          - REST API: https://seqcolapi.databio.org/docs
-          - Python API: refget/reference/reference_docs.md
-          - Data models: refget/reference/models.md
-          - RefgetStore format: refget/reference/refgetstore-format.md
-          - Changelog: refget/reference/changelog.md
+        - Changelog: refget/changelog.md
+        - Refget Python API: refget/reference_docs.md
+        - Pydantic models: refget/models.md
 
 plugins:
   - mkdocs-jupyter:
       include:
-        - refget/using-services/sequence-client.ipynb
-        - refget/using-services/seqcol-client.ipynb
-        - refget/hosting-services/agent.ipynb
-        - refget/using-services/digests.ipynb
-        - refget/using-services/refgetstore.py
+        - refget/notebooks/sequence-client.ipynb
+        - refget/notebooks/seqcol-client.ipynb
+        - refget/notebooks/agent.ipynb
+        - refget/notebooks/digests.ipynb
+        - refget/notebooks/refgetstore.ipynb
         - refgenie/notebooks/aliases.ipynb
         - refgenie/notebooks/config_upgrade_03_to_04.ipynb
         - refgenie/notebooks/refgenconf_usage.ipynb
@@ -177,5 +169,4 @@ plugins:
             docstring_section_style: table # Optional: Format style
             separate_signature: true # Ensure __init__ appears clearly
             merge_init_into_class: true # This ensures __init__ is documented
-            allow_inspection: true # Enable runtime inspection for compiled extensions
 
