@@ -1,3 +1,6 @@
 /docs/refget/notebooks/.ipynb_checkpoints/refgetstore-checkpoint.ipynb
 site/
 .cache/
+node_modules/
+dist/
+.astro/
