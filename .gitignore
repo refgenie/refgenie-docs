@@ -1,2 +1,3 @@
 /docs/refget/notebooks/.ipynb_checkpoints/refgetstore-checkpoint.ipynb
 site/
+.cache/
