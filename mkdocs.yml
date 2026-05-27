@@ -119,34 +119,35 @@ nav:
       - Data Channels Configuration: refgenieserver1/data_channels_configuration.md
   - Refget:
       - Getting started:
-          - Getting started: refget/README.md
-      - How-to guides:
-          - Introduction: refget/introduction.md
-          - Computing digests: refget/notebooks/digests.ipynb
-          - GlobalRefgetStore: refget/notebooks/refgetstore.ipynb
-          - Sequences Client: refget/notebooks/sequence-client.ipynb
-          - Sequence Collections Client: refget/notebooks/seqcol-client.ipynb
-          - RefgetDB Agent: refget/notebooks/agent.ipynb
-          - Adding a fastAPI router: refget/fastapi_router.md
-          - Compliance testing: refget/compliance.md
-          - Command-line interface: refget/cli.md
-      # - Outdated documentation:
-      #   - Advanced tutorial: refget/code/advanced.md
-      #   - Using local collections: refget/code/seqcol.md
-      #   - Using local collections 2: refget/code/demo.md
+          - Introduction: refget/README.md
+          - What are refget digests?: refget/digests-explained.md
+          - What is RefgetStore?: refget/refgetstore-explained.md
+      - Using refget services:
+          - Computing digests: refget/using-services/digests.ipynb
+          - Python SequenceClient: refget/using-services/sequence-client.ipynb
+          - Python SequenceCollectionClient: refget/using-services/seqcol-client.ipynb
+          - RefgetStore (local storage): refget/using-services/refgetstore.py
+      - Hosting refget services:
+          - Adding a FastAPI router: refget/hosting-services/fastapi_router.md
+          - RefgetDB Agent: refget/hosting-services/agent.ipynb
+          - Compliance testing: refget/hosting-services/compliance.md
       - Reference:
-        - Changelog: refget/changelog.md
-        - Refget Python API: refget/reference_docs.md
-        - Pydantic models: refget/models.md
+          - CLI: refget/reference/cli.md
+          - CLI Configuration: refget/reference/configuration.md
+          - REST API: https://seqcolapi.databio.org/docs
+          - Python API: refget/reference/reference_docs.md
+          - Data models: refget/reference/models.md
+          - RefgetStore format: refget/reference/refgetstore-format.md
+          - Changelog: refget/reference/changelog.md
 
 plugins:
   - mkdocs-jupyter:
       include:
-        - refget/notebooks/sequence-client.ipynb
-        - refget/notebooks/seqcol-client.ipynb
-        - refget/notebooks/agent.ipynb
-        - refget/notebooks/digests.ipynb
-        - refget/notebooks/refgetstore.ipynb
+        - refget/using-services/sequence-client.ipynb
+        - refget/using-services/seqcol-client.ipynb
+        - refget/hosting-services/agent.ipynb
+        - refget/using-services/digests.ipynb
+        - refget/using-services/refgetstore.py
         - refgenie/notebooks/aliases.ipynb
         - refgenie/notebooks/config_upgrade_03_to_04.ipynb
         - refgenie/notebooks/refgenconf_usage.ipynb
