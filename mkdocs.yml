@@ -119,6 +119,7 @@ nav:
           - Data models: refget/reference/models.md
           - RefgetStore format: refget/reference/refgetstore-format.md
           - RefgetStore encoding: refget/reference/encoding-comparison.md
+          - Sequence retrieval flows: refget/reference/refgetstore-retrieval-flows.md
           - RefgetStore RO-Crate Profile: refget/reference/refgetstore-ro-crate-profile.md
           - Changelog: refget/reference/changelog.md
   - Refgenie legacy:

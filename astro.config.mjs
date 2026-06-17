@@ -104,6 +104,8 @@ export default defineConfig({
                   { label: 'Names, aliases, and identifiers', slug: 'refget/names-and-aliases-explained' },
                   { label: 'Understanding FHR metadata', slug: 'refget/fhr-metadata-explained' },
                   { label: 'The brickyard genome collection', slug: 'refget/genome-collections-explained' },
+                  { label: 'HGVS parsing & VRS conversion', slug: 'refget/hgvs-explained' },
+                  { label: 'What is RefgetTranscripts (reftx)?', slug: 'refget/reftx-explained' },
                 ],
               },
               {
@@ -125,6 +127,14 @@ export default defineConfig({
                 ],
               },
               {
+                label: 'BiocRefgetStore (R)',
+                items: [
+                  { label: 'Getting started', slug: 'refget/biocrefgetstore/getting-started' },
+                  { label: 'Benchmark', slug: 'refget/biocrefgetstore/benchmark' },
+                  { label: 'Reference', slug: 'refget/biocrefgetstore/reference' },
+                ],
+              },
+              {
                 label: 'Hosting refget services',
                 items: [
                   { label: 'Adding a FastAPI router', slug: 'refget/hosting-services/fastapi_router' },
@@ -141,6 +151,9 @@ export default defineConfig({
                   { label: 'Python API', slug: 'refget/reference/reference_docs' },
                   { label: 'Data models', slug: 'refget/reference/models' },
                   { label: 'RefgetStore format', slug: 'refget/reference/refgetstore-format' },
+                  { label: 'RefgetStore retrieval flows', slug: 'refget/reference/refgetstore-retrieval-flows' },
+                  { label: 'HGVS parsing API', slug: 'refget/hgvs-reference' },
+                  { label: 'RefgetTranscripts (reftx) reference', slug: 'refget/reftx-reference' },
                   { label: 'Changelog', slug: 'refget/reference/changelog' },
                 ],
               },

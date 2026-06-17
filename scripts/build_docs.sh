@@ -31,6 +31,14 @@ echo "=== Pre-build: Python API docs ==="
 python scripts/render_python_api.py
 
 echo ""
+echo "=== Pre-build: Render R vignettes (BiocRefgetStore) ==="
+if command -v bulker >/dev/null 2>&1; then
+    bulker exec databio/nsheff -- Rscript scripts/render_r_vignettes.R
+else
+    echo "  SKIP: bulker not available (committed .md outputs remain in place)"
+fi
+
+echo ""
 echo "=== Pre-build: Fix image paths ==="
 python scripts/fix_image_paths.py
 

@@ -6,6 +6,11 @@ dist/
 node_modules/
 src/content/docs/
 .astro/
+# Generated R-vignette figures (emitted by scripts/render_r_vignettes.R at build)
+public/img/biocrefgetstore/
+
+# Build caches
+.cache/
 
 # Jupyter
 .ipynb_checkpoints/
