@@ -110,23 +110,20 @@ Two servers expose a backend over the GA4GH refget + seqcol HTTP APIs:
 
 | Server | What it serves | Where |
 |--------|----------------|-------|
-| `seqcolapi` | Collection **metadata** + comparison (no sequence residues). Backed by PostgreSQL *or* a RefgetStore. | [GitHub](https://github.com/refgenie/refget/tree/master/seqcolapi) · live: [seqcolapi.databio.org](https://seqcolapi.databio.org) |
-| `@databio/refgetstore-server` | Raw sequence **residues**, streamed or redirected from a (often S3-backed) RefgetStore. Node.js/Hono, no database. | [GitHub](https://github.com/databio/refgetstore-node-demo) |
+| `seqcolapi` | Collection metadata + comparison. Backed by PostgreSQL or a RefgetStore. | [GitHub](https://github.com/refgenie/refget/tree/master/seqcolapi) · live: [seqcolapi.databio.org](https://seqcolapi.databio.org) |
+| `@databio/refgetstore-server` | Raw sequence residues, streamed or redirected from a (often S3-backed) RefgetStore. Node.js/Hono, no database. | [GitHub](https://github.com/databio/refgetstore-node-demo) |
 
-These do different jobs — see [The two servers are not the same](#the-two-servers-are-not-the-same) below.
+They cover complementary halves of the API — see [How the pieces fit together](#how-the-pieces-fit-together) below.
 
 ### Web explorer
 
 The [**refget explorer**](https://refget.databio.org/explore) is a React app for browsing collections and stores in the browser ([source](https://github.com/refgenie/refget/tree/master/frontend)).
 
-### The two servers are not the same
+### How the pieces fit together
 
-Both `seqcolapi` and `refgetstore-server` speak the GA4GH refget + seqcol APIs, and both can be backed by a RefgetStore — so people conflate them. The difference is **what they serve**, not where they store it:
+These components are designed to combine into a complete service. In a typical deployment, sequences and collections live in a RefgetStore on S3, and the two servers handle complementary halves of the GA4GH API on top of it: `seqcolapi` answers questions *about* collections (their names, lengths, and digests, and how two collections compare), while `refgetstore-server` serves the sequence residues themselves. The explorer web app sits in front, calling `seqcolapi` so users can browse and compare collections in the browser.
 
-- **`seqcolapi`** is a **collection metadata and comparison service**. It answers "what's in this collection?" (names, lengths, digests) and "how do these two collections compare?". It *deliberately does not hand out sequence bases.*
-- **`refgetstore-server`** is a **raw sequence-residue delivery proxy**. Its whole job is to stream or redirect the actual bytes of a sequence out of a RefgetStore, with no database and no Python.
-
-So a typical deployment stacks them: the **explorer** (web UI) talks to **seqcolapi** (collection metadata) for browsing, while sequence bytes come from a **RefgetStore** on S3 — served either directly (static, content-addressable) or through `refgetstore-server`.
+Because a RefgetStore is static and content-addressable, you can also serve sequence bytes straight from the S3 bucket with no server at all — `refgetstore-server` is what you add when you want streaming and on-the-fly decoding of encoded stores.
 
 ## Learn more
 
