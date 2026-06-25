@@ -106,12 +106,12 @@ The WebAssembly build exposes only the digest/encoding subset (the WASM-safe par
 
 ### Servers
 
-Two servers expose a backend over the GA4GH refget + seqcol HTTP APIs:
+Two servers put a RefgetStore (or other backend) behind the GA4GH HTTP APIs — each focused on a different half of the standard:
 
-| Server | What it serves | Where |
-|--------|----------------|-------|
-| `seqcolapi` | Collection metadata + comparison. Backed by PostgreSQL or a RefgetStore. | [GitHub](https://github.com/refgenie/refget/tree/master/seqcolapi) · live: [seqcolapi.databio.org](https://seqcolapi.databio.org) |
-| `@databio/refgetstore-server` | Raw sequence residues, streamed or redirected from a (often S3-backed) RefgetStore. Node.js/Hono, no database. | [GitHub](https://github.com/databio/refgetstore-node-demo) |
+| Server | What it is | Where |
+|--------|------------|-------|
+| `seqcolapi` | A Python/FastAPI implementation of the GA4GH **Sequence Collections API** (collection metadata + comparison). Part of the `refget` package; backed by PostgreSQL or a RefgetStore. | [GitHub](https://github.com/refgenie/refget/tree/master/seqcolapi) · live: [seqcolapi.databio.org](https://seqcolapi.databio.org) |
+| `refgetstore-server` | A demo of the GA4GH **Refget Sequences API** (retrieve sequence residues by digest), served straight from a RefgetStore with no database. Node.js, built on the [`@databio/gtars-node`](https://www.npmjs.com/package/@databio/gtars-node) bindings. | [GitHub](https://github.com/databio/refgetstore-node-demo) |
 
 They cover complementary halves of the API — see [How the pieces fit together](#how-the-pieces-fit-together) below.
 
