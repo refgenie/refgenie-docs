@@ -1,6 +1,6 @@
 # How RefgetStore integrates with refgenie
 
-RefgetStore is a content-addressed sequence database (from [gtars](https://github.com/refgenie/gtars)) that stores sequences and sequence collections by digest. Refgenie uses RefgetStore differently depending on whether it's running as a local client or as a server, controlled by a mode system.
+RefgetStore is a content-addressed sequence database (from [gtars](https://github.com/databio/gtars)) that stores sequences and sequence collections by digest. Refgenie uses RefgetStore differently depending on whether it's running as a local client or as a server, controlled by a mode system.
 
 ## Two modes, two relationships to RefgetStore
 
