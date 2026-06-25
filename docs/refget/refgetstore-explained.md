@@ -77,19 +77,47 @@ No database server required. A RefgetStore is just a directory structure that ca
 
 ## Components
 
-The RefgetStore name spans the storage format *and* the layers of software built on top of it. These are the pieces, from the bytes on disk up to the website you click on:
+The RefgetStore name spans the storage format *and* the layers of software built on top of it. Here are the pieces, from the bytes on disk up to the website you click on.
 
-| Layer | Component | What it is | Where |
-|-------|-----------|------------|-------|
-| **Format** | RefgetStore format | The on-disk / on-S3 directory layout itself | [Format reference](reference/refgetstore-format.md) |
-| **Engine (Rust)** | `gtars-refget` | The Rust crate that reads and writes stores (local + remote/S3, encoding, deduplication) | [crate on GitHub](https://github.com/databio/gtars/tree/master/gtars-refget) · crates.io: `gtars-refget` |
-| **Bindings** | `gtars` (Python) | Python bindings exposing `RefgetStore` from the Rust engine | [GitHub](https://github.com/databio/gtars/tree/master/gtars-python) · PyPI: `gtars` |
-| **Bindings** | `@databio/gtars-node` | Node.js (NAPI) bindings exposing `RefgetStore` to JavaScript | [GitHub](https://github.com/databio/gtars/tree/master/gtars-node) · npm: `@databio/gtars-node` |
-| **Bindings** | `@databio/gtars` | WebAssembly bindings (digest/encoding only) for in-browser use | npm: `@databio/gtars` |
-| **High-level library** | `refget` (Python) | Friendly Python package wrapping the store plus clients, agents, a FastAPI router, and a CLI | [GitHub](https://github.com/refgenie/refget) · PyPI: `refget` |
-| **Server (metadata)** | `seqcolapi` | FastAPI service for sequence **collection** metadata + comparison. Backed by PostgreSQL *or* a RefgetStore. **Does not serve sequence residues.** | [GitHub](https://github.com/refgenie/refget/tree/master/seqcolapi) · live: [seqcolapi.databio.org](https://seqcolapi.databio.org) |
-| **Server (residues)** | `@databio/refgetstore-server` | Lightweight Node.js/Hono proxy that serves the actual **sequence bytes** out of a (often S3-backed) RefgetStore — by redirect or stream-decode, never buffering | [GitHub](https://github.com/databio/refgetstore-node-demo) |
-| **Web explorer** | Refget explorer (frontend) | React app for browsing collections and stores in the browser | [code](https://github.com/refgenie/refget/tree/master/frontend) · live: [refget.databio.org/explore](https://refget.databio.org/explore) |
+### The format
+
+The RefgetStore format is the on-disk (or on-S3) directory layout itself — sequences and collections addressed by their digests. See the [format reference](reference/refgetstore-format.md).
+
+### The engine (Rust)
+
+[**`gtars`**](https://github.com/databio/gtars) is the Rust project at the heart of everything here. The RefgetStore implementation lives in its [`gtars-refget`](https://github.com/databio/gtars/tree/master/gtars-refget) crate ([crates.io](https://crates.io/crates/gtars-refget)), which reads and writes stores — local and remote/S3, with adaptive encoding and deduplication. Every component below is ultimately a wrapper around this engine.
+
+### Bindings
+
+The Rust engine is exposed to four other languages, all built from the same [`gtars`](https://github.com/databio/gtars) repo:
+
+| Language | Package | Where |
+|----------|---------|-------|
+| Python | `gtars` | [GitHub](https://github.com/databio/gtars/tree/master/gtars-python) · [PyPI](https://pypi.org/project/gtars/) |
+| Node.js | `@databio/gtars-node` | [GitHub](https://github.com/databio/gtars/tree/master/gtars-node) · [npm](https://www.npmjs.com/package/@databio/gtars-node) |
+| WebAssembly | `@databio/gtars` | [GitHub](https://github.com/databio/gtars/tree/master/gtars-wasm) · [npm](https://www.npmjs.com/package/@databio/gtars) |
+| R | `gtars` (R package) | [GitHub](https://github.com/databio/gtars/tree/master/gtars-r) |
+
+The WebAssembly build exposes only the digest/encoding subset (the WASM-safe parts) for in-browser use; the others expose the full `RefgetStore` API.
+
+### High-level library
+
+[**`refget`**](https://github.com/refgenie/refget) ([PyPI](https://pypi.org/project/refget/)) is the friendly Python package most users start with. It wraps the store and adds clients, database agents, a FastAPI router, and a CLI.
+
+### Servers
+
+Two servers expose a backend over the GA4GH refget + seqcol HTTP APIs:
+
+| Server | What it serves | Where |
+|--------|----------------|-------|
+| `seqcolapi` | Collection **metadata** + comparison (no sequence residues). Backed by PostgreSQL *or* a RefgetStore. | [GitHub](https://github.com/refgenie/refget/tree/master/seqcolapi) · live: [seqcolapi.databio.org](https://seqcolapi.databio.org) |
+| `@databio/refgetstore-server` | Raw sequence **residues**, streamed or redirected from a (often S3-backed) RefgetStore. Node.js/Hono, no database. | [GitHub](https://github.com/databio/refgetstore-node-demo) |
+
+These do different jobs — see [The two servers are not the same](#the-two-servers-are-not-the-same) below.
+
+### Web explorer
+
+The [**refget explorer**](https://refget.databio.org/explore) is a React app for browsing collections and stores in the browser ([source](https://github.com/refgenie/refget/tree/master/frontend)).
 
 ### The two servers are not the same
 
