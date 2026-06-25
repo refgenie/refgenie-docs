@@ -90,7 +90,6 @@ The RefgetStore name spans the storage format *and* the layers of software built
 | **Server (metadata)** | `seqcolapi` | FastAPI service for sequence **collection** metadata + comparison. Backed by PostgreSQL *or* a RefgetStore. **Does not serve sequence residues.** | [GitHub](https://github.com/refgenie/refget/tree/master/seqcolapi) · live: [seqcolapi.databio.org](https://seqcolapi.databio.org) |
 | **Server (residues)** | `@databio/refgetstore-server` | Lightweight Node.js/Hono proxy that serves the actual **sequence bytes** out of a (often S3-backed) RefgetStore — by redirect or stream-decode, never buffering | [GitHub](https://github.com/databio/refgetstore-node-demo) |
 | **Web explorer** | Refget explorer (frontend) | React app for browsing collections and stores in the browser | [code](https://github.com/refgenie/refget/tree/master/frontend) · live: [refget.databio.org/explore](https://refget.databio.org/explore) |
-| **Benchmarks** | `refgetstore-benchmark` | Reproducible suite comparing RefgetStore vs. seqrepo, 2bit, bgzip, samtools, etc. | [GitHub](https://github.com/databio/refgetstore-benchmark) |
 
 ### The two servers are not the same
 
