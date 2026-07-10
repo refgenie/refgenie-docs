@@ -127,6 +127,7 @@ nav:
           - Python SequenceClient: refget/using-services/sequence-client.ipynb
           - Python SequenceCollectionClient: refget/using-services/seqcol-client.ipynb
           - RefgetStore (local storage): refget/using-services/refgetstore.py
+          - Explore a store in your browser: refget/using-services/explore-store.md
       - Hosting refget services:
           - RefgetStore integration with refgenie: refget/hosting-services/refgetstore-integration.md
           - Adding a FastAPI router: refget/hosting-services/fastapi_router.md
