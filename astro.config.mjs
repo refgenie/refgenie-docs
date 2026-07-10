@@ -124,6 +124,7 @@ export default defineConfig({
                   { label: 'Working with aliases', slug: 'refget/using-services/aliases' },
                   { label: 'FHR metadata headers', slug: 'refget/using-services/fhr-metadata' },
                   { label: 'Exploring the genome store', slug: 'refget/using-services/genome-store' },
+                  { label: 'Explore a store in your browser', slug: 'refget/using-services/explore-store' },
                 ],
               },
               {
