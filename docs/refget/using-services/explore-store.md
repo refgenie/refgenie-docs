@@ -1,34 +1,93 @@
-# Explore a local store in your browser
+# Explore a store in your browser
 
-The [RefgetStore Explorer](https://refgenie.org) is a web app for browsing a store's
+The [RefgetStore Explorer](https://refget.databio.org/explore-store) is a web app for browsing a store's
 sequences, collections, aliases, and [FHR metadata](../reference/refgetstore-format.md).
-It runs entirely in the browser — it reads a store's static files directly over HTTP,
-with no application server behind it.
+It runs entirely in the browser, reading a store's static files directly over HTTP.
 
-The `refget store explore` command lets you point that Explorer at a store on your own
-machine. It serves both the store's files and the Explorer web UI from a single local
-web server and opens your browser to it:
+The `refget store explore` command points that Explorer at a store on your own machine:
+it serves both the store's files and the Explorer web UI from a single local web server,
+then opens your browser to it. This tutorial builds a small store from scratch and opens
+it in the Explorer. It takes a couple of minutes and needs no internet connection.
+
+## Before you start
+
+Install refget with the store extra, which provides the `refget store` commands:
 
 ```console
-refget store explore /path/to/refget-store
+pip install 'refget[store]'
 ```
 
-This starts a server on `http://127.0.0.1:8080` and opens the Explorer pointed at your
-store. Press `Ctrl-C` to stop it.
+## 1. Create a FASTA file
+
+The Explorer browses a store, and a store is built from sequences. Create a tiny FASTA
+file to work with:
+
+```console
+cat > demo.fa <<'FASTA'
+>chr1 demo sequence one
+ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT
+GGGGCCCCAAAATTTTACGTACGTACGTACGTACGTACGT
+>chr2 demo sequence two
+TTTTAAAACCCCGGGGTTTTAAAACCCCGGGGTTTTAAAA
+FASTA
+```
+
+Already have a genome FASTA on hand? Use that instead — any `.fa` or `.fa.gz` file works.
+
+## 2. Build a store
+
+Initialize an empty store, then import the FASTA into it:
+
+```console
+refget store init -p demo_store
+refget store add demo.fa -p demo_store
+```
+
+`refget store add` digests each sequence and records a
+[sequence collection](../genome-collections-explained.md) for the file. Check what landed
+in the store:
+
+```console
+refget store stats -p demo_store
+```
+
+```json
+{
+  "storage_mode": "Encoded",
+  "n_collections": "1",
+  "n_sequences": "2"
+}
+```
+
+## 3. Open the Explorer
+
+Point the Explorer at your new store:
+
+```console
+refget store explore demo_store
+```
+
+This starts a local server on `http://127.0.0.1:8080` and opens your browser to the
+Explorer, already loaded with `demo_store`. You'll land on the store overview, where you
+can browse the collection from step 2, drill into its sequences, and inspect names,
+lengths, and digests. Press `Ctrl-C` in the terminal to stop the server when you're done.
+
+That's the whole loop: a FASTA on disk, a store, and a browsable view of it — no server
+to deploy and no data leaving your machine.
 
 ## When to use it
 
 Because the Explorer only needs static files, it works against a store anywhere — an S3
 bucket, an HTTP server, or a directory on disk. The hosted Explorer at
-[refgenie.org](https://refgenie.org) already covers stores reachable from the public
-internet. `refget store explore` covers the cases it can't:
+[refget.databio.org](https://refget.databio.org/explore-store) already covers stores
+reachable from the public internet. `refget store explore` covers the cases it can't:
 
 - **A store on local disk.** Browsers can't `fetch()` `file://` URLs, so a store in a
   local directory needs a local web server to browse it.
 - **A read-only mount**, such as a [CVMFS](https://cernvm.cern.ch/fs/) distribution of a
   reference store on a shared cluster.
 - **An air-gapped or offline machine**, where the hosted Explorer is unreachable. The
-  command bundles the Explorer web UI, so it needs no internet access.
+  command bundles the Explorer web UI, so it works with no internet access.
 
 ## Options
 
