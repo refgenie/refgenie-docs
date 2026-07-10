@@ -3,20 +3,32 @@ title: "Refgenie"
 template: splash
 hero:
   title: "Refgenie"
-  tagline: "Reference genome management, rebuilt from the ground up"
-  image:
-    html: <img src="/img/refgenie_reloaded.svg" alt="Refgenie" />
-  actions:
-    - text: Get started
-      link: /refgenie/
-      icon: right-arrow
-      variant: primary
-    - text: View on GitHub
-      link: https://github.com/refgenie/refgenie
-      icon: external
+  tagline: "Software for reference genome data management."
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+<div class="project-cards">
+  <a class="project-card" href="/refgenie/">
+    <span class="project-card-logo">
+      <img src="/img/refgenie_reloaded.svg" alt="Refgenie v1 logo" />
+    </span>
+    <span class="project-card-title">Refgenie v1</span>
+    <span class="project-card-desc">Reference genome asset management — CLI, built-in server, and dashboard. The current, actively developed refgenie.</span>
+  </a>
+  <a class="project-card" href="/refget/">
+    <span class="project-card-logo">
+      <img src="/refget/img/refget_logo.svg" alt="Refget logo" />
+    </span>
+    <span class="project-card-title">Refget</span>
+    <span class="project-card-desc">The GA4GH refget Python package — sequences, sequence collections, and the RefgetStore.</span>
+  </a>
+  <a class="project-card" href="/legacy/">
+    <span class="project-card-logo">
+      <img src="/legacy/refgenie/img/refgenie_logo.svg" alt="Refgenie Legacy logo" />
+    </span>
+    <span class="project-card-title">Refgenie Legacy</span>
+    <span class="project-card-desc">Documentation for the original pre-1.0 refgenie and refgenieserver (2016–2026).</span>
+  </a>
+</div>
 
 <div class="stats-container">
   <div class="stat-card">
@@ -39,38 +51,3 @@ fetch('https://databio.org/stats/stats/aws/summary.json')
   });
 `}
 </script>
-
-## What's new
-
-<CardGrid>
-  <Card title="Database-backed storage" icon="seti:db">
-    SQLite by default, PostgreSQL for scale. No more flat YAML config files.
-  </Card>
-  <Card title="Built-in server" icon="laptop">
-    Serve your assets over HTTP without a separate package.
-  </Card>
-  <Card title="GA4GH identifiers" icon="approve-check">
-    Sequence-derived genome identifiers replace arbitrary genome names.
-  </Card>
-  <Card title="Remote operation" icon="cloud">
-    Use `seekr` to access assets on S3 or other cloud storage.
-  </Card>
-</CardGrid>
-
-## Quick start
-
-```console
-pip install refgenie
-
-refgenie --help
-```
-
-## Documentation
-
-Head to the [**Refgenie**](/refgenie/) section for full documentation, including installation, tutorials, and how-to guides.
-
-Looking for the refget Python package? See the [**Refget**](/refget/) section.
-
-:::note[Upgrading from pre-1.0?]
-Documentation for the original refgenie and refgenie server is available in the [**Legacy**](/legacy/) section.
-:::

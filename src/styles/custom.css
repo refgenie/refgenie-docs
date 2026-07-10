@@ -36,6 +36,73 @@ blockquote {
   color: #6f6f6f;
 }
 
+/* Project disambiguation cards on homepage */
+.project-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin: 2.5rem 0 1.5rem;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.9rem;
+  padding: 1.75rem 1.25rem;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.9rem;
+  background: var(--sl-color-bg-nav);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.project-card:hover {
+  border-color: var(--sl-color-text-accent);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* White tile so logos (some are near-black) stay visible in both themes */
+.project-card-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 88px;
+  width: 100%;
+  background: #fff;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.6rem;
+  padding: 0.85rem 1rem;
+  box-sizing: border-box;
+}
+
+.project-card-logo img {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+}
+
+.project-card-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--sl-color-white);
+}
+
+.project-card-desc {
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--sl-color-gray-3);
+}
+
+@media screen and (max-width: 768px) {
+  .project-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Stats widget on homepage */
 .stats-container {
   display: flex;
