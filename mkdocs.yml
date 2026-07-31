@@ -106,6 +106,7 @@ nav:
           - Working with aliases: refget/using-services/aliases.py
           - FHR metadata headers: refget/using-services/fhr-metadata.py
           - Exploring the genome store: refget/using-services/genome-store.py
+          - Building an SSHash index: refget/using-services/refgetstore-to-sshash.md
           - Creating an RO-Crate: refget/using-services/create-ro-crate.md
       - Hosting refget services:
           - RefgetStore integration with refgenie: refget/hosting-services/refgetstore-integration.md
