@@ -49,10 +49,19 @@ The root metadata file containing store configuration.
   "seqdata_path_template": "sequences/%s2/%s.seq",
   "collections_path_template": "collections/%s.rgsi",
   "sequence_index": "sequences.rgsi",
+  "collection_index": "collections.rgci",
   "mode": "Encoded",
   "created_at": "2025-01-15T10:30:00Z",
+  "modified": "2025-03-02T18:04:11Z",
+  "ancillary_digests": true,
+  "attribute_index": false,
   "sequence_alias_namespaces": ["insdc", "genbank"],
-  "collection_alias_namespaces": ["ncbi", "ucsc"]
+  "collection_alias_namespaces": ["ncbi", "ucsc"],
+  "sequences_digest": "9f2c...",
+  "collections_digest": "1a7e...",
+  "aliases_digest": "c30b...",
+  "fhr_digest": "48d1...",
+  "logical_sequence_bytes": 782345216
 }
 ```
 
@@ -68,12 +77,29 @@ The root metadata file containing store configuration.
     - Example: `"collections/%s.rgsi"`
 - `sequence_index` (string): Path to the sequence metadata index file
     - Default: `"sequences.rgsi"`
+- `collection_index` (string, optional): Path to the collection metadata index file
+    - Default: `"collections.rgci"`
 - `mode` (string): Storage mode for sequence data
     - `"Raw"`: Uncompressed sequence data
     - `"Encoded"`: Bit-packed encoded sequences (space efficient)
 - `created_at` (string): ISO 8601 timestamp of store creation
+- `modified` (string, optional): RFC 3339 timestamp, updated on every index write
+- `ancillary_digests` (boolean): Whether the ancillary collection digests (`name_length_pairs`, `sorted_name_length_pairs`, `sorted_sequences`) are computed and stored
+    - Default: `true`
+- `attribute_index` (boolean): Whether an on-disk attribute reverse index is maintained
+    - Default: `false`
 - `sequence_alias_namespaces` (array of strings, optional): List of available sequence alias namespace names (e.g., `["insdc", "genbank"]`)
 - `collection_alias_namespaces` (array of strings, optional): List of available collection alias namespace names (e.g., `["ncbi", "ucsc"]`)
+- `sequences_digest` (string, optional): SHA-256 digest of `sequences.rgsi`
+- `collections_digest` (string, optional): SHA-256 digest of `collections.rgci`
+- `aliases_digest` (string, optional): SHA-256 digest of the combined alias data
+- `fhr_digest` (string, optional): SHA-256 digest of the combined FHR sidecar data
+- `logical_sequence_bytes` (integer, optional): Total size in bytes of all sequence payloads, computed at index-write time as each sequence's length converted through the storage mode's bits-per-symbol
+    - Lets a client report the store's data size without downloading `sequences.rgsi`
+    - Excludes index files, alias files, FHR sidecars, and this manifest
+    - Absent in manifests written before the field existed
+
+The alias namespace lists are authoritative: a store loads exactly the alias namespaces the manifest advertises rather than scanning the `aliases/` directory. This makes local and remote behavior identical, since remote access cannot list a directory.
 
 ### sequences.rgsi
 
@@ -187,7 +213,7 @@ Each row maps one alias string (column 1) to one digest (column 2), tab-separate
 
 ### FHR Sidecar Files (.fhr.json)
 
-FHR (FAIR Headers Reference genome) sidecar files attach structured metadata to a collection, following the [FHR specification](https://fair-headers.github.io/fair-reference-genome/).
+FHR (FAIR Headers Reference genome) sidecar files attach structured metadata to a collection, following the [FHR specification](https://github.com/FAIR-bioHeaders/FHR-Specification).
 
 **Location:** `<store-root>/collections/<collection-digest>.fhr.json`
 
@@ -205,7 +231,7 @@ FHR (FAIR Headers Reference genome) sidecar files attach structured metadata to 
 }
 ```
 
-Each collection may have at most one `.fhr.json` sidecar. The sidecar is loaded automatically when the collection is opened, and an empty metadata object is stored if no sidecar file exists (zero-cost). See the [FHR specification](https://fair-headers.github.io/fair-reference-genome/) for the full field list.
+Each collection may have at most one `.fhr.json` sidecar. The sidecar is loaded automatically when the collection is opened, and an empty metadata object is stored if no sidecar file exists (zero-cost). See the [FHR specification](https://github.com/FAIR-bioHeaders/FHR-Specification) for the full field list.
 
 ## Storage Modes
 
@@ -285,9 +311,12 @@ When a remote store is accessed, a local cache directory mirrors the remote stor
 
 The cache directory has the same on-disk layout as any RefgetStore:
 
-- `rgstore.json` and `sequences.rgsi` are downloaded on the initial connection
+- `rgstore.json` and `collections.rgci` are downloaded on the initial connection
+- `sequences.rgsi` is deferred: it is downloaded the first time a sequence is requested, not at connection time. For a large store this file reaches tens of megabytes, and browsing or listing collections does not need it. Use the manifest's `logical_sequence_bytes` to report the store's data size before the sequence index has been fetched.
 - `sequences/` and `collections/` files are downloaded on-demand only when a specific sequence or collection is first accessed
 - The cache can be shared between processes and is cleaned up by simply deleting the directory
+
+See [How RefgetStore defers loading](../lazy-loading-explained.md) for the record-level and index-level deferral rules this layout supports.
 
 ## Design Rationale
 

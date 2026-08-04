@@ -44,6 +44,28 @@ The `refget` package provides several components for working with GA4GH refget s
 
 - **CLI** - Commands for computing digests (`refget fasta`), managing local stores (`refget store`), querying remote servers (`refget seqcol`), and database administration (`refget admin`).
 
+## How the pieces fit together
+
+Installing `refget` pulls in three layers that are developed in two repositories.
+
+| Layer | What it is | Where it lives |
+|-------|------------|----------------|
+| **gtars-refget** | The Rust core: digest algorithms, alphabet detection and encoding, the RefgetStore on-disk format, the FASTA import pipeline, and the store types | The [gtars](https://github.com/databio/gtars) Rust workspace |
+| **gtars (Python bindings)** | A PyO3 extension module exposing the Rust types to Python as `gtars.refget` | The `gtars-python` crate in the same workspace, published to PyPI as `gtars` |
+| **refget** | The Python package: clients, the FastAPI router, the database agent, compliance tests, the CLI, and thin re-exports of the bindings | The [refget](https://github.com/refgenie/refget) repository |
+
+The layers divide along a clear line. Anything that touches sequence bytes at scale, meaning digesting, encoding, storing, and retrieving, is implemented once in Rust and reached through the bindings. Anything that talks HTTP, SQL, or JSON schemas is implemented in Python.
+
+The PyO3 bindings are a translation layer, not a reimplementation. Each Python class wraps the corresponding Rust struct and forwards calls to it, converting arguments and results at the boundary. There is no second copy of the digest logic, so a digest computed by the Python API, the CLI, the R bindings, or the Rust library is the same digest computed by the same code.
+
+Because `gtars` is a compiled dependency, `refget` guards against its absence: `refget.const.GTARS_INSTALLED` reports whether the extension module loaded, and the store re-exports are `None` when it did not. Import the store types from `refget.store`:
+
+```python
+from refget.store import RefgetStore, digest_fasta
+```
+
+This is equivalent to importing from `gtars.refget` directly, but it keeps your code pointed at the package's stable surface.
+
 ## Install
 
 ```console

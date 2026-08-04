@@ -101,6 +101,9 @@ export default defineConfig({
                   { label: 'Getting started tutorial', slug: 'refget/using-services/getting-started' },
                   { label: 'What are refget digests?', slug: 'refget/digests-explained' },
                   { label: 'What is RefgetStore?', slug: 'refget/refgetstore-explained' },
+                  { label: 'How RefgetStore defers loading', slug: 'refget/lazy-loading-explained' },
+                  { label: 'The readonly store and concurrency', slug: 'refget/readonly-store-explained' },
+                  { label: 'How FASTA import works', slug: 'refget/fasta-import-explained' },
                   { label: 'Names, aliases, and identifiers', slug: 'refget/names-and-aliases-explained' },
                   { label: 'Understanding FHR metadata', slug: 'refget/fhr-metadata-explained' },
                   { label: 'The brickyard genome collection', slug: 'refget/genome-collections-explained' },
@@ -138,6 +141,7 @@ export default defineConfig({
               {
                 label: 'Hosting refget services',
                 items: [
+                  { label: 'Serving a RefgetStore concurrently', slug: 'refget/hosting-services/howto-serve-refgetstore' },
                   { label: 'Adding a FastAPI router', slug: 'refget/hosting-services/fastapi_router' },
                   { label: 'RefgetDB Agent', slug: 'refget/hosting-services/agent' },
                   { label: 'Compliance testing', slug: 'refget/hosting-services/compliance' },
@@ -153,6 +157,7 @@ export default defineConfig({
                   { label: 'Data models', slug: 'refget/reference/models' },
                   { label: 'RefgetStore format', slug: 'refget/reference/refgetstore-format' },
                   { label: 'RefgetStore retrieval flows', slug: 'refget/reference/refgetstore-retrieval-flows' },
+                  { label: 'RefgetStore encoding', slug: 'refget/reference/encoding-comparison' },
                   { label: 'HGVS parsing API', slug: 'refget/hgvs-reference' },
                   { label: 'RefgetTranscripts (reftx) reference', slug: 'refget/reftx-reference' },
                   { label: 'Changelog', slug: 'refget/reference/changelog' },
@@ -222,7 +227,6 @@ export default defineConfig({
             '/refgenie/refgenieserver',
             '/refget/reference/refgetstore-case-sensitivity',
             '/refget/using-services/create-ro-crate',
-            '/refget/reference/encoding-comparison',
             '/refgenie/mcp',
             '/refget/reference/refgetstore-ro-crate-profile',
             '/legacy/refgenie/build_output',
