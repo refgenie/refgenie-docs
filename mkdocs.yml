@@ -74,6 +74,7 @@ nav:
           - Set up your own data channel: refgenie/set_up_data_channel.md
           - Run a server: refgenie/server_tutorial.md
           - Use the dashboard: refgenie/dash.md
+          - Connect the web UI to your local refgenie: refgenie/bridge.md
           - Connect AI assistants (MCP): refgenie/mcp.md
       - Server:
           - Intro: refgenie/server/README.md
