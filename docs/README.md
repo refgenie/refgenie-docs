@@ -19,7 +19,7 @@ Refgenie has been completely rewritten with a modern architecture designed for r
 </div>
 
 <script>
-fetch('https://databio.org/stats/stats/aws/summary.json')
+fetch('https://stats.databio.org/stats/aws/summary.json')
   .then(r => r.json())
   .then(d => {
     document.getElementById('stat-bytes').textContent = (d.BytesDownloaded / 1e12).toFixed(1) + ' TB';
