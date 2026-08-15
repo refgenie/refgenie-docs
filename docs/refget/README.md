@@ -22,9 +22,9 @@ The `refget` Python package provides a Python implementation of the [GA4GH Refge
 
 | Standard | Local use<br>(computing digests locally)   | Client<br>(connecting to a remote API) | API<br>(implementing an http interface) | Agent<br>(managing a SQL database) |
 |:--------:|:---------:|:------:|:----:|:----:|
-| Sequences | :material-check: | :material-check: | :material-check: | :material-check: |
-| Sequence Collections | :material-check: | :material-check: | :material-check: | :material-check: |
-| Pangenomes | X | X | :material-check: | :material-check: |
+| Sequences | ✓ | ✓ | ✓ | ✓ |
+| Sequence Collections | ✓ | ✓ | ✓ | ✓ |
+| Pangenomes | ✗ | ✗ | ✓ | ✓ |
 
 ## Package components
 
