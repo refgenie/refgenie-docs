@@ -52,10 +52,10 @@ RefgetStore automatically selects the optimal encoding for each sequence:
 | Alphabet | Encoding |
 |----------|----------|
 | DNA (ACGT only) | 2-bit |
-| DNA with N | 3-bit |
-| DNA with ambiguity codes | 4-bit |
-| RNA or extended | 5-bit |
-| Protein/other | 8-bit |
+| DNA with N, R, Y (other characters become X) | 3-bit |
+| DNA with full IUPAC ambiguity codes | 4-bit |
+| Protein (amino acids, stop codons, gaps) | 5-bit |
+| Anything else (ASCII fallback) | 8-bit |
 
 This provides compression while maintaining fast random access—no decompression needed.
 
@@ -127,7 +127,14 @@ Because a RefgetStore is static and content-addressable, you can also serve sequ
 
 ## Learn more
 
+- [Getting started tutorial](using-services/getting-started.py) - Quick introduction to computing digests
 - [RefgetStore tutorial](using-services/refgetstore.py) - Hands-on guide to using RefgetStore
+- [How RefgetStore defers loading](lazy-loading-explained.md) - Why opening a store is cheap, and what gets fetched when
+- [The readonly store and concurrency](readonly-store-explained.md) - Sharing a store across threads in a server
+- [How FASTA import works](fasta-import-explained.md) - The import pipeline and the digest cache
 - [RefgetStore file format](reference/refgetstore-format.md) - Technical specification of the directory structure
 - [CLI reference](reference/cli.md) - Command-line interface for RefgetStore operations
+- [Names, aliases, and identifiers](names-and-aliases-explained.md) - How human-readable registry identifiers work alongside digests and sequence names
+- [Understanding FHR metadata](fhr-metadata-explained.md) - How to attach structured assembly-level metadata to collections
+- [The brickyard genome collection](genome-collections-explained.md) - A curated collection of ~1,952 reference genomes organized in a RefgetStore
 - [Browse live collections](https://refget.databio.org/explore) - The public RefgetStore explorer

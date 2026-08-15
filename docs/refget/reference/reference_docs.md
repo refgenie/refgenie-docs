@@ -2,10 +2,6 @@
 
 ### FASTA Processing
 
-::: gtars.refget.digest_fasta
-    options:
-      heading_level: 3
-
 ::: refget.utils.fasta_to_seqcol_dict
     options:
       heading_level: 3
@@ -101,7 +97,35 @@ RefgetStore provides high-performance local sequence storage implemented in Rust
 
 See the [RefgetStore tutorial](../using-services/refgetstore.py) for usage examples.
 
+## RefgetStore
+
 ::: gtars.refget.RefgetStore
+    options:
+      heading_level: 3
+
+## Functions
+
+::: gtars.refget.digest_fasta
+    options:
+      heading_level: 3
+
+::: gtars.refget.compute_fai
+    options:
+      heading_level: 3
+
+::: gtars.refget.digest_sequence
+    options:
+      heading_level: 3
+
+## Data Classes
+
+::: gtars.refget.SequenceCollection
+    options:
+      heading_level: 3
+
+::: gtars.refget.StorageMode
+    options:
+      heading_level: 3
 
 ## Digest Functions
 

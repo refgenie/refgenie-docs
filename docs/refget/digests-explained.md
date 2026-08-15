@@ -48,5 +48,6 @@ Sequence collections can be represented at different levels of detail:
 
 ## Learn more
 
+- [Getting started tutorial](using-services/getting-started.py) - Quick walkthrough of computing your first digest
 - [Computing digests locally](using-services/digests.ipynb) - Tutorial on computing digests
 - [GA4GH refget specification](https://ga4gh.github.io/refget/) - Official specification

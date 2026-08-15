@@ -14,11 +14,11 @@ Not to the central server -- at least, not automatically. But what you *can* do 
 
 ## Can I maintain multiple versions of an asset?
 
-Yes, you can. In `refgenie v0.7.0` we've introduced [tagging](tag.md), to facilitate just that!
+Yes, you can. In `refgenie v0.7.0` we've introduced [tagging](../refgenie/tag.md), to facilitate just that!
 
-## Can multiple users share a single refgenie configuration file?
+## Can multiple users share a single refgenie instance?
 
-Yes, this is now the recommended way to use refgenie for groups. Starting with release `v0.7.0`, refgenie now supports genome config file locks and race-free writes, so refgenie will now automatically control multi-user conflicts to prevent metadata loss. With this change, multiple users can simultaneously read and write a single group-level configuration file.
+Yes, this is now the recommended way to use refgenie for groups. Refgenie is designed to be used by multiple users on a single server. The database backend (SQLite or PostgreSQL) allows for concurrent access, and the asset server can be set up to allow multiple users to pull assets from the same server, or multiple locations.
 
 ## How can I track how a downloaded asset was created?
 

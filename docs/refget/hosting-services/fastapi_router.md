@@ -42,45 +42,14 @@ The `create_refget_router()` function accepts these parameters:
 
 ## Endpoints added
 
-When you include the router, these endpoints become available (depending on which flags you enable):
+The router adds endpoints organized into four categories:
 
-### Collection endpoints (collections=True)
+- **Collection endpoints**: Retrieve sequence collections, compare collections, search by attribute
+- **Sequence endpoints**: Retrieve individual sequences and their metadata
+- **Pangenome endpoints**: Retrieve pangenome data and listings
+- **FASTA DRS endpoints**: Access FASTA files and indices via GA4GH DRS
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/collection/{digest}` | Retrieve a sequence collection (level 1 or 2) |
-| GET | `/attribute/collection/{attr}/{digest}` | Retrieve a specific attribute value |
-| GET | `/comparison/{digest1}/{digest2}` | Compare two collections on the server |
-| POST | `/comparison/{digest}` | Compare server collection with POSTed collection |
-| POST | `/similarities/{digest}` | Calculate Jaccard similarities |
-| POST | `/similarities/` | Calculate similarities from POSTed collection |
-| GET | `/list/collection` | List collections with optional filtering |
-| GET | `/list/attributes/{attr}` | List attribute values |
-
-### Sequence endpoints (sequences=True)
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/sequence/{digest}` | Retrieve raw sequence |
-| GET | `/sequence/{digest}/metadata` | Retrieve sequence metadata |
-
-### Pangenome endpoints (pangenomes=True)
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/pangenome/{digest}` | Retrieve a pangenome |
-| GET | `/list/pangenome` | List pangenomes |
-
-### FASTA DRS endpoints (fasta_drs=True)
-
-These endpoints are mounted under `/fasta`:
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/fasta/objects/{id}` | Get DRS object metadata |
-| GET | `/fasta/objects/{id}/access/{access_id}` | Get access URL |
-| GET | `/fasta/objects/{id}/index` | Get FAI index data |
-| GET | `/fasta/service-info` | DRS service info |
+For the complete endpoint reference with detailed parameters and response formats, visit the [live interactive API documentation](https://seqcolapi.databio.org/docs) on the deployed service.
 
 ## Database configuration
 

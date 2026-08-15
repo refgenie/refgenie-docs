@@ -4,6 +4,12 @@ Run a percent-format .py file and insert/update captured outputs as markdown blo
 
 Usage: python capture_outputs.py input.py > output.py
 
+Example: regenerate all using-services docs:
+
+    for f in docs/refget/using-services/*.py; do
+        python capture_outputs.py "$f" > /tmp/captured.py && mv /tmp/captured.py "$f"
+    done
+
 This captures ALL output including from Rust/C libraries by redirecting
 at the file descriptor level, not just Python's sys.stdout.
 

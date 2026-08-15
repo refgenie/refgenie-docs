@@ -1,0 +1,46 @@
+---
+// PageTitle override: renders h1 + CopyPageDropdown side by side.
+import CopyPageDropdown from './CopyPageDropdown.astro';
+
+const route = Astro.locals.starlightRoute;
+const title = route.entry.data.title;
+const slug = route.slug;
+
+// Map Starlight slug back to docs/ source path for raw GitHub URL.
+// index -> README.md, refgenie -> refgenie/README.md, etc.
+function slugToDocsPath(slug: string): string {
+  if (!slug || slug === 'index') return 'docs/README.md';
+  // Slug ending with section root -> README.md
+  const parts = slug.split('/');
+  // Check if this was a README.md (now index)
+  // Most section roots were README.md files
+  return `docs/${slug}.md`;
+}
+
+const docsPath = slugToDocsPath(slug);
+const rawUrl = `https://raw.githubusercontent.com/refgenie/refgenie-docs/master/${docsPath}`;
+---
+
+<div class="page-title-row">
+  <h1 id="_top">{title}</h1>
+  <CopyPageDropdown mdPath={rawUrl} />
+</div>
+
+<style>
+  @layer starlight.core {
+    h1 {
+      margin-top: 1rem;
+      font-size: var(--sl-text-h1);
+      line-height: var(--sl-line-height-headings);
+      font-weight: 600;
+      color: var(--sl-color-white);
+    }
+  }
+
+  .page-title-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+</style>

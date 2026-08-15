@@ -1,0 +1,139 @@
+---
+// Dropdown with "Copy page as Markdown" and "Open Markdown" options.
+import copyIcon from '../icons/copy.svg?raw';
+import chevronIcon from '../icons/chevron-down.svg?raw';
+import externalIcon from '../icons/external-link.svg?raw';
+
+interface Props {
+  mdPath: string;
+}
+
+const { mdPath } = Astro.props;
+---
+
+<div class="copy-page-dropdown" data-md-path={mdPath}>
+  <button class="copy-page-btn" type="button" aria-expanded="false">
+    <Fragment set:html={copyIcon} />
+    <span>Copy page</span>
+    <span class="chevron"><Fragment set:html={chevronIcon} /></span>
+  </button>
+  <div class="copy-page-menu" role="menu" hidden>
+    <button class="menu-item" role="menuitem" data-action="copy">
+      <Fragment set:html={copyIcon} />
+      Copy page as Markdown
+    </button>
+    <a class="menu-item" role="menuitem" data-action="open" href={mdPath} target="_blank">
+      <Fragment set:html={externalIcon} />
+      Open Markdown
+    </a>
+  </div>
+</div>
+
+<style>
+  .copy-page-dropdown {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .copy-page-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.6rem;
+    font-size: 0.8rem;
+    color: var(--sl-color-gray-3);
+    background: var(--sl-color-gray-6);
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.375rem;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .copy-page-btn:hover {
+    color: var(--sl-color-white);
+    border-color: var(--sl-color-gray-4);
+  }
+
+  .chevron {
+    transition: transform 0.15s;
+  }
+  .copy-page-btn[aria-expanded='true'] .chevron {
+    transform: rotate(180deg);
+  }
+
+  .copy-page-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 4px);
+    min-width: 200px;
+    background: var(--sl-color-gray-6);
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.5rem 0.65rem;
+    font-size: 0.8rem;
+    color: var(--sl-color-gray-2);
+    background: none;
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .menu-item:hover {
+    background: var(--sl-color-gray-5);
+    color: var(--sl-color-white);
+  }
+</style>
+
+<script>
+  function setup() {
+    document.querySelectorAll('.copy-page-dropdown').forEach((dropdown) => {
+      const btn = dropdown.querySelector('.copy-page-btn');
+      const menu = dropdown.querySelector('.copy-page-menu');
+      const copyItem = dropdown.querySelector('[data-action="copy"]');
+      const mdPath = dropdown.getAttribute('data-md-path');
+
+      if (!btn || !menu) return;
+
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const open = !menu.hidden;
+        menu.hidden = open;
+        btn.setAttribute('aria-expanded', String(!open));
+      });
+
+      copyItem?.addEventListener('click', async () => {
+        try {
+          const res = await fetch(mdPath!);
+          const text = await res.text();
+          await navigator.clipboard.writeText(text);
+          const label = copyItem.childNodes[copyItem.childNodes.length - 1];
+          const orig = label.textContent;
+          label.textContent = ' Copied!';
+          setTimeout(() => { label.textContent = orig; }, 1500);
+        } catch {
+          window.open(mdPath!, '_blank');
+        }
+        menu.hidden = true;
+        btn.setAttribute('aria-expanded', 'false');
+      });
+
+      document.addEventListener('click', () => {
+        menu.hidden = true;
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  setup();
+  document.addEventListener('astro:after-swap', setup);
+</script>
