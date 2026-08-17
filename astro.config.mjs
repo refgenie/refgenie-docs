@@ -47,6 +47,8 @@ export default defineConfig({
                   { label: 'Download pre-built assets', slug: 'refgenie/pull' },
                   { label: 'Use refgenie from Python', slug: 'refgenie/notebooks/refgenie' },
                   { label: 'Use refgenie from Python (API)', slug: 'refgenie/refgenie_object' },
+                  { label: 'Use refgenie with an AI assistant', slug: 'refgenie/use_with_ai' },
+                  { label: 'Connect AI assistants (MCP)', slug: 'refgenie/mcp' },
                   { label: 'Use data channels', slug: 'refgenie/data_channels' },
                   { label: 'Build assets', slug: 'refgenie/build' },
                   { label: 'Stage assets for serving', slug: 'refgenie/staging' },
