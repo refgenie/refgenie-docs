@@ -113,5 +113,5 @@ The MANE Plus Clinical set (additional transcripts for genes with clinically sig
 
 - [What is RefgetStore?](refgetstore-explained.md) -- The companion sequence store
 - [Digests explained](digests-explained.md) -- How refget digests work
-- [reftx reference](reference/reftx-reference.md) -- API and CLI details
+- [reftx reference](reftx-reference.md) -- API and CLI details
 - [Getting started with refget](using-services/getting-started.py) -- Tutorial for sequence operations

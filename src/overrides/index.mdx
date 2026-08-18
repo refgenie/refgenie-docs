@@ -1,10 +1,37 @@
 ---
 title: "Refgenie"
 template: splash
-hero:
-  title: "Refgenie"
-  tagline: "Software for reference genome data management."
 ---
+
+<div class="hero">
+  <img src="/img/refgenie_wordmark.svg" alt="Refgenie" class="hero-logo" />
+  <p class="hero-tagline">Software for reference genome data management.</p>
+  <div class="hero-actions">
+    <a class="hero-btn hero-btn-primary" href="/refgenie/">Get started</a>
+    <a class="hero-btn" href="https://ui.refgenie.org">Browse genomes</a>
+  </div>
+</div>
+
+<div class="home-banner" role="note">
+  <span class="home-banner-tag">Alpha</span>
+  <span class="home-banner-text">
+    <strong>Refgenie v1 alpha is here.</strong> A ground-up rewrite with a built-in server, dashboard, and refget-based digests.
+    <a href="/refgenie/whats_new/">See what's new</a>.
+  </span>
+</div>
+
+<div class="timeline">
+  <div class="timeline-item is-done">
+    <span class="timeline-dot"></span>
+    <span class="timeline-date">August 2026</span>
+    <span class="timeline-label">Alpha released</span>
+  </div>
+  <div class="timeline-item">
+    <span class="timeline-dot"></span>
+    <span class="timeline-date">October 2026</span>
+    <span class="timeline-label">General availability (target)</span>
+  </div>
+</div>
 
 <div class="project-cards">
   <a class="project-card" href="/refgenie/">
@@ -21,9 +48,16 @@ hero:
     <span class="project-card-title">Refget</span>
     <span class="project-card-desc">The GA4GH refget Python package — sequences, sequence collections, and the RefgetStore.</span>
   </a>
+  <a class="project-card" href="https://ui.refgenie.org">
+    <span class="project-card-logo">
+      <img src="/img/refgenie_bug.svg" alt="Refgenie server logo" />
+    </span>
+    <span class="project-card-title">Refgenie Server</span>
+    <span class="project-card-desc">Browse and download pre-built genome assets from the public server at ui.refgenie.org.</span>
+  </a>
   <a class="project-card" href="/legacy/">
     <span class="project-card-logo">
-      <img src="/legacy/refgenie/img/refgenie_logo.svg" alt="Refgenie Legacy logo" />
+      <img src="/legacy/img/refgenie_logo.svg" alt="Refgenie Legacy logo" />
     </span>
     <span class="project-card-title">Refgenie Legacy</span>
     <span class="project-card-desc">Documentation for the original pre-1.0 refgenie and refgenieserver (2016–2026).</span>
