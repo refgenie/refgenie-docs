@@ -305,15 +305,17 @@ blockquote {
   max-width: 440px;
   width: 100%;
   height: auto;
-  /* the wordmark is dark green; render it white on the dark hero */
-  filter: brightness(0) invert(1);
+  /* render the green wordmark white, with a soft shadow so it stays legible
+     over the DNA background */
+  filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
 }
 
 .hero-tagline {
   margin: 1.25rem 0 0;
   font-size: 1.5rem;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.88);
+  color: #fff;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
 }
 
 .hero-actions {
