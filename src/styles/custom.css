@@ -275,25 +275,35 @@ blockquote {
 }
 
 /* Homepage hero: centered wordmark logo + tagline + call-to-action buttons */
+/* Full-bleed hero band with a DNA-helix genome background */
 .hero {
+  /* break out of the centered content column to span the viewport */
+  margin-inline: calc(50% - 50vw);
+  margin-top: -1.5rem;
+  margin-bottom: 2.5rem;
+  padding: 4.5rem 1.5rem 5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin: 2rem 0 2.5rem;
+  box-sizing: border-box;
+  background: #16203a url('/img/genome-hero-bg.svg') center / cover no-repeat;
+  border-bottom: 1px solid var(--sl-color-hairline-light);
 }
 
 .hero-logo {
-  max-width: 460px;
+  max-width: 440px;
   width: 100%;
   height: auto;
+  /* the wordmark is dark green; render it white on the dark hero */
+  filter: brightness(0) invert(1);
 }
 
 .hero-tagline {
-  margin: 1rem 0 0;
+  margin: 1.25rem 0 0;
   font-size: 1.5rem;
   font-weight: 300;
-  color: var(--sl-color-gray-2);
+  color: rgba(255, 255, 255, 0.88);
 }
 
 .hero-actions {
@@ -301,36 +311,37 @@ blockquote {
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.75rem;
-  margin-top: 1.75rem;
+  margin-top: 2rem;
 }
 
 .hero-btn {
   display: inline-flex;
   align-items: center;
-  padding: 0.6rem 1.4rem;
-  border: 1px solid var(--sl-color-gray-5);
+  padding: 0.6rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.45);
   border-radius: 0.6rem;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--sl-color-white);
+  color: #fff;
   text-decoration: none;
   transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
 }
 
 .hero-btn:hover {
   transform: translateY(-2px);
-  border-color: var(--sl-color-text-accent);
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .hero-btn-primary {
-  background: var(--sl-color-text-accent);
-  border-color: var(--sl-color-text-accent);
-  color: var(--sl-color-text-invert);
+  background: #fff;
+  border-color: #fff;
+  color: #16203a;
 }
 
 .hero-btn-primary:hover {
-  background: var(--sl-color-accent-high);
-  border-color: var(--sl-color-accent-high);
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.9);
 }
 
 /* Homepage roadmap timeline */
