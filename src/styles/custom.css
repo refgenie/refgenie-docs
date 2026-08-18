@@ -275,11 +275,21 @@ blockquote {
 }
 
 /* Homepage hero: centered wordmark logo + tagline + call-to-action buttons */
-/* Full-bleed hero band with a DNA-helix genome background */
+/* Make the full-bleed hero run flush up to the nav. On the splash home page the
+   page title is suppressed, leaving an empty page-title content-panel above the
+   hero's panel; collapse that empty panel and zero the hero panel's top padding
+   so no space sits between the nav and the hero band. */
+.content-panel:has(+ .content-panel .hero) {
+  display: none;
+}
+.content-panel:has(.hero) {
+  padding-top: 0;
+}
+
 .hero {
   /* break out of the centered content column to span the viewport */
   margin-inline: calc(50% - 50vw);
-  margin-top: -1.5rem;
+  margin-top: 0;
   margin-bottom: 2.5rem;
   padding: 4.5rem 1.5rem 5rem;
   display: flex;
@@ -287,7 +297,7 @@ blockquote {
   align-items: center;
   text-align: center;
   box-sizing: border-box;
-  background: #16203a url('/img/genome-hero-bg.svg') center / cover no-repeat;
+  background: #16203a url('/img/genome-hero-photo.jpg') center / cover no-repeat;
   border-bottom: 1px solid var(--sl-color-hairline-light);
 }
 
