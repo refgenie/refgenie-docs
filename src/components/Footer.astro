@@ -55,17 +55,18 @@ import Pagination from 'virtual:starlight/components/Pagination';
     border-top: 1px solid var(--sl-color-hairline-light);
     text-align: center;
   }
+  /* Put the logo on a white chip so its native colors stay legible in both
+     light and dark themes (the long logo has dark lettering). */
   .lab-logo-link {
     display: inline-block;
+    background: #fff;
+    padding: 0.5rem 0.9rem;
+    border-radius: 0.5rem;
+    line-height: 0;
   }
   .lab-logo {
-    height: 42px;
+    height: 38px;
     width: auto;
-  }
-  /* the long logo has dark lettering; keep it visible on dark theme */
-  :global(:root[data-theme='dark']) .lab-logo {
-    filter: brightness(0) invert(1);
-    opacity: 0.85;
   }
   .lab-tagline {
     margin: 0.75rem 0 0;
