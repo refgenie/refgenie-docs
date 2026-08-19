@@ -64,6 +64,7 @@ export default defineConfig({
                   { label: 'Run a server', slug: 'refgenie/server_tutorial' },
                   { label: 'Use the dashboard', slug: 'refgenie/dash' },
                   { label: 'Connect the web UI to your local refgenie', slug: 'refgenie/bridge' },
+                  { label: 'Use refgenie with AI (MCP)', slug: 'refgenie/mcp' },
                 ],
               },
               {
@@ -233,7 +234,6 @@ export default defineConfig({
             '/refgenie/refgenieserver',
             '/refget/reference/refgetstore-case-sensitivity',
             '/refget/using-services/create-ro-crate',
-            '/refgenie/mcp',
             '/refget/reference/refgetstore-ro-crate-profile',
             '/legacy/build_output',
             '/refgenie/server/data_channels_configuration',

@@ -51,7 +51,7 @@ editUrl: false
   </a>
   <a class="project-card" href="https://ui.refgenie.org">
     <span class="project-card-logo">
-      <img src="/img/server-icon.svg" alt="Refgenie server" />
+      <img src="/img/server-icon.png" alt="Refgenie server" />
     </span>
     <span class="project-card-title">Refgenie Server</span>
     <span class="project-card-desc">Browse and download pre-built genome assets from the public server at ui.refgenie.org.</span>
@@ -63,6 +63,16 @@ editUrl: false
     <span class="project-card-title">Refgenie Legacy</span>
     <span class="project-card-desc">Documentation for the original pre-1.0 refgenie and refgenieserver (2016–2026).</span>
   </a>
+</div>
+
+<div class="ai-section">
+  <h2 class="ai-title">Use refgenie with AI</h2>
+  <p class="ai-blurb">Paste this into your AI agent to have it learn to use refgenie for reference genome data:</p>
+  <div class="ai-prompt">
+    <code id="ai-prompt-text">You have access to refgenie, a tool for reference genome data management. Learn to use it from https://refgenie.org : refgenie downloads and builds reference genome "assets" (aligner indexes, sequences, annotations) through a CLI and Python API, identifying genomes by GA4GH refget digests. Read the CLI tutorial (https://refgenie.org/refgenie/cli_tutorial/) and how to retrieve asset paths (https://refgenie.org/refgenie/seek/). If a refgenie MCP server is configured, use it to query the user's local genomes.</code>
+    <button class="ai-copy-btn" type="button" aria-label="Copy prompt">Copy</button>
+  </div>
+  <p class="ai-mcp">Want live access to your own database? Connect the built-in <a href="/refgenie/mcp/">MCP server</a> so assistants like Claude can query your genomes and assets directly.</p>
 </div>
 
 <div class="stats-container">
@@ -84,5 +94,14 @@ fetch('https://databio.org/stats/stats/aws/summary.json')
     document.getElementById('stat-bytes').textContent = (d.BytesDownloaded / 1e12).toFixed(1) + ' TB';
     document.getElementById('stat-requests').textContent = (d.AllRequests / 1e6).toFixed(1) + ' million';
   });
+
+const aiBtn = document.querySelector('.ai-copy-btn');
+aiBtn && aiBtn.addEventListener('click', () => {
+  const text = document.getElementById('ai-prompt-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    aiBtn.textContent = 'Copied!';
+    setTimeout(() => { aiBtn.textContent = 'Copy'; }, 1500);
+  });
+});
 `}
 </script>
