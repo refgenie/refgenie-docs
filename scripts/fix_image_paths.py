@@ -104,8 +104,68 @@ def _fix_html_match(m, tool, image_index):
     return full
 
 
+DOC_EXTS = ('.md', '.mdx', '.ipynb', '.py', '.html')
+
+
+def _link_to_route(target: str, base_dir: str):
+    """Resolve a relative doc-page link to an absolute Starlight route.
+
+    Links in the source are relative to the file's own directory (MkDocs
+    semantics). Starlight serves every page at an absolute directory URL that
+    mirrors the content tree, so we resolve against `base_dir` (the file's
+    directory relative to the content root) and drop the source extension,
+    mapping README/index to the directory root. Returns None to leave a link
+    unchanged (external, absolute, anchors, or non-doc targets).
+    """
+    import posixpath
+
+    m = re.match(r'^([^#?]*)([#?].*)?$', target)
+    path_part = m.group(1)
+    suffix = m.group(2) or ''
+    if not path_part:
+        return None  # pure anchor
+    if path_part.startswith('/') or '://' in path_part or path_part.startswith('mailto:'):
+        return None
+    low = path_part.lower()
+    if not (low.endswith(DOC_EXTS) or path_part.endswith('README')):
+        return None
+
+    joined = posixpath.normpath(posixpath.join(base_dir, path_part))
+    for ext in DOC_EXTS:
+        if joined.lower().endswith(ext):
+            joined = joined[:-len(ext)]
+            break
+    for tail in ('README', 'index'):
+        if joined == tail or joined.endswith('/' + tail):
+            joined = joined[:-len(tail)].rstrip('/')
+            break
+    route = '/' if joined in ('', '.') else '/' + joined + '/'
+    return route + suffix
+
+
+def fix_internal_links(text: str, filepath: Path) -> str:
+    """Rewrite relative doc links in a content file to absolute Starlight routes."""
+    base_dir = str(filepath.parent.relative_to(CONTENT_DIR)).replace('\\', '/')
+    if base_dir == '.':
+        base_dir = ''
+
+    def _md(m):
+        route = _link_to_route(m.group(2), base_dir)
+        return f'{m.group(1)}{route}{m.group(3)}' if route is not None else m.group(0)
+
+    def _html(m):
+        route = _link_to_route(m.group(2), base_dir)
+        return f'{m.group(1)}{route}{m.group(3)}' if route is not None else m.group(0)
+
+    # Markdown links: ](target) but not image links ![](...) (those end in image exts)
+    text = re.sub(r'(\]\()([^)\s]+)(\))', _md, text)
+    # HTML anchors: <a href="target">
+    text = re.sub(r'(href=["\'])([^"\']+)(["\'])', _html, text)
+    return text
+
+
 def fix_file(filepath: Path, image_index: dict) -> bool:
-    """Fix image paths in a single file."""
+    """Fix image paths and internal links in a single file."""
     text = filepath.read_text(errors='replace')
     tool = determine_tool(filepath)
 
@@ -120,6 +180,8 @@ def fix_file(filepath: Path, image_index: dict) -> bool:
         lambda m: _fix_html_match(m, tool, image_index),
         new_text
     )
+
+    new_text = fix_internal_links(new_text, filepath)
 
     if new_text != text:
         filepath.write_text(new_text)

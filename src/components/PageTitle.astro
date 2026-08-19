@@ -1,30 +1,50 @@
 ---
 // PageTitle override: renders h1 + CopyPageDropdown side by side.
 import CopyPageDropdown from './CopyPageDropdown.astro';
+import fs from 'node:fs';
 
 const route = Astro.locals.starlightRoute;
 const title = route.entry.data.title;
 const slug = route.slug;
 
-// Map Starlight slug back to docs/ source path for raw GitHub URL.
-// index -> README.md, refgenie -> refgenie/README.md, etc.
-function slugToDocsPath(slug: string): string {
-  if (!slug || slug === 'index') return 'docs/README.md';
-  // Slug ending with section root -> README.md
-  const parts = slug.split('/');
-  // Check if this was a README.md (now index)
-  // Most section roots were README.md files
-  return `docs/${slug}.md`;
+// Splash pages (e.g. the home page) provide their own hero/heading, so the
+// doc-style title + "Copy page" control should not render there. Section
+// landing pages instead lead with a logo image whose alt text is the title
+// (marked by `.page-hero-logo`), so suppress the redundant text title on those.
+const isSplash = route.entry.data.template === 'splash';
+const hasHeroLogo = (route.entry.body ?? '').includes('page-hero-logo');
+const hideTitle = isSplash || hasHeroLogo;
+
+// Resolve a page's Starlight slug back to its editable source file in docs/.
+// The tree isn't uniform: section roots come from README.md, executable
+// tutorials from .ipynb/.py, everything else from .md. Some pages (generated
+// Python API, R vignettes) have no docs/ source at all. We probe the filesystem
+// at build time (cwd is the repo root) and return null when nothing matches, so
+// the caller can hide the button instead of emitting a URL that 404s.
+function resolveDocsSource(slug: string): string | null {
+  const candidates = !slug || slug === 'index'
+    ? ['README.md']
+    : [`${slug}/README.md`, `${slug}.md`, `${slug}.ipynb`, `${slug}.py`];
+  for (const c of candidates) {
+    if (fs.existsSync(`docs/${c}`)) return `docs/${c}`;
+  }
+  return null;
 }
 
-const docsPath = slugToDocsPath(slug);
-const rawUrl = `https://raw.githubusercontent.com/refgenie/refgenie-docs/master/${docsPath}`;
+const docsPath = resolveDocsSource(slug);
+const rawUrl = docsPath
+  ? `https://raw.githubusercontent.com/refgenie/refgenie-docs/master/${docsPath}`
+  : null;
 ---
 
-<div class="page-title-row">
-  <h1 id="_top">{title}</h1>
-  <CopyPageDropdown mdPath={rawUrl} />
-</div>
+{
+  !hideTitle && (
+    <div class="page-title-row">
+      <h1 id="_top">{title}</h1>
+      {rawUrl && <CopyPageDropdown mdPath={rawUrl} />}
+    </div>
+  )
+}
 
 <style>
   @layer starlight.core {

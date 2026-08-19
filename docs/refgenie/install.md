@@ -42,10 +42,6 @@ To install from a local clone for development:
 pip install -e ".[dash]"
 ```
 
-## Upgrading from legacy refgenie
-
-If you are migrating from legacy refgenie (0.x), see the [upgrade tutorial](upgrade.md) after installing.
-
 ## Next steps
 
 Configure refgenie!

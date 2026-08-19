@@ -64,13 +64,6 @@ Genomes are identified by sequence-derived digests, but you refer to them using 
 
 See [Manage aliases](alias.md).
 
-## Upgrading from legacy
+## Migration from legacy
 
-Refgenie 1.0 includes an automated upgrade path from legacy refgenie. Install the `refgenie-upgrade` tool and run it against your legacy config file to migrate your assets and configuration:
-
-```bash
-pip install refgenie-upgrade
-refgenie-upgrade /path/to/genome_config.yaml
-```
-
-See the [upgrade tutorial](upgrade.md) for the full walkthrough.
+Refgenie 1.0 is a fresh install. There is no automated migration path from legacy refgenie. If you have existing assets managed by legacy refgenie, you will need to rebuild or re-pull them under the new system.

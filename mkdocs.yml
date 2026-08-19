@@ -56,7 +56,6 @@ nav:
           - Introduction: refgenie/README.md
           - Overview: refgenie/overview.md
           - Install: refgenie/install.md
-          - Upgrade from legacy: refgenie/upgrade.md
           - Configure: refgenie/configuration.md
           - CLI Tutorial: refgenie/cli_tutorial.md
           - Genome initialization: refgenie/genome_tutorial.md

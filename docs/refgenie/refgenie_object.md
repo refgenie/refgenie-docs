@@ -41,5 +41,5 @@ bt2idx = r.seek(genome, "bowtie2_index")
 # run bowtie2...
 ```
 
-This enables you to write python software that will work on any computing environment without having to worry about passing around brittle environment-specific file paths. See [this tutorial](../refgenie/notebooks/refgenconf_usage.ipynb) for more comprehensive example of how to work with `refgenconf` as a tool developer.
+This enables you to write python software that will work on any computing environment without having to worry about passing around brittle environment-specific file paths. See [this tutorial](../../legacy/notebooks/refgenconf_usage.ipynb) for more comprehensive example of how to work with `refgenconf` as a tool developer.
 

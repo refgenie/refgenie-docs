@@ -1,0 +1,83 @@
+---
+// SiteTitle override: renders the default site logo/title, then the topic
+// switcher as horizontal tabs in the top navbar (desktop only). On mobile the
+// tabs are hidden here and the topic list stays in the slide-out sidebar menu,
+// so the switcher is always reachable. Topic data comes from the
+// starlight-sidebar-topics route middleware.
+import StarlightSiteTitle from '@astrojs/starlight/components/SiteTitle.astro';
+import { Icon } from '@astrojs/starlight/components';
+
+const topics = Astro.locals.starlightSidebarTopics?.topics ?? [];
+---
+
+<div class="site-title-with-topics">
+  <StarlightSiteTitle />
+  {
+    topics.length > 0 && (
+      <nav class="topic-tabs" aria-label="Documentation sections">
+        {topics.map((topic) => (
+          <a
+            href={topic.link}
+            class:list={{ 'topic-tab': true, current: topic.isCurrent }}
+            aria-current={topic.isCurrent ? 'page' : undefined}
+          >
+            {topic.icon && <Icon name={topic.icon} class="topic-tab-icon" />}
+            <span>{topic.label}</span>
+          </a>
+        ))}
+      </nav>
+    )
+  }
+</div>
+
+<style>
+  .site-title-with-topics {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    min-width: 0;
+  }
+
+  /* Tabs are a desktop navbar affordance; on mobile the topic list lives in the
+     slide-out sidebar instead. */
+  .topic-tabs {
+    display: none;
+  }
+
+  @media (min-width: 50rem) {
+    .topic-tabs {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+  }
+
+  .topic-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: var(--sl-text-sm);
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--sl-color-gray-2);
+    text-decoration: none;
+    transition: color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .topic-tab:hover {
+    color: var(--sl-color-white);
+    background: var(--sl-color-gray-6);
+  }
+
+  .topic-tab.current {
+    color: var(--sl-color-text-invert);
+    background: var(--sl-color-text-accent);
+  }
+
+  .topic-tab-icon {
+    font-size: 1em;
+  }
+</style>

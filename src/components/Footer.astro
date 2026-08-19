@@ -1,0 +1,76 @@
+---
+// Footer override: keep Starlight's default footer (edit link, last updated,
+// pagination) and append a Databio / Sheffield Computational Biology Lab credit.
+import EditLink from 'virtual:starlight/components/EditLink';
+import LastUpdated from 'virtual:starlight/components/LastUpdated';
+import Pagination from 'virtual:starlight/components/Pagination';
+---
+
+<footer class="sl-flex">
+  <div class="meta sl-flex">
+    <EditLink />
+    <LastUpdated />
+  </div>
+  <Pagination />
+
+  <div class="lab-footer">
+    <a href="https://databio.org/" target="_blank" rel="noopener noreferrer" class="lab-logo-link">
+      <img
+        src="https://databio.org/images/logo/logo_databio_long.svg"
+        alt="Databio — Sheffield Computational Biology Lab"
+        class="lab-logo"
+        width="180"
+        loading="lazy"
+      />
+    </a>
+    <p class="lab-tagline">
+      Refgenie is developed by the
+      <a href="https://databio.org/" target="_blank" rel="noopener noreferrer">Sheffield Computational Biology Lab</a>.
+    </p>
+  </div>
+</footer>
+
+<style>
+  @layer starlight.core {
+    footer {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .meta {
+      gap: 0.75rem 3rem;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-top: 3rem;
+      font-size: var(--sl-text-sm);
+      color: var(--sl-color-gray-3);
+    }
+    .meta > :global(p:only-child) {
+      margin-inline-start: auto;
+    }
+  }
+
+  .lab-footer {
+    margin-top: 2rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--sl-color-hairline-light);
+    text-align: center;
+  }
+  /* Put the logo on a white chip so its native colors stay legible in both
+     light and dark themes (the long logo has dark lettering). */
+  .lab-logo-link {
+    display: inline-block;
+    background: #fff;
+    padding: 0.5rem 0.9rem;
+    border-radius: 0.5rem;
+    line-height: 0;
+  }
+  .lab-logo {
+    height: 38px;
+    width: auto;
+  }
+  .lab-tagline {
+    margin: 0.75rem 0 0;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-3);
+  }
+</style>

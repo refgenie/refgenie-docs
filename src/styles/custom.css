@@ -39,7 +39,7 @@ blockquote {
 /* Project disambiguation cards on homepage */
 .project-cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 1.25rem;
   margin: 2.5rem 0 1.5rem;
 }
@@ -100,6 +100,75 @@ blockquote {
 @media screen and (max-width: 768px) {
   .project-cards {
     grid-template-columns: 1fr;
+  }
+}
+
+/* "Use refgenie with AI" section on the homepage */
+.ai-section {
+  margin: 3rem 0 1.5rem;
+  padding: 1.75rem;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.9rem;
+  background: var(--sl-color-bg-nav);
+}
+
+.ai-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+}
+
+.ai-blurb {
+  margin: 0 0 1rem;
+  color: var(--sl-color-gray-2);
+}
+
+.ai-prompt {
+  display: flex;
+  align-items: stretch;
+  gap: 0.75rem;
+}
+
+.ai-prompt code {
+  flex: 1;
+  max-height: 8.5rem;
+  overflow-y: auto;
+  padding: 0.85rem 1rem;
+  border-radius: 0.6rem;
+  background: var(--sl-color-gray-6);
+  border: 1px solid var(--sl-color-gray-5);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  color: var(--sl-color-gray-1);
+}
+
+.ai-copy-btn {
+  flex-shrink: 0;
+  align-self: flex-start;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid var(--sl-color-text-accent);
+  border-radius: 0.6rem;
+  background: var(--sl-color-text-accent);
+  color: var(--sl-color-text-invert);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ai-copy-btn:hover {
+  background: var(--sl-color-accent-high);
+  border-color: var(--sl-color-accent-high);
+}
+
+.ai-mcp {
+  margin: 1rem 0 0;
+  font-size: 0.92rem;
+  color: var(--sl-color-gray-3);
+}
+
+@media screen and (max-width: 560px) {
+  .ai-prompt {
+    flex-direction: column;
   }
 }
 
@@ -164,6 +233,62 @@ blockquote {
   }
 }
 
+/* Topic switcher: shown as tabs in the top navbar on desktop (see SiteTitle
+   override), so hide the plugin's in-sidebar topic list there. On mobile the
+   sidebar list stays visible (it's the slide-out menu, where the navbar tabs
+   are hidden). */
+@media (min-width: 50rem) {
+  .starlight-sidebar-topics {
+    display: none;
+  }
+}
+
+/* Section landing hero: the logo acts as the page title (its alt text is the
+   title; the redundant text <h1> is suppressed in PageTitle.astro), followed by
+   a tagline and a badge row. */
+.sl-markdown-content .page-hero {
+  text-align: center;
+  margin: 0.5rem 0 2.5rem;
+}
+
+.sl-markdown-content .page-hero-logo {
+  display: inline-block;
+  max-width: 340px;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.sl-markdown-content .page-hero-tagline {
+  margin: 0.6rem 0 0;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--sl-color-gray-2);
+}
+
+/* Badge row: a tight, centered, horizontal strip. Starlight forces content
+   images/iframes to display:block (stacking them) and the body line-height
+   makes each one a tall box; flex layout plus a fixed badge height fixes both. */
+.sl-markdown-content .badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin: 1rem 0 0;
+}
+
+.sl-markdown-content .badges :is(a, img, iframe) {
+  display: inline-flex;
+  height: 20px;
+  margin: 0;
+  border: 0;
+}
+
+.sl-markdown-content .badges img {
+  width: auto;
+}
+
 /* Image utilities */
 .img-header {
   display: block;
@@ -181,6 +306,205 @@ blockquote {
 .hero img {
   max-width: 400px;
   width: 100%;
+}
+
+/* Homepage transition banner: announces the legacy -> v1 move */
+.home-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.5rem 0 2rem;
+  padding: 0.75rem 1.1rem;
+  border: 1px solid var(--sl-color-accent);
+  border-radius: 0.6rem;
+  background: var(--sl-color-accent-low);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.home-banner-tag {
+  flex-shrink: 0;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background: var(--sl-color-accent);
+  color: var(--sl-color-white);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.home-banner-text {
+  color: var(--sl-color-white);
+}
+
+.home-banner-text a {
+  color: var(--sl-color-text-accent);
+  font-weight: 600;
+}
+
+/* Homepage hero: centered wordmark logo + tagline + call-to-action buttons */
+/* Make the full-bleed hero run flush up to the nav. On the splash home page the
+   page title is suppressed, leaving an empty page-title content-panel above the
+   hero's panel; collapse that empty panel and zero the hero panel's top padding
+   so no space sits between the nav and the hero band. */
+.content-panel:has(+ .content-panel .hero) {
+  display: none;
+}
+.content-panel:has(.hero) {
+  padding-top: 0;
+}
+
+.hero {
+  /* break out of the centered content column to span the viewport */
+  margin-inline: calc(50% - 50vw);
+  margin-top: 0;
+  margin-bottom: 2.5rem;
+  padding: 4.5rem 1.5rem 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+  background: #16203a url('/img/genome-hero-photo.jpg') center / cover no-repeat;
+  border-bottom: 1px solid var(--sl-color-hairline-light);
+}
+
+.hero-logo {
+  max-width: 440px;
+  width: 100%;
+  height: auto;
+  /* render the green wordmark white, with a soft shadow so it stays legible
+     over the DNA background */
+  filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
+}
+
+.hero-tagline {
+  margin: 1.25rem 0 0;
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #fff;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.6rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 0.6rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
+}
+
+.hero-btn:hover {
+  transform: translateY(-2px);
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.hero-btn-primary {
+  background: #fff;
+  border-color: #fff;
+  color: #16203a;
+}
+
+.hero-btn-primary:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Homepage roadmap timeline */
+.timeline {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin: 2.5rem auto;
+  max-width: 640px;
+}
+
+.timeline-item {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem 0.5rem 0;
+}
+
+/* connecting line */
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  top: 1.9rem;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: var(--sl-color-gray-5);
+  z-index: 0;
+}
+
+.timeline-item:last-child::before {
+  display: none;
+}
+
+.timeline-dot {
+  position: relative;
+  z-index: 1;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 999px;
+  border: 2px solid var(--sl-color-gray-4);
+  background: var(--sl-color-bg);
+  margin-bottom: 0.6rem;
+}
+
+.timeline-item.is-done .timeline-dot {
+  border-color: var(--sl-color-text-accent);
+  background: var(--sl-color-text-accent);
+}
+
+.timeline-date {
+  font-weight: 700;
+  color: var(--sl-color-white);
+}
+
+.timeline-label {
+  font-size: 0.9rem;
+  color: var(--sl-color-gray-3);
+}
+
+@media screen and (max-width: 560px) {
+  .timeline {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+    max-width: 320px;
+  }
+  .timeline-item {
+    flex-direction: row;
+    gap: 0.75rem;
+    padding: 0;
+    text-align: left;
+  }
+  .timeline-item::before {
+    display: none;
+  }
+  .timeline-dot {
+    margin-bottom: 0;
+  }
 }
 
 /* Citations */

@@ -1,11 +1,11 @@
 
-# <img src="img/refgenie_logo.svg" class="img-header"> 
-<h1 align="center">reference genome manager</h1></p>
-
-<p align="center">
-
+<div class="page-hero">
+<img src="img/refgenie_logo.svg" alt="Refgenie" class="page-hero-logo" />
+<p class="page-hero-tagline">reference genome manager</p>
+<div class="badges">
 <a href="https://pepkit.github.io/img/PEP-compatible-green.svg"><img src="https://pepkit.github.io/img/PEP-compatible-green.svg"></a>
-</p>
+</div>
+</div>
 
 
 ## What is refgenie?
@@ -38,7 +38,7 @@ Refgenie is a Python package, install from [PyPi](https://pypi.org/project/refge
 pip install refgenie
 ```
 
-And that's it! If you wish to use refgenie in *remote mode*, see [further reading on remote mode in refgenie](../refgenie/remote.md).
+And that's it! If you wish to use refgenie in *remote mode*, see [further reading on remote mode in refgenie](remotes.md).
 
 If you're connected to the Internet, call a test command, e.g.:
 
@@ -126,7 +126,7 @@ refgenie seekr mm10/fasta.fai
 
 This will return the path to the particular remote file of interest, here: FASTA index file, which is a part of `mm10/fasta` asset.
 
-See [further reading on using refgenie in remote mode](../refgenie/remote.md).
+See [further reading on using refgenie in remote mode](remotes.md).
 
 ### Use refgenie from Python
 

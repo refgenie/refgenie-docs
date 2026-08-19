@@ -42,10 +42,10 @@ NOTEBOOK_OUTPUT_FILES = {
     'refget/using-services/seqcol-client.md',
     'refget/hosting-services/agent.md',
     'refgenie/notebooks/refgenie.md',
-    'legacy/refgenie/notebooks/tutorial.md',
-    'legacy/refgenie/notebooks/aliases.md',
-    'legacy/refgenie/notebooks/config_upgrade_03_to_04.md',
-    'legacy/refgenie/notebooks/refgenconf_usage.md',
+    'legacy/notebooks/tutorial.md',
+    'legacy/notebooks/aliases.md',
+    'legacy/notebooks/config_upgrade_03_to_04.md',
+    'legacy/notebooks/refgenconf_usage.md',
 }
 
 # Files whose content comes from .py scripts (handled by render_py_scripts.py)
@@ -206,19 +206,27 @@ def _strip_first_h1(text: str) -> str:
 
 
 def fix_image_paths(text: str, filepath: Path) -> str:
-    """Fix image paths for Starlight."""
-    rel = filepath.relative_to(DOCS_DIR)
-    tool = rel.parts[0] if rel.parts else ''
+    """Fix image paths for Starlight.
+
+    public/ mirrors the docs/ tree, and every `img/` folder sits beside the
+    pages that use it, so a relative reference (`img/...` or the MkDocs
+    directory-URL form `../img/...`) always resolves to the img/ directory next
+    to the file. The served prefix is therefore the file's own directory, which
+    keeps nested sections working (their images live beside the pages).
+    """
+    rel_dir = filepath.parent.relative_to(DOCS_DIR)
+    base = '/'.join(rel_dir.parts)
+    served_prefix = f'/{base}/img/' if base else '/img/'
 
     def _fix_md(m):
         prefix = m.group(1)
         filename_part = m.group(3)
-        return f'{prefix}/{tool}/img/{filename_part}'
+        return f'{prefix}{served_prefix}{filename_part}'
 
     def _fix_html(m):
         prefix = m.group(1)
         filename_part = m.group(3)
-        return f'{prefix}/{tool}/img/{filename_part}'
+        return f'{prefix}{served_prefix}{filename_part}'
 
     text = re.sub(r'(\!\[.*?\]\()((?:\.\./)*)?img/(.+?\))', _fix_md, text)
     text = re.sub(r'(src=")((?:\.\./)*)?img/(.+?")', _fix_html, text)
@@ -234,24 +242,19 @@ def fix_code_fences(text: str) -> str:
     return text
 
 
-def fix_internal_links(text: str) -> str:
-    """Rewrite MkDocs internal links for Starlight."""
-    # README.md -> index or / paths
-    text = re.sub(r'\]\((\.\./)*README\.md\)', '](/)', text)
-    text = re.sub(r'\]\(([^)]*)/README\.md\)', r'](/\1/)', text)
-    # .md extensions in relative links -> drop extension
-    text = re.sub(r'\]\(([^http][^)]*?)\.md\)', r'](\1/)', text)
-    return text
-
-
 def process_file(src: Path, dst: Path):
-    """Process and copy a single markdown file."""
+    """Process and copy a single markdown file.
+
+    Internal links are intentionally NOT rewritten here. That happens in a
+    single post-pass (scripts/fix_image_paths.py) over the final content tree,
+    so migrated, notebook-rendered, and .py-rendered pages are all handled
+    uniformly.
+    """
     text = src.read_text(errors='replace')
 
     text = convert_admonitions(text)
     text = fix_image_paths(text, src)
     text = fix_code_fences(text)
-    text = fix_internal_links(text)
     text = ensure_frontmatter(text, src)
 
     dst.parent.mkdir(parents=True, exist_ok=True)

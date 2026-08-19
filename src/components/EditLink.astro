@@ -1,0 +1,52 @@
+---
+// EditLink override: Starlight derives the edit URL from the generated content
+// file, but pages come from docs/ sources with different names (README.md for
+// section roots, .ipynb/.py for tutorials) and some pages are generated with no
+// source at all. Resolve the real source via the filesystem (cwd is the repo
+// root at build) and link to it, or render nothing when there's no source or on
+// splash pages.
+import { Icon } from '@astrojs/starlight/components';
+import config from 'virtual:starlight/user-config';
+import fs from 'node:fs';
+
+const route = Astro.locals.starlightRoute;
+const slug = route.slug;
+
+function resolveDocsSource(slug: string): string | null {
+  const candidates = !slug || slug === 'index'
+    ? ['README.md']
+    : [`${slug}/README.md`, `${slug}.md`, `${slug}.ipynb`, `${slug}.py`];
+  for (const c of candidates) {
+    if (fs.existsSync(`docs/${c}`)) return c;
+  }
+  return null;
+}
+
+const isSplash = route.entry.data.template === 'splash';
+const base = config.editLink?.baseUrl;
+const source = resolveDocsSource(slug);
+const editUrl = !isSplash && base && source ? base.replace(/\/$/, '') + '/' + source : null;
+---
+
+{
+  editUrl && (
+    <a href={editUrl} class="sl-flex print:hidden">
+      <Icon name="pencil" size="1.2em" />
+      Suggest edits to this page
+    </a>
+  )
+}
+
+<style>
+  @layer starlight.core {
+    a {
+      gap: 0.5rem;
+      align-items: center;
+      text-decoration: none;
+      color: var(--sl-color-gray-3);
+    }
+    a:hover {
+      color: var(--sl-color-white);
+    }
+  }
+</style>

@@ -1,12 +1,13 @@
 
-# <img src="img/refget_logo.svg" class="img-header" width="300"> 
-<h1 align="center" style="margin-bottom:0px">Python package</h1>
-
-<p align="center">
+<div class="page-hero">
+<img src="img/refget_logo.svg" alt="Refget" class="page-hero-logo" width="300" />
+<p class="page-hero-tagline">Python package</p>
+<div class="badges">
 <a href="https://pypi.org/project/refget/"><img src="https://img.shields.io/pypi/v/refget"></a>
 <a href="https://github.com/refgenie/refget"><img src="https://img.shields.io/badge/source-github-354a75?logo=github"></a>
 <iframe src="https://ghbtns.com/github-btn.html?user=refgenie&repo=refget&type=star&count=true" frameborder="0" scrolling="0" width="80" height="20" title="GitHub"></iframe>
-</p>
+</div>
+</div>
 
 ## The refget Python package
 

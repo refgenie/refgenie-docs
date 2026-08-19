@@ -21,10 +21,10 @@ NOTEBOOK_MAP = {
     # Refgenie notebook
     'refgenie/notebooks/refgenie.ipynb': 'refgenie/notebooks/refgenie.md',
     # Legacy notebooks
-    'legacy/refgenie/notebooks/tutorial.ipynb': 'legacy/refgenie/notebooks/tutorial.md',
-    'legacy/refgenie/notebooks/aliases.ipynb': 'legacy/refgenie/notebooks/aliases.md',
-    'legacy/refgenie/notebooks/config_upgrade_03_to_04.ipynb': 'legacy/refgenie/notebooks/config_upgrade_03_to_04.md',
-    'legacy/refgenie/notebooks/refgenconf_usage.ipynb': 'legacy/refgenie/notebooks/refgenconf_usage.md',
+    'legacy/notebooks/tutorial.ipynb': 'legacy/notebooks/tutorial.md',
+    'legacy/notebooks/aliases.ipynb': 'legacy/notebooks/aliases.md',
+    'legacy/notebooks/config_upgrade_03_to_04.ipynb': 'legacy/notebooks/config_upgrade_03_to_04.md',
+    'legacy/notebooks/refgenconf_usage.ipynb': 'legacy/notebooks/refgenconf_usage.md',
 }
 
 
