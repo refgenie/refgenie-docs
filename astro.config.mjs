@@ -36,6 +36,7 @@ export default defineConfig({
                   { label: 'What\'s new in v1', slug: 'refgenie/whats_new' },
                   { label: 'Overview', slug: 'refgenie/overview' },
                   { label: 'Install', slug: 'refgenie/install' },
+                  { label: 'Upgrade from legacy', slug: 'refgenie/upgrade' },
                   { label: 'Configure', slug: 'refgenie/configuration' },
                   { label: 'CLI tutorial', slug: 'refgenie/cli_tutorial' },
                   { label: 'Genome initialization', slug: 'refgenie/genome_tutorial' },

@@ -1,6 +1,6 @@
 # What's new in refgenie 1.0
 
-Refgenie 1.0 is a ground-up rewrite that replaces the three legacy packages (refgenie, refgenconf, refgenieserver) with a single unified package. It is a fresh install, not an upgrade from the legacy version.
+Refgenie 1.0 is a ground-up rewrite that replaces the three legacy packages (refgenie, refgenconf, refgenieserver) with a single unified package. It installs as a new package rather than an in-place upgrade of the legacy tools, but existing legacy (v0.3/v0.4) installs can be migrated automatically -- see [Upgrading from legacy](upgrade.md).
 
 ## Unified package
 
@@ -66,4 +66,11 @@ See [Manage aliases](alias.md).
 
 ## Migration from legacy
 
-Refgenie 1.0 is a fresh install. There is no automated migration path from legacy refgenie. If you have existing assets managed by legacy refgenie, you will need to rebuild or re-pull them under the new system.
+You do not have to rebuild everything. Legacy v0.3/v0.4 installs can be migrated automatically with the [`refgenie-upgrade`](upgrade.md) tool, which reads your legacy `genome_config.yaml`, resolves genome digests to GA4GH format, and registers your existing assets in a fresh refgenie1 database:
+
+```bash
+pip install refgenie-upgrade
+refgenie-upgrade /path/to/genome_config.yaml
+```
+
+See [Upgrading from legacy](upgrade.md) for the full walkthrough.

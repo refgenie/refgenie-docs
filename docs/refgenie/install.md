@@ -42,6 +42,17 @@ To install from a local clone for development:
 pip install -e ".[dash]"
 ```
 
+## Upgrading from legacy refgenie
+
+If you are migrating from legacy refgenie (v0.3/v0.4), you do not need to rebuild your assets. After installing, use the `refgenie-upgrade` tool to migrate your existing data and configuration:
+
+```bash
+pip install refgenie-upgrade
+refgenie-upgrade /path/to/genome_config.yaml
+```
+
+See the [upgrade tutorial](upgrade.md) for the full walkthrough.
+
 ## Next steps
 
 Configure refgenie!
