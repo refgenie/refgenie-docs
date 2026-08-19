@@ -64,7 +64,8 @@ export default defineConfig({
                   { label: 'Run a server', slug: 'refgenie/server_tutorial' },
                   { label: 'Use the dashboard', slug: 'refgenie/dash' },
                   { label: 'Connect the web UI to your local refgenie', slug: 'refgenie/bridge' },
-                  { label: 'Use refgenie with AI (MCP)', slug: 'refgenie/mcp' },
+                  { label: 'Use refgenie with AI', slug: 'refgenie/use_with_ai' },
+                  { label: 'Connect AI assistants (MCP)', slug: 'refgenie/mcp' },
                 ],
               },
               {
