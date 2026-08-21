@@ -101,11 +101,11 @@ For production deployments you may want to use a different database backend, suc
 
 ### Refgenieserver client
 
-Similarly, refgenie ships with a Refgenieserver client, which is used by default to retrieve remote genome assets and does not need to be replaced in majority of use cases. However, you can provide a custom URL-client mapping to `Refgenie` constructor, by setting the `server_client_mapping` argument. Please note that, the clients need to follow a specific interface, defined in `refgenie.server.ServerClient` protocol. More details below.
+Similarly, refgenie ships with a Refgenieserver client, which is used by default to retrieve remote genome assets and does not need to be replaced in majority of use cases. However, you can provide a custom URL-client mapping to `Refgenie` constructor, by setting the `server_clients_mapping` argument. Please note that, the clients need to follow a specific interface, defined in the `refgenie.managers.sources.ServerClient` protocol. More details below.
 
 
 ```python
-from refgenie.server.models import ServerClient
+from refgenie.managers.sources import ServerClient
 from rich import inspect
 
 inspect(
@@ -369,7 +369,7 @@ As you can see above, the genome has been initialized and `fasta` asset was pull
 
 
 ```python
-print(refgenie.genomes_table())
+print(refgenie.genome.table())
 ```
 
 
@@ -3300,7 +3300,7 @@ Let's list the assets for the genome `t7` to verify that the `bowtie2_index` ass
 
 
 ```python
-refgenie.assets_table(genome_names=["t7"])[0]
+refgenie.asset.table(genome_names=["t7"])[0]
 ```
 
 
@@ -3322,7 +3322,7 @@ One of the assets was also archived (a neccessary step to serve the assets via t
 
 
 ```python
-print(refgenie.archive.table())
+print(refgenie.stage.table())
 ```
 
 
@@ -3345,7 +3345,7 @@ Let's list the aliases:
 
 
 ```python
-refgenie.aliases_table()
+refgenie.alias.table()
 ```
 
 
@@ -3410,7 +3410,7 @@ The new alias should be listed in the aliases:
 
 
 ```python
-refgenie.aliases_table()
+refgenie.alias.table()
 ```
 
 
@@ -3434,7 +3434,7 @@ Conversely, alias removal will remove the symbolic links, but not the files in t
 
 
 ```python
-refgenie.remove_alias("myFavGenome")
+refgenie.alias.remove("myFavGenome")
 ```
 
 
@@ -3458,9 +3458,9 @@ All below commands will return the same path to the fasta file managed by Refgen
 
 
 ```python
-print(refgenie.seek("t7", "fasta"))
-print(refgenie.seek("Bacteriophage-T7", "fasta", "samtools-1.21"))
-print(refgenie.seek("t7", "fasta", "samtools-1.21", "fasta"))
+print(refgenie.asset.seek("t7", "fasta"))
+print(refgenie.asset.seek("Bacteriophage-T7", "fasta", "samtools-1.21"))
+print(refgenie.asset.seek("t7", "fasta", "samtools-1.21", "fasta"))
 ```
 
 
@@ -3490,9 +3490,7 @@ Let's remove the `bowtie2_index` asset for the `dm6` genome.
 
 
 ```python
-refgenie.remove_asset_group(
-    genome_name="t7", asset_group_name="bowtie2_index", force=True
-)
+refgenie.asset.remove_group("bowtie2_index", genome_name="t7")
 ```
 
 
@@ -3539,14 +3537,14 @@ One such example is the [refgenie/recipes](https://github.com/refgenie/recipes/b
 
 
 ```python
-data_channel = refgenie.data_channel.add(
+data_channel = refgenie.sources.add_channel(
     name="refgenie-recipes",
     type="http",
     index_address="https://refgenie.github.io/recipes/index.yaml",
     description="Refgenie recipes channel",
 )
 
-print(refgenie.data_channel.table())
+print(refgenie.sources.channels_table())
 ```
 
 
@@ -3564,13 +3562,13 @@ Subsequently, the asset classes and recipes from the data channel can be listed 
 
 
 ```python
-for asset_class in refgenie.data_channel.iter_asset_classes("refgenie-recipes"):
+for asset_class in refgenie.sources.iter_asset_classes("refgenie-recipes"):
     try:
         refgenie.asset_class.add(asset_class)
     except Exception as e:
         print(e)
 
-for recipe in refgenie.data_channel.iter_recipes("refgenie-recipes"):
+for recipe in refgenie.sources.iter_recipes("refgenie-recipes"):
     try:
         refgenie.recipe.add(recipe)
     except Exception as e:
@@ -3940,13 +3938,17 @@ Under the hood, refgenie uses the `SeqCol` digests to uniquely identify genomes.
 
 
 ```python
-d1 = refgenie.refget_db_agent.seqcol.add_from_fasta_file(
-    "/Users/stolarczyk/code/refgenie1/tests/data/rCRSd.fa"
-).digest
-d2 = refgenie.refget_db_agent.seqcol.add_from_fasta_file(
-    "/Users/stolarczyk/code/refgenie1/tests/data/rCRSd-extra.fa"
-).digest
-refgenie.refget_db_agent.compare_digests(d1, d2)
+from gtars.refget import RefgetStore
+
+store = RefgetStore.in_memory()
+store.set_quiet(True)
+d1, _ = store.add_sequence_collection_from_fasta(
+    REFGENIE_CODE_PATH.parent / "tests/data/rCRSd.fa"
+)
+d2, _ = store.add_sequence_collection_from_fasta(
+    REFGENIE_CODE_PATH.parent / "tests/data/rCRSd-extra.fa"
+)
+store.compare(d1.digest, d2.digest)
 ```
 
 

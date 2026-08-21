@@ -50,10 +50,10 @@ If you're interested in using refgenie in conjunction with [looper](https://loop
 
 ```yaml
 var_templates:
-  refgenie_config: "$REFGENIE"
+  refgenie_db_config: "$REFGENIE_DB_CONFIG_PATH"
 pre_submit:
   python_functions:
-  - refgenconf.looper_refgenie_populate
+  - refgenie.populator.looper_refgenie_populate_local
 ```
 
 Now, just add sample attributes in your sample take with refgenie registry paths, like `refgenie://hg38/fasta`. You can add these either as sample attributes directly in the sample table, or using a [derived attribute](http://pep.databio.org/en/latest/specification/#sample-modifier-derive). Looper will automatically use refgenie to pre-populate the registry paths into correct local paths before submitting the jobs.

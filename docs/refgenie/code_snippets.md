@@ -4,11 +4,16 @@ The code snippets below can be used in your pipeline to **assert the existence o
 
 Refgenie checks if the asset is available locally and tries pull it from the server if it's not.
 
-_The only_ step that needs to precede the execution of these functions is refgenie genome configuration file initialization:
+_The only_ step that needs to precede the execution of these functions is initializing refgenie's database configuration:
 
 ```console
-export REFGNEIE=refgenie_config.yaml
-refgenie init -c $REFGENIE
+refgenie init
+```
+
+By default this creates a local SQLite database. To use a specific configuration file, set the `REFGENIE_DB_CONFIG_PATH` environment variable to its path:
+
+```console
+export REFGENIE_DB_CONFIG_PATH=/path/to/refgenie_db_config.yaml
 ```
 
 ## Bash
@@ -34,13 +39,13 @@ assert_refgenie_asset_exists(){
     fi
 
     # check if refgenie env var is defined
-    if [ -z "$REFGENIE" ]
+    if [ -z "$REFGENIE_DB_CONFIG_PATH" ]
     then
         echo -e "${RED}refgenie env var not defined."
-        echo -e "Run 'export REFGENIE=<path to refgenie config>' to set the env var.${NC}"
+        echo -e "Run 'export REFGENIE_DB_CONFIG_PATH=<path to refgenie db config>' to set the env var.${NC}"
         exit 1
     else
-        echo -e "${GREEN}refgenie env var defined: $REFGENIE${NC}"
+        echo -e "${GREEN}refgenie env var defined: $REFGENIE_DB_CONFIG_PATH${NC}"
     fi
 
     # check if asset is available locally
@@ -74,34 +79,36 @@ assert_refgenie_asset_exists(){
 from refgenie import Refgenie
 
 def assert_refgenie_asset_exists(
-    genome, asset_group, asset=None, seek_key=None
+    genome, asset_group, asset=None, seek_key=None, refgenie_config=None
 ):
-    # instantiate Refgenie object
-    rg = Refgenie(config=refgenie_config)
+    # instantiate Refgenie object (defaults to the local database if config is None)
+    rg = Refgenie(database_config_path=refgenie_config)
 
-    # get tag of interest, provided vs. default
-    asset = asset if asset is not None else rg.get_default_asset(genome=genome, asset_group=asset_group)
+    # get the asset (tag) of interest, provided vs. default
+    asset = asset if asset is not None else rg.asset.get_default(asset_group, genome_name=genome)
 
-    # list assets available locally
-    list_result = rg.list()
-
-    # check whether the asset of interest is missing
-    if genome not in list_result.keys() or asset not in list_result[genome]:
+    # check whether the asset group is missing locally
+    if not rg.asset.group_exists(asset_group, genome_name=genome):
         # pull asset if missing
-        print(f"{genome}/{asset} not found, pulling...")
+        print(f"{genome}/{asset_group} not found, pulling...")
         try:
-            rg.pull(genome=genome, asset_group=asset_group, asset=asset)
+            rg.pull(asset_group_name=asset_group, alias_name=genome, asset_name=asset)
         except Exception as e:
-            print(f"Pull failed")
+            print("Pull failed")
             raise
 
     # get the local path to the asset of interest
-    rgc.seek(genome=genome, asset_group=asset_group, asset=asset, seek_key=seek_key)
+    return rg.asset.seek(
+        genome_name=genome,
+        asset_group_name=asset_group,
+        asset_name=asset,
+        seek_key_name=seek_key,
+    )
 
 
 # Run like this: assert_refgenie_asset_exists(
 #     genome="hg38",
-#     asset="fasta",
+#     asset_group="fasta",
 # )
 ```
 
@@ -109,7 +116,7 @@ def assert_refgenie_asset_exists(
 
 **Requirements:**
 
-* Python package `refgenconf`
+* Python package `refgenie`
 * R package `reticulate`
 
 
@@ -118,59 +125,53 @@ library('reticulate')
 
 assertRefgenieAssetExists <-
   function(genome,
-           asset,
-           tag = NULL,
+           assetGroup,
+           asset = NULL,
            seek_key = NULL,
            refgenieConfig = NULL) {
 
     # import Python module
-    refgenconf = reticulate::import("refgenconf", convert = FALSE)
+    refgenie = reticulate::import("refgenie", convert = FALSE)
 
-    # determine refgenie config path, provided vs. read from env
+    # determine refgenie db config path, provided vs. read from env
     refgenieConfig = ifelse(is.null(refgenieConfig),
-                            Sys.getenv("REFGENIE"),
+                            Sys.getenv("REFGENIE_DB_CONFIG_PATH"),
                             refgenieConfig)
 
-    # instantiate Python RefGenConf object
-    rgc = refgenconf$RefGenConf(filepath = refgenieConfig)
+    # instantiate Python Refgenie object
+    rgc = refgenie$Refgenie(database_config_path = refgenieConfig)
 
-    # get tag of interest, provided vs. default
-    tag = ifelse(is.null(tag),
-                 py_to_r(rgc$get_default_tag(genome = genome, asset = asset)),
-                 tag)
+    # get the asset (tag) of interest, provided vs. default
+    asset = ifelse(is.null(asset),
+                   py_to_r(rgc$asset$get_default(assetGroup, genome_name = genome)),
+                   asset)
 
     # string together the final asset registry path, for logging
-    assetRegistryPath = paste0(genome, "/" , asset, ":",  tag)
+    assetRegistryPath = paste0(genome, "/" , assetGroup, ":",  asset)
 
-    # list assets available locally
-    listResult = py_to_r(rgc$list())
-
-    # check whether the asset of interest is missing
-    if (is.null(listResult[[genome]]) |
-        !any(listResult[[genome]] == asset)) {
+    # check whether the asset group is missing locally
+    if (!py_to_r(rgc$asset$group_exists(assetGroup, genome_name = genome))) {
       # pull asset if missing
       message(paste0(assetRegistryPath, " not found, pulling..."))
       pullResult = py_to_r(rgc$pull(
-        genome = genome,
-        asset = asset,
-        tag = tag,
-        force = TRUE,
-        force_large = TRUE
+        asset_group_name = assetGroup,
+        alias_name = genome,
+        asset_name = asset
       ))
     }
 
     # get the local path to the asset of interest
-    seekResult = rgc$seek(
+    seekResult = rgc$asset$seek(
       genome_name = genome,
+      asset_group_name = assetGroup,
       asset_name = asset,
-      tag_name = tag,
-      seek_key = seek_key
+      seek_key_name = seek_key
     )
   }
 
 
 # Run like this: assertRefgenieAssetExists(
 #     genome="hg38",
-#     asset="fasta",
+#     assetGroup="fasta",
 # )
 ```

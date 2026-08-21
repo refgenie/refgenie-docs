@@ -22,7 +22,7 @@ Refgenie manages storage, access, and transfer of reference genome resources. It
 
 4. **It provides remote operation mode**, useful for cloud applications. Get a path to an asset file hosted on AWS S3: `refgenie seekr hg38/fasta --remote-class s3`.
 
-5. **It includes a Python API**. For tool developers, you use `from refgenie import Refgenie` to get a Python object with paths to any genome asset, *e.g.*, `rgc = Refgenie(); rgc.seek("hg38", "kallisto_index")`.
+5. **It includes a Python API**. For tool developers, you use `from refgenie import Refgenie` to get a Python object with paths to any genome asset, *e.g.*, `rgc = Refgenie(); rgc.asset.seek("hg38", "kallisto_index")`.
 
 6. **It strictly determines genomes compatibility**. Users refer to genomes with arbitrary aliases, like "hg38", but refgenie uses sequence-derived identifiers to verify genome identity with asset servers.
 
@@ -134,7 +134,7 @@ See [further reading on using refgenie in remote mode](remotes.md).
 from refgenie import Refgenie
 
 rgc = Refgenie()
-rgc.seek("hg38", "bowtie2_index")
+rgc.asset.seek("hg38", "bowtie2_index")
 ```
 
 The `Refgenie` object connects to the configured database and provides the same functionality as the CLI. See [the Refgenie Python object](refgenie_object.md) for details.

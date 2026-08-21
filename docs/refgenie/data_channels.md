@@ -98,7 +98,7 @@ from refgenie import Refgenie
 refgenie = Refgenie()
 
 # Add a data channel
-refgenie.data_channel.add(
+refgenie.sources.add_channel(
     name="my-channel",
     type="http",
     index_address="https://refgenie.github.io/recipes/index.yaml",
@@ -106,9 +106,9 @@ refgenie.data_channel.add(
 )
 
 # List asset classes and recipes from the channel
-for asset_class in refgenie.data_channel.iter_asset_classes("my-channel"):
+for asset_class in refgenie.sources.iter_asset_classes("my-channel"):
     refgenie.asset_class.add(asset_class)
-for recipe in refgenie.data_channel.iter_recipes("my-channel"):
+for recipe in refgenie.sources.iter_recipes("my-channel"):
     refgenie.recipe.add(recipe)
 ```
 
