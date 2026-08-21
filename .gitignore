@@ -17,3 +17,6 @@ public/img/biocrefgetstore/
 
 # Python
 __pycache__/
+
+# Wrangler
+.wrangler/

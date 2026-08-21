@@ -1,13 +1,14 @@
 #!/bin/bash
-# Local publish for refgenie.org.
+# Local publish for docs.refgenie.org.
 #
 # Why this exists: the site content under src/content/docs/ is generated at
 # build time (it is gitignored), and the BiocRefgetStore R vignettes are rendered
 # via `bulker` (scripts/render_r_vignettes.R). GitHub Actions does NOT have
-# bulker, so the CI publish (.github/workflows/publish.yaml) SKIPs the R render
+# bulker, so the CI publish (.github/workflows/deploy.yaml) SKIPs the R render
 # and ships a site missing the BiocRefgetStore pages. Run THIS script locally,
 # where bulker is available, to render everything, build the Astro site, and
-# deploy dist/ to the gh-pages branch that serves refgenie.org.
+# deploy dist/ to the `refgenie-docs` Cloudflare Worker that serves
+# docs.refgenie.org.
 #
 # Usage:
 #   bash scripts/publish.sh
@@ -16,7 +17,7 @@
 #   - node deps installed (npm ci)
 #   - Python deps for the prebuild renders (pip install nbconvert griffe refget)
 #   - bulker + the databio/nsheff crate (for the R vignettes)
-#   - push access to the gh-pages branch
+#   - a logged-in wrangler (`npx wrangler login`) with deploy rights
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -37,19 +38,11 @@ echo "=== Generate content + build the site ==="
 # `astro build`, emitting the finished site to dist/.
 npm run build
 
-# GitHub Pages runs Jekyll by default, which strips directories beginning with an
-# underscore (Astro emits _astro/). .nojekyll disables that so assets are served.
-touch dist/.nojekyll
+echo ""
+echo "=== Deploy dist/ to the refgenie-docs Worker (serves docs.refgenie.org) ==="
+# wrangler.toml points [assets] at ./dist; the deploy replaces the whole
+# asset set, so whatever is in dist/ becomes the live site.
+npx --yes wrangler deploy
 
 echo ""
-echo "=== Deploy dist/ to the gh-pages branch (serves refgenie.org) ==="
-# --dotfiles ensures .nojekyll (and any other dotfiles) are published; the
-# refgenie.org CNAME is a regular file copied from public/CNAME by Astro.
-npx --yes gh-pages \
-  --dotfiles \
-  --dist dist \
-  --branch gh-pages \
-  --message "Publish docs ($(git rev-parse --short HEAD))"
-
-echo ""
-echo "=== Published. refgenie.org updates once GitHub Pages propagates. ==="
+echo "=== Published. docs.refgenie.org updates within seconds. ==="

@@ -3,6 +3,12 @@
 **Date:** 2026-08-12
 **Status:** Accepted
 
+> **Note (2026-08-20):** the hostnames below reflect the layout at the time of
+> the decision. The public UI has since moved to the apex `refgenie.org`
+> (`ui.refgenie.org` now redirects there) and the docs to
+> `docs.refgenie.org`. The decision itself is unchanged: the UI origin is
+> allowlisted for the bridge, the docs origin is not.
+
 ## Context
 
 The public catalog UI (https://ui.refgenie.org) and a user's local
@@ -64,8 +70,8 @@ the UI can render it verbatim.
 
 **Rationale.** `read` gives the feature its no-friction first-run experience
 while confining exposure to origins the user already trusts enough to visit
-(the origin allowlist defaults to `https://ui.refgenie.org` only —
-`https://refgenie.org` is the docs site and is deliberately not allowlisted).
+(the origin allowlist defaults to the deployed UI origins only — the docs
+site is deliberately not allowlisted).
 `full` being opt-in means no web page can talk a user into a
 state-changing configuration.
 

@@ -32,7 +32,7 @@ Refgenie is backed by a database (SQLite by default, PostgreSQL for scale) and
 identifies genomes by **sequence-derived GA4GH digests**, not just arbitrary
 names like "hg38", so genome identity is verifiable.
 
-Full documentation: <https://refgenie.org>
+Full documentation: <https://docs.refgenie.org>
 
 ---
 
@@ -257,7 +257,7 @@ refgenie dash           # start the local dashboard UI for browsing assets
 Install extras when needed: `pip install "refgenie1[dash]"` or
 `pip install "refgenie1[server]"`.
 
-See <https://refgenie.org/refgenie/building_tutorial> for the full
+See <https://docs.refgenie.org/refgenie/building_tutorial> for the full
 build → stage → serve → push lifecycle.
 
 ---
@@ -282,9 +282,9 @@ Every command supports `--help`. Start with `refgenie --help`.
 
 ## Where to read more
 
-- Getting started / CLI tutorial: <https://refgenie.org/refgenie/cli_tutorial>
-- Genomes and the RefgetStore: <https://refgenie.org/refgenie/genome_tutorial>
-- Connecting AI assistants (MCP): <https://refgenie.org/refgenie/mcp>
-- Building & serving: <https://refgenie.org/refgenie/building_tutorial>
-- Refget Python package (sequences & seqcol): <https://refgenie.org/refget>
+- Getting started / CLI tutorial: <https://docs.refgenie.org/refgenie/cli_tutorial>
+- Genomes and the RefgetStore: <https://docs.refgenie.org/refgenie/genome_tutorial>
+- Connecting AI assistants (MCP): <https://docs.refgenie.org/refgenie/mcp>
+- Building & serving: <https://docs.refgenie.org/refgenie/building_tutorial>
+- Refget Python package (sequences & seqcol): <https://docs.refgenie.org/refget>
 - Source: <https://github.com/refgenie/refgenie1>

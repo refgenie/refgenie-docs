@@ -15,7 +15,7 @@ you can use either or both:
 
 Refgenie publishes a single self-contained instruction file for AI agents at:
 
-**<https://refgenie.org/SKILL.md>**
+**<https://docs.refgenie.org/SKILL.md>**
 
 It teaches an assistant the refgenie commands and concepts it needs — how to
 `pull`, `build`, `seek`, initialize genomes, retrieve sequences, and use the
@@ -27,13 +27,13 @@ just direct the assistant to read it.
 With any assistant that can fetch a URL or run shell commands, give an
 instruction like:
 
-> Read https://refgenie.org/SKILL.md, then use refgenie to download the bowtie2
+> Read https://docs.refgenie.org/SKILL.md, then use refgenie to download the bowtie2
 > index for hg38 and give me the path.
 
-> Following https://refgenie.org/SKILL.md, initialize my custom genome from
+> Following https://docs.refgenie.org/SKILL.md, initialize my custom genome from
 > `~/data/mygenome.fa.gz` and build its FASTA and bwa indexes.
 
-> Use refgenie (see https://refgenie.org/SKILL.md) to add the correct genome
+> Use refgenie (see https://docs.refgenie.org/SKILL.md) to add the correct genome
 > asset paths to this alignment script instead of the hardcoded ones.
 
 The assistant reads the page, learns the commands, and runs them for you.
@@ -44,7 +44,7 @@ The assistant reads the page, learns the commands, and runs them for you.
     assistant picks it up automatically:
 
     ```bash
-    curl -o SKILL.md https://refgenie.org/SKILL.md
+    curl -o SKILL.md https://docs.refgenie.org/SKILL.md
     ```
 
     Coding assistants that read repository context will find and follow it
@@ -99,6 +99,6 @@ your database, and hand it the skill file so it knows how to *act* on it.
 
 ## See also
 
-- [The refgenie skill file](https://refgenie.org/SKILL.md) — the instruction page for AI agents
+- [The refgenie skill file](https://docs.refgenie.org/SKILL.md) — the instruction page for AI agents
 - [Connect AI assistants (MCP)](mcp.md) — full MCP setup and tool reference
 - [CLI tutorial](cli_tutorial.md) — the commands the assistant runs, explained for humans

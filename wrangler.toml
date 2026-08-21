@@ -1,0 +1,7 @@
+name = "refgenie-docs"
+compatibility_date = "2025-05-30"
+
+[assets]
+directory = "./dist"
+# Starlight emits a real dist/404.html; do NOT use SPA fallback here.
+not_found_handling = "404-page"

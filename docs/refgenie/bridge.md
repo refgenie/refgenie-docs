@@ -1,6 +1,6 @@
 # Connect the public web UI to your local refgenie
 
-The public refgenie web UI at <https://ui.refgenie.org> can connect to a
+The public refgenie web UI at <https://refgenie.org> can connect to a
 `refgenie dash` running on your own computer. When connected, the page shows
 which catalog assets you already have on disk ("Local" badges), lets you
 browse your local genomes, and can hand a pull directly to your local
@@ -16,7 +16,7 @@ browser, and no data about your local instance is sent anywhere else.
 
         refgenie dash
 
-2. Open <https://ui.refgenie.org>, and click **Connect local refgenie** (in
+2. Open <https://refgenie.org>, and click **Connect local refgenie** (in
    the sidebar, or the card on the Genomes page).
 3. Confirm the port (default `8080`, matching `refgenie dash`) and click
    **Connect**.
@@ -55,7 +55,7 @@ links you there instead.
 Related settings:
 
 - `REFGENIE_BRIDGE_ORIGINS` — comma-separated origins allowed to connect
-  (default `https://ui.refgenie.org`).
+  (default `https://refgenie.org,https://ui.refgenie.org`).
 - `REFGENIE_BRIDGE_ORIGIN_REGEX` — optional regex for extra origins (for UI
   development and preview deployments). **A careless regex here disables the
   origin allowlist entirely** — leave it unset unless you know why you need

@@ -3,7 +3,7 @@ import starlight from '@astrojs/starlight';
 import starlightSidebarTopics from 'starlight-sidebar-topics';
 
 export default defineConfig({
-  site: 'https://refgenie.org',
+  site: 'https://docs.refgenie.org',
   integrations: [
     starlight({
       title: 'Refgenie',
