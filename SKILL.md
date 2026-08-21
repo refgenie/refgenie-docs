@@ -119,7 +119,7 @@ below.
 refgenie init
 
 # 2. Subscribe to a server that hosts pre-built assets
-refgenie subscribe http://refgenomes.databio.org
+refgenie subscribe -s https://api.refgenie.org
 
 # 3. Browse what's available (filter with -g GENOME)
 refgenie listr
@@ -226,7 +226,7 @@ The `Refgenie` object mirrors the CLI against the configured database:
 from refgenie import Refgenie
 
 rgc = Refgenie()
-rgc.seek("hg38", "bowtie2_index")     # local path to an asset
+rgc.asset.seek("hg38", "bowtie2_index")     # local path to an asset
 ```
 
 ---
