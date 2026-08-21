@@ -16,4 +16,4 @@ refgenie add hg38/manual_anno --path annotation_folder_dir --asset-class manual_
 
 > Note: specified asset class needs to exist prior to adding the asset.
 
-Now, you can access this asset with `refgenie` the same way you do all other assets... `refgenie list` will include it, `refgenie seek -g hg38 -a manual_anno` will retrieve the path, and from within python, `Refgenie.seek('hg38', 'manual_anno')` will also work. The advantage of doing this is that it lets you include *all* your genome-associated resources, including manual ones, within the same framework.
+Now, you can access this asset with `refgenie` the same way you do all other assets... `refgenie list` will include it, `refgenie seek -g hg38 -a manual_anno` will retrieve the path, and from within python, `Refgenie().asset.seek('hg38', 'manual_anno')` will also work. The advantage of doing this is that it lets you include *all* your genome-associated resources, including manual ones, within the same framework.

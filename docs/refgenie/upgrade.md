@@ -25,6 +25,8 @@ Install the upgrade tool:
 pip install refgenie-upgrade
 ```
 
+Because refgenie 1.0 is an alpha, install the prerelease first: `pip install --pre refgenie` (see the [install page](install.md)).
+
 ## Which path is yours?
 
 **Path A: You built assets locally.** You ran `refgenie build`, have FASTA files on disk, or created custom assets. Follow the full upgrade below.
@@ -146,7 +148,7 @@ If you only pulled pre-built assets and have no local FASTAs, start fresh instea
 ```bash
 pip install refgenie1
 refgenie1 init
-refgenie1 subscribe http://refgenomes.databio.org
+refgenie1 subscribe -s https://api.refgenie.org
 refgenie1 pull hg38/fasta
 ```
 
