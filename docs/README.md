@@ -31,11 +31,13 @@ fetch('https://stats.databio.org/stats/aws/summary.json')
 
 ## What's new
 
-- **Database-backed storage** — SQLite by default, PostgreSQL for scale. No more flat YAML config files.
-- **Built-in server** — Serve your assets over HTTP without a separate package.
-- **Sequence-derived genome identifiers** — GA4GH-compatible digests replace arbitrary genome names.
-- **Remote operation mode** — Use `seekr` to access assets on S3 or other cloud storage.
-- **Improved CLI** — Rich terminal output with better feedback and discoverability.
+- **Custom recipes and assets** — Define your own recipes and asset classes and publish them as a data channel on any web host, no changes to core refgenie required. Previously these were hardcoded in the codebase.
+- **Cloud-friendly asset retrieval** — Pull individual asset files directly from their own URLs, including straight from cloud storage, instead of downloading a whole `.tgz` archive to get one file.
+- **Upgraded genome identifiers** — Genomes and sequences are identified by their GA4GH content digest, with human-readable aliases like `hg38` on top. Identity is reproducible and identical sequences are stored only once.
+- **Local dashboard** — Run `refgenie dash` to browse your genomes, aliases, and assets (including remote assets from subscribed servers) in a local web app, no server to deploy.
+- **AI-assistant access** — Point Claude at refgenie's built-in MCP server and ask about your assets in plain language; it reads your local database, read-only.
+- **Standards-based interoperability** — Fetch assets through standard GA4GH DRS endpoints, so any DRS-aware workflow tool can consume them directly.
+- **Direct sequence retrieval** — Pull a sequence or subsequence straight out of the store with `refgenie getseq`, no FASTA file on disk required.
 
 ## Quick start
 
