@@ -30,8 +30,8 @@ from refget.store import RefgetStore
 store = RefgetStore.open_local("/path/to/store")
 
 info = store.stats()
-print(info["n_sequences"], info["n_sequences_loaded"])
-print(info["n_collections"], info["n_collections_loaded"])
+print(info["n_sequences"], info["n_sequences_in_memory"])
+print(info["n_collections"], info["n_collections_in_memory"])
 
 record = store.get_sequence("2i7v3vX9EDUnPWlkZMxaMFI2P0hDMOFC")
 print(record.is_loaded)
@@ -43,12 +43,15 @@ Note that `is_loaded` reports whether the record holds bytes in memory, not whet
 
 For a local store, the index files are already on disk and reading them is cheap, so both are parsed at open time. For a remote store the same files must be fetched over the network, and the sequence index is by far the larger of the two: `sequences.rgsi` carries one line per sequence, which reaches tens of megabytes for a store holding thousands of assemblies.
 
-Opening a remote store therefore fetches only:
+`open_remote()` re-fetches `rgstore.json` on every call, so it always sees the current manifest even if a local cache from an earlier session already exists. It keeps a per-origin cache directory (keyed off the remote URL) under `<store>/.remote_cache/<hash>/`, marked with a `.origin` file so a cache can't accidentally be reused against a different remote. Opening a remote store fetches, up front:
 
-- `rgstore.json`, the manifest
+- `rgstore.json`, the refreshed manifest
 - `collections.rgci`, the collection index, which yields one Stub collection record per collection
+- every sequence and collection alias namespace the manifest declares (`aliases/sequences/<ns>.tsv`, `aliases/collections/<ns>.tsv`); a namespace the manifest advertises but the remote can't actually serve is an error, not a silent skip
 
-`sequences.rgsi` is left alone. It is downloaded the first time a sequence is actually requested. Until then the store knows every collection that exists, can list and filter them, and can serve level 1 attribute digests, all without having transferred a sequence index or a single base.
+`sequences.rgsi` is left alone. It is downloaded the first time a sequence-level operation actually needs it -- either a whole-sequence read (`load_sequence`, `get_sequence_by_name`, ...), which also caches the sequence, or a substring read. Until then the store knows every collection that exists, can list and filter them, and can serve level 1 attribute digests, all without having transferred a sequence index or a single base.
+
+Because the manifest is refreshed on every open, the cache is also where changes get reconciled: if the collection index, sequence index, alias, or FHR digest recorded in the new manifest differs from what the cache last saw, the corresponding cached index/artifact is invalidated and re-fetched. Cached `.seq` sequence payloads are left alone by this invalidation -- content-addressed by digest, they don't go stale.
 
 ```python
 from refget.store import RefgetStore
@@ -86,7 +89,7 @@ Lazy loading is a property of `RefgetStore`, the mutable wrapper type. Promoting
 
 `ReadonlyRefgetStore`, the variant intended for concurrent serving, does not lazy-load: its read methods borrow immutably and therefore cannot promote a record. Data must be preloaded before conversion. See [The readonly store and concurrent access](readonly-store-explained.md) for what to preload and why.
 
-One exception is worth knowing. Substring retrieval against a **local disk-backed** store reads only the bytes covering the requested range directly from the `.seq` file, without promoting the record. A Stub is enough for `get_substring` and `get_substrings` in that case. Against a remote-only sequence, those methods raise rather than silently downloading a whole chromosome. The [retrieval flows reference](reference/refgetstore-retrieval-flows.md) covers the trade-offs between partial reads, streaming, and full loads.
+One exception is worth knowing. Substring retrieval (`get_substring`, `get_substrings`) never needs to promote a Stub to Full: it resolves its bytes as resident -> local `.seq` -> remote HTTP byte-range, reading only the span it needs at each step. Against a **local disk-backed** store this means a positioned read of just the covering bytes from the `.seq` file. Against a **remote-only** sequence it means an HTTP `Range:` request for just the covering bytes -- not a download of the whole chromosome, and not a promotion to Full, so `n_sequences_in_memory` does not change. The [retrieval flows reference](reference/refgetstore-retrieval-flows.md) covers the trade-offs between partial reads, streaming, and full loads.
 
 ## Related reading
 

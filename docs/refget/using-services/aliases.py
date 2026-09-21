@@ -148,11 +148,12 @@ for namespace, alias in aliases:
 store.add_collection_alias("ncbi", "GRCh38", collection_digest)
 store.add_collection_alias("ucsc", "hg38", collection_digest)
 
-# Resolve a collection alias
+# Resolve a collection alias. get_collection_by_alias() returns a full
+# SequenceCollection (not just metadata), so use len() for the sequence count.
 coll_meta = store.get_collection_by_alias("ncbi", "GRCh38")
 if coll_meta:
     print(f"GRCh38 digest: {coll_meta.digest}")
-    print(f"GRCh38 sequences: {coll_meta.n_sequences}")
+    print(f"GRCh38 sequences: {len(coll_meta)}")
 
 # Reverse lookup for collections
 coll_aliases = store.get_aliases_for_collection(collection_digest)
@@ -206,6 +207,10 @@ if record:
 #
 # Use `list_sequence_alias_namespaces()` and `list_sequence_aliases()` to
 # explore what registries and aliases are registered in the store.
+#
+# Note: these listings come back in hash-map order, not insertion order, so
+# the namespace and alias order below will vary between runs. The *contents*
+# are stable; only the order is not.
 
 # %%
 # List all sequence alias namespaces
@@ -319,6 +324,7 @@ print(f"Persisted sequence alias resolved: {seq is not None}")
 
 # %% [markdown] output
 # ```
+# Loading collection metadata eKo5bRz2lZYOOTh1JWjjxOfxY6XQPhh3...
 # Persisted collection alias resolved: True
 # Persisted sequence alias resolved: True
 # ```

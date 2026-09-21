@@ -25,7 +25,7 @@ To confirm what you have:
 
 ```python
 info = store.stats()
-print(info["n_collections"], "collections;", info["n_collections_loaded"], "loaded")
+print(info["n_collections"], "collections;", info["n_collections_in_memory"], "in memory")
 ```
 
 ## 2. Convert to a readonly store

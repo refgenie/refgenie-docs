@@ -1,120 +1,75 @@
-# The Brickyard Genome Collection
+# The reference genome jungle
 
-The brickyard genome collection is a curated set of reference genome FASTA files from major public databases, organized into a RefgetStore for content-addressable access. It covers human, mouse, and hundreds of vertebrate genomes from sources including NCBI, Ensembl, UCSC, Gencode, the Broad Institute, and others.
+The reference genome jungle is a public RefgetStore of human and mouse reference assemblies gathered from many providers: NCBI, Ensembl, UCSC, GENCODE, iGenomes, ENA, DDBJ, the Broad Institute, refgenie, and the 1000 Genomes Project. It exists because the same genome build is published many times over. Each provider formats its FASTA differently, with its own chromosome names, masking, sequence order, and choice of alt contigs and patches, and every one of those files is a distinct sequence collection with a distinct digest. The jungle gathers them into one content-addressed store so the relationships between them can be seen and queried.
 
-## Collection at a glance
+The store is served as static files from S3:
+
+```
+https://refgenie.s3.us-east-1.amazonaws.com/refget-store/jungle/
+```
+
+It is also the store behind the public seqcol API at `seqcolapi.databio.org`, and it is the dataset from the paper *Taming the reference genome jungle: the refget sequence collection standard*.
+
+## The store at a glance
 
 | Metric | Value |
 |--------|-------|
-| Input FASTA files | 1,147 |
-| Sequence collections (genomes) | 810 |
-| Individual sequences | 540,973 |
-| Store size on disk | 446 GB |
-| Input FASTAs (compressed) | 521 GB |
+| Sequence collections (FASTA files) | 79 |
+| Unique sequences | 6,359 |
+| Total sequence content | 41.8 Gbp |
+| Source FASTA entries | 96, from 10 providers |
 
-Some input files produce the same sequence collection (identical content from different sources), so the number of unique collections is smaller than the number of input files. A small number of files (38) could not be loaded due to missing files or corrupted gzip archives.
+Several source files produce the same collection (identical content from different providers, or soft-masked and unmasked versions of one file), so there are fewer collections than input files. Identical sequences are stored once and shared between collections, which is why 79 whole genomes amount to only a few thousand unique sequences.
 
-## What the collection contains
+## One store per purpose
 
-The collection is organized into four groups, each reflecting a different curatorial intent:
+The jungle is one of a family of public stores maintained through the [refgenie-registry](https://github.com/refgenie/refgenie-registry) repository. Earlier, a single "brickyard" store held everything, including the pangenome haplotypes and hundreds of vertebrate assemblies. That store was split into stores with one purpose each, all published under the same `refget-store/` prefix:
 
-| Group | Description | Files | Sources |
-|-------|-------------|-------|---------|
-| `homo_sapiens` | Human reference genomes across builds and providers | 84 | ensembl, ncbi, ucsc, gencode, igenomes, broad, ddbj, ENA |
-| `mus_musculus` | Mouse reference genomes | 349 | igenomes, ensembl, ncbi, ucsc, gencode, ENA |
-| `mm_hg` | Curated human and mouse genomes from PEP metadata | 94 | Mixed (defined by PEP sample table) |
-| `vertebrates` | Broad vertebrate assemblies from NCBI | 605 | NCBI accession-based |
+| Store | Contents | Collections |
+|-------|----------|-------------|
+| `jungle` | Human and mouse reference assemblies across providers | 79 |
+| `pangenome` | HPRC year-1 haplotype-resolved human assemblies | 96 |
+| `igenomes` | AWS iGenomes references used by nf-core and Illumina pipelines | 99 |
+| `vgp` | Vertebrate Genomes Project assemblies | 605 |
+| `refseq` | NCBI RefSeq protein and transcript sequences | 32 |
+| `vrs` | Reference sequences for VRS variant representation | 39 |
+| `demo` | Small test FASTAs; the GA4GH compliance reference | 6 |
 
-### Human genomes
-
-The human genome group includes assemblies across three major builds:
-
-| Build | Files | Sources |
-|-------|-------|---------|
-| GRCh38 / hg38 | 57 | ncbi, ensembl, ucsc, gencode, igenomes, broad, ddbj, ENA |
-| GRCh37 / hg19 | 20 | ncbi, ensembl, ucsc, gencode, igenomes, broad, ENA |
-| hg18 | 3 | ucsc |
-
-The same build appears from multiple providers because each formats the FASTA differently -- chromosome naming conventions, inclusion of alt contigs and patches, sequence ordering. These are distinct sequence collections with distinct digests, even when they represent the same biological assembly. The `sorted_name_length_pairs` digest can be used to identify collections that share the same coordinate system despite naming differences.
-
-### Mouse genomes
-
-The mouse group is dominated by iGenomes pre-built references (324 files), which include processed versions with various index formats. The remaining files span builds mm9 through mm39 from ensembl, ncbi, ucsc, and gencode.
-
-### Vertebrate genomes
-
-The largest group contains 605 assemblies from NCBI, covering a wide range of vertebrate species. These include genomes ranging from small assemblies with a few hundred sequences to large genomes with tens of thousands of contigs. Notable entries include the palmate newt (*Lissotriton helveticus*, GCA_964261635.1), one of the largest vertebrate genomes with a single chromosome containing approximately 2 billion bases.
+Each store's contents are defined by a `sources.csv` in the registry's `stores/` directory, and the registry's build scripts produce and publish the stores. See the [store list](https://refget.databio.org/explore) to browse any of them.
 
 ## How genomes are identified
 
-Every genome in the collection has a unique refget digest computed from its sequence content. In addition, three alias namespaces provide human-readable identifiers for looking up genomes by name rather than by digest. For background on how aliases work in general, see [Names, aliases, and identifiers](names-and-aliases-explained.md).
+Every collection has a refget digest computed from its sequence content. On top of that, the jungle carries five collection alias namespaces so genomes can be found by familiar identifiers. For how aliases work in general, see [Names, aliases, and identifiers](names-and-aliases-explained.md).
 
-The three namespaces in the brickyard collection are:
+| Namespace | Holds | Example |
+|-----------|-------|---------|
+| `accession` | NCBI assembly accessions, both RefSeq and GenBank | `GCF_000001405.40` |
+| `refseq` | RefSeq accessions only | `GCF_000001405.40` |
+| `insdc` | GenBank accessions only | `GCA_000001405.29` |
+| `genome_assembly` | Short build names | `hg38`, `hg19`, `mm39`, `mm10` |
+| `name` | A descriptive name for every collection, recording build and provider | `GRCh38.p14-fasta-genomic`, `hg38-primary-113-ensembl` |
 
-- **`accession`** -- NCBI assembly accessions (GCF_\*/GCA_\*). These are the primary identifiers for most genomes. Every genome that has an NCBI accession is registered here. This is the most reliable namespace for cross-referencing with external databases.
-- **`refgenie`** -- Sample names from the PEP project (`donaldcampbelljr/human_mouse_fasta_brickyard`). These are human-assigned descriptive names like `hg38_ensembl` or `mm10_ucsc`. Only the approximately 96 genomes in the PEP are registered here.
-- **`common`** -- Short canonical names like `hg38`, `hg19`, `mm39`. These are convenience aliases that map to specific accessions. Only a handful of the most commonly referenced builds have common aliases.
+Only NCBI files carry accessions, so the `accession`, `refseq`, and `insdc` namespaces cover a subset of the store. The `name` namespace covers every collection and is the best way to see everything the jungle holds. A short build name in `genome_assembly` resolves to one representative collection for that build.
 
-The following table shows how the three namespaces relate for a few well-known builds:
+The store also declares sequence alias namespaces (`ucsc`, `ensembl`, `refseq`, `gencode`, and others) that map provider-specific sequence names to sequence digests.
 
-| Common name | Accession | Refgenie name (example) |
-|-------------|-----------|------------------------|
-| hg38 | GCF_000001405.40 | hg38_ncbi |
-| hg19 | GCF_000001405.25 | hg19_ncbi |
-| mm39 | GCF_000001635.27 | mm39_ncbi |
+## The same build from many providers
 
-Not every genome has aliases in all three namespaces. The `vertebrates` group has accession aliases only. The `mm_hg` group has refgenie aliases and, where applicable, accession and common aliases.
+GRCh38 appears in the jungle many times: NCBI's genomic, full-analysis, and no-alt files across patch releases, Ensembl primary and top-level files, UCSC files, GENCODE releases, iGenomes bundles, and more. These differ in ways that matter for analysis:
 
-## How the collection is organized in a RefgetStore
+- **Chromosome naming.** NCBI uses accessions such as `NC_000001.11`, Ensembl uses `1`, and UCSC uses `chr1`.
+- **Masking.** Soft-masked and unmasked files have the same digest, because digests are computed on uppercased sequence. Hard-masked files do not.
+- **Scope.** Primary-assembly files hold the 25 chromosomes; top-level and full-analysis files add unplaced scaffolds, alt contigs, and patches.
 
-When the FASTA files are loaded into a RefgetStore, several things happen:
+Because sequences are identified by content, a RefgetStore can relate these files to one another. The seqcol comparison reports which attributes and array elements two collections share, the `sorted_name_length_pairs` digest identifies collections with the same coordinate system regardless of naming, and `match_sequence_names` translates chromosome names between two collections by joining them on sequence digest. The [jungle tutorial](using-services/genome-store.py) walks through each of these.
 
-- Each FASTA file becomes a sequence collection with a unique digest, computed from its sequence content.
-- Identical sequences across assemblies are deduplicated. For example, mitochondrial DNA that is shared between builds is stored once and referenced from both collections.
-- The alias TSV files in `aliases/collections/` provide the three namespace mappings described above.
-- FHR sidecar files can attach species, taxonomy, masking, and version metadata to each collection. See [Understanding FHR metadata](fhr-metadata-explained.md) for details.
+## On-disk layout
 
-The resulting on-disk layout follows the standard [RefgetStore format](reference/refgetstore-format.md):
-
-```
-brickyard_store/
-  rgstore.json
-  sequences.rgsi          # 540,973 unique sequences across all genomes
-  collections.rgci        # 810 collections
-  sequences/              # Deduplicated sequence files (445 GB)
-  collections/            # Per-collection .rgsi files + optional .fhr.json (196 MB)
-  aliases/
-    collections/
-      accession.tsv       # GCF_*/GCA_* -> digest
-      refgenie.tsv        # PEP sample names -> digest
-      common.tsv          # hg38, mm39, etc. -> digest
-```
-
-The store can be hosted as static files on S3, HTTP, or any file server for remote access with local caching.
-
-## Sources and builds
-
-Each source directory represents a genome database provider. The major sources and what they contribute:
-
-- **ncbi** -- RefSeq and GenBank assemblies with GCF/GCA accessions
-- **ensembl** -- Ensembl-formatted assemblies (chromosome naming without "chr" prefix)
-- **ucsc** -- UCSC-formatted assemblies (chromosome naming with "chr" prefix)
-- **gencode** -- GENCODE releases (human and mouse)
-- **igenomes** -- Illumina iGenomes pre-built references
-- **broad** -- Broad Institute reference bundles
-
-The same underlying assembly (for example, GRCh38) may appear from multiple sources with different formatting conventions -- chromosome naming, sequence ordering, inclusion of alt contigs or patches. These are distinct sequence collections with distinct digests, even when they represent the same biological assembly. The `sorted_name_length_pairs` digest can be used to identify collections that share the same coordinate system despite naming differences.
-
-## The PEP sample table
-
-A subset of the collection (96 genomes in the `mm_hg` group) has structured metadata in a PEP (Portable Encapsulated Project) hosted at `donaldcampbelljr/human_mouse_fasta_brickyard` on PEPhub. The PEP provides a sample table with columns for sample name, species, source, build, and FASTA path. These sample names become the `refgenie` namespace aliases.
-
-The PEP predates the RefgetStore and was the original mechanism for tracking the curated subset. The RefgetStore alias system now supersedes this for discovery and lookup, but the PEP remains as the authoritative source for which genomes were curated and why.
+The jungle follows the standard [RefgetStore format](reference/refgetstore-format.md): a manifest, a sequence index, a collection index, one `.rgsi` file per collection, deduplicated sequence files, and alias tables under `aliases/`. Opening it remotely fetches the manifest, the collection index, and the alias tables, and downloads sequences only when they are read. See [How RefgetStore defers loading](lazy-loading-explained.md) for the details.
 
 ## Learn more
 
+- [Exploring the reference genome jungle](using-services/genome-store.py) -- Hands-on tutorial against the public store
 - [Names, aliases, and identifiers](names-and-aliases-explained.md) -- How the alias system works in general
 - [What is RefgetStore?](refgetstore-explained.md) -- The storage format underlying the collection
 - [Understanding FHR metadata](fhr-metadata-explained.md) -- Attaching species and assembly metadata to collections
-- [Working with aliases](using-services/aliases.py) -- Hands-on tutorial for alias operations
-- [RefgetStore tutorial](using-services/refgetstore.py) -- Hands-on guide to loading and querying a store

@@ -136,5 +136,5 @@ Because a RefgetStore is static and content-addressable, you can also serve sequ
 - [CLI reference](reference/cli.md) - Command-line interface for RefgetStore operations
 - [Names, aliases, and identifiers](names-and-aliases-explained.md) - How human-readable registry identifiers work alongside digests and sequence names
 - [Understanding FHR metadata](fhr-metadata-explained.md) - How to attach structured assembly-level metadata to collections
-- [The brickyard genome collection](genome-collections-explained.md) - A curated collection of ~1,952 reference genomes organized in a RefgetStore
+- [The reference genome jungle](genome-collections-explained.md) - A public RefgetStore of human and mouse reference assemblies from many providers
 - [Browse live collections](https://refget.databio.org/explore) - The public RefgetStore explorer

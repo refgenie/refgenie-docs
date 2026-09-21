@@ -284,7 +284,7 @@ The .rgci file contains collection metadata in RefgetStore format.
 
 ## Store Commands
 
-Manage a local RefgetStore for storing and retrieving sequences.
+Manage a local RefgetStore for storing and retrieving sequences. See [What is RefgetStore?](../refgetstore-explained.md) for the concepts and [RefgetStore file format](refgetstore-format.md) for the on-disk layout. The direct store subcommands are `init`, `add`, `list`, `match`, `get`, `pull`, `export`, `regions`, `chrom-sizes`, `stats`, `remove`, `crate`, `explore`, and `serve`, plus the `alias` and `fhr` command groups documented below. Most commands accept `--path PATH` to select a local store (default: from config); where noted, they also accept `--remote URL` to read directly from a remote store instead.
 
 ### store init
 
@@ -300,52 +300,193 @@ refget store init [--path PATH]
 
 ### store add
 
-Import a FASTA file to the local store.
+Import one or more FASTA files into the local store.
 
 ```bash
-refget store add FASTA [--path PATH] [--mode MODE]
+refget store add FASTAS... [--namespace NS ...] [--file-list FILE] [--jobs N] [--force] [--path PATH] [--mode MODE] [--quiet]
 ```
+
+Accepts explicit paths, glob patterns, and directories (expanded by gtars), plus a file-of-filenames via `--file-list`. Creates a sequence collection from each FASTA and stores all of its sequences; identical sequence content is deduplicated across files and collections.
+
+**Arguments:**
+
+- `FASTAS...`: FASTA paths, glob patterns, or directories to import (supports `.gz`). Can be omitted if `--file-list` supplies the inputs instead.
 
 **Options:**
 
+- `--namespace, -N`: Namespace prefix to extract aliases from FASTA headers (repeatable), e.g. `-N ucsc -N refseq`
+- `--file-list, -F`: File-of-filenames (one path/glob/directory per line)
+- `--jobs, -j`: Concurrent imports (`0` = auto, `1` = serial; default `0`)
+- `--force, -f`: Overwrite existing collections/sequences
 - `--path, -p`: Store path (default: from config)
-- `--mode, -m`: Storage mode: `encoded` (compressed, ~4x smaller, default) or `raw` (faster access)
+- `--mode, -m`: Storage mode override: `encoded` (compressed, ~4x smaller, default) or `raw` (faster access, easier to inspect). Set at add time rather than at `init`, since mode describes how sequences are encoded and an empty store has no sequences yet.
+- `--quiet, -q`: Suppress progress output
 
-**Output:** JSON with digest and sequence count
+**Output:** a single explicit path returns one object; multiple inputs (globs, `--file-list`, or `--jobs` > 1) return a batch report instead. The batch report's `n_*` fields are per-run ingest counters -- use them (not `store stats`) to report what an `add` run actually did.
+
+Single explicit path:
 ```json
-{"digest": "abc123...", "fasta": "/path/to/file.fa", "sequences": 25}
+{"digest": "abc123...", "fasta": "genome.fa", "sequences": 25, "was_new": true}
+```
+
+Multiple inputs:
+```json
+{
+  "results": [
+    {"digest": "IhtTMDzhGDWFvmoXdLg4KwcslTzDtPaO", "sequences": 1, "was_new": true},
+    {"digest": "kd2A0MKmZCwr9SH8IM5MNYioSUVcVMfD", "sequences": 1, "was_new": true}
+  ],
+  "count": 2,
+  "n_sequences_written": 2,
+  "n_sequences_deduped": 0,
+  "n_collections_new": 2
+}
 ```
 
 **Examples:**
 ```bash
-# Add with default encoding (compressed)
 refget store add genome.fa
-
-# Add with raw encoding (faster access)
-refget store add genome.fa --mode raw
+refget store add 'fastas/*.fa.gz' --jobs 4
+refget store add --file-list manifest.txt
+refget store add dir1/ dir2/ -N ucsc
 ```
 
 ### store list
 
-List collections or sequences in the store.
+Browse collections, the chromosome or contig names within one collection, or
+the store's global deduplicated sequence records.
 
 ```bash
-refget store list [--sequences] [--path PATH] [--remote URL]
+refget store list [COLLECTION] [--sequences] [--path PATH] [--remote URL]
 ```
+
+**Arguments:**
+
+- `COLLECTION`: Optional collection digest or `NAMESPACE:ALIAS`, such as
+  `ucsc:hg38`. When provided, the command lists that collection's own sequence
+  names in original FASTA order.
 
 **Options:**
 
-- `--sequences, -s`: List sequences instead of collections
+- `--sequences, -s`: List globally deduplicated sequence records instead of
+  collections. This cannot be combined with `COLLECTION`.
 - `--path, -p`: Store path (default: from config)
 - `--remote, -r`: Remote store URL (overrides --path)
 
-**Output:**
-```json
-# Collections (default)
-{"collections": [{"digest": "abc123..."}, {"digest": "def456..."}]}
+Without an argument, the command returns all collections, including sequence
+counts and registered collection aliases:
 
-# Sequences (with --sequences)
+```json
+{
+  "collections": [
+    {
+      "digest": "abc123...",
+      "n_sequences": 455,
+      "aliases": [["ucsc", "hg38"]]
+    }
+  ]
+}
+```
+
+With a collection selector, it returns collection identity plus its
+collection-local names, lengths, and canonical sequence identifiers:
+
+```json
+{
+  "collection": {
+    "digest": "abc123...",
+    "n_sequences": 455,
+    "aliases": [["ucsc", "hg38"]]
+  },
+  "sequences": [
+    {"name": "chr1", "length": 248956422, "digest": "xyz..."}
+  ]
+}
+```
+
+Every row -- collection-local names, the global sequence inventory, and match results below -- identifies a sequence by the bare `digest` field: the sha512t24u value with no `SQ.` prefix. (The `SQ.`-prefixed form only appears in the GA4GH-spec `sequences` array returned by `store get`, which follows the seqcol Level 2 wire format rather than this CLI's row schema.)
+
+`--sequences` retains the separate global sequence-store view:
+
+```json
 {"sequences": [{"digest": "abc123...", "name": "chr1", "length": 12345}, ...]}
+```
+
+Collection-local names and global sequence records are deliberately different:
+identical sequence content is stored once globally but may be named `chr1`,
+`1`, or another label in different collections.
+
+**Examples:**
+
+```bash
+# Inventory of collections and aliases
+refget store list --path /data/refget
+
+# Chromosomes/contigs for a collection selected by alias or digest
+refget store list ucsc:hg38 --path /data/refget
+refget store list abc123... --path /data/refget
+
+# Global deduplicated sequence records
+refget store list --sequences --path /data/refget
+```
+
+### store match
+
+Translate chromosome or contig names between two stored collections by joining
+their collection-local records on canonical sequence digest. Selectors may be
+collection digests, collection aliases, or one of each.
+
+```bash
+refget store match COLLECTION_A COLLECTION_B [--include-unmatched] [--path PATH] [--remote URL]
+```
+
+**Arguments:**
+
+- `COLLECTION_A`: First collection digest or `NAMESPACE:ALIAS`.
+- `COLLECTION_B`: Second collection digest or `NAMESPACE:ALIAS`.
+
+**Options:**
+
+- `--include-unmatched`: Include sequences present in only one collection.
+- `--path, -p`: Store path (default: from config).
+- `--remote, -r`: Remote store URL (overrides `--path`).
+
+Each matched group contains the shared bare sequence `digest` (sha512t24u,
+no `SQ.` prefix) and length plus every name used for that content in each
+collection. Name arrays make one-to-many relationships explicit rather than
+arbitrarily choosing one label.
+
+```json
+{
+  "collection_a": "digest-a...",
+  "collection_b": "digest-b...",
+  "matches": [
+    {
+      "digest": "xyz...",
+      "length": 23513712,
+      "names_a": ["chr2L"],
+      "names_b": ["2L"]
+    }
+  ]
+}
+```
+
+With `--include-unmatched`, the response also includes `a_only` and `b_only`
+arrays with the same row structure -- each entry has an empty `names_a` or
+`names_b` for the collection that lacks the sequence.
+
+**Examples:**
+
+```bash
+# Match two named collections
+refget store match ucsc:dm6 flybase:r6.68 --path /data/refget
+
+# Match by digest and retain sequences found on only one side
+refget store match digest-a... digest-b... \
+  --include-unmatched --path /data/refget
+
+# Match against a remote store without pulling it locally first
+refget store match ucsc:dm6 flybase:r6.68 --remote https://example.com/store
 ```
 
 ### store get
@@ -389,30 +530,55 @@ refget store get abc123 --remote https://example.com/store
 
 ### store pull
 
-Pull a collection from a remote store to local store.
+Pull collections from a remote store into the local store.
 
 ```bash
-refget store pull DIGEST [--remote URL] [--path PATH]
+refget store pull [DIGEST] [--file FILE] [--remote URL] [--path PATH] [--alias-strategy STRATEGY] [--quiet]
 ```
+
+Each requested collection is imported in full: sequences, aliases, and FHR metadata are all materialized into the local on-disk store. There is no lazy pull mode -- for on-demand access to a remote store without copying it locally, open it with `--remote` on the read commands instead. Before importing, the remote's alias and FHR sidecars are fetched (using `--alias-strategy` to resolve conflicts) so they travel with the collection.
+
+**Arguments:**
+
+- `DIGEST`: Collection digest to pull. Omit when using `--file` for a batch pull.
 
 **Options:**
 
-- `--remote, -r`: Remote store URL to pull from
+- `--file, -f`: File containing digests (one per line) for batch pull
 - `--path, -p`: Local store path (default: from config)
+- `--remote, --server, -r`: Remote store URL. If omitted, resolution tries, in order: (1) the local store, (2) configured `remote_stores`, then (3) configured `seqcol_servers` (discovered via service-info).
+- `--alias-strategy`: Conflict strategy when fetching alias/FHR sidecars from the remote: `keep-ours`, `keep-theirs`, or `notify` (default: `keep-ours`)
+- `--quiet, -q`: Suppress progress output
+
+**Examples:**
+```bash
+refget store pull ABC123 --remote https://example.com/store
+refget store pull --file digests.txt --remote https://example.com/store
+```
 
 ### store export
 
-Export a collection as a FASTA file.
+Export sequences as a FASTA file, in one of four modes.
 
 ```bash
-refget store export DIGEST [-o OUTPUT] [--bed BED] [--name NAME] [--path PATH]
+refget store export [DIGEST] [-o OUTPUT] [--bed BED] [--name NAME] [--seq-digest DIGEST] [--path PATH] [--remote URL] [--line-width N]
 ```
+
+**Modes** (pick one):
+
+- Full collection: `DIGEST` alone
+- Subset by names: `DIGEST --name chr1 --name chr2`
+- Regions from a BED file: `DIGEST --bed regions.bed`
+- Ad-hoc by *sequence* digest, bypassing collections entirely: `--seq-digest SEQ_DIGEST` (repeatable). This mode takes sequence digests, not a collection digest, and ignores the `DIGEST` argument if one is given.
 
 **Options:**
 
 - `--output, -o`: Output FASTA file path (default: stdout)
 - `--bed, -b`: BED file for region extraction
-- `--name, -n`: Sequence names to include (can be repeated)
+- `--name, -n`: Sequence names to include (repeatable)
+- `--seq-digest, -S`: Export ad-hoc by sequence digest, bypassing collections (repeatable; see modes above)
+- `--path, -p`: Store path (default: from config)
+- `--remote, -r`: Remote store URL (overrides `--path`)
 - `--line-width, -w`: FASTA line width (default: 80)
 
 **Examples:**
@@ -425,35 +591,91 @@ refget store export abc123 -o subset.fa --name chr1 --name chr2
 
 # Export regions from BED file
 refget store export abc123 -o regions.fa --bed regions.bed
+
+# Export by sequence digest, bypassing collections
+refget store export --seq-digest xyz123... --seq-digest xyz456... -o seqs.fa
 ```
 
-### store fai
+### store regions
 
-Generate .fai index from a collection digest.
+Extract BED-file regions from a collection as structured sequence data. Local- and remote-capable.
 
 ```bash
-refget store fai DIGEST [-o OUTPUT] [--path PATH]
+refget store regions DIGEST --bed BED [--json] [--path PATH] [--remote URL]
+```
+
+Reads a BED file and returns the sequence for each region. By default, emits FASTA-style records with headers `>{chrom}:{start}-{end}`; `--json` emits a list of `{chrom_name, start, end, sequence}` objects instead. Unlike `store export --bed`, which writes a FASTA file, `regions` is the structured/JSON-friendly form of the same extraction.
+
+**Arguments:**
+
+- `DIGEST` (required): Collection digest to extract regions from
+
+**Options:**
+
+- `--bed, -b` (required): BED file of regions to extract
+- `--json, -j`: Output as a JSON list of region records instead of FASTA
+- `--path, -p`: Store path (default: from config)
+- `--remote, -r`: Remote store URL (overrides `--path`)
+
+**Example:**
+```bash
+refget store regions abc123 --bed regions.bed
+refget store regions abc123 -b regions.bed --json
+```
+```json
+[{"chrom_name": "chr1", "start": 0, "end": 5, "sequence": "ACGTA"}]
 ```
 
 ### store chrom-sizes
 
-Generate chrom.sizes from a collection digest.
+Generate chrom.sizes from a collection digest. Local- and remote-capable.
 
 ```bash
-refget store chrom-sizes DIGEST [-o OUTPUT] [--path PATH]
+refget store chrom-sizes DIGEST [-o OUTPUT] [--path PATH] [--remote URL]
 ```
+
+Outputs UCSC-compatible chrom.sizes format (tab-separated name/length).
+
+**Options:**
+
+- `--output, -o`: Output file path (default: stdout)
+- `--path, -p`: Store path (default: from config)
+- `--remote, -r`: Remote store URL (overrides `--path`)
 
 ### store stats
 
-Display store statistics.
+Display store statistics. Local- and remote-capable.
 
 ```bash
-refget store stats [--path PATH]
+refget store stats [--path PATH] [--remote URL]
 ```
 
-**Output:**
+**Options:**
+
+- `--path, -p`: Store path (default: from config)
+- `--remote, -r`: Remote store URL (overrides `--path`)
+
+**Output:** the store's stats dict. All values are emitted as JSON strings, not numbers or booleans:
+
+- `n_sequences`: total number of sequences (Stub + Full)
+- `n_sequences_in_memory`: number of sequences whose bytes are currently held in RAM (Full). This is a live RAM-residency gauge, not an ingest count -- it reads `"0"` for a store you just opened, since opening only reads metadata.
+- `n_collections`: total number of collections (Stub + Full)
+- `n_collections_in_memory`: number of collections whose sequence list is currently loaded in RAM. Also a residency gauge; it resets on process start and counts collections merely touched by a read, not collections ingested.
+- `storage_mode`: `"Encoded"` or `"Raw"`
+- `logical_sequence_bytes`: the logical encoded size of all sequence payloads, computed from sequence lengths and storage mode at index-write time. It excludes indexes, aliases, FHR sidecars, the manifest, and filesystem overhead, so it approximates but is not the exact on-disk footprint. See [RefgetStore file format](refgetstore-format.md).
+
+For what a specific `add` run actually wrote, use that command's own output (`n_sequences_written`, `n_sequences_deduped`, `n_collections_new`) rather than `stats`, which is a snapshot of current state.
+
+**Example output:**
 ```json
-{"collections": 3, "sequences": 75, "storage_mode": "Encoded"}
+{
+  "n_sequences": "3",
+  "n_sequences_in_memory": "0",
+  "n_collections": "2",
+  "n_collections_in_memory": "0",
+  "storage_mode": "Encoded",
+  "logical_sequence_bytes": "25"
+}
 ```
 
 ### store remove
@@ -464,49 +686,163 @@ Remove a collection from the store.
 refget store remove DIGEST [--path PATH]
 ```
 
-### store metadata
-
-Show FHR (FAIR Headers Reference genome) metadata for a collection.
-
-```bash
-refget store metadata DIGEST [--path PATH]
-```
-
-**Arguments:**
-
-- `DIGEST`: Collection digest
+This removes the collection from the store's index. Associated sequences are not removed, since they may be shared with other collections.
 
 **Options:**
 
 - `--path, -p`: Store path (default: from config)
 
-**Output:** JSON with FHR metadata fields (if available)
+### store crate
 
-**Example:**
-```bash
-refget store metadata abc123...
-```
-
-### store metadata-set
-
-Set FHR metadata for a collection from a JSON file.
+Generate an RO-Crate metadata file describing the store as a FAIR research object -- structure, provenance, and statistics. Local-only.
 
 ```bash
-refget store metadata-set DIGEST FILE [--path PATH]
+refget store crate --name NAME [--path PATH] [--description TEXT] [--author "Name <URL>"] [--license URL] [-o OUTPUT]
 ```
 
-**Arguments:**
-
-- `DIGEST`: Collection digest
-- `FILE`: Path to FHR JSON file
+Writes `ro-crate-metadata.json` (or the path given by `--output`) conforming to the [RO-Crate](https://www.researchobject.org/ro-crate/) specification. The store's own `store crate` command is the canonical way to produce this file; see the [RO-Crate profile](https://w3id.org/ga4gh/refget/refgetstore-crate/0.1) it targets.
 
 **Options:**
 
 - `--path, -p`: Store path (default: from config)
+- `--name, -n` (required): Name for the RO-Crate root dataset
+- `--description, -d`: Description of the store
+- `--author, -a`: Author, in `"Name <URL>"` format, e.g. `"Jane Doe <https://orcid.org/...>"`
+- `--license, -l`: License URL
+- `--output, -o`: Output path (default: `<store-path>/ro-crate-metadata.json`)
 
 **Example:**
 ```bash
-refget store metadata-set abc123... fhr_metadata.json
+refget store crate --path /store --name "My genomes" --author "J Doe <https://orcid.org/0000-0001-1234-5678>"
+```
+```json
+{"output": "/store/ro-crate-metadata.json", "status": "created", "entities": 14}
+```
+
+### store explore
+
+Browse a local RefgetStore in your web browser -- no backend, no internet connection required. Local-only, read-only.
+
+```bash
+refget store explore [PATH] [--host HOST] [--port N] [--no-browser] [--frontend-dir DIR] [--store-only]
+```
+
+Serves the store's static files and the bundled Store Explorer single-page app from one localhost origin (so no CORS is involved), then opens the Explorer pointed at that store. Only `GET`/`HEAD` are served; no write or control operation is exposed -- use `store pull`/`add`/`alias` to modify a store. Unlike most store commands, `explore` doesn't require `gtars`; it's pure static file serving, so it also works against read-only CVMFS mounts and air-gapped servers.
+
+**Arguments:**
+
+- `PATH`: Local store directory to explore (default: from config)
+
+**Options:**
+
+- `--host`: Host/interface to bind (default: `127.0.0.1`)
+- `--port, -P`: Port to serve on, auto-increments if busy (default: `8080`)
+- `--no-browser`: Do not open a web browser; just print the URLs
+- `--frontend-dir`: Override the Store Explorer SPA build directory
+- `--store-only`: Serve only the store files (skip the SPA), for a self-hosted UI
+
+**Examples:**
+```bash
+refget store explore /path/to/refget-store
+refget store explore --no-browser --port 9000
+```
+
+### store serve
+
+Serve a seqcol API backed by a RefgetStore. No database required. See [How to serve a RefgetStore concurrently](../hosting-services/howto-serve-refgetstore.md) for the full deployment recipe.
+
+```bash
+refget store serve [--path PATH | --remote URL] [--port N] [--host HOST] [--lazy]
+```
+
+By default the store is fully loaded and converted to a `ReadonlyRefgetStore`, whose read methods borrow immutably and are safe to share across request threads for concurrent serving. Pass `--lazy` to skip that load-and-convert step and serve directly from the mutable, lazy-loading store instead -- this avoids loading the whole store into memory up front, but is single-reader-oriented and **not** recommended for concurrent production serving. `explore` and `serve` are not interchangeable: `explore` is static, read-only browsing with no API; `serve` runs the actual seqcol HTTP API.
+
+**Options:**
+
+- `--path, -p`: Local store path
+- `--remote, -r`: Remote store URL (e.g. `s3://bucket/store/`)
+- `--port`: Port to serve on (default: `8000`)
+- `--host`: Host to bind to; use `0.0.0.0` to expose on your network (default: `127.0.0.1`)
+- `--lazy`: Serve from the mutable, lazy-loading store instead of converting to readonly
+
+**Examples:**
+```bash
+refget store serve --path /path/to/store --port 8000
+refget store serve --remote s3://bucket/store/ --port 8000
+refget store serve --path /path/to/store --lazy
+```
+
+### store alias
+
+Manage sequence and collection aliases -- human-readable `namespace:alias` names that resolve to a digest. See [Names, aliases, and identifiers](../names-and-aliases-explained.md) for the concepts.
+
+```bash
+refget store alias {add|get|list|rm|load|for} ...
+```
+
+All six actions operate on **collection** aliases by default; pass `--seq` to operate on sequence aliases instead. `add`, `rm`, and `load` are local-only writes. `get`, `list`, and `for` are reads that also accept `--remote URL`.
+
+| Action | Usage | Notes |
+|--------|-------|-------|
+| `add` | `refget store alias add NAMESPACE ALIAS DIGEST [--seq] [--path PATH]` | Map `namespace:alias -> digest` |
+| `get` | `refget store alias get NAMESPACE ALIAS [--seq] [--metadata] [--path PATH] [--remote URL]` | Resolve to a digest, or full metadata with `--metadata` |
+| `list` | `refget store alias list [NAMESPACE] [--seq] [--namespaces] [--path PATH] [--remote URL]` | Omit `NAMESPACE` (or pass `--namespaces`) to list namespaces; give one to list its aliases |
+| `rm` | `refget store alias rm NAMESPACE ALIAS [--seq] [--path PATH]` | Remove one alias |
+| `load` | `refget store alias load NAMESPACE FILE [--seq] [--path PATH]` | Bulk-load `alias<TAB>digest` lines from a TSV file into a namespace |
+| `for` | `refget store alias for DIGEST [--seq] [--path PATH] [--remote URL]` | Reverse lookup: every `(namespace, alias)` pair for a digest |
+
+**Forward-lookup example:**
+```bash
+refget store alias add ucsc hg38 abc123...
+refget store alias get ucsc hg38
+```
+```json
+{"namespace": "ucsc", "alias": "hg38", "digest": "abc123...", "kind": "collection"}
+```
+
+**Reverse-lookup example:**
+```bash
+refget store alias for abc123...
+```
+```json
+{"digest": "abc123...", "aliases": [["ucsc", "hg38"], ["ncbi", "GRCh38"]]}
+```
+
+### store fhr
+
+Manage FHR (FAIR Headers Reference genome) metadata attached to a collection. See [Understanding FHR metadata](../fhr-metadata-explained.md) for the field meanings.
+
+```bash
+refget store fhr {get|set|set-fields|rm|list} ...
+```
+
+`get` and `list` are reads that also accept `--remote URL`. `set`, `set-fields`, and `rm` are local-only writes.
+
+| Action | Usage | Notes |
+|--------|-------|-------|
+| `get` | `refget store fhr get DIGEST [--path PATH] [--remote URL]` | Show FHR metadata for a collection |
+| `set` | `refget store fhr set DIGEST FILE [--path PATH]` | Set FHR metadata from a JSON file, replacing any existing metadata |
+| `set-fields` | `refget store fhr set-fields DIGEST [FIELDS...] [--path PATH]` | Set FHR metadata from individual field options (below) |
+| `rm` | `refget store fhr rm DIGEST [--path PATH]` | Remove FHR metadata for a collection |
+| `list` | `refget store fhr list [--path PATH] [--remote URL]` | List collection digests that have FHR metadata |
+
+`set-fields` accepts these field options; `--genome-synonym` and `--identifier` are repeatable, the rest are scalar:
+
+`--genome`, `--version`, `--masking`, `--genome-synonym` (repeatable), `--voucher-specimen`, `--documentation`, `--identifier` (repeatable), `--scholarly-article`, `--funding`
+
+**JSON-file example:**
+```bash
+refget store fhr set abc123... fhr_metadata.json
+refget store fhr get abc123...
+```
+
+**Field-based example:**
+```bash
+refget store fhr set-fields abc123... --genome "Homo sapiens" --version GRCh38 \
+  --genome-synonym hg38 --genome-synonym GRCh38.p14
+```
+```json
+{"digest": "abc123...", "status": "set"}
 ```
 
 ---

@@ -82,9 +82,11 @@ print(f"Created in-memory store with {len(store)} sequences")
 # %% [markdown] output
 # ```
 # Processing /tmp/refget_tutorial_nk_w1nqa/genome1.fa...
-# Added NikmJ6xnuvO741NgL-zszh5_p4DsD3nV (2 seqs) in 0.0s [0.0s digest + 0.0s encode]
+# Added NikmJ6xnuvO741NgL-zszh5_p4DsD3nV (2 seqs) from /tmp/refget_tutorial_nk_w1nqa/genome1.fa in 0.0s
+# Imported 1 file(s) in 0.0s (jobs=1)
 # Processing /tmp/refget_tutorial_nk_w1nqa/genome2.fa...
-# Added zmVRc4oI2ny1UgSMdSdjj-FG-TkaUtvh (2 seqs) in 0.0s [0.0s digest + 0.0s encode]
+# Added zmVRc4oI2ny1UgSMdSdjj-FG-TkaUtvh (2 seqs) from /tmp/refget_tutorial_nk_w1nqa/genome2.fa in 0.0s
+# Imported 1 file(s) in 0.0s (jobs=1)
 # Created in-memory store with 4 sequences
 # ```
 
@@ -107,9 +109,11 @@ print(f"Store saved to: {store_path}")
 # %% [markdown] output
 # ```
 # Processing /tmp/refget_tutorial_nk_w1nqa/genome1.fa...
-# Added NikmJ6xnuvO741NgL-zszh5_p4DsD3nV (2 seqs) in 0.0s [0.0s digest + 0.0s encode]
+# Added NikmJ6xnuvO741NgL-zszh5_p4DsD3nV (2 seqs) from /tmp/refget_tutorial_nk_w1nqa/genome1.fa in 0.0s
+# Imported 1 file(s) in 0.0s (jobs=1)
 # Processing /tmp/refget_tutorial_nk_w1nqa/genome2.fa...
-# Added zmVRc4oI2ny1UgSMdSdjj-FG-TkaUtvh (2 seqs) in 0.0s [0.0s digest + 0.0s encode]
+# Added zmVRc4oI2ny1UgSMdSdjj-FG-TkaUtvh (2 seqs) from /tmp/refget_tutorial_nk_w1nqa/genome2.fa in 0.0s
+# Imported 1 file(s) in 0.0s (jobs=1)
 # Store saved to: /tmp/refget_tutorial_nk_w1nqa/my_refget_store
 # ```
 
@@ -136,7 +140,8 @@ print("Persistence disabled - new sequences stay in memory only")
 # %% [markdown] output
 # ```
 # Processing /tmp/refget_tutorial_nk_w1nqa/genome1.fa...
-# Added NikmJ6xnuvO741NgL-zszh5_p4DsD3nV (2 seqs) in 0.0s [0.0s digest + 0.0s encode]
+# Added NikmJ6xnuvO741NgL-zszh5_p4DsD3nV (2 seqs) from /tmp/refget_tutorial_nk_w1nqa/genome1.fa in 0.0s
+# Imported 1 file(s) in 0.0s (jobs=1)
 # Enabled persistence to: /tmp/refget_tutorial_nk_w1nqa/persisted_store
 # Persistence disabled - new sequences stay in memory only
 # ```
@@ -153,11 +158,11 @@ print(f"Loaded store: {loaded_store.stats()}")
 
 # %% [markdown] output
 # ```
-# Loaded store: {'n_collections_loaded': '0', 'storage_mode': 'Encoded', 'n_sequences_loaded': '0', 'total_disk_size': '2209', 'n_sequences': '4', 'n_collections': '2'}
+# Loaded store: {'n_collections': '2', 'storage_mode': 'Encoded', 'n_sequences_in_memory': '0', 'n_sequences': '4', 'logical_sequence_bytes': '27', 'n_collections_in_memory': '0'}
 # ```
 
 # %% [markdown]
-# Note: `n_sequences_loaded: 0` means no sequence data has been loaded into memory yet, while `n_sequences` shows the total number of sequences in the store on disk, available for loading.
+# Note: `n_sequences_in_memory: 0` means no sequence bytes are currently held in RAM, while `n_sequences` shows the total number of sequences in the store on disk, available for loading. `logical_sequence_bytes` is the logical encoded size of all sequence payloads, computed from the manifest without reading any sequence data.
 
 # %% [markdown]
 # ### Suppressing progress output (quiet mode)
@@ -324,8 +329,9 @@ print(f"Bases 5-15: {subsequence}")
 # without loading the full collection:
 
 # %%
-# List all collections in the store
-collections = list(store.list_collections())
+# List all collections in the store. list_collections() returns a paginated
+# dict with "results" (a list of SequenceCollectionMetadata) and "pagination".
+collections = store.list_collections()["results"]
 for meta in collections:
     print(f"Collection {meta.digest[:20]}...: {meta.n_sequences} sequences")
 
@@ -484,10 +490,12 @@ with open(output_fasta) as f:
 
 # %% [markdown] output
 # ```
-# Exported to: /tmp/refget_tutorial_nk_w1nqa/regions.fa
-# >chr1 32 dna3bit EjrJJS1FmLaytz_EHgNvVZ8owSU7kbNb f64c9fb6ad2f6baad56e5a59ee07be63
-# ATGCATGCATTGCATGCAGTCGTAG
-# >chr2 16 dna2bit 8zS0M3VBpV7-TNdB7RjfpMbC8hrz6SbH 2640016f34792dc6302231ed4d027110
+# Exported to: /tmp/refget_tutorial_sm_d6kv2/regions.fa
+# >chr1:0-10
+# ATGCATGCAT
+# >chr1:5-20
+# TGCATGCAGTCGTAG
+# >chr2:0-8
 # GGGGAAAA
 # ```
 
@@ -504,7 +512,7 @@ with open(output_fasta) as f:
 
 # %%
 # Remote store URL (Human Pangenome Reference - haplotype-resolved assemblies)
-REMOTE_URL = "https://refgenie.s3.us-east-1.amazonaws.com/pangenome_refget_store"
+REMOTE_URL = "https://refgenie.s3.us-east-1.amazonaws.com/refget-store/pangenome/"
 
 # Create a fresh cache directory for the remote store
 remote_cache_path = os.path.join(temp_dir, "remote_cache")
@@ -513,18 +521,21 @@ remote_store = RefgetStore.open_remote(
     remote_url=REMOTE_URL
 )
 
-# The remote index is fetched automatically - stats show all remote collections!
+# Opening fetches the manifest and the collection index, so n_collections is
+# already the full remote catalog. The sequence index is deferred until a
+# sequence operation needs it, so n_sequences reads 0 for now.
 print(f"Remote store stats: {remote_store.stats()}")
 
-# List available collections from the remote store
-remote_collections = list(remote_store.list_collections())
+# List available collections from the remote store. list_collections() returns
+# a paginated dict; "results" holds the SequenceCollectionMetadata list.
+remote_collections = remote_store.list_collections()["results"]
 print(f"\nRemote collections available: {len(remote_collections)}")
 for c in remote_collections[:3]:
     print(f"  {c.digest}: {c.n_sequences} sequences")
 
 # %% [markdown] output
 # ```
-# Remote store stats: {'n_collections_loaded': '0', 'total_disk_size': '6651362', 'n_sequences': '37603', 'storage_mode': 'Encoded', 'n_sequences_loaded': '0', 'n_collections': '96'}
+# Remote store stats: {'n_collections': '96', 'storage_mode': 'Encoded', 'logical_sequence_bytes': '0', 'n_sequences_in_memory': '0', 'n_sequences': '0', 'n_collections_in_memory': '0'}
 #
 # Remote collections available: 96
 #   -Sfh5nx4f7dSrGDdfmz7xA0nsN5jh-mN: 566 sequences
@@ -533,9 +544,13 @@ for c in remote_collections[:3]:
 # ```
 
 # %% [markdown]
-# The remote index is fetched automatically when opening the store, so `n_collections`
-# and `n_sequences` show the full remote catalog. However, no sequence *data* has been
-# downloaded yet (`n_sequences_loaded: 0`).
+# `n_collections` already reflects the full remote catalog because opening a
+# remote store fetches `rgstore.json` and the collection index up front. The
+# sequence index (`sequences.rgsi`) is deferred -- notice `n_sequences` and
+# `logical_sequence_bytes` both read `0` here even though the store holds tens
+# of thousands of sequences. The first sequence-level operation below
+# triggers the sequence index download, after which `n_sequences` reports the
+# true count.
 #
 # Let's retrieve a sequence - this will download it and cache it locally:
 
@@ -563,21 +578,26 @@ print(f"\nRemote store stats: {remote_store.stats()}")
 
 # %% [markdown] output
 # ```
-# Downloading collection -Sfh5nx4f7dSrGDdfmz7xA0nsN5jh-mN...
-# Downloading sequence tikrfFado1spIG9SfD_E0SN4WYGCQjbi...
+# Downloading collection metadata -Sfh5nx4f7dSrGDdfmz7xA0nsN5jh-mN...
 # Collection: -Sfh5nx4f7dSrGDdfmz7xA0nsN5jh-mN
-# Sequence: JAHEOS010000074.1
+# Sequence: JAHEOS010000052.1
+# Downloading sequence 5CYIle0balu0pLAVOcD-tdNfyzpptR6Y...
+# Downloading sequence index sequences.rgsi...
 #
-# Downloaded: JAHEOS010000074.1
-# Length: 6,063,115 bp
-# Starts with: TATATATGTA...
+# Downloaded: JAHEOS010000052.1
+# Length: 60,494,670 bp
+# Starts with: CGTCCCGAAA...
 #
-# Remote store stats: {'n_sequences_loaded': '1', 'n_collections_loaded': '1', 'storage_mode': 'Encoded', 'total_disk_size': '8267385', 'n_collections': '96', 'n_sequences': '37603'}
+# Remote store stats: {'n_collections_in_memory': '1', 'logical_sequence_bytes': '73375697931', 'n_sequences_in_memory': '1', 'n_sequences': '37603', 'n_collections': '96', 'storage_mode': 'Encoded'}
 # ```
 
 # %% [markdown]
-# Notice how `n_sequences_loaded` increased - the sequence data is now cached locally.
-# Subsequent requests for this sequence will be served from disk without network access.
+# `n_sequences` now reports the true remote count and `logical_sequence_bytes`
+# is populated, because the substring read triggered the deferred
+# `sequences.rgsi` download. `n_sequences_in_memory` is `1`: the sequence you
+# fetched is resident in memory, and because `open_remote()` persists by
+# default its bytes were also written to the local cache directory, so a later
+# session can serve it without a network round trip.
 
 # %% [markdown]
 # ### Extract regions from a remote collection
@@ -605,10 +625,10 @@ print(f"\nExported to {remote_regions_fasta}")
 
 # %% [markdown] output
 # ```
-# JAHEOS010000074.1 1000-1050: CCTAAAGTCACAAAGCTGAGACTCAAACCTAGGTCTCAGG...
-# JAHEOS010000074.1 5000-5100: CCATCATTGTGGAGAAATTTTTACTGAGATATAATGGACA...
+# JAHEOS010000052.1 1000-1050: CTTATGGTATCACTTCTGCTGTGGCCACAGGCATGCTCGG...
+# JAHEOS010000052.1 5000-5100: GAGCCAAGATGACGCCACTGCACTATAGCTTGGGTGACAG...
 #
-# Exported to /tmp/refget_tutorial_nk_w1nqa/remote_regions.fa
+# Exported to /tmp/refget_tutorial_o1d5mglb/remote_regions.fa
 # ```
 
 # %% [markdown]
@@ -637,15 +657,14 @@ run_cli(["refget", "store", "stats", "--path", store_path])
 
 # %% [markdown] output
 # ```
-# $ refget store stats --path /tmp/refget_tutorial_nk_w1nqa/my_refget_store
+# $ refget store stats --path /tmp/refget_tutorial_o1d5mglb/my_refget_store
 # {
-#   "n_sequences_loaded": "0",
-#   "n_collections": "2",
-#   "n_collections_loaded": "0",
 #   "n_sequences": "4",
+#   "n_collections_in_memory": "0",
+#   "n_sequences_in_memory": "0",
 #   "storage_mode": "Encoded",
-#   "total_disk_size": "2209",
-#   "collections": 2
+#   "logical_sequence_bytes": "27",
+#   "n_collections": "2"
 # }
 # ```
 
@@ -653,15 +672,15 @@ run_cli(["refget", "store", "stats", "--path", store_path])
 # Retrieve a subsequence by digest:
 #
 # ```bash
-# refget store seq <digest> --path /path/to/store --start 0 --end 10
+# refget store get <digest> --sequence --path /path/to/store --start 0 --end 10
 # ```
 
 # %%
-run_cli(["refget", "store", "seq", first_digest, "--path", store_path, "--start", "0", "--end", "10"])
+run_cli(["refget", "store", "get", first_digest, "--sequence", "--path", store_path, "--start", "0", "--end", "10"])
 
 # %% [markdown] output
 # ```
-# $ refget store seq 8zS0M3VBpV7-TNdB7RjfpMbC8hrz6SbH --path /tmp/refget_tutorial_nk_w1nqa/my_refget_store --start 0 --end 10
+# $ refget store get 8zS0M3VBpV7-TNdB7RjfpMbC8hrz6SbH --sequence --path /tmp/refget_tutorial_b1pufadm/my_refget_store --start 0 --end 10
 # GGGGAAAATT
 # ```
 

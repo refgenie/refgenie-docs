@@ -94,9 +94,12 @@ nav:
           - Getting started tutorial: refget/using-services/getting-started.py
           - What are refget digests?: refget/digests-explained.md
           - What is RefgetStore?: refget/refgetstore-explained.md
+          - Importing FASTA files: refget/fasta-import-explained.md
+          - How RefgetStore defers loading: refget/lazy-loading-explained.md
+          - The readonly store and concurrent access: refget/readonly-store-explained.md
           - Names, aliases, and identifiers: refget/names-and-aliases-explained.md
           - Understanding FHR metadata: refget/fhr-metadata-explained.md
-          - The brickyard genome collection: refget/genome-collections-explained.md
+          - The reference genome jungle: refget/genome-collections-explained.md
       - Using refget services:
           - Computing digests: refget/using-services/digests.ipynb
           - Python SequenceClient: refget/using-services/sequence-client.ipynb
@@ -106,11 +109,12 @@ nav:
           - Seqcol operations: refget/using-services/seqcol-operations.py
           - Working with aliases: refget/using-services/aliases.py
           - FHR metadata headers: refget/using-services/fhr-metadata.py
-          - Exploring the genome store: refget/using-services/genome-store.py
+          - Exploring the reference genome jungle: refget/using-services/genome-store.py
+          - Exploring a store in the browser: refget/using-services/explore-store.md
           - Building an SSHash index: refget/using-services/refgetstore-to-sshash.md
-          - Creating an RO-Crate: refget/using-services/create-ro-crate.md
       - Hosting refget services:
           - RefgetStore integration with refgenie: refget/hosting-services/refgetstore-integration.md
+          - How to serve a RefgetStore concurrently: refget/hosting-services/howto-serve-refgetstore.md
           - Adding a FastAPI router: refget/hosting-services/fastapi_router.md
           - RefgetDB Agent: refget/hosting-services/agent.ipynb
           - Compliance testing: refget/hosting-services/compliance.md
@@ -122,8 +126,8 @@ nav:
           - Data models: refget/reference/models.md
           - RefgetStore format: refget/reference/refgetstore-format.md
           - RefgetStore encoding: refget/reference/encoding-comparison.md
+          - RefgetStore case sensitivity: refget/reference/refgetstore-case-sensitivity.md
           - Sequence retrieval flows: refget/reference/refgetstore-retrieval-flows.md
-          - RefgetStore RO-Crate Profile: refget/reference/refgetstore-ro-crate-profile.md
           - Changelog: refget/reference/changelog.md
   - Refgenie legacy:
       - legacy/README.md

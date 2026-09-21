@@ -311,9 +311,10 @@ When a remote store is accessed, a local cache directory mirrors the remote stor
 
 The cache directory has the same on-disk layout as any RefgetStore:
 
-- `rgstore.json` and `collections.rgci` are downloaded on the initial connection
-- `sequences.rgsi` is deferred: it is downloaded the first time a sequence is requested, not at connection time. For a large store this file reaches tens of megabytes, and browsing or listing collections does not need it. Use the manifest's `logical_sequence_bytes` to report the store's data size before the sequence index has been fetched.
-- `sequences/` and `collections/` files are downloaded on-demand only when a specific sequence or collection is first accessed
+- `rgstore.json` is re-downloaded on *every* connection, not just the first, so a client always evaluates the remote's current manifest. It is marked with a `.origin` file recording which remote URL it belongs to, so a cache directory cannot silently be reused against a different remote.
+- `collections.rgci` and every alias namespace the manifest declares (`aliases/sequences/<ns>.tsv`, `aliases/collections/<ns>.tsv`) are fetched alongside the manifest. A cached index or alias file is only re-fetched when the manifest's corresponding digest (`collections_digest`, `aliases_digest`, ...) changes from what the cache last saw.
+- `sequences.rgsi` is deferred: it is downloaded the first time a sequence operation actually needs it, not at connection time. For a large store this file reaches tens of megabytes, and browsing or listing collections does not need it. Use the manifest's `logical_sequence_bytes` to report the store's data size before the sequence index has been fetched.
+- `sequences/` and `collections/` files are downloaded on-demand only when a specific sequence or collection is first accessed; cached `.seq` payloads are content-addressed by digest, so manifest changes never invalidate them.
 - The cache can be shared between processes and is cleaned up by simply deleting the directory
 
 See [How RefgetStore defers loading](../lazy-loading-explained.md) for the record-level and index-level deferral rules this layout supports.

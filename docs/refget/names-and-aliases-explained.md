@@ -159,7 +159,7 @@ my_store/
 
 Each TSV file contains `alias<TAB>digest` pairs, one per line. Comment lines begin with `#`. This plain-text format means alias files are human-readable, diff-friendly, and can be shared or edited independently of the rest of the store.
 
-When you open a store with `RefgetStore.open_local()`, all alias files in the `aliases/` directory are loaded automatically. Aliases travel with the store: copying a store directory to another machine preserves all registered aliases.
+The manifest (`rgstore.json`) is the authority on which namespaces exist: both `RefgetStore.open_local()` and `RefgetStore.open_remote()` load exactly the sequence and collection alias namespaces the manifest declares, rather than scanning the `aliases/` directory for files. A `.tsv` file sitting in `aliases/` that the manifest doesn't list is simply ignored. This keeps local and remote behavior identical, since a remote store cannot be directory-listed over HTTP in the first place. Opening locally tolerates a declared namespace whose file is missing (it is skipped); opening remotely treats a declared-but-unfetchable namespace as an error, since a remote manifest that advertises a namespace it can't actually serve indicates the remote is broken. Aliases travel with the store: copying a store directory to another machine preserves all registered aliases, as long as the manifest and the alias files stay in sync.
 
 In-memory stores support aliases in memory, but they are not persisted when the store goes out of scope.
 
@@ -178,4 +178,4 @@ The three-level system reflects the reality of how biological sequences are iden
 - [Working with Aliases](using-services/aliases.py) -- How to add, resolve, browse, and remove aliases
 - [RefgetStore tutorial](using-services/refgetstore.py) -- Hands-on guide including sequence name lookups
 - [What are refget digests?](digests-explained.md) -- How digests are computed and what they encode
-- [The brickyard genome collection](genome-collections-explained.md) -- How aliases are used in practice across a large genome collection
+- [The reference genome jungle](genome-collections-explained.md) -- How aliases are used in practice across a large genome collection
