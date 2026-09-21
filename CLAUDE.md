@@ -55,31 +55,52 @@ This format is recognized by:
 
 ### Capturing Output for Docs
 
-Since `.py` files don't store output, we use a capture script to insert output as markdown blocks:
+There is no capture script (an earlier `examples/capture_outputs.py` no longer
+exists in the `refget` repository). Since `.py` files don't store output,
+output blocks are captured by hand: run the tutorial script and paste its
+real stdout into the `# %% [markdown] output` comment block that follows the
+cell, replacing whatever was there before.
 
 ```bash
-cd repos/refget
-python examples/capture_outputs.py examples/remote_store.py > ../refgenie-docs/docs/refget/notebooks/remote_store.py
+# from an environment where the intended refget and gtars versions are installed
+export PYTHONDONTWRITEBYTECODE=1
+python -u docs/refget/using-services/refgetstore.py
 ```
 
-This runs the script and inserts output blocks like:
+Run with `-u` (unbuffered) so progress lines interleave with `print()` output
+in the same order a reader would see them if they ran the script themselves.
+Make sure the `refget` CLI resolved by `PATH` (needed for cells that shell
+out to it) comes from the same environment as the `python` running the
+script -- a stray system install on `PATH` will silently capture stale output.
+
+Paste the captured stdout into the matching output block:
 
 ```python
 # %%
 print("Hello")
 
-# %% [markdown]
+# %% [markdown] output
 # ```
 # Hello
 # ```
 ```
 
-The output appears in the rendered docs but the file remains a valid runnable script.
+The output appears in the rendered docs but the file remains a valid,
+directly runnable script. Only update the blocks whose content actually
+changed -- don't recapture unrelated, still-correct cells just because the
+script was re-run. Two caveats worth knowing when comparing a fresh capture
+to what's documented: dict-valued output (like `store.stats()`) prints keys
+in hash-map order, which varies between runs even though the values don't;
+and any cell that opens a remote store depends on that remote being
+reachable and unchanged.
 
 ### Location
 
-- Source scripts: `repos/refget/examples/`
-- Docs versions (with captured output): `docs/refget/notebooks/`
+The tutorials are the docs pages themselves: `docs/refget/using-services/*.py`
+(`refgetstore.py`, `aliases.py`, `genome-store.py`, `fhr-metadata.py`,
+`seqcol-operations.py`). There is no separate source copy elsewhere in the
+`refget` repository -- edit the file under `docs/refget/using-services/`
+directly, run it as shown above, and update its output blocks in place.
 
 ### Adding to mkdocs.yml
 
