@@ -292,7 +292,7 @@ Note: there's currently no public compatible refgenieserver instance deployed, s
 
 
 ```python
-refgenie.configuration.subscribe("http://localhost:8000")
+refgenie.servers.subscribe("http://localhost:8000")
 ```
 
 
@@ -8492,7 +8492,7 @@ Let's remove the `bowtie2_index` asset for the `dm6` genome.
 
 
 ```python
-refgenie.asset.remove_group("bowtie2_index", genome_name="t7")
+refgenie.asset.remove("bowtie2_index", "2.3.5", genome_name="t7")
 
 ```
 

@@ -26,7 +26,7 @@ print(r)
 Use this to show all available remote assets (requires a subscription to a refgenie v4 server):
 
 ```python
-r.asset.remote_table()
+r.servers.assets_table()
 ```
 
 In a tool, you're probably most interested in using refgenie to locate reference genome assets. Refgenie groups related files into *asset groups* (such as `fasta` or `bowtie2_index`); within a group, a specific build is an *asset*. Use `r.asset.seek(...)` to get a local file path. For example:
