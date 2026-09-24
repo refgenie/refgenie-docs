@@ -4,17 +4,17 @@ Remotes are external storage endpoints (S3 buckets, HTTP servers) where you push
 
 ## Add a remote
 
-Register a remote with a type, prefix URL, description, and optional push command:
+Register a remote with a name, type, prefix URL, and optional push command:
 
 ```bash
 refgenie remote add \
   --type s3 \
   --prefix my-bucket/refgenie \
-  --description "S3 archive storage" \
+  --name my-s3-remote \
   --push-command "aws s3 cp {local_path} s3://{prefix}/{relative_path}"
 ```
 
-The `--type` is one of `http`, `https`, or `s3`. The `--prefix` is the base URL or path prefix where assets will be accessible after pushing. The `--description` is a human-readable label for the remote. The `--push-command` is an optional shell command template that refgenie executes when you run `refgenie push`.
+The `--type` is one of `http`, `https`, or `s3`. The `--prefix` is the base URL or path prefix where assets will be accessible after pushing. The `--name` identifies the remote in other commands (`push --remote`, `build --push-to`, `remote status`, `remote remove`); names must be unique and not all digits. The `--push-command` is an optional shell command template that refgenie executes when you run `refgenie push`.
 
 ### Push command placeholders
 
@@ -47,17 +47,15 @@ View all configured remotes:
 refgenie remote list
 ```
 
-This displays each remote's ID, type, prefix, description, push command, and counts of pushed and unpushed assets.
+This displays each remote's ID, name, type, prefix, push command, and counts of pushed and unpushed assets.
 
 ## Remove a remote
 
-Remove a remote by its type:
+Remove a remote by its name or ID:
 
 ```bash
-refgenie remote remove --type s3
+refgenie remote remove my-s3-remote
 ```
-
-Note: `remote remove` only accepts the `--type` flag.
 
 ## Check push status
 

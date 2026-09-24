@@ -422,7 +422,7 @@ Pushing uploads staged assets to cloud storage (S3, Azure, GCS) so they can be s
 refgenie1 remote add \
   --type s3 \
   --prefix s3://my-bucket/refgenie \
-  --description "Production S3 bucket" \
+  --name production \
   --push-command "aws s3 cp {local_path} s3://my-bucket/{relative_path}"
 ```
 
@@ -520,7 +520,7 @@ refgenie1 serve
 refgenie1 remote add \
   --type s3 \
   --prefix s3://bucket/refgenie \
-  --description "Production" \
+  --name production \
   --push-command "aws s3 cp {local_path} s3://bucket/{relative_path}"
 refgenie1 push
 ```

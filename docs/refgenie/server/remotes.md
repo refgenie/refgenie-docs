@@ -36,12 +36,12 @@ A crucial rule for managing remotes is that **you can only have one remote of ea
 
 ### Adding a Remote
 
-To add a new remote, you use the `refgenie remote add` command. You need to specify the type of the remote, a prefix (which acts as an identifier or base path), and a description.
+To add a new remote, you use the `refgenie remote add` command. You need to specify a name, the type of the remote, and a prefix (the base path or URL).
 
 **Command:**
 
 ```bash
-refgenie remote add --type <remote_type> --prefix <prefix_value> --description "Descriptive name"
+refgenie remote add --type <remote_type> --prefix <prefix_value> --name <remote_name>
 ```
 
 **Arguments:**
@@ -50,12 +50,12 @@ refgenie remote add --type <remote_type> --prefix <prefix_value> --description "
 - `--prefix`: (Required) The base identifier for the remote.
   - For `http`, this would be the base URL (e.g., `https://example.com/assets/`).
   - For `s3`, this would be the S3 bucket name (e.g., `s3://my-refgenie-bucket/`).
-- `--description`: (Required) A human-readable description for the remote.
+- `--name`: (Required) The name you use to refer to the remote in other commands. Names must be unique and not all digits.
 
 **Example (adding an S3 remote):**
 
 ```bash
-refgenie remote add --type s3 --prefix "s3://my-assets-bucket/refgenie_archives/" --description "Primary S3 remote for asset archives"
+refgenie remote add --type s3 --prefix "s3://my-assets-bucket/refgenie_archives/" --name primary-s3
 ```
 
 ### Listing Configured Remotes
@@ -68,26 +68,26 @@ To see the currently configured remotes, use the `refgenie remote list` command.
 refgenie remote list
 ```
 
-This will output a table listing all configured remotes, their types, prefixes, and descriptions. 
+This will output a table listing all configured remotes, their names, types, and prefixes. 
 
 ### Removing a Remote
 
-To remove an existing remote, you use the `refgenie remote remove` command, specifying the type of the remote you wish to delete.
+To remove an existing remote, you use the `refgenie remote remove` command, giving the name or ID of the remote you wish to delete.
 
 **Command:**
 
 ```bash
-refgenie remote remove --type <remote_type>
+refgenie remote remove <remote_name_or_id>
 ```
 
 **Arguments:**
 
-- `--type`: (Required) The type of the remote to remove (e.g., `s3`, `http`).
+- `<remote_name_or_id>`: (Required) The name or numeric ID of the remote to remove.
 
 **Example (removing an S3 remote):**
 
 ```bash
-refgenie remote remove --type s3
+refgenie remote remove primary-s3
 ```
 
-This will remove the S3 remote configuration from your Refgenie setup. If no remote of the specified type exists, the command may inform you of that.
+This removes that remote from your Refgenie setup. If no remote has that name or ID, the command exits with a "not found" error.

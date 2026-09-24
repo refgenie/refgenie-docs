@@ -217,7 +217,7 @@ Key environment variables for server configuration:
 For serving assets from cloud storage (e.g., S3), configure a remote:
 
 ```bash
-refgenie1 remote add --type http --prefix https://your-bucket.s3.amazonaws.com/archives --description "S3 archive storage"
+refgenie1 remote add --type http --prefix https://your-bucket.s3.amazonaws.com/archives --name s3-archive
 ```
 
 When a remote is configured, the server will redirect download requests to the remote URL instead of serving files directly.
