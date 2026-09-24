@@ -85,14 +85,14 @@ def assert_refgenie_asset_exists(
     rg = Refgenie(database_config_path=refgenie_config)
 
     # get the asset (tag) of interest, provided vs. default
-    asset = asset if asset is not None else rg.asset.group.get_default(asset_group, genome_name=genome)
+    asset = asset if asset is not None else rg.asset.group.get_default(asset_group, genome=genome)
 
     # check whether the asset group is missing locally
-    if not rg.asset.group.exists(asset_group, genome_name=genome):
+    if not rg.asset.group.exists(asset_group, genome=genome):
         # pull asset if missing
         print(f"{genome}/{asset_group} not found, pulling...")
         try:
-            rg.pull(asset_group_name=asset_group, alias_name=genome, asset_name=asset)
+            rg.pull(asset_group_name=asset_group, genome=genome, asset_name=asset)
         except Exception as e:
             print("Pull failed")
             raise

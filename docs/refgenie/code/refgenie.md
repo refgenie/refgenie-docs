@@ -8289,7 +8289,7 @@ Let's list the assets for the genome `t7` to verify that the `bowtie2_index` ass
 
 
 ```python
-refgenie.asset.table(genome_names=["t7"])[0]
+refgenie.asset.table(genomes=["t7"])[0]
 ```
 
 
@@ -8492,7 +8492,7 @@ Let's remove the `bowtie2_index` asset for the `dm6` genome.
 
 
 ```python
-refgenie.asset.remove("bowtie2_index", "2.3.5", genome_name="t7")
+refgenie.asset.remove("bowtie2_index", "2.3.5", genome="t7")
 
 ```
 
