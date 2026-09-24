@@ -177,7 +177,7 @@ First, let's import the `Refgenie` class from the `refgenie` package.
 
 
 ```python
-from refgenie import Refgenie
+from refgenie import GenomeAlias, Refgenie
 
 refgenie = Refgenie(suppress_migrations=True)
 ```
@@ -310,7 +310,7 @@ Let's initialize a new genome by pulling an asset of fasta class. This will crea
 
 
 ```python
-refgenie.pull(alias_name="rCRSd", asset_group_name="fasta")
+refgenie.pull(genome=GenomeAlias("rCRSd"), asset_group_name="fasta")
 ```
 
 
@@ -8289,7 +8289,7 @@ Let's list the assets for the genome `t7` to verify that the `bowtie2_index` ass
 
 
 ```python
-refgenie.asset.table(genomes=["t7"])[0]
+refgenie.asset.table(genome_digests=[refgenie.alias.resolve(GenomeAlias("t7"))])[0]
 ```
 
 
@@ -8492,7 +8492,8 @@ Let's remove the `bowtie2_index` asset for the `dm6` genome.
 
 
 ```python
-refgenie.asset.remove("bowtie2_index", "2.3.5", genome="t7")
+t7 = refgenie.alias.resolve(GenomeAlias("t7"))
+refgenie.asset.remove("bowtie2_index", "2.3.5", genome_digest=t7)
 
 ```
 

@@ -10,10 +10,10 @@ No additional installation is required if you have `refgenie` installed.
 
 Create a `Refgenie` object, which is the package's main entry point. By default it connects to a local SQLite database. Run `refgenie init` to create one, or point at an existing database configuration file with the `database_config_path` argument (or the `REFGENIE_DB_CONFIG_PATH` environment variable).
 
-Refgenie exposes its functionality through *managers*, accessed as properties on the object: `r.asset`, `r.genome`, `r.alias`, `r.recipe`, `r.asset_class`, `r.sources`, `r.stage`, and `r.configuration`. The `Refgenie` object itself carries only cross-manager operations, such as `pull`, `getseq`, `populate`, and `build_asset`. There are intentionally no CLI-style delegating wrappers: the `refgenie list ...` command corresponds to `r.asset.table()` in Python, not to an `r.list()` method.
+Refgenie exposes its functionality through *managers*, accessed as properties on the object: `r.asset`, `r.genome`, `r.alias`, `r.recipe`, `r.asset_class`, `r.servers`, `r.sources`, `r.stage`, and `r.configuration`. The `Refgenie` object itself carries only cross-manager operations, such as `pull`, `getseq`, `populate`, and `build_asset`. There are intentionally no CLI-style delegating wrappers: the `refgenie list ...` command corresponds to `r.asset.table()` in Python, not to an `r.list()` method.
 
 ```python
-from refgenie import Refgenie
+from refgenie import GenomeAlias, Refgenie
 r = Refgenie()
 ```
 
@@ -36,7 +36,7 @@ In a tool, you're probably most interested in using refgenie to locate reference
 genome = "hg38"
 
 # get the local path to bowtie2 indexes:
-bt2idx = r.asset.seek(genome, "bowtie2_index")
+bt2idx = r.asset.seek(r.alias.resolve(GenomeAlias(genome)), "bowtie2_index")
 
 # run bowtie2...
 ```
