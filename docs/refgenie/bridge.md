@@ -47,7 +47,9 @@ Set it for one run:
 
 or persistently with the environment variable `REFGENIE_BRIDGE_MODE`.
 
-Even under `full`, only pull is available cross-origin. Deleting assets,
+Even under `full`, only pull is available cross-origin, and only from a
+server your refgenie subscribes to. For any other server, the page offers
+"Open in local refgenie" so you can confirm the pull there. Deleting assets,
 managing aliases, building, and every other state change can only be done
 from the local dashboard itself (`http://localhost:8080`) — the remote page
 links you there instead.
@@ -92,6 +94,9 @@ website control over your local refgenie:
 - State-changing requests additionally require a custom header (which forces
   a browser preflight) and are refused cross-origin unless you opted into
   `--bridge full` — and even then, only pull.
+- Remote browsing and bridge pulls accept only servers you subscribed to.
+  Pulling from any other server goes through the local `/pull` page, where
+  you confirm it yourself.
 - No cookies, tokens, or credentials exist anywhere in the exchange.
 
 Two honest non-goals to be aware of:
