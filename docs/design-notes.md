@@ -62,7 +62,7 @@ A session-level `after_commit` listener runs the queue; `after_rollback`
 discards it. So `session.delete(obj); session.commit()` destroys data on disk
 *after* the `COMMIT`, and a transaction that rolls back leaves every byte in
 place. Every listener is enumerated in
-[docs/refgenie/development.md — "Filesystem side effects of the ORM"](./development.md#filesystem-side-effects-of-the-orm);
+[docs/refgenie/development.md — "Filesystem side effects of the ORM"](refgenie/development.md#filesystem-side-effects-of-the-orm);
 read that before writing code that deletes rows.
 
 ## AssetManager is composed, not mixed

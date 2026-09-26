@@ -853,4 +853,3 @@ refgenie getseq (-g ALIAS | --genome-digest DIGEST) -l LOCUS
 
 - [README](../../README.md) — installation, extras, environment variables, and data channels
 - [Migrating from legacy refgenie](migration-from-legacy.md) — 0.x to 1.0 command and API changes
-- [Build tutorial](refgenie_cli_build_tutorial.md) — a longer end-to-end build walkthrough

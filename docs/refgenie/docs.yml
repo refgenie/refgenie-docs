@@ -35,6 +35,7 @@ nav:
       - Connect the web UI to your local refgenie: bridge.md
       - Use refgenie with AI: use_with_ai.md
       - Connect AI assistants (MCP): mcp.md
+      - Write a plugin: plugins.md
   - Server:
       - Intro: server/README.md
       - Serving modes: serving_modes.md
@@ -44,14 +45,17 @@ nav:
       - Persisting download stats: server/endpoint_hits_collector.md
       - Pagination and search: server/pagination_and_search.md
   - Reference:
+      - CLI reference: refgenie-cli.md
       - Glossary: glossary.md
       - Database backends: database.md
       - Flexible asset types: flexible_asset_types.md
       - Studies using refgenie: uses_refgenie.md
       - Recipe specification: recipe_specification.md
       - Asset class specification: asset_class_specification.md
+      - Migration details (0.x to 1.0): migration-from-legacy.md
       - FAQ: faq.md
       - Contributing: contributing.md
+      - Development setup: development.md
 renderers:
   - hub-notebooks:
       include: [notebooks/refgenie.ipynb]
